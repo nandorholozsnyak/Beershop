@@ -39,7 +39,7 @@
 						</webModule>
 						<ejbModule>
 							<groupId>hu.hnk.prt</groupId>
-							<artifactId>service</artifactId>
+							<artifactId>beershop-service</artifactId>
 						</ejbModule>
 					</modules>
 				</configuration>
