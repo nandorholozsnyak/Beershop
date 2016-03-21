@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>hu.hnk.prt</groupId>
+	<artifactId>beershop</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+	<name>BeerShop-Parent</name>
+	<description>This is my project for the course called "Programing technologies"</description>
+	<modules>
+		<module>beershop-core</module>
+		<module>beershop-core-client-api</module>
+		<module>beershop-service</module>
+		<module>beershop-service-client-api</module>
+		<module>beershop-web</module>
+		<module>beershop-ear</module>
+	</modules>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-core</artifactId>
+				<version>3.2.0.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>3.2.0.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>3.2.0.RELEASE</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>
