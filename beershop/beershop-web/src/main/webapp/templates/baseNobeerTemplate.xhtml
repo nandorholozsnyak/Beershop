@@ -1,19 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:sec="http://www.springframework.org/security/tags"
-	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
+	
 <f:view>
 	<h:head>
-
+		<title>Beer shop</title>
+		<h:outputStylesheet name="css/reset.css" />
+		<h:outputStylesheet name="css/layout.css" />
+		<h:outputStylesheet name="css/style.css" />
+		<h:outputScript name="js/jquery-1.4.2.min.js" />
+		<h:outputScript name="js/cufon-yui.js" />
+		<h:outputScript name="js/cufon-replace.js" />
+		<h:outputScript name="js/OrigGarmnd_BT_400.font.js" />
+		<h:outputScript name="js/script.js" />
+		<h:outputScript name="js/html5.js" />
 	</h:head>
 	<h:body>
-
+		<div class="body-bg wrap">
+			<!-- header -->
+			<header>
+			<div class="container">
+				<h1>
+					<a href="index.html">Brewery</a>
+				</h1>
+				<nav>
+				<ul>
+					<li class="current"><a href="index.html"><span>Home</span></a></li>
+					<li><a href="news.html"><span>Fresh News</span></a></li>
+					<li><a href="history.html"><span>Our History</span></a></li>
+					<li><a href="beer.html"><span>Our Beer</span></a></li>
+					<li><a href="contacts.html"><span>Contacts</span></a></li>
+					<li><a href="sitemap.html"><span>Sitemap</span></a></li>
+				</ul>
+				</nav>
+				<div class="indent"></div>
+			</div>
+			</header>
+			<!-- content -->
+			<section id="content"> <ui:insert name="content" /> </section>
+		</div>
+		<!-- footer -->
+		<footer>
+		<div class="container">
+			<div class="inside">
+				Website template designed by <a class="new_window"
+					href="http://www.templatemonster.com/" target="_blank"
+					rel="nofollow">www.templatemonster.com</a>
+			</div>
+		</div>
+		</footer>
 	</h:body>
 </f:view>
 </html>
