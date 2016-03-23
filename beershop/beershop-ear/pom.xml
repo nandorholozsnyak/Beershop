@@ -8,6 +8,9 @@
 	</parent>
 	<packaging>ear</packaging>
 	<artifactId>beershop-ear</artifactId>
+	<properties>
+		<glassfish.directory>D:/latest-glassfish_USE_IT/glassfish4/glassfish/</glassfish.directory>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>hu.hnk.prt</groupId>
@@ -52,6 +55,31 @@
 							<artifactId>beershop-core</artifactId>
 						</ejbModule>
 					</modules>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.glassfish.maven.plugin</groupId>
+				<artifactId>maven-glassfish-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<glassfishDirectory>${glassfish.directory}</glassfishDirectory>
+					<user>admin</user>
+					<passwordFile>${glassfish.directory}/domains/beerShopPrt/config/domain-passwords</passwordFile>
+					<domain>
+						<name>beerShopPrt</name>
+						<httpPort>8080</httpPort>
+						<adminPort>8048</adminPort>
+					</domain>
+					<components>
+						<component>
+							<name>${project.artifactId}</name>
+							<artifact>target/${project.build.finalName}.ear</artifact>
+						</component>
+					</components>
+					<debug>true</debug>
+					<terse>false</terse>
+					<echo>true</echo>
+
 				</configuration>
 			</plugin>
 		</plugins>
