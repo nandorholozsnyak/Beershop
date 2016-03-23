@@ -11,6 +11,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>hu.hnk.prt</groupId>
+			<artifactId>beershop-core</artifactId>
+			<version>1.0</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>hu.hnk.prt</groupId>
 			<artifactId>beershop-service</artifactId>
 			<version>1.0</version>
 			<type>ejb</type>
@@ -40,6 +46,10 @@
 						<ejbModule>
 							<groupId>hu.hnk.prt</groupId>
 							<artifactId>beershop-service</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>hu.hnk.prt</groupId>
+							<artifactId>beershop-core</artifactId>
 						</ejbModule>
 					</modules>
 				</configuration>
