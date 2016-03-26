@@ -7,8 +7,8 @@
 		transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>beerShopCon</jta-data-source>
-		<class>hu.hnk.beershop.modell.User</class>
-		<class>hu.hnk.beershop.modell.Role</class>
+		<class>hu.hnk.beershop.model.User</class>
+		<class>hu.hnk.beershop.model.Role</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
