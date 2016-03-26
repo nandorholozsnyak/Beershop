@@ -1,4 +1,4 @@
-package hu.hnk.managedbeans;
+package hu.hnk.validators;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
