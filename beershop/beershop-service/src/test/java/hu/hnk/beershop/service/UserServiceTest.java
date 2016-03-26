@@ -28,13 +28,13 @@ public class UserServiceTest {
 
 	@Test
 	public void testIfDateOfBirthIsOlderThanEighteenYearsOld() {
-		Date dateToBeTested = new Date(1995 - 1900, 11, 20);
+		Date dateToBeTested = new Date(1995 - 1900, 9, 20);
 		Assert.assertEquals(true, userService.isOlderThanEighteen(dateToBeTested));
 	}
 
 	@Test
 	public void testIfDateOfBirthIsNotOlderThanEighteenYearsOld() {
-		Date dateToBeTested = new Date(1998 - 1900, 07, 25);
+		Date dateToBeTested = new Date(1998 - 1900, 5, 25);
 		Assert.assertEquals(false, userService.isOlderThanEighteen(dateToBeTested));
 	}
 
