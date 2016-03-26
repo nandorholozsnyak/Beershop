@@ -18,7 +18,7 @@ import javax.persistence.Table;
  * @author Nandi
  *
  */
-@Table(name = "cargo")
+//@Table(name = "cargo")
 @Entity
 public class Cargo implements Serializable {
 
@@ -94,7 +94,6 @@ public class Cargo implements Serializable {
 	public void setBeers(List<Beer> beers) {
 		this.beers = beers;
 	}
-
 
 	/**
 	 * @return the orderDate

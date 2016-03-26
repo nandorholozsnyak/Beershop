@@ -7,16 +7,16 @@ package hu.hnk.beershop.model;
  */
 public enum Rank {
 	/**
-	 * Amatõr
+	 * Amatõr.
 	 */
 	Amatuer,
 	
 	/**
-	 * Kezdõ 
+	 * Kezdõ.
 	 */
 	Beginner,
 	/**
-	 * Profi
+	 * Profi.
 	 */
 	Expert
 }

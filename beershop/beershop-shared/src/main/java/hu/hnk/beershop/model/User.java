@@ -7,7 +7,10 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -17,8 +20,10 @@ import javax.persistence.Table;
  * @author Nandi
  *
  */
-@Table(name = "user")
+// @Table(name = "user")
 @Entity
+@NamedQueries({ @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :name"),
+		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email") })
 public class User implements Serializable {
 
 	/**
@@ -31,7 +36,7 @@ public class User implements Serializable {
 	 */
 	@Id
 	@Column(name = "id")
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	/**

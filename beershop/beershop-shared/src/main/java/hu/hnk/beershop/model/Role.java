@@ -9,7 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@Table(name = "role")
+/**
+ * A jogkör leírását tartalmazó osztály.
+ * @author Nandi
+ *
+ */
 @Entity
 @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name")
 public class Role implements Serializable {

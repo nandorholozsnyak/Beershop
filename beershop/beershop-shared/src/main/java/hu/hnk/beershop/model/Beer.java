@@ -12,10 +12,11 @@ import javax.persistence.Table;
 
 /**
  * A sör osztály ami tartalmazza a sör adatait.
+ * 
  * @author Nandi
  *
  */
-@Table(name = "beer")
+//@Table(name = "beer")
 @Entity
 public class Beer implements Serializable {
 
@@ -42,23 +43,25 @@ public class Beer implements Serializable {
 	 */
 	@Column(name = "alcoholLevel", nullable = false)
 	private Double alcoholLevel;
-	
+
 	/**
 	 * A sör ára.
 	 */
 	@Column(name = "price", nullable = false)
 	private Double price;
 
-
 	/**
 	 * A sörhöz tartozó megjegyzés.
 	 */
 	@Column(name = "comment", length = 255)
 	private String comment;
-	
-//	@ManyToOne
-//	private Cargo cargo;
-	
+
+	/**
+	 * A sör ûrtartalma.
+	 */
+	@Column(name = "capacity")
+	private Double capacity;
+
 	/**
 	 * @return the id
 	 */
@@ -105,6 +108,21 @@ public class Beer implements Serializable {
 	}
 
 	/**
+	 * @return the price
+	 */
+	public Double getPrice() {
+		return price;
+	}
+
+	/**
+	 * @param price
+	 *            the price to set
+	 */
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	/**
 	 * @return the comment
 	 */
 	public String getComment() {
@@ -117,6 +135,21 @@ public class Beer implements Serializable {
 	 */
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	/**
+	 * @return the capacity
+	 */
+	public Double getCapacity() {
+		return capacity;
+	}
+
+	/**
+	 * @param capacity
+	 *            the capacity to set
+	 */
+	public void setCapacity(Double capacity) {
+		this.capacity = capacity;
 	}
 
 }
