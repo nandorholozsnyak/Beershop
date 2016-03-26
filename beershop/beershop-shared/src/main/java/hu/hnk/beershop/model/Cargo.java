@@ -8,8 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,9 +18,9 @@ import javax.persistence.Table;
  * @author Nandi
  *
  */
-@Table(name = "order")
+@Table(name = "cargo")
 @Entity
-public class Order implements Serializable {
+public class Cargo implements Serializable {
 
 	/**
 	 * 
@@ -38,20 +38,19 @@ public class Order implements Serializable {
 	/**
 	 * A rendelt sörök listája.
 	 */
-	@OneToMany
+	@ManyToMany
 	private List<Beer> beers;
 
 	/**
 	 * A felhasználó aki leadta a rendelést.
 	 */
-	@Column(name = "userid")
-	@ManyToOne
+	@OneToOne
 	private User user;
 
 	/**
 	 * A rendelés leadásának dátuma.
 	 */
-	@Column(name = "orderdate")
+	@Column(name = "dateOfOrder")
 	private Date orderDate;
 
 	/**
@@ -96,20 +95,6 @@ public class Order implements Serializable {
 		this.beers = beers;
 	}
 
-	/**
-	 * @return the user
-	 */
-	public User getUser() {
-		return user;
-	}
-
-	/**
-	 * @param user
-	 *            the user to set
-	 */
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	/**
 	 * @return the orderDate

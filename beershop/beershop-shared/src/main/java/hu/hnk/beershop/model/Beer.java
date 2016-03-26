@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -53,7 +55,10 @@ public class Beer implements Serializable {
 	 */
 	@Column(name = "comment", length = 255)
 	private String comment;
-
+	
+//	@ManyToOne
+//	private Cargo cargo;
+	
 	/**
 	 * @return the id
 	 */
