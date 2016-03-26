@@ -1,0 +1,94 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/baseNobeerTemplate.xhtml">
+
+	<ui:define name="content">
+		<style>
+.ui-panel-titlebar .ui-widget-header .ui-helper-clearfix .ui-corner-all
+	{
+	color: #D8000C !important;
+	background-color: #fff !important;
+}
+
+.ui-widget-header {
+	color: #363636 !important;
+	background: transparent !important;
+	border: 0px !important;
+}
+
+.ui-widget-content {
+	background: transparent !important;
+	border: 0px !important;
+}
+
+.box {
+	width: 60% !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+.ui-panel-content {
+	width: 85% !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+</style>
+		<div class="container">
+			<div class="inside">
+				<div class="indent">
+					<h2>Bejelentkezés</h2>
+					<ul class="box-list">
+						<li>
+							<div class="box">
+								<div class="left-top-corner">
+									<div class="right-top-corner">
+										<div class="border-top"></div>
+									</div>
+								</div>
+								<div class="xcontent">
+									<div class="border-left">
+										<div class="border-right">
+											<div class="inner">
+												<h:form>
+													<p:panel id="panel">
+														<h:panelGrid columns="2" cellpadding="5">
+															<p:outputLabel for="username" value="Felhasználónév:" />
+															<p:inputText id="username"
+																requiredMessage="A felhasználónév megadása kötelező!"
+																value="#{userManagerBean.username}" required="true"
+																label="Felhasználónév">
+															</p:inputText>
+
+															<p:outputLabel for="password" value="Jelszó:" />
+															<p:inputText id="password" type="password"
+																requiredMessage="A jelszó megadása kötelező!"
+																value="#{userManagerBean.password}" label="Jelszó"
+																required="true">
+															</p:inputText>
+														</h:panelGrid>
+														<p:commandButton value="Bejelentkezés"
+															validateClient="true"
+															actionListener="#{userManagerBean.saveUser}"
+															icon="ui-icon-check" />
+													</p:panel>
+												</h:form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="left-bot-corner">
+									<div class="right-bot-corner">
+										<div class="border-bot"></div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

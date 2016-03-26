@@ -1,0 +1,122 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/baseNobeerTemplate.xhtml">
+	<!-- 	<ui:param name="mbean" value="registrationManagerBean" /> -->
+	<ui:define name="content">
+		<style>
+.ui-panel-titlebar .ui-widget-header .ui-helper-clearfix .ui-corner-all
+	{
+	color: #D8000C !important;
+	background-color: #fff !important;
+}
+
+.ui-widget-header {
+	color: #363636 !important;
+	background: transparent !important;
+	border: 0px !important;
+}
+
+.ui-widget-content {
+	background: transparent !important;
+	border: 0px !important;
+}
+
+.box {
+	width: 85% !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+</style>
+		<div class="container">
+			<div class="inside">
+				<div class="indent">
+					<h2>Regisztráció</h2>
+					<ul class="box-list">
+						<li>
+							<div class="box">
+								<div class="left-top-corner">
+									<div class="right-top-corner">
+										<div class="border-top"></div>
+									</div>
+								</div>
+								<div class="xcontent">
+									<div class="border-left">
+										<div class="border-right">
+											<div class="inner">
+												<h:form id="registration">
+													<p:message for="registration" id="formMessage" display="text"  />
+													<p:panel id="panel">
+														<h:panelGrid columns="3" cellpadding="10" cellspacing="10">
+															<p:outputLabel for="username" value="Felhasználónév:" />
+															<p:inputText id="username"
+																requiredMessage="A felhasználónév megadása kötelező!"
+																value="#{registrationManagerBean.username}"
+																required="true" label="Felhasználónév">
+															</p:inputText>
+															<p:message for="username" id="usrmsg" display="text" />
+
+															<p:outputLabel for="password" value="Jelszó:" />
+															<p:inputText id="password" type="password"
+																requiredMessage="A jelszó megadása kötelező!"
+																value="#{registrationManagerBean.password}"
+																label="Jelszó" required="true">
+																<f:validator validatorId="confirmPasswordValidator" />
+																<f:attribute name="passwordComponent"
+																	value="#{passwordComponent}" />
+															</p:inputText>
+															<p:message for="password" id="passwordMessage"
+																display="text" />
+
+															<p:outputLabel for="rePassword"
+																value="Jelszó mégegyszer:" />
+															<p:inputText id="rePassword" type="password"
+																requiredMessage="A jelszó megadása kötelező!"
+																value="#{registrationManagerBean.rePassword}"
+																label="Jelszó újra" required="true"
+																binding="#{passwordComponent}">
+
+															</p:inputText>
+															<p:message for="rePassword" id="rePasswordMessage"
+																display="text" />
+
+															<p:outputLabel for="email" value="E-mail" />
+															<p:inputText id="email"
+																requiredMessage="Az email megadása kötelező."
+																value="#{registrationManagerBean.email}" label="Emial"
+																required="true" validatorMessage="Helytelen e-mail cím.">
+																<f:validateRegex
+																	pattern="[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})" />
+															</p:inputText>
+															<p:message for="email" id="emailmsg" display="text" />
+															
+															<p:outputLabel for="dateOfBirth" value="Születési dátum" />
+															<p:calendar id="dateOfBirth" value="#{registrationManagerBean.dateOfBirth}"  />
+															<p:message for="dateOfBirth" id="datemsg" display="text" />		
+															
+														</h:panelGrid>
+														<p:commandButton value="Regisztráció"
+															validateClient="true"
+															update="passwordMessage usrmsg emailmsg rePasswordMessage datemsg"
+															actionListener="#{registrationManagerBean.saveUser}" icon="ui-icon-check" />
+													</p:panel>
+												</h:form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="left-bot-corner">
+									<div class="right-bot-corner">
+										<div class="border-bot"></div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

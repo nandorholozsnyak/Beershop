@@ -36,9 +36,9 @@ html, body {
 /* Header */
 header .container {
 	position: relative;
-	min-height: 324px;
+	min-height: 250px;
 	height: auto !important;
-	height: 324px;
+	height: 250px;
 }
 
 /* Content */
@@ -277,7 +277,8 @@ h5, h5 a {
 }
 
 .box .right-top-corner {
-	background: url(../images/right-top-corner.png.xhtml) no-repeat right top;
+	background: url(../images/right-top-corner.png.xhtml) no-repeat right
+		top;
 	height: 17px;
 	padding-right: 151px;
 }
@@ -291,13 +292,15 @@ h5, h5 a {
 }
 
 .box .left-bot-corner {
-	background: url(../images/left-bot-corner.png.xhtml) no-repeat left bottom;
+	background: url(../images/left-bot-corner.png.xhtml) no-repeat left
+		bottom;
 	height: 17px;
 	padding-left: 151px;
 }
 
 .box .right-bot-corner {
-	background: url(../images/right-bot-corner.png.xhtml) no-repeat right bottom;
+	background: url(../images/right-bot-corner.png.xhtml) no-repeat right
+		bottom;
 	height: 17px;
 	padding-right: 151px;
 }
@@ -415,7 +418,7 @@ header p a {
 }
 
 #content .indent {
-	padding-right: 346px;
+	padding-right: 5%;
 }
 
 /*===== footer =====*/

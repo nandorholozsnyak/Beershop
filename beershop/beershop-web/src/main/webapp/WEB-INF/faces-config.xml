@@ -7,20 +7,18 @@
 		<message-bundle>resources.application</message-bundle>
 		<!-- <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver> -->
 
-		<!-- <locale-config> -->
-		<!-- <default-locale>hu</default-locale> -->
-		<!-- <supported-locale>en</supported-locale> -->
-		<!-- </locale-config> -->
-		<!-- <locale-config> -->
-		<!-- <default-locale>en</default-locale> -->
-		<!-- </locale-config> -->
+		<locale-config>
+			<default-locale>hu</default-locale>
+			<supported-locale>en</supported-locale>
+		</locale-config>
+		<locale-config>
+			<default-locale>en</default-locale>
+		</locale-config>
 
-		<!-- <resource-bundle> -->
-		<!-- <base-name> -->
-		<!-- hu.schonherz.courier.java.Messages -->
-		<!-- </base-name> -->
-		<!-- <var>out</var> -->
-		<!-- </resource-bundle> -->
+		<resource-bundle>
+			<base-name>hu.schonherz.courier.java.Messages</base-name>
+			<var>out</var>
+		</resource-bundle>
 
 	</application>
 </faces-config>
