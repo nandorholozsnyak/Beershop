@@ -9,6 +9,8 @@
 		<jta-data-source>beerShopCon</jta-data-source>
 		<class>hu.hnk.beershop.model.User</class>
 		<class>hu.hnk.beershop.model.Role</class>
+		<class>hu.hnk.beershop.model.Beer</class>
+		<class>hu.hnk.beershop.model.Cargo</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
@@ -17,8 +19,24 @@
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
-			<!-- <property name="hibernate.transaction.jta.platform" -->
-			<!-- value="org.hibernate.transaction.JTATransactionFactory" /> -->
+<!-- 			<property name="hibernate.transaction.jta.platform" -->
+<!-- 			value="org.hibernate.transaction.JTATransactionFactory" /> -->
 		</properties>
 	</persistence-unit>
+
+<!-- 	<persistence-unit name="BeerShopUnitTest" -->
+<!-- 		transaction-type="RESOURCE_LOCAL"> -->
+<!-- 		<class>hu.hnk.beershop.model.User</class> -->
+<!-- 		<class>hu.hnk.beershop.model.Role</class> -->
+<!-- 		<class>hu.hnk.beershop.model.Beer</class> -->
+<!-- 		<class>hu.hnk.beershop.model.Cargo</class> -->
+<!-- 		<properties> -->
+<!-- 			<property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/beershoptest" /> -->
+<!-- 			<property name="openjpa.ConnectionUserName" value="root" /> -->
+<!-- 			<property name="openjpa.ConnectionPassword" value="mysql" /> -->
+<!-- 			<property name="openjpa.Log" value="SQL=TRACE" /> -->
+<!-- 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" /> -->
+<!-- 			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)" /> -->
+<!-- 		</properties> -->
+<!-- 	</persistence-unit> -->
 </persistence>
