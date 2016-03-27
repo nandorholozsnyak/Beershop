@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -16,8 +18,10 @@ import javax.persistence.Table;
  * @author Nandi
  *
  */
-//@Table(name = "beer")
+
+// @Table(name = "beer")
 @Entity
+@NamedQueries({ @NamedQuery(name = "Beer.findAll", query = "SELECT b FROM Beer b") })
 public class Beer implements Serializable {
 
 	/**
