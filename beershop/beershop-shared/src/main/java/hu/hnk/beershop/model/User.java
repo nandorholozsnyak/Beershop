@@ -6,9 +6,12 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -54,7 +57,7 @@ public class User implements Serializable {
 	/**
 	 * A felhasználó jogkörei.
 	 */
-	@OneToMany
+	@ManyToMany
 	private List<Role> roles;
 
 	/**
@@ -73,7 +76,7 @@ public class User implements Serializable {
 	 * A felhasználó rangja.
 	 */
 	@Column(name = "rank", columnDefinition = "varchar(32) default 'Amatuer'")
-	private Rank rank;
+	private String rank;
 
 	/**
 	 * A felhasználó születési dátuma.
@@ -189,7 +192,7 @@ public class User implements Serializable {
 	/**
 	 * @return the rank
 	 */
-	public Rank getRank() {
+	public String getRank() {
 		return rank;
 	}
 
@@ -197,7 +200,7 @@ public class User implements Serializable {
 	 * @param rank
 	 *            the rank to set
 	 */
-	public void setRank(Rank rank) {
+	public void setRank(String rank) {
 		this.rank = rank;
 	}
 

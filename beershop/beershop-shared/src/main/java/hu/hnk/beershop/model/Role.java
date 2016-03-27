@@ -6,11 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  * A jogkör leírását tartalmazó osztály.
+ * 
  * @author Nandi
  *
  */
@@ -21,7 +23,7 @@ public class Role implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7180062495978991267L;
+	 private static final long serialVersionUID = 1L;
 
 	/**
 	 * A jogkör egyéni azonosítója.
