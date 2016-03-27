@@ -24,7 +24,7 @@ import hu.hnk.interfaces.UserDao;
  * @author Nandi
  * 
  */
-@Stateless
+@Stateless(name = "userService")
 @Local(UserService.class)
 public class UserServiceImpl implements UserService {
 
@@ -75,6 +75,11 @@ public class UserServiceImpl implements UserService {
 		Instant instant = Instant.ofEpochMilli(dateOfBirth.getTime());
 		LocalDate birth = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
 		return birth.until(now).getYears() > 17;
+	}
+
+	@Override
+	public User findByUsername(String username) {
+		return userDao.findByUsername(username);
 	}
 
 }
