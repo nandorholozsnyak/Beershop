@@ -86,5 +86,10 @@ public class UserDaoImpl implements UserDao {
 		query.setParameter("email", email);
 		return query.getSingleResult();
 	}
+	
+	@Override
+	public void remove(User user) {
+		em.remove(em.contains(user) ? user : em.merge(user));	
+	}
 
 }

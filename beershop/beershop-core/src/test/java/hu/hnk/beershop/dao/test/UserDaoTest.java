@@ -45,22 +45,42 @@ public class UserDaoTest {
 
 	@Test
 	@Transaction(rollback = true)
-	public void testUserDao() {
+	public void testFindByName() {
 
 		User user = new User();
 		user.setUsername("NameTest");
-		user.setEmail("email@test.me");
+		user.setEmail("email@email.me");
 		user.setPassword("ASD");
 		user.setPoints((double) 150);
-		user.setRank(Rank.Amatuer);
+//		user.setRank(Rank.Amatuer);
 		user.setDateOfBirth(new Date());
 		userDao.save(user);
 
 		User namedUser = userDao.findByUsername("NameTest");
+
 		Assert.assertEquals("NameTest", namedUser.getUsername());
+		userDao.remove(namedUser);
+
+	}
+
+	@Test
+	@Transaction(rollback = true)
+	public void testFindByEmail() {
+
+		User user = new User();
+		user.setUsername("EmailTest");
+		user.setEmail("email@test.me");
+		user.setPassword("ASD");
+		user.setPoints((double) 150);
+//		user.setRank(Rank.Amatuer);
+		user.setDateOfBirth(new Date());
+		userDao.save(user);
 
 		User emailedUser = userDao.findByEmail("email@test.me");
+
 		Assert.assertEquals("email@test.me", emailedUser.getEmail());
+		userDao.remove(emailedUser);
+
 	}
 
 	@After

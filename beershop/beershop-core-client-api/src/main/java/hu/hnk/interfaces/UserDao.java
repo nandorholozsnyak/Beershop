@@ -1,7 +1,5 @@
 package hu.hnk.interfaces;
 
-import javax.persistence.EntityManager;
-
 import hu.hnk.beershop.model.User;
 
 public interface UserDao {
@@ -31,4 +29,9 @@ public interface UserDao {
 	 * @return a megtalált felhasználó
 	 */
 	public User findByEmail(String email);
+	/**
+	 * Egy adott felhasználó törlése.
+	 * @param user a törlendõ felhasználó
+	 */
+	public void remove(User user);
 }
