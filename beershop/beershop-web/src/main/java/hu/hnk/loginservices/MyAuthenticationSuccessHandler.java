@@ -1,4 +1,4 @@
-package hu.hnk.managedbeans;
+package hu.hnk.loginservices;
 
 import java.io.IOException;
 import java.util.ArrayList;

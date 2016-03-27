@@ -15,12 +15,12 @@
 
 .ui-widget-header {
 	color: #363636 !important;
-	background: transparent !important;
+/*  	background: transparent !important;  */
 	border: 0px !important;
 }
 
 .ui-widget-content {
-	background: transparent !important;
+/* 	background: transparent !important; */
 	border: 0px !important;
 }
 
@@ -47,7 +47,7 @@
 										<div class="border-right">
 											<div class="inner">
 												<h:form id="registration">
-													<p:message for="registration" id="formMessage" display="text"  />
+													<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 													<p:panel id="panel">
 														<h:panelGrid columns="3" cellpadding="10" cellspacing="10">
 															<p:outputLabel for="username" value="Felhasználónév:" />
@@ -99,7 +99,7 @@
 														</h:panelGrid>
 														<p:commandButton value="Regisztráció"
 															validateClient="true"
-															update="passwordMessage usrmsg emailmsg rePasswordMessage datemsg"
+															update="passwordMessage usrmsg emailmsg rePasswordMessage datemsg panel registration"
 															actionListener="#{registrationManagerBean.saveUser}" icon="ui-icon-check" />
 													</p:panel>
 												</h:form>

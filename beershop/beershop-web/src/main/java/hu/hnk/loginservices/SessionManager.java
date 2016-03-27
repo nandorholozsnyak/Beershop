@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hu.hnk.managedbeans;
+package hu.hnk.loginservices;
 
 import java.io.Serializable;
 import java.security.Principal;

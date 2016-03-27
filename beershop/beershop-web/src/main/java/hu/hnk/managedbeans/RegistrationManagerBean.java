@@ -12,6 +12,7 @@ import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
 
+import hu.hnk.beershop.exception.AgeNotAcceptable;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
@@ -19,6 +20,7 @@ import hu.hnk.beershop.service.interfaces.UserService;
 @ManagedBean(name = "registrationManagerBean")
 @ViewScoped
 public class RegistrationManagerBean implements Serializable {
+	
 	public static final Logger logger = Logger.getLogger(RegistrationManagerBean.class);
 	/**
 	 * 
@@ -109,7 +111,7 @@ public class RegistrationManagerBean implements Serializable {
 		this.password = password;
 	}
 
-	public void saveUser(ActionEvent actionEvent) {
+	public void saveUser(ActionEvent actionEvent) throws AgeNotAcceptable {
 		if (userService.isOlderThanEighteen(dateOfBirth)) {
 			User newUser = new User();
 			logger.info("Mentés gomb lenyomva.");
@@ -118,7 +120,7 @@ public class RegistrationManagerBean implements Serializable {
 			newUser.setPassword(password);
 			newUser.setUsername(username);
 			newUser.setEmail(email);
-//			newUser.setRank(Rank.Amatuer);
+			// newUser.setRank(Rank.Amatuer);
 			newUser.setPoints((double) 0);
 			newUser.setDateOfBirth(dateOfBirth);
 			if (newUser != null) {
@@ -130,7 +132,8 @@ public class RegistrationManagerBean implements Serializable {
 				}
 			}
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "Csak 18 fölött lehetséges a regisztráció.", "Hiba!"));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Csak 18 fölött lehetséges a regisztráció.", "Hiba!"));
 		}
 	}
 

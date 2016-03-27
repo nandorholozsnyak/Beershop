@@ -1,4 +1,4 @@
-package hu.hnk.managedbeans;
+package hu.hnk.loginservices;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import hu.hnk.beershop.service.interfaces.UserService;
 
 @Service("loginManager")
 @EJB(name = "hu.hnk.beershop.UserService", beanInterface = UserService.class)
-public class LoginManagerBean implements Serializable, UserDetailsService {
+public class LoginService implements Serializable, UserDetailsService {
 
 	/**
 	 * 

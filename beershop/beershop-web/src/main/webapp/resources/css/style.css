@@ -11,7 +11,7 @@ mark, rp, rt, ruby, summary, time {
 
 /* Global properties ======================================================== */
 body {
-	background: url(../images/tail-top.gif.xhtml) left top repeat-x #ffa600;
+	/* 	background: url(../images/tail-top.gif.xhtml) left top repeat-x #ffa600; */
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 100%;
 	line-height: 1em;
@@ -102,7 +102,7 @@ footer {
 /*---- tailings ----*/
 .body-bg {
 	background-image: url(../images/main-bg.jpg.xhtml);
-	background-repeat: no-repeat;
+	background-repeat: repeat;
 	background-position: center top;
 }
 
@@ -401,7 +401,6 @@ header nav ul li a {
 	margin: 0 auto;
 }
 
-
 header nav ul li a:hover, header nav ul li.current a {
 	color: #ef4f00;
 	background: url(../images/nav-act-left.png.xhtml) no-repeat left 2px;
@@ -421,6 +420,10 @@ header .indent {
 
 header p a {
 	color: #ce4400;
+}
+
+.navigation {
+	background-size: 275px 200px;
 }
 
 /*===== content =====*/
@@ -501,3 +504,10 @@ footer a {
 }
 
 /*==========================================*/
+
+/*Primefaces Override*/
+.ui-widget-overlay {
+	width: auto !important;
+	height: auto !important;
+	z-index: 0 !important;
+}
