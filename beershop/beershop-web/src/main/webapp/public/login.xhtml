@@ -25,7 +25,7 @@
 }
 
 .box {
-	width: 60% !important;
+	width: 40% !important;
 	margin-left: auto !important;
 	margin-right: auto !important;
 }
@@ -52,29 +52,36 @@
 									<div class="border-left">
 										<div class="border-right">
 											<div class="inner">
-												<h:form>
+												<form class="form-horizontal"
+													action="#{request.contextPath}/login" method="post">
+													<div class="col-sm-12">
+
+														<h:panelGroup layout="block"
+															class="callout callout-danger"
+															rendered="#{param['error'] == 1}">Bejelentkezési hiba!</h:panelGroup>
+
+													</div>
 													<p:panel id="panel">
 														<h:panelGrid columns="2" cellpadding="5">
-															<p:outputLabel for="username" value="Felhasználónév:" />
-															<p:inputText id="username"
-																requiredMessage="A felhasználónév megadása kötelező!"
-																value="#{userManagerBean.username}" required="true"
-																label="Felhasználónév">
-															</p:inputText>
 
-															<p:outputLabel for="password" value="Jelszó:" />
-															<p:inputText id="password" type="password"
-																requiredMessage="A jelszó megadása kötelező!"
-																value="#{userManagerBean.password}" label="Jelszó"
-																required="true">
-															</p:inputText>
+															<div class="input-group margin-bottom-sm">
+																<span class="input-group-addon"><i
+																	class="fa fa-user fa-fw"></i></span> <input type="text"
+																	class="form-control" placeholder="Felhasználónév"
+																	name="j_username" />
+															</div>
+ 
+															<div class="input-group">
+																<span class="input-group-addon"><i
+																	class="fa fa-unlock fa-fw"></i></span> <input type="password"
+																	class="form-control" placeholder="Jelszó"
+																	name="j_password" />
+															</div>
+															<button type="submit" class="btn btn-primary center-block">Bejelentkezés</button>
 														</h:panelGrid>
-														<p:commandButton value="Bejelentkezés"
-															validateClient="true"
-															actionListener="#{userManagerBean.saveUser}"
-															icon="ui-icon-check" />
+
 													</p:panel>
-												</h:form>
+												</form>
 											</div>
 										</div>
 									</div>

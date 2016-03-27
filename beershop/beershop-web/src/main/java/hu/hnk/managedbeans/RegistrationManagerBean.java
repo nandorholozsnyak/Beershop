@@ -118,7 +118,7 @@ public class RegistrationManagerBean implements Serializable {
 			newUser.setPassword(password);
 			newUser.setUsername(username);
 			newUser.setEmail(email);
-			newUser.setRank(Rank.Amatuer);
+//			newUser.setRank(Rank.Amatuer);
 			newUser.setPoints((double) 0);
 			newUser.setDateOfBirth(dateOfBirth);
 			if (newUser != null) {

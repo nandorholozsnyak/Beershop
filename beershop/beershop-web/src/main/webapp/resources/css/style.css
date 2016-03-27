@@ -362,6 +362,16 @@ header nav {
 	background: url(../images/nav-bg.png.xhtml) no-repeat left top;
 }
 
+nav.profile {
+	float: left;
+	position: absolute;
+	left: 0px;
+	background: url(../images/nav-bg.png.xhtml);
+	background-size: 275px 200px;
+	background-repeat: no-repeat;
+	background-position: right top;
+}
+
 header nav ul {
 	position: absolute;
 	left: 31px;
@@ -390,6 +400,7 @@ header nav ul li a {
 	width: 195px;
 	margin: 0 auto;
 }
+
 
 header nav ul li a:hover, header nav ul li.current a {
 	color: #ef4f00;

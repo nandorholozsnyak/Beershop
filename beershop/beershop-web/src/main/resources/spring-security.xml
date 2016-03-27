@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<security:http auto-config="true" use-expressions="true">
+		<security:csrf disabled="true" />
+		<security:headers disabled="true" />
+		<security:intercept-url pattern="/secured/*"
+			access="hasRole('USER')" />
+		<security:intercept-url pattern="/secured/manager/*"
+			access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/secured/admin/*"
+			requires-channel="https" access="hasRole('ADMIN')" />
+		<security:form-login login-page="/public/login.xhtml"
+			login-processing-url="/login" default-target-url="/public/index.xhtml"
+			authentication-failure-url="/public/login.xhtml?error=1"
+			username-parameter="j_username" password-parameter="j_password"
+			authentication-success-handler-ref="myAuthenticationSuccessHandler" />
+		<security:logout logout-url="/logout"
+			invalidate-session="true" delete-cookies="JSESSIONID" />
+		<security:remember-me key="key"
+			remember-me-parameter="remember-me" token-validity-seconds="28800" />
+		<security:session-management>
+			<security:concurrency-control
+				expired-url="/sessionTimeout" max-sessions="5"
+				error-if-maximum-exceeded="true" />
+		</security:session-management>
+
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider
+			user-service-ref="loginManager">
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>
