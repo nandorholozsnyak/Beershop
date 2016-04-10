@@ -30,7 +30,9 @@ import com.sun.javafx.css.CascadingStyle;
 // @Table(name = "user")
 @Entity
 @NamedQueries({ @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :name"),
-		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email") })
+		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
+		@NamedQuery(name = "User.findUsername", query = "SELECT u.username FROM User u WHERE u.username = :name"),
+		@NamedQuery(name = "User.findEmail", query = "SELECT u.email FROM User u WHERE u.email = :email")})
 public class User implements Serializable {
 
 	/**
@@ -75,13 +77,6 @@ public class User implements Serializable {
 	 */
 	@Column(name = "points")
 	private Double points;
-
-	// /**
-	// * A felhasználó rangja.
-	// */
-	// @Column(name = "rank", columnDefinition = "LONGTEXT")
-	// @Enumerated(EnumType.ORDINAL)
-	// private Rank rank = Rank.getValue(10L);
 
 	/**
 	 * A felhasználó születési dátuma.

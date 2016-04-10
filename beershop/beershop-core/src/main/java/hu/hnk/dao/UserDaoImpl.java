@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 import org.apache.log4j.Logger;
 import org.omg.PortableInterceptor.USER_EXCEPTION;
 
+import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
@@ -96,7 +97,7 @@ public class UserDaoImpl implements UserDao {
 	 * @return a megtalált felhasználó
 	 */
 	@Override
-	public User findByEmail(String email) {
+	public User findByEmail(String email) throws EmailNotFound {
 		TypedQuery<User> query = em.createNamedQuery("User.findByEmail", User.class);
 		query.setParameter("email", email);
 		return query.getSingleResult();
@@ -114,6 +115,30 @@ public class UserDaoImpl implements UserDao {
 		Root<User> user = cq.from(User.class);
 		cq.select(user).where(user.get("roles")).from(User.class).in(roleName);
 		return (User) em.createQuery(cq).getResultList().get(0);
+	}
+
+	@Override
+	public String findUsername(String username) throws UsernameNotFound {
+		TypedQuery<String> query = em.createNamedQuery("User.findUsername", String.class);
+		query.setParameter("name", username);
+		String user;
+		try {
+			return user = query.getSingleResult();
+		} catch (Exception e) {
+			throw new UsernameNotFound("There is no user with this username.");
+		}
+	}
+
+	@Override
+	public String findEmail(String email) throws EmailNotFound {
+		TypedQuery<String> query = em.createNamedQuery("User.findEmail", String.class);
+		query.setParameter("email", email);
+		String user;
+		try {
+			return user = query.getSingleResult();
+		} catch (Exception e) {
+			throw new EmailNotFound("There is no user with this email.");
+		}
 	}
 
 }

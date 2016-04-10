@@ -7,7 +7,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class EmailAlreadyTaken extends Exception {
+public class EmailNotFound extends Exception {
 
 	/**
 	 * 
@@ -17,20 +17,20 @@ public class EmailAlreadyTaken extends Exception {
 	/**
 	 * 
 	 */
-	public EmailAlreadyTaken() {
+	public EmailNotFound() {
 	}
 
 	/**
 	 * @param message
 	 */
-	public EmailAlreadyTaken(String message) {
+	public EmailNotFound(String message) {
 		super(message);
 	}
 
 	/**
 	 * @param cause
 	 */
-	public EmailAlreadyTaken(Throwable cause) {
+	public EmailNotFound(Throwable cause) {
 		super(cause);
 	}
 
@@ -38,7 +38,7 @@ public class EmailAlreadyTaken extends Exception {
 	 * @param message
 	 * @param cause
 	 */
-	public EmailAlreadyTaken(String message, Throwable cause) {
+	public EmailNotFound(String message, Throwable cause) {
 		super(message, cause);
 	}
 
@@ -48,7 +48,7 @@ public class EmailAlreadyTaken extends Exception {
 	 * @param enableSuppression
 	 * @param writableStackTrace
 	 */
-	public EmailAlreadyTaken(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public EmailNotFound(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 

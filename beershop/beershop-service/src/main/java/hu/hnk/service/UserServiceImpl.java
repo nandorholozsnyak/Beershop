@@ -12,7 +12,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import hu.hnk.beershop.exception.EmailAlreadyTaken;
+import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
@@ -31,7 +31,8 @@ import hu.hnk.interfaces.UserDao;
 public class UserServiceImpl implements UserService {
 
 	@EJB
-	UserDao userDao;
+	private UserDao userDao;
+
 	@EJB
 	RoleDao roleDao;
 
@@ -42,9 +43,6 @@ public class UserServiceImpl implements UserService {
 	 *            A mentendõ felhasználó.
 	 */
 	public void save(User user) {
-
-		System.out.println("UserService before save!");
-
 		Role role = roleDao.findByName("ROLE_USER");
 
 		if (role == null) {
@@ -53,7 +51,7 @@ public class UserServiceImpl implements UserService {
 			role = roleDao.save(role);
 		}
 
-		User userData = userDao.save(user);
+		User userData = getUserDao().save(user);
 		List<Role> userRoles = userData.getRoles();
 
 		if (userRoles == null || userRoles.isEmpty()) {
@@ -63,13 +61,14 @@ public class UserServiceImpl implements UserService {
 		userRoles.add(role);
 		userData.setRoles(userRoles);
 
-		userDao.save(userData);
+		getUserDao().save(userData);
 		System.out.println("UserService after save!");
 	}
 
 	/**
 	 * Ellenõrzi hogy a regisztrálandó felhasználó születési dátuma alapján
 	 * elmúlt-e már 18 éves.
+	 * 
 	 */
 	public boolean isOlderThanEighteen(Date dateOfBirth) {
 		LocalDate now = LocalDate.now();
@@ -82,26 +81,55 @@ public class UserServiceImpl implements UserService {
 	public User findByUsername(String username) {
 		User user = null;
 		try {
-			user = userDao.findByUsername(username);
+			user = getUserDao().findByUsername(username);
 		} catch (UsernameNotFound e) {
-			
+
 		}
 		return user;
 	}
 
+	/**
+	 * Felhasználónév ellenörzés, a kapott felhasználónevet ellenõrzi hogy
+	 * válaszható-e még a regisztráció során.
+	 * 
+	 * @param username
+	 *            az ellenõrizendõ felhasználónév.
+	 * @return hamis ha szabad a felhasználónév, igaz ha már nem.
+	 */
 	@Override
-	public boolean isUsernameAlreadyTaken(String username){
-		try{
-			User user = userDao.findByUsername(username);
+	public boolean isUsernameAlreadyTaken(String username) {
+		try {
+			String user = getUserDao().findUsername(username);
 			return true;
-		} catch(UsernameNotFound e) {
+		} catch (UsernameNotFound e) {
 			return false;
 		}
 	}
 
+	/**
+	 * E-mail cím ellenörzés, a kapott e-mail címet ellenõrzi hogy válaszható-e
+	 * még a regisztráció során.
+	 * 
+	 * @param email
+	 *            az ellenõrizendõ e-mail cím.
+	 * @return hamis ha szabad a email cím, igaz ha már nem.
+	 */
 	@Override
-	public boolean isEmailAlreadyTaken(String email){
-		return userDao.findByEmail(email) != null?true:false;
+	public boolean isEmailAlreadyTaken(String email) {
+		try {
+			String user = getUserDao().findEmail(email);
+			return true;
+		} catch (EmailNotFound e) {
+			return false;
+		}
+	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
 
 }

@@ -46,8 +46,8 @@
 									<div class="border-left">
 										<div class="border-right">
 											<div class="inner">
-												<p:messages id="messages" 
-													autoUpdate="true" closable="true" />
+<!-- 												<p:messages id="messages"  -->
+<!-- 													autoUpdate="true" closable="true" /> -->
 												<h:form id="registration">
 
 													<p:panel id="panel">
@@ -93,13 +93,16 @@
 																required="true" validatorMessage="Helytelen e-mail cím.">
 																<f:validateRegex
 																	pattern="[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})" />
+																	<p:ajax event="blur" listener="#{registrationManagerBean.emailListener}" update="emailmsg"/> 
 															</p:inputText>
 															<p:message for="email" id="emailmsg" display="text" />
 
 															<p:outputLabel for="dateOfBirth" value="Születési dátum" />
 															<p:calendar id="dateOfBirth" required="true"
 																requiredMessage="Születési dátum megadása kötelező"
-																value="#{registrationManagerBean.dateOfBirth}" />
+																value="#{registrationManagerBean.dateOfBirth}" pattern="dd-MM-yyyy">
+																<p:ajax event="blur" listener="#{registrationManagerBean.ageListener}" update="datemsg"/>
+															</p:calendar>
 															<p:message for="dateOfBirth" id="datemsg" display="text" />
 
 														</h:panelGrid>

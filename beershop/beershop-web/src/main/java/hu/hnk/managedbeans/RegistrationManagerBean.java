@@ -7,10 +7,12 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
+import org.primefaces.event.SelectEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import hu.hnk.beershop.exception.AgeNotAcceptable;
@@ -38,6 +40,43 @@ public class RegistrationManagerBean implements Serializable {
 	String rePassword;
 	String email;
 	Date dateOfBirth;
+	Boolean isUsernameFree = true;
+	Boolean isEmailFree = true;
+	Boolean isOlderThanEighteen = true;
+	
+	
+	
+	public BCryptPasswordEncoder getEncoder() {
+		return encoder;
+	}
+
+	public void setEncoder(BCryptPasswordEncoder encoder) {
+		this.encoder = encoder;
+	}
+
+	public Boolean getIsUsernameFree() {
+		return isUsernameFree;
+	}
+
+	public void setIsUsernameFree(Boolean isUsernameFree) {
+		this.isUsernameFree = isUsernameFree;
+	}
+
+	public Boolean getIsEmailFree() {
+		return isEmailFree;
+	}
+
+	public void setIsEmailFree(Boolean isEmailFree) {
+		this.isEmailFree = isEmailFree;
+	}
+
+	public Boolean getIsOlderThanEighteen() {
+		return isOlderThanEighteen;
+	}
+
+	public void setIsOlderThanEighteen(Boolean isOlderThanEighteen) {
+		this.isOlderThanEighteen = isOlderThanEighteen;
+	}
 
 	/**
 	 * @return the dateOfBirth
@@ -115,11 +154,10 @@ public class RegistrationManagerBean implements Serializable {
 	}
 
 	public void saveUser(ActionEvent actionEvent) throws AgeNotAcceptable {
-		
-		if (userService.isOlderThanEighteen(dateOfBirth)) {
+		Boolean canRegister = isOlderThanEighteen && isEmailFree && isUsernameFree;
+		if (canRegister) {
 			User newUser = new User();
 			logger.info("Mentés gomb lenyomva.");
-
 			newUser = new User();
 			newUser.setPassword(encoder.encode(password));
 			newUser.setUsername(username);
@@ -131,6 +169,7 @@ public class RegistrationManagerBean implements Serializable {
 					userService.save(newUser);
 					FacesContext.getCurrentInstance().addMessage(null,
 							new FacesMessage(FacesMessage.SEVERITY_INFO, "Sikeres regisztráció.", ""));
+					FacesContext.getCurrentInstance().getExternalContext().redirect("/public/index.xhtml");
 				} catch (Exception e) {
 					FacesContext.getCurrentInstance().addMessage(null,
 							new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hiba regisztráció közben.", "Hiba!"));
@@ -138,7 +177,7 @@ public class RegistrationManagerBean implements Serializable {
 			}
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Csak 18 fölött lehetséges a regisztráció.", "Hiba!"));
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Regisztráció nem lehetséges.", "Hiba!"));
 		}
 	}
 	
@@ -146,8 +185,33 @@ public class RegistrationManagerBean implements Serializable {
 	public void usernameListener() {
 		if(userService.isUsernameAlreadyTaken(username)) {
 			logger.info("Felhasználónév már foglalt!");
-			FacesContext.getCurrentInstance().addMessage(null,
-			new FacesMessage(FacesMessage.SEVERITY_WARN, "Ez a felhasználónév már foglalt", "Hiba!"));
+			FacesContext.getCurrentInstance().addMessage("registration:username",
+			new FacesMessage(FacesMessage.SEVERITY_WARN, "Ez a felhasználónév már foglalt!", "Ez a felhasználónév már foglalt!"));
+			isUsernameFree = false;
+		} else {
+			isUsernameFree = true;
+		}
+	}
+	
+	public void emailListener() {
+		if(userService.isEmailAlreadyTaken(email)) {
+			logger.info("E-mail cím már foglalt!");
+			FacesContext.getCurrentInstance().addMessage("registration:email",
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Ez az e-mail cím már foglalt!", "Ez az e-mail cím már foglalt!"));
+			isEmailFree = false;
+		} else {
+			isEmailFree = true;
+		}
+	}
+	
+	public void ageListener() {
+		if(!userService.isOlderThanEighteen(dateOfBirth)) {
+			logger.info("Csak 18 év fölött lehetséges a regisztráció.");
+			FacesContext.getCurrentInstance().addMessage("registration:dateOfBirth",
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Csak 18 fölött lehetséges a regisztráció.", "Csak 18 fölött lehetséges a regisztráció."));
+			isOlderThanEighteen = true;
+		} else {
+			isOlderThanEighteen = false;
 		}
 	}
 

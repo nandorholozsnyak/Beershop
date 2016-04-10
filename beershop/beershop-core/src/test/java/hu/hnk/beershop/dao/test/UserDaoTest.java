@@ -19,6 +19,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
@@ -71,7 +72,7 @@ public class UserDaoTest {
 
 	@Test
 	@Transaction(rollback = true)
-	public void testFindByEmail() {
+	public void testFindByEmail() throws EmailNotFound {
 
 		User user = new User();
 		user.setUsername("EmailTest");

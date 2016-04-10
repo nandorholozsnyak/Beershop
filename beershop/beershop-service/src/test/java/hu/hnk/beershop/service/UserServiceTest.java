@@ -1,6 +1,7 @@
 package hu.hnk.beershop.service;
 
 import java.util.Date;
+import java.util.Properties;
 
 import javax.ejb.EJB;
 import javax.ejb.embeddable.EJBContainer;
@@ -29,7 +30,16 @@ public class UserServiceTest {
 
 	@Before
 	public void bootContainer() throws Exception {
-		container = EJBContainer.createEJBContainer();
+		final Properties p = new Properties();
+
+		p.put("hu.neuron.java.jpa.hibernate.hbm2ddl.auto", "create");
+		p.put("hu.neuron.java.jpa.hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
+		p.put("hu.neuron.TestDataSource", "new://Resource?type=DataSource");
+		p.put("hu.neuron.TestDataSource.JtaManaged", "false");
+		p.put("hu.neuron.TestDataSource.JdbcDriver", "org.hsqldb.jdbcDriver");
+		p.put("hu.neuron.TestDataSource.JdbcUrl", "jdbc:hsqldb:mem:aname");
+		
+		container = EJBContainer.createEJBContainer(p);
 		container.getContext().bind("inject", this);
 	}
 	
@@ -37,6 +47,8 @@ public class UserServiceTest {
 	@EJB
 	private UserService userService;
 	
+	@EJB
+	private UserDao userDao;
 	
 	private UserService userServiceMocked;
 	
@@ -54,6 +66,14 @@ public class UserServiceTest {
 
 	@Test
 	public void testIfUsernameAlreadyExistsReturnTrue() {
+		User user = new User();
+		user.setUsername("EmailTest");
+		user.setEmail("email@test.me");
+		user.setPassword("ASD");
+		user.setPoints((double) 150);
+//		user.setRank(Rank.Amatuer);
+		user.setDateOfBirth(new Date());
+		userDao.save(user);
 		userServiceMocked = Mockito.mock(UserService.class);
 		
 		Mockito.when(userServiceMocked.isUsernameAlreadyTaken("NameTest")).thenReturn(true);
