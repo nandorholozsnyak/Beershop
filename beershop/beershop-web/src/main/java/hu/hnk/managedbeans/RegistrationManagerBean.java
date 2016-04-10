@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import hu.hnk.beershop.exception.AgeNotAcceptable;
 import hu.hnk.beershop.model.Rank;
@@ -29,7 +30,9 @@ public class RegistrationManagerBean implements Serializable {
 
 	@EJB
 	UserService userService;
-
+	
+	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	
 	String username;
 	String password;
 	String rePassword;
@@ -112,20 +115,23 @@ public class RegistrationManagerBean implements Serializable {
 	}
 
 	public void saveUser(ActionEvent actionEvent) throws AgeNotAcceptable {
+		
 		if (userService.isOlderThanEighteen(dateOfBirth)) {
 			User newUser = new User();
 			logger.info("Mentés gomb lenyomva.");
 
 			newUser = new User();
-			newUser.setPassword(password);
+			newUser.setPassword(encoder.encode(password));
 			newUser.setUsername(username);
 			newUser.setEmail(email);
-			// newUser.setRank(Rank.Amatuer);
+//			newUser.setRank(Rank.Amatuer);
 			newUser.setPoints((double) 0);
 			newUser.setDateOfBirth(dateOfBirth);
 			if (newUser != null) {
 				try {
 					userService.save(newUser);
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_INFO, "Sikeres regisztráció.", ""));
 				} catch (Exception e) {
 					FacesContext.getCurrentInstance().addMessage(null,
 							new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hiba regisztráció közben.", "Hiba!"));

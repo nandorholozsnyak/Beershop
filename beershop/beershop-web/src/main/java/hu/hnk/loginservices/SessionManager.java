@@ -53,6 +53,7 @@ public class SessionManager implements Serializable {
 				}
 			}
 		} catch (Exception e) {
+			
 		}
 
 	}

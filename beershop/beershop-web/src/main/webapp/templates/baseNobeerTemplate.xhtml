@@ -29,8 +29,14 @@
 .ui-widget-content {
 	border: 0px solid gray !important;
 	color: #333333;
-/* 	font-size: larger !important; */
-/* 	background: transparent !important; */
+	background: #eeeeee !important;
+	/* 	font-size: larger !important; */
+	/* 	background: transparent !important; */
+}
+
+tr {
+	background: #eeeeee !important;
+	border: 0 none !important;
 }
 </style>
 	</h:head>
@@ -48,8 +54,8 @@
 						<li><a href="#{request.contextPath}/public/login.xhtml"><span>Bejelentkezés</span></a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_USER')">
-					<li><a href="#{request.contextPath}/secured/shop.xhtml"><span>A
-								mi sörünk</span></a></li>
+						<li><a href="#{request.contextPath}/secured/shop.xhtml"><span>A
+									mi sörünk</span></a></li>
 					</sec:authorize>
 				</ul>
 				</nav>

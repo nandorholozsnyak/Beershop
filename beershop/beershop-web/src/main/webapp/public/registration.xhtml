@@ -15,12 +15,12 @@
 
 .ui-widget-header {
 	color: #363636 !important;
-/*  	background: transparent !important;  */
+	/*  	background: transparent !important;  */
 	border: 0px !important;
 }
 
 .ui-widget-content {
-/* 	background: transparent !important; */
+	/* 	background: transparent !important; */
 	border: 0px !important;
 }
 
@@ -46,10 +46,13 @@
 									<div class="border-left">
 										<div class="border-right">
 											<div class="inner">
+												<p:messages id="messages" 
+													autoUpdate="true" closable="true" />
 												<h:form id="registration">
-													<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
 													<p:panel id="panel">
 														<h:panelGrid columns="3" cellpadding="10" cellspacing="10">
+
 															<p:outputLabel for="username" value="Felhasználónév:" />
 															<p:inputText id="username"
 																requiredMessage="A felhasználónév megadása kötelező!"
@@ -91,16 +94,19 @@
 																	pattern="[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})" />
 															</p:inputText>
 															<p:message for="email" id="emailmsg" display="text" />
-															
+
 															<p:outputLabel for="dateOfBirth" value="Születési dátum" />
-															<p:calendar id="dateOfBirth" value="#{registrationManagerBean.dateOfBirth}"  />
-															<p:message for="dateOfBirth" id="datemsg" display="text" />		
-															
+															<p:calendar id="dateOfBirth" required="true"
+																requiredMessage="Születési dátum megadása kötelező"
+																value="#{registrationManagerBean.dateOfBirth}" />
+															<p:message for="dateOfBirth" id="datemsg" display="text" />
+
 														</h:panelGrid>
 														<p:commandButton value="Regisztráció"
 															validateClient="true"
 															update="passwordMessage usrmsg emailmsg rePasswordMessage datemsg panel registration"
-															actionListener="#{registrationManagerBean.saveUser}" icon="ui-icon-check" />
+															actionListener="#{registrationManagerBean.saveUser}"
+															icon="ui-icon-check" />
 													</p:panel>
 												</h:form>
 											</div>
