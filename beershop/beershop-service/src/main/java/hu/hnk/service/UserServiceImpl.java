@@ -59,8 +59,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		userRoles.add(role);
-		user.setRoles(userRoles);
-		System.out.println(user.getRoles());
+		userData.setRoles(userRoles);
 
 		userDao.save(userData);
 		System.out.println("UserService after save!");
