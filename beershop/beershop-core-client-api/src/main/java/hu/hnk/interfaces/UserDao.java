@@ -2,6 +2,7 @@ package hu.hnk.interfaces;
 
 import java.util.List;
 
+import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 
@@ -22,7 +23,7 @@ public interface UserDao {
 	 *            a keresendõ felhasználó felhasználóneve.
 	 * @return a megtalált felhasználó
 	 */
-	public User findByUsername(String username);
+	public User findByUsername(String username) throws UsernameNotFound;
 
 	/**
 	 * Felhasználó keresése e-mail cím alapján.

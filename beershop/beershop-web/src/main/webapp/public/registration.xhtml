@@ -58,6 +58,7 @@
 																requiredMessage="A felhasználónév megadása kötelező!"
 																value="#{registrationManagerBean.username}"
 																required="true" label="Felhasználónév">
+																<p:ajax event="blur" listener="#{registrationManagerBean.usernameListener}" update="usrmsg" />
 															</p:inputText>
 															<p:message for="username" id="usrmsg" display="text" />
 

@@ -12,6 +12,8 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
+import hu.hnk.beershop.exception.EmailAlreadyTaken;
+import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
@@ -78,7 +80,28 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findByUsername(String username) {
-		return userDao.findByUsername(username);
+		User user = null;
+		try {
+			user = userDao.findByUsername(username);
+		} catch (UsernameNotFound e) {
+			
+		}
+		return user;
+	}
+
+	@Override
+	public boolean isUsernameAlreadyTaken(String username){
+		try{
+			User user = userDao.findByUsername(username);
+			return true;
+		} catch(UsernameNotFound e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean isEmailAlreadyTaken(String email){
+		return userDao.findByEmail(email) != null?true:false;
 	}
 
 }

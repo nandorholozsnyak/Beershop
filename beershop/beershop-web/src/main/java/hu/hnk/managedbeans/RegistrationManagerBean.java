@@ -124,7 +124,6 @@ public class RegistrationManagerBean implements Serializable {
 			newUser.setPassword(encoder.encode(password));
 			newUser.setUsername(username);
 			newUser.setEmail(email);
-//			newUser.setRank(Rank.Amatuer);
 			newUser.setPoints((double) 0);
 			newUser.setDateOfBirth(dateOfBirth);
 			if (newUser != null) {
@@ -140,6 +139,15 @@ public class RegistrationManagerBean implements Serializable {
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Csak 18 fölött lehetséges a regisztráció.", "Hiba!"));
+		}
+	}
+	
+	
+	public void usernameListener() {
+		if(userService.isUsernameAlreadyTaken(username)) {
+			logger.info("Felhasználónév már foglalt!");
+			FacesContext.getCurrentInstance().addMessage(null,
+			new FacesMessage(FacesMessage.SEVERITY_WARN, "Ez a felhasználónév már foglalt", "Hiba!"));
 		}
 	}
 

@@ -7,7 +7,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class UsernameAlreadyTaken extends Exception {
+public class UsernameNotFound extends Exception {
 
 	/**
 	 * 
@@ -17,20 +17,20 @@ public class UsernameAlreadyTaken extends Exception {
 	/**
 	 * 
 	 */
-	public UsernameAlreadyTaken() {
+	public UsernameNotFound() {
 	}
 
 	/**
 	 * @param message
 	 */
-	public UsernameAlreadyTaken(String message) {
+	public UsernameNotFound(String message) {
 		super(message);
 	}
 
 	/**
 	 * @param cause
 	 */
-	public UsernameAlreadyTaken(Throwable cause) {
+	public UsernameNotFound(Throwable cause) {
 		super(cause);
 	}
 
@@ -38,7 +38,7 @@ public class UsernameAlreadyTaken extends Exception {
 	 * @param message
 	 * @param cause
 	 */
-	public UsernameAlreadyTaken(String message, Throwable cause) {
+	public UsernameNotFound(String message, Throwable cause) {
 		super(message, cause);
 	}
 
@@ -48,7 +48,7 @@ public class UsernameAlreadyTaken extends Exception {
 	 * @param enableSuppression
 	 * @param writableStackTrace
 	 */
-	public UsernameAlreadyTaken(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public UsernameNotFound(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 

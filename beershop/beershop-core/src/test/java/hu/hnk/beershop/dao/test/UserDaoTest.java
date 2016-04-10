@@ -3,14 +3,12 @@ package hu.hnk.beershop.dao.test;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 
 import javax.ejb.EJB;
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 import org.apache.openejb.junit.jee.transaction.Transaction;
 import org.junit.After;
@@ -21,7 +19,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import hu.hnk.beershop.model.Rank;
+import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.UserDao;
@@ -51,7 +49,7 @@ public class UserDaoTest {
 
 	@Test
 	@Transaction(rollback = true)
-	public void testFindByName() {
+	public void testFindByName() throws UsernameNotFound {
 
 		User user = new User();
 		user.setUsername("NameTest");
@@ -68,6 +66,8 @@ public class UserDaoTest {
 		userDao.remove(namedUser);
 
 	}
+	
+	
 
 	@Test
 	@Transaction(rollback = true)
@@ -90,7 +90,7 @@ public class UserDaoTest {
 	}
 
 	@Test
-	public void testFindByRole() {
+	public void testFindByRole() throws UsernameNotFound {
 		User user = new User();
 		user.setUsername("RoleMe");
 		user.setEmail("role@me.com");

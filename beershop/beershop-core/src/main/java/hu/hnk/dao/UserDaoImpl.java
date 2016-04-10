@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 import org.apache.log4j.Logger;
 import org.omg.PortableInterceptor.USER_EXCEPTION;
 
+import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.UserDao;
@@ -33,7 +34,7 @@ public class UserDaoImpl implements UserDao {
 	 * Az osztály Logger-e.
 	 */
 	public static final Logger logger = Logger.getLogger(UserDaoImpl.class);
-	
+
 	/**
 	 * Az osztály entitás menedzsere.
 	 */
@@ -75,10 +76,16 @@ public class UserDaoImpl implements UserDao {
 	 * @return a megtalált felhasználó
 	 */
 	@Override
-	public User findByUsername(String username) {
+	public User findByUsername(String username) throws UsernameNotFound {
 		TypedQuery<User> query = em.createNamedQuery("User.findByUsername", User.class);
 		query.setParameter("name", username);
-		return query.getSingleResult();
+		User user;
+		try {
+			user = query.getSingleResult();
+		} catch (Exception e) {
+			throw new UsernameNotFound("There is no user with this username.");
+		}
+		return user;
 	}
 
 	/**
@@ -94,10 +101,10 @@ public class UserDaoImpl implements UserDao {
 		query.setParameter("email", email);
 		return query.getSingleResult();
 	}
-	
+
 	@Override
 	public void remove(User user) {
-		em.remove(em.contains(user) ? user : em.merge(user));	
+		em.remove(em.contains(user) ? user : em.merge(user));
 	}
 
 	@Override
