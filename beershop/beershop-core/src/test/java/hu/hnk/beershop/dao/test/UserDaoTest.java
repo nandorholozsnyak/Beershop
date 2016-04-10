@@ -1,6 +1,8 @@
 package hu.hnk.beershop.dao.test;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.ejb.EJB;
@@ -15,12 +17,16 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import hu.hnk.beershop.model.Rank;
+import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.UserDao;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
 
 	private EntityManager em;
@@ -81,6 +87,27 @@ public class UserDaoTest {
 		Assert.assertEquals("email@test.me", emailedUser.getEmail());
 		userDao.remove(emailedUser);
 
+	}
+
+	@Test
+	public void testFindByRole() {
+		User user = new User();
+		user.setUsername("RoleMe");
+		user.setEmail("role@me.com");
+		user.setPassword("ASD");
+		user.setPoints((double) 150);
+		user.setDateOfBirth(new Date());
+		List<Role> roles = new ArrayList<>();
+		Role userRole = new Role();
+		userRole.setName("ROLE_USER");
+		roles.add(userRole);
+		user.setRoles(roles);
+		userDao.save(user);
+		
+		User roledUser = userDao.findByUsername("RoleMe");
+		System.out.println(roledUser);
+		Assert.assertEquals("ROLE_USER", roledUser.getRoles().get(0).getName());
+		userDao.remove(roledUser);
 	}
 
 	@After

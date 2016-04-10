@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.sun.javafx.css.CascadingStyle;
 
 /**
  * A felhasználó osztály tartalmazza egy felhasználó adatait.
@@ -57,7 +61,7 @@ public class User implements Serializable {
 	/**
 	 * A felhasználó jogkörei.
 	 */
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private List<Role> roles;
 
 	/**
@@ -72,11 +76,12 @@ public class User implements Serializable {
 	@Column(name = "points")
 	private Double points;
 
-	/**
-	 * A felhasználó rangja.
-	 */
-	@Column(name = "rank", columnDefinition = "varchar(32) default 'Amatuer'")
-	private String rank;
+	// /**
+	// * A felhasználó rangja.
+	// */
+	// @Column(name = "rank", columnDefinition = "LONGTEXT")
+	// @Enumerated(EnumType.ORDINAL)
+	// private Rank rank = Rank.getValue(10L);
 
 	/**
 	 * A felhasználó születési dátuma.
@@ -189,19 +194,25 @@ public class User implements Serializable {
 		this.points = points;
 	}
 
-	/**
-	 * @return the rank
-	 */
-	public String getRank() {
-		return rank;
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", roles=" + roles + ", email="
+				+ email + ", points=" + points + ", dateOfBirth=" + dateOfBirth + "]";
 	}
 
-	/**
-	 * @param rank
-	 *            the rank to set
-	 */
-	public void setRank(String rank) {
-		this.rank = rank;
-	}
+	// /**
+	// * @return the rank
+	// */
+	// public Rank getRank() {
+	// return rank;
+	// }
+	//
+	// /**
+	// * @param rank
+	// * the rank to set
+	// */
+	// public void setRank(Rank rank) {
+	// this.rank = rank;
+	// }
 
 }

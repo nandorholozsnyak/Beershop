@@ -10,30 +10,31 @@ public enum Rank {
 	/**
 	 * Amatõr.
 	 */
-	Amatuer(10),
+	Amatuer(10L),
 
 	/**
 	 * Kezdõ.
 	 */
-	Beginner(20),
+	Beginner(20L),
 
 	/**
 	 * Profi.
 	 */
-	Expert(30);
+	Expert(30L);
 
-	Rank(final Integer value) {
-		this.setValue(value);
-	}
+	private Long value;
 
-	public int getValue() {
-		return value;
-	}
-
-	public void setValue(int value) {
+	Rank(Long value) {
 		this.value = value;
 	}
 
-	private int value;
+	public static Rank getValue(Long value) {
+		for (Rank item : Rank.values()) {
+			if(item.value == value) {
+				return item;
+			}
+		}
+		return null;
+	}
 
 }

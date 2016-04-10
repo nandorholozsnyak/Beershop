@@ -1,5 +1,8 @@
 package hu.hnk.interfaces;
 
+import java.util.List;
+
+import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 
 public interface UserDao {
@@ -34,4 +37,6 @@ public interface UserDao {
 	 * @param user a törlendõ felhasználó
 	 */
 	public void remove(User user);
+	
+	public User findByRole(List<Role> roleName);
 }
