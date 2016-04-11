@@ -7,76 +7,84 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
-import org.primefaces.event.SelectEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import hu.hnk.beershop.exception.AgeNotAcceptable;
-import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
 
+/**
+ * A regisztrációs szolgáltatást megvalósító managed bean.
+ * @author Nandi
+ *
+ */
 @ManagedBean(name = "registrationManagerBean")
 @ViewScoped
 public class RegistrationManagerBean implements Serializable {
 	
+	/**
+	 * Az osztály loggere.
+	 */
 	public static final Logger logger = Logger.getLogger(RegistrationManagerBean.class);
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2856400278569714670L;
 
+	/**
+	 * A felhasználókat kezelõ szolgáltatás.
+	 */
 	@EJB
 	UserService userService;
-	
+
+	/**
+	 * A jelszavak titkosításához használt BCryptPasswordEncoder.
+	 */
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
-	String username;
-	String password;
-	String rePassword;
-	String email;
-	Date dateOfBirth;
-	Boolean isUsernameFree = true;
-	Boolean isEmailFree = true;
-	Boolean isOlderThanEighteen = true;
+	/**
+	 * A választott felhasználónév.
+	 */
+	private String username;
 	
+	/**
+	 * A választott jelszó.
+	 */
+	private String password;
 	
+	/**
+	 * A választott jelszó újabb megadása elgépelési célok miatt.
+	 */
+	private String rePassword;
 	
-	public BCryptPasswordEncoder getEncoder() {
-		return encoder;
-	}
-
-	public void setEncoder(BCryptPasswordEncoder encoder) {
-		this.encoder = encoder;
-	}
-
-	public Boolean getIsUsernameFree() {
-		return isUsernameFree;
-	}
-
-	public void setIsUsernameFree(Boolean isUsernameFree) {
-		this.isUsernameFree = isUsernameFree;
-	}
-
-	public Boolean getIsEmailFree() {
-		return isEmailFree;
-	}
-
-	public void setIsEmailFree(Boolean isEmailFree) {
-		this.isEmailFree = isEmailFree;
-	}
-
-	public Boolean getIsOlderThanEighteen() {
-		return isOlderThanEighteen;
-	}
-
-	public void setIsOlderThanEighteen(Boolean isOlderThanEighteen) {
-		this.isOlderThanEighteen = isOlderThanEighteen;
-	}
+	/**
+	 * A választott e-mail cím.
+	 */
+	private String email;
+	
+	/**
+	 * A felhasználó születési dátuma.
+	 */
+	private Date dateOfBirth;
+	
+	/**
+	 * Szabad-e még a felhasználónév.
+	 */
+	private Boolean isUsernameFree = true;
+	
+	/**
+	 * Szabad-e még az e-mail cím.
+	 */
+	private Boolean isEmailFree = true;
+	
+	/**
+	 * Betöltötte-e már a 18. életévét.
+	 */
+	private Boolean isOlderThanEighteen = true;
 
 	/**
 	 * @return the dateOfBirth
@@ -153,7 +161,13 @@ public class RegistrationManagerBean implements Serializable {
 		this.password = password;
 	}
 
-	public void saveUser(ActionEvent actionEvent) throws AgeNotAcceptable {
+	/**
+	 * Felhasználó mentése gomb eseménye.
+	 * 
+	 * @param actionEvent
+	 *            maga az esemény.
+	 */
+	public void saveUser(ActionEvent actionEvent) {
 		Boolean canRegister = isOlderThanEighteen && isEmailFree && isUsernameFree;
 		if (canRegister) {
 			User newUser = new User();
@@ -180,35 +194,46 @@ public class RegistrationManagerBean implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Regisztráció nem lehetséges.", "Hiba!"));
 		}
 	}
-	
-	
+
+	/**
+	 * A regisztráció során a felhasználói név foglaltáságát vizsgáló metódus.
+	 */
 	public void usernameListener() {
-		if(userService.isUsernameAlreadyTaken(username)) {
+		if (userService.isUsernameAlreadyTaken(username)) {
 			logger.info("Felhasználónév már foglalt!");
 			FacesContext.getCurrentInstance().addMessage("registration:username",
-			new FacesMessage(FacesMessage.SEVERITY_WARN, "Ez a felhasználónév már foglalt!", "Ez a felhasználónév már foglalt!"));
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Ez a felhasználónév már foglalt!",
+							"Ez a felhasználónév már foglalt!"));
 			isUsernameFree = false;
 		} else {
 			isUsernameFree = true;
 		}
 	}
-	
+
+	/**
+	 * A regisztráció során az e-mail cím foglaltáságát vizsgáló metódus.
+	 */
 	public void emailListener() {
-		if(userService.isEmailAlreadyTaken(email)) {
+		if (userService.isEmailAlreadyTaken(email)) {
 			logger.info("E-mail cím már foglalt!");
-			FacesContext.getCurrentInstance().addMessage("registration:email",
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Ez az e-mail cím már foglalt!", "Ez az e-mail cím már foglalt!"));
+			FacesContext.getCurrentInstance().addMessage("registration:email", new FacesMessage(
+					FacesMessage.SEVERITY_WARN, "Ez az e-mail cím már foglalt!", "Ez az e-mail cím már foglalt!"));
 			isEmailFree = false;
 		} else {
 			isEmailFree = true;
 		}
 	}
-	
+
+	/**
+	 * A regisztráció során a 18. életévét betöltött regisztráló validálásáért
+	 * felelõ metódus.
+	 */
 	public void ageListener() {
-		if(!userService.isOlderThanEighteen(dateOfBirth)) {
+		if (!userService.isOlderThanEighteen(dateOfBirth)) {
 			logger.info("Csak 18 év fölött lehetséges a regisztráció.");
 			FacesContext.getCurrentInstance().addMessage("registration:dateOfBirth",
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Csak 18 fölött lehetséges a regisztráció.", "Csak 18 fölött lehetséges a regisztráció."));
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Csak 18 fölött lehetséges a regisztráció.",
+							"Csak 18 fölött lehetséges a regisztráció."));
 			isOlderThanEighteen = true;
 		} else {
 			isOlderThanEighteen = false;

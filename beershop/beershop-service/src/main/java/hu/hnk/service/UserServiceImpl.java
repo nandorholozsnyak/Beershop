@@ -30,11 +30,17 @@ import hu.hnk.interfaces.UserDao;
 @Local(UserService.class)
 public class UserServiceImpl implements UserService {
 
+	/**
+	 * A felhasználókat kezelõ adathozzáférési objektum.
+	 */
 	@EJB
 	private UserDao userDao;
 
+	/**
+	 * A jogköröket kezelõ adathozzáférési objektum.
+	 */
 	@EJB
-	RoleDao roleDao;
+	private RoleDao roleDao;
 
 	/**
 	 * A felhasználó mentése.
@@ -51,7 +57,7 @@ public class UserServiceImpl implements UserService {
 			role = roleDao.save(role);
 		}
 
-		User userData = getUserDao().save(user);
+		User userData = userDao.save(user);
 		List<Role> userRoles = userData.getRoles();
 
 		if (userRoles == null || userRoles.isEmpty()) {
@@ -61,14 +67,16 @@ public class UserServiceImpl implements UserService {
 		userRoles.add(role);
 		userData.setRoles(userRoles);
 
-		getUserDao().save(userData);
+		userDao.save(userData);
 		System.out.println("UserService after save!");
 	}
 
 	/**
-	 * Ellenõrzi hogy a regisztrálandó felhasználó születési dátuma alapján
-	 * elmúlt-e már 18 éves.
+	 * Ellenõrzi hogy a megadott dátum már "idõsebb" mint 18 év.
 	 * 
+	 * @param dateOfBirth
+	 *            a vizsgálandó dátum.
+	 * @return igaz ha idõsebb, hamis ha még nem.
 	 */
 	public boolean isOlderThanEighteen(Date dateOfBirth) {
 		LocalDate now = LocalDate.now();
@@ -77,11 +85,18 @@ public class UserServiceImpl implements UserService {
 		return birth.until(now).getYears() > 17;
 	}
 
+	/**
+	 * Felhasználó keresése a felhasználóneve alapján.
+	 * 
+	 * @param username
+	 *            a keresendõ felhasználónév
+	 * @return a megtalált felhasználó, ha nincs ilyen akkor null.
+	 */
 	@Override
 	public User findByUsername(String username) {
 		User user = null;
 		try {
-			user = getUserDao().findByUsername(username);
+			user = userDao.findByUsername(username);
 		} catch (UsernameNotFound e) {
 
 		}
@@ -99,7 +114,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isUsernameAlreadyTaken(String username) {
 		try {
-			String user = getUserDao().findUsername(username);
+			String user = userDao.findUsername(username);
 			return true;
 		} catch (UsernameNotFound e) {
 			return false;
@@ -117,19 +132,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isEmailAlreadyTaken(String email) {
 		try {
-			String user = getUserDao().findEmail(email);
+			String user = userDao.findEmail(email);
 			return true;
 		} catch (EmailNotFound e) {
 			return false;
 		}
 	}
 
-	public UserDao getUserDao() {
-		return userDao;
-	}
-
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
 
 }

@@ -31,6 +31,7 @@ import hu.hnk.interfaces.UserDao;
 @Stateless
 @Local(UserDao.class)
 public class UserDaoImpl implements UserDao {
+
 	/**
 	 * Az osztály Logger-e.
 	 */
@@ -55,26 +56,13 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	/**
-	 * @return the em
-	 */
-	public EntityManager getEm() {
-		return em;
-	}
-
-	/**
-	 * @param em
-	 *            the em to set
-	 */
-	public void setEm(EntityManager em) {
-		this.em = em;
-	}
-
-	/**
 	 * Felhasználó keresése felhasználónév alapján.
 	 * 
 	 * @param username
 	 *            a keresendõ felhasználó felhasználóneve.
 	 * @return a megtalált felhasználó
+	 * @throws UsernameNotFound
+	 *             ha nem létezik ilyen felhasználónévvel felhasználó.
 	 */
 	@Override
 	public User findByUsername(String username) throws UsernameNotFound {
@@ -95,28 +83,48 @@ public class UserDaoImpl implements UserDao {
 	 * @param email
 	 *            a keresendõ felhasználó e-mail címe.
 	 * @return a megtalált felhasználó
+	 * @throws EmailNotFound
+	 *             ha nem létezik ilyen e-mail címmel felhasználó.
 	 */
 	@Override
 	public User findByEmail(String email) throws EmailNotFound {
 		TypedQuery<User> query = em.createNamedQuery("User.findByEmail", User.class);
 		query.setParameter("email", email);
-		return query.getSingleResult();
+		User user;
+		try {
+			user = query.getSingleResult();
+		} catch (Exception e) {
+			throw new EmailNotFound("There is no user with this e-mail.");
+		}
+		return user;
 	}
 
+	/**
+	 * Felhasználó törlése.
+	 */
 	@Override
 	public void remove(User user) {
 		em.remove(em.contains(user) ? user : em.merge(user));
 	}
 
-	@Override
-	public User findByRole(List<Role> roleName) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery cq = cb.createQuery(User.class);
-		Root<User> user = cq.from(User.class);
-		cq.select(user).where(user.get("roles")).from(User.class).in(roleName);
-		return (User) em.createQuery(cq).getResultList().get(0);
-	}
+//	@Override
+//	public User findByRole(List<Role> roleName) {
+//		CriteriaBuilder cb = em.getCriteriaBuilder();
+//		CriteriaQuery cq = cb.createQuery(User.class);
+//		Root<User> user = cq.from(User.class);
+//		cq.select(user).where(user.get("roles")).from(User.class).in(roleName);
+//		return (User) em.createQuery(cq).getResultList().get(0);
+//	}
 
+	/**
+	 * Felhasználó keresése felhasználónév alapján.
+	 * 
+	 * @param username
+	 *            a keresendõ felhasználónév.
+	 * @return a kapott felhasználónév.
+	 * @throws UsernameNotFound
+	 *             ha a keresett felhasználónévvel nem létezik felhasználó.
+	 */
 	@Override
 	public String findUsername(String username) throws UsernameNotFound {
 		TypedQuery<String> query = em.createNamedQuery("User.findUsername", String.class);
@@ -129,6 +137,15 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
+	/**
+	 * Felhasználó keresése e-mail cím alapján.
+	 * 
+	 * @param email
+	 *            a keresendõ e-mail cím.
+	 * @return a kapott e-mail cím.
+	 * @throws EmailNotFound
+	 *             ha a keresett e-mail címmel nem létezik felhasználó.
+	 */
 	@Override
 	public String findEmail(String email) throws EmailNotFound {
 		TypedQuery<String> query = em.createNamedQuery("User.findEmail", String.class);

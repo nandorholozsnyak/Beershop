@@ -20,7 +20,10 @@ import hu.hnk.interfaces.BeerDao;
 @Stateless
 @Local(BeerService.class)
 public class BeerServiceImpl implements BeerService {
-
+	
+	/**
+	 * A söröket kezelõ adathozzáférési objektum.
+	 */
 	@EJB
 	BeerDao beerDao;
 

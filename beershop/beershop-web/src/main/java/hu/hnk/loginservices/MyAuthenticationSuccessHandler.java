@@ -16,9 +16,25 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
+/**
+ * Az authentikációs szolgáltatás.
+ * 
+ * @author Nandi
+ *
+ */
 @Service("myAuthenticationSuccessHandler")
 public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+	/**
+	 * Az authentikációt végzõ metódus.
+	 * 
+	 * @param request
+	 *            a {@link HttpServletRequest}
+	 * @param response
+	 *            a {@link HttpServletResponse}
+	 * @param authentication
+	 *            {@link Authentication}
+	 */
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {

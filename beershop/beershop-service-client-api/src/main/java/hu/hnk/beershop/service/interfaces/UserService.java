@@ -4,12 +4,31 @@ import java.util.Date;
 
 import hu.hnk.beershop.model.User;
 
+/**
+ * A felhasználó entitáshoz kapcsolódó szolgáltatások interfésze.
+ * @author Nandi
+ *
+ */
 public interface UserService {
-
+	
+	/**
+	 * Felhasználó mentése.
+	 * @param user a mentendõ felhasználó.
+	 */
 	public void save(User user);
-
+	
+	/**
+	 * Ellenõrzi hogy a megadott dátum már "idõsebb" mint 18 év.
+	 * @param dateOfBirth a vizsgálandó dátum.
+	 * @return igaz ha idõsebb, hamis ha még nem.
+	 */
 	public boolean isOlderThanEighteen(Date dateOfBirth);
-
+	
+	/**
+	 * Felhasználó keresése a felhasználóneve alapján.
+	 * @param username a keresendõ felhasználónév
+	 * @return a megtalált felhasználó, ha nincs ilyen akkor null.
+	 */
 	public User findByUsername(String username);
 	
 	/**

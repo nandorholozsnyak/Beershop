@@ -21,14 +21,17 @@ import hu.hnk.interfaces.BeerDao;
 @Stateless
 @Local(BeerDao.class)
 public class BeerDaoImpl implements BeerDao {
-
+	
+	/**
+	 * JPA Entity Manager.
+	 */
 	@PersistenceContext
 	private EntityManager em;
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Az összes sör lekérdezése az adatbázisból.
 	 * 
-	 * @see hu.hnk.interfaces.BeerDao#findAll()
+	 * @return a sörök listája
 	 */
 	@Override
 	public List<Beer> findAll() {

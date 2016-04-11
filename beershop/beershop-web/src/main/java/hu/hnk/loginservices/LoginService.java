@@ -25,6 +25,10 @@ import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
 
+/**
+ * @author Nandi
+ *
+ */
 @Service("loginManager")
 @EJB(name = "hu.hnk.beershop.UserService", beanInterface = UserService.class)
 public class LoginService implements Serializable, UserDetailsService {
@@ -33,11 +37,21 @@ public class LoginService implements Serializable, UserDetailsService {
 	 * 
 	 */
 	private static final long serialVersionUID = 2856400278569714670L;
-
+	
+	/**
+	 * A felhasználó szolgáltatások kezelõje.
+	 */
 	@EJB
 	UserService userService;
 
+	/**
+	 * A bejelentkezõ felhasználó megadott felhasználóneve.
+	 */
 	private String username;
+	
+	/**
+	 * A bejelentkezõ felhasználó megadott jelszava.
+	 */
 	private String password;
 
 	/**
@@ -69,7 +83,12 @@ public class LoginService implements Serializable, UserDetailsService {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
+	/**
+	 * Felhsználó betöltése felhasználónév alapján.
+	 * @param username a betöltendõ felhasználó felhasználóneve.
+	 * @return a betöltött felhasználó.
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user;
@@ -97,7 +116,12 @@ public class LoginService implements Serializable, UserDetailsService {
 		}
 
 	}
-
+	
+	/**
+	 * A felhasználó jogköreit betöltõ metódus.
+	 * @param userRoles a felhasználó jogkörei.
+	 * @return a betöltött jogkörök.
+	 */
 	private List<GrantedAuthority> buildUserAuthority(List<Role> userRoles) {
 
 		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();

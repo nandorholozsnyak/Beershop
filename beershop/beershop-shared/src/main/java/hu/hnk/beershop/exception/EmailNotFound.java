@@ -15,41 +15,34 @@ public class EmailNotFound extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
+	 * Konstuktor, mely létrehoz egy EmailNotFound kivételt.
 	 */
 	public EmailNotFound() {
 	}
 
 	/**
-	 * @param message
+	 * Konstuktor, mely létrehoz egy EmailNotFound kivételt a megadott üzenettel.
+	 * @param message a részletes üzenet.
 	 */
 	public EmailNotFound(String message) {
 		super(message);
 	}
 
 	/**
-	 * @param cause
+	 * Konstuktor, mely létrehoz egy EmailNotFound kivételt a megadott okozóval.
+	 * @param cause az okozó
 	 */
 	public EmailNotFound(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Konstuktor, mely létrehoz egy EmailNotFound kivételt a megadott üzenettel és okozóval.
+	 * @param message a részletes üzenet.
+	 * @param cause az okozó.
 	 */
 	public EmailNotFound(String message, Throwable cause) {
 		super(message, cause);
-	}
-
-	/**
-	 * @param message
-	 * @param cause
-	 * @param enableSuppression
-	 * @param writableStackTrace
-	 */
-	public EmailNotFound(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
 	}
 
 }

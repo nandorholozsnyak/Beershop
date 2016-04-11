@@ -29,11 +29,20 @@ public class SessionManager implements Serializable {
 	 */
 	private static final long serialVersionUID = -7564722048228872937L;
 
+	/**
+	 * A felhasználó szolgáltatás.
+	 */
 	@EJB
 	private UserService userService;
 
+	/**
+	 * A bejelentkezett felhasználó tárolt adatai.
+	 */
 	private User loggedInUser;
 
+	/**
+	 * Inicializáló metódus, ami a managed bean létrehozásakor lefut.
+	 */
 	@PostConstruct
 	public void init() {
 
@@ -53,15 +62,26 @@ public class SessionManager implements Serializable {
 				}
 			}
 		} catch (Exception e) {
-			
+
 		}
 
 	}
 
+	/**
+	 * Bejelentkezett felhasználó lekérése.
+	 * 
+	 * @return a bejelentkezett felhasználó.
+	 */
 	public User getLoggedInUser() {
 		return loggedInUser;
 	}
 
+	/**
+	 * A bejelentkezett felhasználó beállítása.
+	 * 
+	 * @param loggedInUser
+	 *            a bejelentkezett felhasználó.
+	 */
 	public void setLoggedInUser(User loggedInUser) {
 		this.loggedInUser = loggedInUser;
 	}
