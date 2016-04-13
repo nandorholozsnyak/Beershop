@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 			role = roleDao.save(role);
 		}
 
-		User userData = userDao.save(user);
+		User userData = getUserDao().save(user);
 		List<Role> userRoles = userData.getRoles();
 
 		if (userRoles == null || userRoles.isEmpty()) {
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 		userRoles.add(role);
 		userData.setRoles(userRoles);
 
-		userDao.save(userData);
+		getUserDao().save(userData);
 		System.out.println("UserService after save!");
 	}
 
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
 	public User findByUsername(String username) {
 		User user = null;
 		try {
-			user = userDao.findByUsername(username);
+			user = getUserDao().findByUsername(username);
 		} catch (UsernameNotFound e) {
 
 		}
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isUsernameAlreadyTaken(String username) {
 		try {
-			String user = userDao.findUsername(username);
+			String user = getUserDao().findUsername(username);
 			return true;
 		} catch (UsernameNotFound e) {
 			return false;
@@ -132,11 +132,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isEmailAlreadyTaken(String email) {
 		try {
-			String user = userDao.findEmail(email);
+			String user = getUserDao().findEmail(email);
 			return true;
 		} catch (EmailNotFound e) {
 			return false;
 		}
+	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
 
 
