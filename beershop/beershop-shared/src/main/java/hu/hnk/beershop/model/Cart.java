@@ -11,13 +11,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 /**
- * Egy felhasználó bevásárló kosarának a tarlama.
+ * Egy kosár adatait tartalmazó osztály.
  * 
  * @author Nandi
  *
  */
 @Entity
-public class ShoppingCart implements Serializable {
+public class Cart implements Serializable {
 
 	/**
 	 * 
@@ -33,22 +33,16 @@ public class ShoppingCart implements Serializable {
 	private Long id;
 
 	/**
-	 * A kosárban lévõ sörök listája.
+	 * A rendelt sörök listája.
 	 */
 	@ManyToMany
 	private List<Beer> beers;
 
 	/**
-	 * A felhasználó akié a kosár.
+	 * A felhasználó aki rendelkezik az aktuális kosárral.
 	 */
 	@OneToOne
 	private User user;
-
-	/**
-	 * A rendelés teljes összege.
-	 */
-	@Column(name = "totalprice")
-	private Double totalPrice;
 
 	/**
 	 * @return the id
@@ -80,20 +74,12 @@ public class ShoppingCart implements Serializable {
 		this.beers = beers;
 	}
 
-	
-	/**
-	 * @return the totalPrice
-	 */
-	public Double getTotalPrice() {
-		return totalPrice;
+	public User getUser() {
+		return user;
 	}
 
-	/**
-	 * @param totalPrice
-	 *            the totalPrice to set
-	 */
-	public void setTotalPrice(Double totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

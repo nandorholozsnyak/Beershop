@@ -57,6 +57,9 @@ tr {
 						<li><a href="#{request.contextPath}/secured/shop.xhtml"><span>A
 									mi sörünk</span></a></li>
 					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li><a href="#{request.contextPath}/secured/admin/storageManager.xhtml"><span>Raktár</span></a></li>
+					</sec:authorize>
 				</ul>
 				</nav>
 				<sec:authorize access="hasRole('ROLE_USER')">
@@ -65,6 +68,8 @@ tr {
 						<li><p:panelGrid columns="1" layout="grid">
 								<h:outputText
 									value="Üdv #{sessionManagerBean.loggedInUser.username}" />
+									<h:outputText
+									value="#{sessionManagerBean.getUserRank()}" />
 							</p:panelGrid></li>
 						<li><a href="#{request.contextPath}/logout"><span>Kijelentkezés</span></a></li>
 					</ul>

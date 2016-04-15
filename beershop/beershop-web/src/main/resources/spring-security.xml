@@ -10,8 +10,7 @@
 			access="hasRole('USER')" />
 		<security:intercept-url pattern="/secured/manager/*"
 			access="hasRole('MANAGER')" />
-		<security:intercept-url pattern="/secured/admin/*"
-			requires-channel="https" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/secured/admin/*" access="hasRole('ADMIN')" />
 		<security:form-login login-page="/public/login.xhtml"
 			login-processing-url="/login" default-target-url="/public/index.xhtml"
 			authentication-failure-url="/public/login.xhtml?error=1"

@@ -52,16 +52,30 @@ tr:first-child {
 															<f:setPropertyActionListener value="#{beer}"
 																target="#{beerShopManager.selectedBeer}" />
 														</p:commandLink>
+
+														<p:outputPanel>
+															<p:spinner id="beerCounter" value="beersInCart.get(beer)">
+																<p:ajax update="beerCounter" process="@this"
+																	listener="#{beerShopManager.updateBeerCounter}" />
+<!-- 																<f:setPropertyActionListener value="#{beer}" -->
+<!-- 																	target="#{beerShopManager.beerCounterSelector}" /> -->
+															</p:spinner>
+														</p:outputPanel>
+
 													</h:panelGrid>
 												</p:panel>
-
+												<f:facet name="footer">
+													<p:commandButton value="Vásárlás" />
+												</f:facet>
 											</p:dataGrid>
 
 											<p:dialog header="Sör információk" widgetVar="choosenBeer"
 												modal="true" showEffect="fade" hideEffect="fade"
 												resizable="false">
-												<p:outputPanel id="beerDetail" style="text-align:center;" class="noTrImage">
-													<p:panelGrid columns="2" style="table-layout:fixed; background: #eeeeee !important; border:0 none !important;"
+												<p:outputPanel id="beerDetail" style="text-align:center;"
+													class="noTrImage">
+													<p:panelGrid columns="2"
+														style="table-layout:fixed; background: #eeeeee !important; border:0 none !important;"
 														rendered="#{not empty beerShopManager.selectedBeer}"
 														columnClasses="value,value">
 														<f:facet name="header"

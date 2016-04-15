@@ -85,4 +85,9 @@ public class SessionManager implements Serializable {
 	public void setLoggedInUser(User loggedInUser) {
 		this.loggedInUser = loggedInUser;
 	}
+
+	public String getUserRank() {
+		return userService.countRankFromXp(loggedInUser).toString();
+	}
+
 }

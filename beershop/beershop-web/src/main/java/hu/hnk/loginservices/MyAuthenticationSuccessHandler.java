@@ -48,6 +48,7 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
 				authorities);
 		SecurityContextHolder.getContext().setAuthentication(newAuth);
 		setDefaultTargetUrl("/public/index.xhtml");
+		
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
 }
