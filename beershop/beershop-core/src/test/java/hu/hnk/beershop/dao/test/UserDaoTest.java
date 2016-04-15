@@ -57,7 +57,6 @@ public class UserDaoTest {
 		user.setEmail("email@email.me");
 		user.setPassword("ASD");
 		user.setPoints((double) 150);
-//		user.setRank(Rank.Amatuer);
 		user.setDateOfBirth(new Date());
 		userDao.save(user);
 
@@ -79,7 +78,6 @@ public class UserDaoTest {
 		user.setEmail("email@test.me");
 		user.setPassword("ASD");
 		user.setPoints((double) 150);
-//		user.setRank(Rank.Amatuer);
 		user.setDateOfBirth(new Date());
 		userDao.save(user);
 

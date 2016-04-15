@@ -1,23 +1,15 @@
 package hu.hnk.dao;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.apache.log4j.Logger;
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.UsernameNotFound;
-import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.UserDao;
 

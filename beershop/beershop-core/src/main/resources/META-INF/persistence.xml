@@ -5,12 +5,14 @@
 
 	<persistence-unit name="BeerShopUnit"
 		transaction-type="JTA">
+		<description>The persistence unit for the entity manager.</description>
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>beerShopCon</jta-data-source>
 		<class>hu.hnk.beershop.model.User</class>
 		<class>hu.hnk.beershop.model.Role</class>
 		<class>hu.hnk.beershop.model.Beer</class>
 		<class>hu.hnk.beershop.model.Cargo</class>
+		<class>hu.hnk.beershop.model.Storage</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.show_sql" value="true" />

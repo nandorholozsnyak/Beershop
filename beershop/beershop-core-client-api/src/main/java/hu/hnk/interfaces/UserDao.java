@@ -1,10 +1,7 @@
 package hu.hnk.interfaces;
 
-import java.util.List;
-
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.UsernameNotFound;
-import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 
 /**
