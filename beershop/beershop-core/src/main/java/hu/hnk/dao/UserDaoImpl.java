@@ -33,7 +33,7 @@ public class UserDaoImpl implements UserDao {
 	 * Az osztály entitás menedzsere.
 	 */
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 
 	/**
 	 * Új felhasználó mentése.

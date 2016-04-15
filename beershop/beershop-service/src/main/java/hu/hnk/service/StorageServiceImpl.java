@@ -25,7 +25,7 @@ public class StorageServiceImpl implements StorageService {
 	 * A raktárt kezelõ adathozzáférési objektum.
 	 */
 	@EJB
-	StorageDao storageDao;
+	private StorageDao storageDao;
 
 	@Override
 	public List<Storage> findAll() {

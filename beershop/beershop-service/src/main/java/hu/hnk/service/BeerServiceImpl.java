@@ -25,7 +25,7 @@ public class BeerServiceImpl implements BeerService {
 	 * A söröket kezelõ adathozzáférési objektum.
 	 */
 	@EJB
-	BeerDao beerDao;
+	private BeerDao beerDao;
 
 	/*
 	 * (non-Javadoc)

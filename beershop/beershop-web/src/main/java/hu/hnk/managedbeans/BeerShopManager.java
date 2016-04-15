@@ -25,7 +25,7 @@ public class BeerShopManager implements Serializable {
 	 * A söröket kezelõ szolgáltatás.
 	 */
 	@EJB
-	BeerService beerService;
+	private BeerService beerService;
 
 	/**
 	 * 

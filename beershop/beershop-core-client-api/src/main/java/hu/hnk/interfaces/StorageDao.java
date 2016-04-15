@@ -2,7 +2,6 @@ package hu.hnk.interfaces;
 
 import java.util.List;
 
-import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.Storage;
 
 /**

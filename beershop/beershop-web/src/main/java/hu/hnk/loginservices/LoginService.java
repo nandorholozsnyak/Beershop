@@ -36,7 +36,7 @@ public class LoginService implements Serializable, UserDetailsService {
 	 * A felhasználó szolgáltatások kezelõje.
 	 */
 	@EJB
-	UserService userService;
+	private UserService userService;
 
 	/**
 	 * A bejelentkezõ felhasználó megadott felhasználóneve.

@@ -1,11 +1,6 @@
 package hu.hnk.beershop.service;
 
 import java.util.Date;
-import java.util.Properties;
-
-import javax.ejb.embeddable.EJBContainer;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -16,7 +11,6 @@ import org.mockito.Mockito;
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.User;
-import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.UserServiceImpl;
 

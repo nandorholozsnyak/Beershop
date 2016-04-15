@@ -22,7 +22,7 @@ public class RoleDaoImpl implements RoleDao {
 	 * JPA Entity Manager.
 	 */
 	@PersistenceContext(unitName = "BeerShopUnit")
-	EntityManager em;
+	private EntityManager em;
 	
 	/**
 	 * Jogkör keresése név alapján.

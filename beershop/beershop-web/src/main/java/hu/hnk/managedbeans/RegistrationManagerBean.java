@@ -39,12 +39,12 @@ public class RegistrationManagerBean implements Serializable {
 	 * A felhasználókat kezelõ szolgáltatás.
 	 */
 	@EJB
-	UserService userService;
+	private UserService userService;
 
 	/**
 	 * A jelszavak titkosításához használt BCryptPasswordEncoder.
 	 */
-	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	/**
 	 * A választott felhasználónév.

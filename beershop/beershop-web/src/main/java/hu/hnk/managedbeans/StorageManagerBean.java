@@ -22,7 +22,7 @@ public class StorageManagerBean implements Serializable {
 	 * A söröket kezelõ szolgáltatás.
 	 */
 	@EJB
-	StorageService storageService;
+	private StorageService storageService;
 
 	/**
 	 * 

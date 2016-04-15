@@ -26,9 +26,12 @@ import hu.hnk.interfaces.UserDao;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
 
-//	private EntityManager em;
-//	private EntityTransaction tx;
+	// private EntityManager em;
+	// private EntityTransaction tx;
 	private static EJBContainer container;
+	
+	@EJB
+	private UserDao userDao;
 
 	@BeforeClass
 	public static void initEM() throws NamingException {
@@ -42,9 +45,6 @@ public class UserDaoTest {
 		container = EJBContainer.createEJBContainer();
 		container.getContext().bind("inject", this);
 	}
-
-	@EJB
-	private UserDao userDao;
 
 	@Test
 	@Transaction(rollback = true)
@@ -64,8 +64,6 @@ public class UserDaoTest {
 		userDao.remove(namedUser);
 
 	}
-	
-	
 
 	@Test
 	@Transaction(rollback = true)
@@ -100,7 +98,7 @@ public class UserDaoTest {
 		roles.add(userRole);
 		user.setRoles(roles);
 		userDao.save(user);
-		
+
 		User roledUser = userDao.findByUsername("RoleMe");
 		System.out.println(roledUser);
 		Assert.assertEquals("ROLE_USER", roledUser.getRoles().get(0).getName());
