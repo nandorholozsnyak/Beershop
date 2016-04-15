@@ -6,6 +6,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/baseNobeerTemplate.xhtml">
 	<h:head>
+		<!-- Font Awesome -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 		<style>
 tr:first-child {
 	background: #eeeeee !important;
@@ -54,12 +57,8 @@ tr:first-child {
 														</p:commandLink>
 
 														<p:outputPanel>
-															<p:spinner id="beerCounter" value="beersInCart.get(beer)">
-																<p:ajax update="beerCounter" process="@this"
-																	listener="#{beerShopManager.updateBeerCounter}" />
-<!-- 																<f:setPropertyActionListener value="#{beer}" -->
-<!-- 																	target="#{beerShopManager.beerCounterSelector}" /> -->
-															</p:spinner>
+															<p:commandButton icon="fa fa-fw fa-plus" />
+															<p:commandButton icon="fa fa-fw fa-minus" />
 														</p:outputPanel>
 
 													</h:panelGrid>
@@ -98,6 +97,10 @@ tr:first-child {
 														<h:outputText value="Ára" />
 														<h:outputText
 															value="#{beerShopManager.selectedBeer.price} HUF" />
+
+														<h:outputText value="Kedvezmény" />
+														<h:outputText
+															value="#{beerShopManager.selectedBeer.discountAmount} %" />
 
 														<h:outputText value="Megjegyzés" />
 														<h:outputText style=" white-space: normal !important;"

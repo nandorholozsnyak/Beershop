@@ -36,10 +36,19 @@ public class StorageServiceImpl implements StorageService {
 
 	@Override
 	public void saveAllChanges(List<Storage> storage) throws NegativeCountNumber {
-		if(storage.stream().filter(p -> p.getQuantity() < 0).collect(Collectors.toList()).isEmpty()) {
+		if(storage
+				.stream()
+				.filter(p -> p.getQuantity() < 0)
+				.collect(Collectors.toList())
+				.isEmpty() &&
+				storage
+				.stream()
+				.filter(p -> p.getBeer().getDiscountAmount() < 0)
+				.collect(Collectors.toList())
+				.isEmpty()) {
 			storageDao.saveAllChanges(storage);
 		} else {
-			throw new NegativeCountNumber("Negative number can't be stored in the database as count number!");
+			throw new NegativeCountNumber("Negative number can't be stored in the storage table!");
 		}
 		
 	}

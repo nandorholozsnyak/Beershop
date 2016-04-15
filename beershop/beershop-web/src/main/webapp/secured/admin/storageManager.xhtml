@@ -34,13 +34,43 @@
 												<p:outputLabel value="#{storageItem.beer.name}" />
 											</p:column>
 											<p:column headerText="Darabszám">
-												<!-- 											<p:inputText value="#{storageItem.count}" /> -->
+												
 												<p:cellEditor>
 													<f:facet name="output">
-														<h:outputText value="#{storageItem.count}" />
+														<h:outputText value="#{storageItem.quantity}" />
 													</f:facet>
 													<f:facet name="input">
-														<p:inputText id="modelInput" value="#{storageItem.count}"
+														<p:inputText id="quantityInput" value="#{storageItem.quantity}"
+															style="width:100%">
+															<p:ajax event="keyup" />
+														</p:inputText>
+
+													</f:facet>
+												</p:cellEditor>
+											</p:column>
+											<p:column headerText="Ár">
+												
+												<p:cellEditor>
+													<f:facet name="output">
+														<h:outputText value="#{storageItem.beer.price}" />
+													</f:facet>
+													<f:facet name="input">
+														<p:inputText id="priceInput" value="#{storageItem.beer.price}"
+															style="width:100%">
+															<p:ajax event="keyup" />
+														</p:inputText>
+
+													</f:facet>
+												</p:cellEditor>
+											</p:column>
+											<p:column headerText="Kedvezmény">
+												
+												<p:cellEditor>
+													<f:facet name="output">
+														<h:outputText value="#{storageItem.beer.discountAmount}%" />
+													</f:facet>
+													<f:facet name="input">
+														<p:inputText id="discountAmountInput" value="#{storageItem.beer.discountAmount}"
 															style="width:100%">
 															<p:ajax event="keyup" />
 														</p:inputText>

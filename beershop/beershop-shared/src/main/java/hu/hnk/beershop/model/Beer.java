@@ -64,6 +64,12 @@ public class Beer implements Serializable {
 	private Double capacity;
 
 	/**
+	 * A sör akció során beállított kedvezménye.
+	 */
+	@Column(name = "discountAmount", nullable = false, columnDefinition = "int(5) default 0")
+	private Integer discountAmount;
+
+	/**
 	 * @return the id
 	 */
 	public Long getId() {
@@ -151,6 +157,21 @@ public class Beer implements Serializable {
 	 */
 	public void setCapacity(Double capacity) {
 		this.capacity = capacity;
+	}
+
+	/**
+	 * @return the discountAmount
+	 */
+	public Integer getDiscountAmount() {
+		return discountAmount;
+	}
+
+	/**
+	 * @param discountAmount
+	 *            the discountAmount to set
+	 */
+	public void setDiscountAmount(Integer discountAmount) {
+		this.discountAmount = discountAmount;
 	}
 
 }

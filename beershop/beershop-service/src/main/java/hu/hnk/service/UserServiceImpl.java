@@ -154,12 +154,28 @@ public class UserServiceImpl implements UserService {
 		Rank userRank = null;
 		if (user.getExperiencePoints() > -1 && user.getExperiencePoints() <= 2500) {
 			userRank = Rank.Amatuer;
-		} else if (user.getExperiencePoints() > 2500 && user.getExperiencePoints() < 7500) {
+		} else if (user.getExperiencePoints() > 2500 && user.getExperiencePoints() <= 7500) {
 			userRank = Rank.Beginner;
 		} else if (user.getExperiencePoints() > 7500) {
 			userRank = Rank.Expert;
 		}
 		return userRank;
+	}
+
+	@Override
+	public Integer countExperiencePointsInPercentage(Double experiencePoints) {
+		
+		Integer result = 0;
+		
+		if (experiencePoints > -1 && experiencePoints <= 2500) {
+			result = (int) ((experiencePoints/2500) * 100);
+		} else if (experiencePoints > 2500 && experiencePoints <= 7500) {
+			result = (int) ((experiencePoints/7500) * 100);
+		} else if (experiencePoints > 7500) {
+			result = 100;
+		}
+		
+		return result;
 	}
 
 }

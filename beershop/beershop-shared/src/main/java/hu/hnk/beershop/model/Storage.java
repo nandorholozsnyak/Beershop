@@ -2,6 +2,7 @@ package hu.hnk.beershop.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,7 +35,7 @@ public class Storage implements Serializable {
 	/**
 	 * A sör.
 	 */
-	@OneToOne
+	@OneToOne(cascade = CascadeType.MERGE)
 	private Beer beer;
 
 	/**

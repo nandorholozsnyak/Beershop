@@ -90,4 +90,8 @@ public class SessionManager implements Serializable {
 		return userService.countRankFromXp(loggedInUser).toString();
 	}
 
+	public Integer getUserExperiencePoints() {
+		return userService.countExperiencePointsInPercentage(loggedInUser.getExperiencePoints());
+	}
+
 }

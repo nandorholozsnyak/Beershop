@@ -70,6 +70,8 @@ tr {
 									value="Üdv #{sessionManagerBean.loggedInUser.username}" />
 									<h:outputText
 									value="#{sessionManagerBean.getUserRank()}" />
+									<h:outputText value="Tapasztalatpontjaid" />
+									<p:progressBar value="#{sessionManagerBean.getUserExperiencePoints()}" displayOnly="true"/>
 							</p:panelGrid></li>
 						<li><a href="#{request.contextPath}/logout"><span>Kijelentkezés</span></a></li>
 					</ul>

@@ -48,4 +48,5 @@ public interface UserService {
 	
 	public Rank countRankFromXp(User user);
 	
+	public Integer countExperiencePointsInPercentage(Double experiencePoints);
 }
