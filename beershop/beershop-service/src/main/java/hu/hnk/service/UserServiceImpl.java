@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.UsernameNotFound;
+import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
@@ -53,6 +54,7 @@ public class UserServiceImpl implements UserService {
 
 		if (role == null) {
 			System.out.println("Role null->ROLE_USER");
+			role = new Role();
 			role.setName("ROLE_USER");
 			role = roleDao.save(role);
 		}
@@ -114,7 +116,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isUsernameAlreadyTaken(String username) {
 		try {
-			String user = getUserDao().findUsername(username);
+			getUserDao().findUsername(username);
 			return true;
 		} catch (UsernameNotFound e) {
 			return false;
@@ -132,7 +134,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isEmailAlreadyTaken(String email) {
 		try {
-			String user = getUserDao().findEmail(email);
+			getUserDao().findEmail(email);
 			return true;
 		} catch (EmailNotFound e) {
 			return false;
@@ -147,5 +149,17 @@ public class UserServiceImpl implements UserService {
 		this.userDao = userDao;
 	}
 
+	@Override
+	public Rank countRankFromXp(User user) {
+		Rank userRank = null;
+		if (user.getExperiencePoints() > -1 && user.getExperiencePoints() <= 2500) {
+			userRank = Rank.Amatuer;
+		} else if (user.getExperiencePoints() > 2500 && user.getExperiencePoints() < 7500) {
+			userRank = Rank.Beginner;
+		} else if (user.getExperiencePoints() > 7500) {
+			userRank = Rank.Expert;
+		}
+		return userRank;
+	}
 
 }

@@ -7,8 +7,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.NamingException;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import org.apache.openejb.junit.jee.transaction.Transaction;
 import org.junit.After;
@@ -28,8 +26,8 @@ import hu.hnk.interfaces.UserDao;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
 
-	private EntityManager em;
-	private EntityTransaction tx;
+//	private EntityManager em;
+//	private EntityTransaction tx;
 	private static EJBContainer container;
 
 	@BeforeClass

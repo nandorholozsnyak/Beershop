@@ -2,6 +2,7 @@ package hu.hnk.beershop.service.interfaces;
 
 import java.util.Date;
 
+import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 
 /**
@@ -44,5 +45,7 @@ public interface UserService {
 	 * @return igaz ha szabad a email cím, hamis ha már nem.
 	 */
 	public boolean isEmailAlreadyTaken(String email);
+	
+	public Rank countRankFromXp(User user);
 	
 }

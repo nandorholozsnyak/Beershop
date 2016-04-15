@@ -22,35 +22,16 @@ import hu.hnk.service.UserServiceImpl;
 
 public class UserServiceTest {
 
-	private EJBContainer container;
-
-	private EntityManager em;
-	private EntityTransaction tx;
-
-	@Before
-	public void bootContainer() throws Exception {
-		final Properties p = new Properties();
-
-		p.put("hu.neuron.java.jpa.hibernate.hbm2ddl.auto", "create");
-		p.put("hu.neuron.java.jpa.hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
-		p.put("hu.neuron.TestDataSource", "new://Resource?type=DataSource");
-		p.put("hu.neuron.TestDataSource.JtaManaged", "false");
-		p.put("hu.neuron.TestDataSource.JdbcDriver", "org.hsqldb.jdbcDriver");
-		p.put("hu.neuron.TestDataSource.JdbcUrl", "jdbc:hsqldb:mem:aname");
-
-		userService = Mockito.spy(new UserServiceImpl());
-		userDao = Mockito.mock(UserDao.class);
-		userService.setUserDao(userDao);
-
-		container = EJBContainer.createEJBContainer(p);
-		container.getContext().bind("inject", this);
-	}
-
 	private UserServiceImpl userService;
 
 	private UserDao userDao;
 
-	private UserService userServiceMocked;
+	@Before
+	public void bootContainer() throws Exception {
+		userService = Mockito.spy(new UserServiceImpl());
+		userDao = Mockito.mock(UserDao.class);
+		userService.setUserDao(userDao);
+	}
 
 	@Test
 	public void testIfDateOfBirthIsOlderThanEighteenYearsOld() {
@@ -117,7 +98,7 @@ public class UserServiceTest {
 
 	@After
 	public void destroy() {
-		container.close();
+		// container.close();
 	}
 
 }

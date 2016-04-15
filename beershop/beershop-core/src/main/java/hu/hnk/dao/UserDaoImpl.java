@@ -123,7 +123,8 @@ public class UserDaoImpl implements UserDao {
 		query.setParameter("name", username);
 		String user;
 		try {
-			return user = query.getSingleResult();
+			 user = query.getSingleResult();
+			 return user;
 		} catch (Exception e) {
 			throw new UsernameNotFound("There is no user with this username.");
 		}
@@ -144,7 +145,8 @@ public class UserDaoImpl implements UserDao {
 		query.setParameter("email", email);
 		String user;
 		try {
-			return user = query.getSingleResult();
+			 user = query.getSingleResult();
+			 return user;
 		} catch (Exception e) {
 			throw new EmailNotFound("There is no user with this email.");
 		}
