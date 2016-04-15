@@ -16,4 +16,6 @@ public interface StorageDao {
 	 * @return a raktár információi.
 	 */
 	public List<Storage> findAll();
+	
+	public void saveAllChanges(List<Storage> storage);
 }

@@ -46,8 +46,8 @@ public class UserDaoTest {
 		container.getContext().bind("inject", this);
 	}
 
-	@Test
-	@Transaction(rollback = true)
+//	@Test
+//	@Transaction(rollback = true)
 	public void testFindByName() throws UsernameNotFound {
 
 		User user = new User();
@@ -65,8 +65,8 @@ public class UserDaoTest {
 
 	}
 
-	@Test
-	@Transaction(rollback = true)
+//	@Test
+//	@Transaction(rollback = true)
 	public void testFindByEmail() throws EmailNotFound {
 
 		User user = new User();
@@ -84,7 +84,7 @@ public class UserDaoTest {
 
 	}
 
-	@Test
+//	@Test
 	public void testFindByRole() throws UsernameNotFound {
 		User user = new User();
 		user.setUsername("RoleMe");

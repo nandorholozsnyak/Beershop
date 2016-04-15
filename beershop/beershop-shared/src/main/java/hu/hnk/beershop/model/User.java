@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 /**
  * A felhasználó osztály tartalmazza egy felhasználó adatait.
@@ -84,6 +85,12 @@ public class User implements Serializable {
 	 */
 	@Column(name = "experiencePoints", nullable = false, columnDefinition = "Decimal(10,2) default '0.0'")
 	private Double experiencePoints;
+
+	/**
+	 * A felhasználó saját kosara amelybe termékeket tud majd elhelyezni.
+	 */
+	@OneToOne
+	private Cart cart;
 
 	/**
 	 * @return the dateOfBirth
@@ -202,6 +209,21 @@ public class User implements Serializable {
 
 	public void setExperiencePoints(Double experiencePoints) {
 		this.experiencePoints = experiencePoints;
+	}
+
+	/**
+	 * @return the cart
+	 */
+	public Cart getCart() {
+		return cart;
+	}
+
+	/**
+	 * @param cart
+	 *            the cart to set
+	 */
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
 
 	// /**

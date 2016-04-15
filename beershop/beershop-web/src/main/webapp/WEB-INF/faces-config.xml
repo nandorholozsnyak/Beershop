@@ -21,4 +21,9 @@
 		</resource-bundle>
 
 	</application>
+	<managed-bean>
+		<managed-bean-name>storageManagerBean</managed-bean-name>
+		<managed-bean-class>hu.hnk.managedbeans.StorageManagerBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
 </faces-config>

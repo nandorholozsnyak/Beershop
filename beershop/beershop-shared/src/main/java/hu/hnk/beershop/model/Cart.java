@@ -2,6 +2,7 @@ package hu.hnk.beershop.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ public class Cart implements Serializable {
 	private static final long serialVersionUID = -4761818681252091051L;
 
 	/**
-	 * A rendelés egyedi azonosítója.
+	 * A kosár egyedi azonosítója.
 	 */
 	@Id
 	@Column(name = "id")
@@ -36,8 +37,8 @@ public class Cart implements Serializable {
 	 * A rendelt sörök listája.
 	 */
 	@ManyToMany
-	private List<Beer> beers;
-
+	private List<CartItem> items;
+	
 	/**
 	 * A felhasználó aki rendelkezik az aktuális kosárral.
 	 */
@@ -59,27 +60,27 @@ public class Cart implements Serializable {
 		this.id = id;
 	}
 
-	/**
-	 * @return the beers
-	 */
-	public List<Beer> getBeers() {
-		return beers;
-	}
-
-	/**
-	 * @param beers
-	 *            the beers to set
-	 */
-	public void setBeers(List<Beer> beers) {
-		this.beers = beers;
-	}
-
+	
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	/**
+	 * @return the items
+	 */
+	public List<CartItem> getItems() {
+		return items;
+	}
+
+	/**
+	 * @param items the items to set
+	 */
+	public void setItems(List<CartItem> items) {
+		this.items = items;
 	}
 
 }
