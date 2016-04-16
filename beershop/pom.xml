@@ -16,6 +16,15 @@
 		<module>beershop-ear</module>
 		<module>beershop-shared</module>
 	</modules>
+	<licenses>
+		<license>
+			<name>Apache License 2.0</name>
+			<url>http://www.spdx.org/licenses/Apache-2.0</url>
+		</license>
+	</licenses>
+	<inceptionYear>
+		2016
+	</inceptionYear>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -253,4 +262,11 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<organization>
+		<name>Nándor Holozsnyák</name>
+	</organization>
+	<scm>
+		<url>https://github.com/Holi60k/Beershop</url>
+		<developerConnection>Nándor Holozsnyák</developerConnection>
+	</scm>
 </project>
