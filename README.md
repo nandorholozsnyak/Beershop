@@ -15,9 +15,11 @@ This is going to be a project for a course called Programming Environments.
 ..1 Hibernate
 * JavaEE
 ..1. EJB
+
 ###Service layer
 * JavaEE
 ..1. EJB
+
 ###Web/Presentation layer:
 * JSF 
 * Spring Security - for credentials
