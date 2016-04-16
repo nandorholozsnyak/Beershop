@@ -16,7 +16,7 @@
 		</locale-config>
 
 		<resource-bundle>
-			<base-name>hu.schonherz.courier.java.Messages</base-name>
+			<base-name>hu.hnk.beershop.Messages</base-name>
 			<var>out</var>
 		</resource-bundle>
 

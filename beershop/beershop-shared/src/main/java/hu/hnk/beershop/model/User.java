@@ -89,7 +89,7 @@ public class User implements Serializable {
 	/**
 	 * A felhasználó saját kosara amelybe termékeket tud majd elhelyezni.
 	 */
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	private Cart cart;
 
 	/**

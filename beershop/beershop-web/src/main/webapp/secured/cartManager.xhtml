@@ -23,60 +23,24 @@
 									<h:form id="cart">
 										<p:growl id="cartMessage" />
 										<p:dataTable id="cartTable"
-											value="#{sessionManagerBean.loggedInUser.cart}" var="cart"
-											editable="true" editMode="cell">
-											<f:facet name="header">
-												<p:commandButton value="Rendelés"
-													actionListener="#{storageManagerBean.saveChanges()}"
-													update="storage:storageMessage storage:storageTable" />
-											</f:facet>
+											value="#{cartManagerBean.items}"
+											var="item" editable="true" editMode="cell">
+											<!-- 											<f:facet name="header"> -->
+											<!-- 												<p:commandButton value="Rendelés" -->
+											<!-- 													actionListener="#{storageManagerBean.saveChanges()}" -->
+											<!-- 													update="storage:storageMessage storage:storageTable" /> -->
+											<!-- 											</f:facet> -->
 											<p:column headerText="Sör neve">
-												<p:outputLabel value="#{storageItem.beer.name}" />
+												<p:outputLabel value="#{item.beer.name}" />
 											</p:column>
 											<p:column headerText="Darabszám">
-												
-												<p:cellEditor>
-													<f:facet name="output">
-														<h:outputText value="#{storageItem.quantity}" />
-													</f:facet>
-													<f:facet name="input">
-														<p:inputText id="quantityInput" value="#{storageItem.quantity}"
-															style="width:100%">
-															<p:ajax event="keyup" />
-														</p:inputText>
-
-													</f:facet>
-												</p:cellEditor>
+												<h:outputText value="#{item.quantity}" />
 											</p:column>
 											<p:column headerText="Ár">
-												
-												<p:cellEditor>
-													<f:facet name="output">
-														<h:outputText value="#{storageItem.beer.price}" />
-													</f:facet>
-													<f:facet name="input">
-														<p:inputText id="priceInput" value="#{storageItem.beer.price}"
-															style="width:100%">
-															<p:ajax event="keyup" />
-														</p:inputText>
-
-													</f:facet>
-												</p:cellEditor>
+												<h:outputText value="#{item.beer.price}" />
 											</p:column>
 											<p:column headerText="Kedvezmény">
-												
-												<p:cellEditor>
-													<f:facet name="output">
-														<h:outputText value="#{storageItem.beer.discountAmount}%" />
-													</f:facet>
-													<f:facet name="input">
-														<p:inputText id="discountAmountInput" value="#{storageItem.beer.discountAmount}"
-															style="width:100%">
-															<p:ajax event="keyup" />
-														</p:inputText>
-
-													</f:facet>
-												</p:cellEditor>
+												<h:outputText value="#{item.beer.discountAmount}" />
 											</p:column>
 
 										</p:dataTable>

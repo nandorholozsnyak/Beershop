@@ -1,0 +1,28 @@
+package hu.hnk.beershop.service.interfaces;
+
+import java.util.Map;
+
+import hu.hnk.beershop.model.Beer;
+import hu.hnk.beershop.model.Cart;
+import hu.hnk.beershop.model.User;
+
+/**
+ * @author Nandi
+ *
+ */
+public interface CartService {
+
+	/**
+	 * A kosár tartalmának mentése adatbázisba az adatelérési objektumon keresztül.
+	 * 
+	 * @param cart
+	 *            a mentendõ kosár.
+	 * @return a mentett kosár.
+	 */
+	public Cart save(Cart cart);
+
+	public Cart findByUser(User user);
+	
+	public void saveItemsToCart(Map<Beer,Integer> beersToCart, Cart cart);
+
+}

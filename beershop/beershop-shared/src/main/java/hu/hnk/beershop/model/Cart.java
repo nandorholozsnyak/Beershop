@@ -1,11 +1,13 @@
 package hu.hnk.beershop.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -34,16 +36,22 @@ public class Cart implements Serializable {
 	private Long id;
 
 	/**
-	 * A rendelt sörök listája.
+	 * A rendelt sörök listája darabszámokkal együtt.
 	 */
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<CartItem> items;
-	
+
 	/**
 	 * A felhasználó aki rendelkezik az aktuális kosárral.
 	 */
 	@OneToOne
 	private User user;
+
+	// /**
+	// * A kosárba helyezés idejét tartalmazza.
+	// */
+	// @Column(name = "takenToCart")
+	// private Date takenToCart;
 
 	/**
 	 * @return the id
@@ -60,7 +68,6 @@ public class Cart implements Serializable {
 		this.id = id;
 	}
 
-	
 	public User getUser() {
 		return user;
 	}
@@ -77,10 +84,36 @@ public class Cart implements Serializable {
 	}
 
 	/**
-	 * @param items the items to set
+	 * @param items
+	 *            the items to set
 	 */
 	public void setItems(List<CartItem> items) {
 		this.items = items;
+	}
+
+	// /**
+	// * @return the takenToCart
+	// */
+	// public Date getTakenToCart() {
+	// return takenToCart;
+	// }
+	//
+	// /**
+	// * @param takenToCart
+	// * the takenToCart to set
+	// */
+	// public void setTakenToCart(Date takenToCart) {
+	// this.takenToCart = takenToCart;
+	// }
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Cart [id=" + id + ", items=" + items + ", user=" + user + "]";
 	}
 
 }

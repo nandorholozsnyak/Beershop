@@ -1,15 +1,16 @@
 package hu.hnk.managedbeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -18,9 +19,12 @@ import org.apache.log4j.Logger;
 import hu.hnk.beershop.exception.NegativeQuantityNumber;
 import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
 import hu.hnk.beershop.model.Beer;
+import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.BeerService;
+import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.beershop.service.interfaces.StorageService;
+import hu.hnk.loginservices.SessionManager;
 
 /**
  * @author Nandi
@@ -53,6 +57,15 @@ public class BeerShopManager implements Serializable {
 	private StorageService storageService;
 
 	/**
+	 * A kosarat kezelõ szolgáltatás.
+	 */
+	@EJB
+	private CartService cartService;
+
+	@ManagedProperty(value = "#{sessionManagerBean}")
+	private SessionManager sessionManager;
+
+	/**
 	 * A sörök listája.
 	 */
 	private List<Beer> beersInShop;
@@ -64,7 +77,7 @@ public class BeerShopManager implements Serializable {
 
 	private Map<Beer, Integer> beersToCart;
 
-	FacesMessage msg;
+	private FacesMessage msg;
 
 	/**
 	 * Inicializáló metódus, a managed bean létrejöttekor.
@@ -96,6 +109,7 @@ public class BeerShopManager implements Serializable {
 
 		if (msg != null) {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
+			msg = null;
 		}
 
 	}
@@ -118,7 +132,12 @@ public class BeerShopManager implements Serializable {
 
 		if (msg != null) {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
+			msg = null;
 		}
+	}
+
+	public void saveItemsToCart() {
+		cartService.saveItemsToCart(beersToCart, getSessionManager().getLoggedInUser().getCart());
 	}
 
 	/**
@@ -165,6 +184,20 @@ public class BeerShopManager implements Serializable {
 
 	public void setBeersInCart(Map<Beer, Integer> beersInCart) {
 		this.beersToCart = beersInCart;
+	}
+
+	/**
+	 * @return the sessionManager
+	 */
+	public SessionManager getSessionManager() {
+		return sessionManager;
+	}
+
+	/**
+	 * @param sessionManager the sessionManager to set
+	 */
+	public void setSessionManager(SessionManager sessionManager) {
+		this.sessionManager = sessionManager;
 	}
 
 }

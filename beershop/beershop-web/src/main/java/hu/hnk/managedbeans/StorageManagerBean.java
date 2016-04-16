@@ -34,7 +34,8 @@ public class StorageManagerBean implements Serializable {
 	 */
 	@EJB
 	private StorageService storageService;
-
+	
+	
 	/**
 	 * 
 	 */
