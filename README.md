@@ -9,20 +9,18 @@ This is going to be a project for a course called Programming Environments.
 
 ##Used technologies:
 ###DAO layer:
-* Liquibase
-..1. SQL
-* JPA
+1. JPA
 ..1 Hibernate
-* JavaEE
+2. JavaEE
 ..1. EJB
 
 ###Service layer
-* JavaEE
+1. JavaEE
 ..1. EJB
 
 ###Web/Presentation layer:
-* JSF 
-* Spring Security - for credentials
+1. JSF 
+2. Spring Security - for credentials
 
 ##What is it about?
 The beershop is a shop where people can register & login and buy some nice beer.
