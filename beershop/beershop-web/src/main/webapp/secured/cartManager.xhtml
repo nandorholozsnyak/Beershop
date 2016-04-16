@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/baseNobeerTemplate.xhtml">
+
+	<ui:define name="content">
+		<div class="container">
+			<div class="inside">
+				<h2>Kosár</h2>
+				<div class="box">
+					<div class="left-top-corner">
+						<div class="right-top-corner">
+							<div class="border-top"></div>
+						</div>
+					</div>
+					<div class="xcontent">
+						<div class="border-left">
+							<div class="border-right">
+								<div class="inner1">
+									<h:form id="cart">
+										<p:growl id="cartMessage" />
+										<p:dataTable id="cartTable"
+											value="#{sessionManagerBean.loggedInUser.cart}" var="cart"
+											editable="true" editMode="cell">
+											<f:facet name="header">
+												<p:commandButton value="Rendelés"
+													actionListener="#{storageManagerBean.saveChanges()}"
+													update="storage:storageMessage storage:storageTable" />
+											</f:facet>
+											<p:column headerText="Sör neve">
+												<p:outputLabel value="#{storageItem.beer.name}" />
+											</p:column>
+											<p:column headerText="Darabszám">
+												
+												<p:cellEditor>
+													<f:facet name="output">
+														<h:outputText value="#{storageItem.quantity}" />
+													</f:facet>
+													<f:facet name="input">
+														<p:inputText id="quantityInput" value="#{storageItem.quantity}"
+															style="width:100%">
+															<p:ajax event="keyup" />
+														</p:inputText>
+
+													</f:facet>
+												</p:cellEditor>
+											</p:column>
+											<p:column headerText="Ár">
+												
+												<p:cellEditor>
+													<f:facet name="output">
+														<h:outputText value="#{storageItem.beer.price}" />
+													</f:facet>
+													<f:facet name="input">
+														<p:inputText id="priceInput" value="#{storageItem.beer.price}"
+															style="width:100%">
+															<p:ajax event="keyup" />
+														</p:inputText>
+
+													</f:facet>
+												</p:cellEditor>
+											</p:column>
+											<p:column headerText="Kedvezmény">
+												
+												<p:cellEditor>
+													<f:facet name="output">
+														<h:outputText value="#{storageItem.beer.discountAmount}%" />
+													</f:facet>
+													<f:facet name="input">
+														<p:inputText id="discountAmountInput" value="#{storageItem.beer.discountAmount}"
+															style="width:100%">
+															<p:ajax event="keyup" />
+														</p:inputText>
+
+													</f:facet>
+												</p:cellEditor>
+											</p:column>
+
+										</p:dataTable>
+									</h:form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="left-bot-corner">
+						<div class="right-bot-corner">
+							<div class="border-bot"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -2,7 +2,6 @@ package hu.hnk.managedbeans;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,7 +13,7 @@ import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 
 import hu.hnk.beershop.exception.NegativeQuantityNumber;
-import hu.hnk.beershop.model.Storage;
+import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.StorageService;
 
 /**
@@ -41,18 +40,18 @@ public class StorageManagerBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private List<Storage> storage;
+	private List<StorageItem> storage;
 
 	@PostConstruct
 	public void init() {
 		storage = storageService.findAll();
 	}
 
-	public List<Storage> getStorage() {
+	public List<StorageItem> getStorage() {
 		return storage;
 	}
 
-	public void setStorage(List<Storage> storage) {
+	public void setStorage(List<StorageItem> storage) {
 		this.storage = storage;
 	}
 

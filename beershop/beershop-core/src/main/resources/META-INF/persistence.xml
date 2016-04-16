@@ -12,9 +12,9 @@
 		<class>hu.hnk.beershop.model.Role</class>
 		<class>hu.hnk.beershop.model.Beer</class>
 		<class>hu.hnk.beershop.model.Cargo</class>
-		<class>hu.hnk.beershop.model.Storage</class>
 		<class>hu.hnk.beershop.model.CartItem</class>
 		<class>hu.hnk.beershop.model.Cart</class>
+		<class>hu.hnk.beershop.model.StorageItem</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.show_sql" value="true" />

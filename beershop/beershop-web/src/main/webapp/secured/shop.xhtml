@@ -32,6 +32,7 @@ tr:first-child {
 								<div class="border-right">
 									<div class="inner1">
 										<h:form id="form">
+										<p:growl id="shopMsg" />
 											<p:dataGrid var="beer" value="#{beerShopManager.beersInShop}"
 												columns="3" layout="grid" rows="3" paginator="true"
 												id="beers"
@@ -55,10 +56,16 @@ tr:first-child {
 															<f:setPropertyActionListener value="#{beer}"
 																target="#{beerShopManager.selectedBeer}" />
 														</p:commandLink>
-
+														<p:outputLabel id="beerQuantity"
+															value="Válaszott mennyiség: #{beerShopManager.beersInCart.get(beer)} darab" />
 														<p:outputPanel>
-															<p:commandButton icon="fa fa-fw fa-plus" />
-															<p:commandButton icon="fa fa-fw fa-minus" />
+
+															<p:commandButton icon="fa fa-fw fa-plus"
+																actionListener="#{beerShopManager.incrementBeer(beer)}"
+																update="beerQuantity form:shopMsg" />
+															<p:commandButton icon="fa fa-fw fa-minus"
+																actionListener="#{beerShopManager.decreaseBeer(beer)}"
+																update="beerQuantity form:shopMsg" />
 														</p:outputPanel>
 
 													</h:panelGrid>

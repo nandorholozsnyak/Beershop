@@ -2,7 +2,7 @@ package hu.hnk.interfaces;
 
 import java.util.List;
 
-import hu.hnk.beershop.model.Storage;
+import hu.hnk.beershop.model.StorageItem;
 
 /**
  * @author Nandi
@@ -15,7 +15,7 @@ public interface StorageDao {
 	 * 
 	 * @return a raktár információi.
 	 */
-	public List<Storage> findAll();
+	public List<StorageItem> findAll();
 	
-	public void saveAllChanges(List<Storage> storage);
+	public void saveAllChanges(List<StorageItem> storage);
 }

@@ -11,7 +11,9 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import hu.hnk.beershop.exception.NegativeQuantityNumber;
-import hu.hnk.beershop.model.Storage;
+import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
+import hu.hnk.beershop.model.Beer;
+import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.StorageService;
 import hu.hnk.interfaces.StorageDao;
 
@@ -30,27 +32,38 @@ public class StorageServiceImpl implements StorageService {
 	private StorageDao storageDao;
 
 	@Override
-	public List<Storage> findAll() {
+	public List<StorageItem> findAll() {
 		return storageDao.findAll();
 	}
 
 	@Override
-	public void saveAllChanges(List<Storage> storage) throws NegativeQuantityNumber {
-		if(storage
-				.stream()
-				.filter(p -> p.getQuantity() < 0)
-				.collect(Collectors.toList())
-				.isEmpty() &&
-				storage
-				.stream()
-				.filter(p -> p.getBeer().getDiscountAmount() < 0)
-				.collect(Collectors.toList())
-				.isEmpty()) {
+	public void saveAllChanges(List<StorageItem> storage) throws NegativeQuantityNumber {
+		if (storage.stream().filter(p -> p.getQuantity() < 0).collect(Collectors.toList()).isEmpty() && storage.stream()
+				.filter(p -> p.getBeer().getDiscountAmount() < 0).collect(Collectors.toList()).isEmpty()) {
 			storageDao.saveAllChanges(storage);
 		} else {
 			throw new NegativeQuantityNumber("Negative number can't be stored in the storage table!");
 		}
-		
+
+	}
+
+	@Override
+	public void checkStorageItemQuantityLimit(List<StorageItem> storage, Beer beer, Integer quantity)
+			throws StorageItemQuantityExceeded, NegativeQuantityNumber {
+
+		List<StorageItem> exceededList = storage.stream().filter(p -> p.getBeer().equals(beer))
+				.filter(p -> quantity > p.getQuantity()).collect(Collectors.toList());
+
+		if (!exceededList.isEmpty()) {
+
+			throw new StorageItemQuantityExceeded("The asked quantity is bigger than the storage quantity given.");
+		}
+
+		if (quantity < 0) {
+
+			throw new NegativeQuantityNumber("Can not take negative quantity to cart.");
+		}
+
 	}
 
 }

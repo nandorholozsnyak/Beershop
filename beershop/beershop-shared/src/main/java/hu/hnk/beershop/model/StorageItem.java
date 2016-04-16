@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -19,8 +20,8 @@ import javax.persistence.OneToOne;
  *
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = "Storage.findAll", query = "SELECT s FROM Storage s") })
-public class Storage implements Serializable {
+@NamedQueries({ @NamedQuery(name = "StorageItem.findAll", query = "SELECT s FROM StorageItem s") })
+public class StorageItem implements Serializable {
 
 	/**
 	 * 
@@ -35,7 +36,7 @@ public class Storage implements Serializable {
 	/**
 	 * A sör.
 	 */
-	@OneToOne(cascade = CascadeType.MERGE)
+	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Beer beer;
 
 	/**
