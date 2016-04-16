@@ -13,7 +13,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
-import hu.hnk.beershop.exception.NegativeCountNumber;
+import hu.hnk.beershop.exception.NegativeQuantityNumber;
 import hu.hnk.beershop.model.Storage;
 import hu.hnk.beershop.service.interfaces.StorageService;
 
@@ -64,7 +64,7 @@ public class StorageManagerBean implements Serializable {
 			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Módosítások sikeresen mentve!",
 					"Módosítások sikeresen mentve!");
 			logger.info("Storage database updated succesfully.");
-		} catch (NegativeCountNumber e) {
+		} catch (NegativeQuantityNumber e) {
 			logger.warn(e.getMessage(), e);
 			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Negatív érték nem tárolható!",
 					"Negatív érték nem tárolható!");
