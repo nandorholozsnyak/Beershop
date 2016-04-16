@@ -1,4 +1,4 @@
 language: java
-script: mvn mvn install -DskipTests=true
+script: cd beershop && mvn install -DskipTests=true
 jdk:
   - oraclejdk8
