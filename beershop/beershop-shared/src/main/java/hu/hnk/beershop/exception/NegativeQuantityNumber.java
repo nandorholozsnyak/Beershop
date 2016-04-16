@@ -7,7 +7,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class NegativeCountNumber extends Exception {
+public class NegativeQuantityNumber extends Exception {
 
 	/**
 	 * 
@@ -15,33 +15,33 @@ public class NegativeCountNumber extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Konstuktor, mely létrehoz egy NegativeCountNumber kivételt.
+	 * Konstuktor, mely létrehoz egy NegativeQuantityNumber kivételt.
 	 */
-	public NegativeCountNumber() {
+	public NegativeQuantityNumber() {
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy NegativeCountNumber kivételt a megadott üzenettel.
+	 * Konstuktor, mely létrehoz egy NegativeQuantityNumber kivételt a megadott üzenettel.
 	 * @param message a részletes üzenet.
 	 */
-	public NegativeCountNumber(String message) {
+	public NegativeQuantityNumber(String message) {
 		super(message);
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy NegativeCountNumber kivételt a megadott okozóval.
+	 * Konstuktor, mely létrehoz egy NegativeQuantityNumber kivételt a megadott okozóval.
 	 * @param cause az okozó
 	 */
-	public NegativeCountNumber(Throwable cause) {
+	public NegativeQuantityNumber(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy NegativeCountNumber kivételt a megadott üzenettel és okozóval.
+	 * Konstuktor, mely létrehoz egy NegativeQuantityNumber kivételt a megadott üzenettel és okozóval.
 	 * @param message a részletes üzenet.
 	 * @param cause az okozó.
 	 */
-	public NegativeCountNumber(String message, Throwable cause) {
+	public NegativeQuantityNumber(String message, Throwable cause) {
 		super(message, cause);
 	}
 

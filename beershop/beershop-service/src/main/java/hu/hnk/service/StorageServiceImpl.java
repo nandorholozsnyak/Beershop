@@ -10,7 +10,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import hu.hnk.beershop.exception.NegativeCountNumber;
+import hu.hnk.beershop.exception.NegativeQuantityNumber;
 import hu.hnk.beershop.model.Storage;
 import hu.hnk.beershop.service.interfaces.StorageService;
 import hu.hnk.interfaces.StorageDao;
@@ -35,7 +35,7 @@ public class StorageServiceImpl implements StorageService {
 	}
 
 	@Override
-	public void saveAllChanges(List<Storage> storage) throws NegativeCountNumber {
+	public void saveAllChanges(List<Storage> storage) throws NegativeQuantityNumber {
 		if(storage
 				.stream()
 				.filter(p -> p.getQuantity() < 0)
@@ -48,7 +48,7 @@ public class StorageServiceImpl implements StorageService {
 				.isEmpty()) {
 			storageDao.saveAllChanges(storage);
 		} else {
-			throw new NegativeCountNumber("Negative number can't be stored in the storage table!");
+			throw new NegativeQuantityNumber("Negative number can't be stored in the storage table!");
 		}
 		
 	}
