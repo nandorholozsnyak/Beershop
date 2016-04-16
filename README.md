@@ -10,13 +10,13 @@ This is going to be a project for a course called Programming Environments.
 ##Used technologies:
 ###DAO layer:
 1. JPA
-..1 Hibernate
+  1. Hibernate
 2. JavaEE
-..1. EJB
+  1. EJB
 
 ###Service layer
 1. JavaEE
-..1. EJB
+  1. EJB
 
 ###Web/Presentation layer:
 1. JSF 
