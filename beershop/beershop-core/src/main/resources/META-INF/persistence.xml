@@ -23,24 +23,42 @@
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
-<!-- 			<property name="hibernate.transaction.jta.platform" -->
-<!-- 			value="org.hibernate.transaction.JTATransactionFactory" /> -->
+<property name="hibernate.enable_lazy_load_no_trans" value="true"/>
+			<!-- <property name="hibernate.transaction.jta.platform" -->
+			<!-- value="org.hibernate.transaction.JTATransactionFactory" /> -->
+
+			<!-- hikari CP -->
+			<!-- <property name="hibernate.connection.provider_class" -->
+			<!-- value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" 
+				/> -->
+			<!-- <property name="hibernate.hikari.minimumIdle" value="20" /> -->
+			<!-- <property name="hibernate.hikari.maximumPoolSize" value="100" /> -->
+			<!-- <property name="hibernate.hikari.idleTimeout" value="30000" /> -->
+			<!-- <property name="hibernate.hikari.dataSourceClassName" value="com.mysql.jdbc.Driver" 
+				/> -->
+			<!-- <property name="hibernate.hikari.dataSource.url" value="jdbc:mysql://localhost:3306/beershop" 
+				/> -->
+			<!-- <property name="hibernate.hikari.username" value="root" /> -->
+			<!-- <property name="hibernate.hikari.password" value="mysql" /> -->
 		</properties>
 	</persistence-unit>
 
-<!-- 	<persistence-unit name="BeerShopUnitTest" -->
-<!-- 		transaction-type="RESOURCE_LOCAL"> -->
-<!-- 		<class>hu.hnk.beershop.model.User</class> -->
-<!-- 		<class>hu.hnk.beershop.model.Role</class> -->
-<!-- 		<class>hu.hnk.beershop.model.Beer</class> -->
-<!-- 		<class>hu.hnk.beershop.model.Cargo</class> -->
-<!-- 		<properties> -->
-<!-- 			<property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/beershoptest" /> -->
-<!-- 			<property name="openjpa.ConnectionUserName" value="root" /> -->
-<!-- 			<property name="openjpa.ConnectionPassword" value="mysql" /> -->
-<!-- 			<property name="openjpa.Log" value="SQL=TRACE" /> -->
-<!-- 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" /> -->
-<!-- 			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)" /> -->
-<!-- 		</properties> -->
-<!-- 	</persistence-unit> -->
+	<!-- <persistence-unit name="BeerShopUnitTest" -->
+	<!-- transaction-type="RESOURCE_LOCAL"> -->
+	<!-- <class>hu.hnk.beershop.model.User</class> -->
+	<!-- <class>hu.hnk.beershop.model.Role</class> -->
+	<!-- <class>hu.hnk.beershop.model.Beer</class> -->
+	<!-- <class>hu.hnk.beershop.model.Cargo</class> -->
+	<!-- <properties> -->
+	<!-- <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/beershoptest" 
+		/> -->
+	<!-- <property name="openjpa.ConnectionUserName" value="root" /> -->
+	<!-- <property name="openjpa.ConnectionPassword" value="mysql" /> -->
+	<!-- <property name="openjpa.Log" value="SQL=TRACE" /> -->
+	<!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" 
+		/> -->
+	<!-- <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)" 
+		/> -->
+	<!-- </properties> -->
+	<!-- </persistence-unit> -->
 </persistence>

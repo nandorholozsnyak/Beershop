@@ -58,7 +58,7 @@ public class User implements Serializable {
 	/**
 	 * A felhasználó jogkörei.
 	 */
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Role> roles;
 
 	/**
@@ -89,7 +89,7 @@ public class User implements Serializable {
 	/**
 	 * A felhasználó saját kosara amelybe termékeket tud majd elhelyezni.
 	 */
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	private Cart cart;
 
 	/**
