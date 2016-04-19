@@ -22,8 +22,7 @@
 								<div class="inner1">
 									<h:form id="cart">
 										<p:growl id="cartMessage" />
-										<p:dataTable id="cartTable"
-											value="#{cartManagerBean.items}"
+										<p:dataTable id="cartTable" value="#{cartManagerBean.items}"
 											var="item" editable="true" editMode="cell">
 											<!-- 											<f:facet name="header"> -->
 											<!-- 												<p:commandButton value="Rendelés" -->
@@ -42,7 +41,9 @@
 											<p:column headerText="Kedvezmény">
 												<h:outputText value="#{item.beer.discountAmount}" />
 											</p:column>
-
+											<f:facet name="footer">
+												<p:outputLabel value="Fizetendő összeg:#{cartManagerBean.getTotalPrice()}" />
+											</f:facet>
 										</p:dataTable>
 									</h:form>
 								</div>

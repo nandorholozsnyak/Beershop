@@ -99,4 +99,11 @@ public class CartServiceImpl implements CartService {
 		}
 	}
 
+	@Override
+	public Double countTotalCost(List<CartItem> cartItems) {
+		return cartItems.stream()
+				.mapToDouble(e->e.getBeer().getPrice()*e.getQuantity() * (100 - e.getBeer().getDiscountAmount())/100)
+				.sum();
+	}
+
 }

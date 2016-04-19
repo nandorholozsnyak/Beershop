@@ -46,6 +46,10 @@ public class CartManagerBean implements Serializable {
 		setItems(cartService.findByUser(sessionManager.getLoggedInUser()).getItems());
 		logger.info(items);
 	}
+	
+	public double getTotalPrice() {
+		return cartService.countTotalCost(items);
+	}
 
 	/**
 	 * @return the sessionManager
