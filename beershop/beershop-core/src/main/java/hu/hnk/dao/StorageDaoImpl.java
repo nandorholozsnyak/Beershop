@@ -42,9 +42,14 @@ public class StorageDaoImpl implements StorageDao {
 	@Override
 	public void saveAllChanges(List<StorageItem> storage) {
 		storage.stream().forEach(entity -> em.merge(entity));
-//		for(Storage stItem : storage) {
-//			em.merge(stItem);
-//		}
+		// for(Storage stItem : storage) {
+		// em.merge(stItem);
+		// }
+	}
+
+	@Override
+	public StorageItem save(StorageItem storageItem) {
+		return em.merge(storageItem);
 	}
 
 }

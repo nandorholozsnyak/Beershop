@@ -38,7 +38,7 @@ public class Cart implements Serializable {
 	/**
 	 * A rendelt sörök listája darabszámokkal együtt.
 	 */
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<CartItem> items;
 
 	/**

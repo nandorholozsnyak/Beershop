@@ -10,6 +10,8 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
+import org.apache.log4j.Logger;
+
 import hu.hnk.beershop.exception.NegativeQuantityNumber;
 import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
 import hu.hnk.beershop.model.Beer;
@@ -24,6 +26,11 @@ import hu.hnk.interfaces.StorageDao;
 @Stateless
 @Local(StorageService.class)
 public class StorageServiceImpl implements StorageService {
+
+	/**
+	 * Az osztály loggere.
+	 */
+	public static final Logger logger = Logger.getLogger(StorageServiceImpl.class);
 
 	/**
 	 * A raktárt kezelõ adathozzáférési objektum.
@@ -44,13 +51,14 @@ public class StorageServiceImpl implements StorageService {
 		} else {
 			throw new NegativeQuantityNumber("Negative number can't be stored in the storage table!");
 		}
+		logger.info("Items saved to the storage.");
 
 	}
 
 	@Override
 	public void checkStorageItemQuantityLimit(List<StorageItem> storage, Beer beer, Integer quantity)
 			throws StorageItemQuantityExceeded, NegativeQuantityNumber {
-
+		logger.info("Trying to modify item quantity.");
 		List<StorageItem> exceededList = storage.stream().filter(p -> p.getBeer().equals(beer))
 				.filter(p -> quantity > p.getQuantity()).collect(Collectors.toList());
 

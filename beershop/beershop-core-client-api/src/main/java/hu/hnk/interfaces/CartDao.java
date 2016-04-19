@@ -3,6 +3,7 @@ package hu.hnk.interfaces;
 import java.util.List;
 
 import hu.hnk.beershop.model.Cart;
+import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
 
 /**
@@ -21,11 +22,16 @@ public interface CartDao {
 	/**
 	 * A kosár tartalmának mentése adatbázisba.
 	 * 
-	 * @param cart a mentendõ kosár.
+	 * @param cart
+	 *            a mentendõ kosár.
 	 * @return a mentett kosár.
 	 */
 	public Cart save(Cart cart);
-	
+
 	public Cart findByUser(User user);
+
+	public void deleteItem(Long id);
+
+	public CartItem updateItem(CartItem item);
 
 }

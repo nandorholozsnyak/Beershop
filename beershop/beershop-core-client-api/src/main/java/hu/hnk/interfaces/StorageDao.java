@@ -9,13 +9,15 @@ import hu.hnk.beershop.model.StorageItem;
  *
  */
 public interface StorageDao {
-	
+
 	/**
 	 * A raktár információit lekérdezõ metódus.
 	 * 
 	 * @return a raktár információi.
 	 */
 	public List<StorageItem> findAll();
-	
+
 	public void saveAllChanges(List<StorageItem> storage);
+
+	public StorageItem save(StorageItem storageItem);
 }

@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import hu.hnk.beershop.model.Cart;
+import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.CartDao;
 
@@ -55,6 +56,20 @@ public class CartDaoImpl implements CartDao {
 		Query q = em.createQuery("SELECT c FROM Cart c WHERE user = :user");
 		q.setParameter("user", user);
 		return (Cart) q.getSingleResult();
+	}
+
+	@Override
+	public void deleteItem(Long id) {
+		
+		CartItem found = em.find(CartItem.class, id);
+		
+		em.remove(found);
+		
+	}
+
+	@Override
+	public CartItem updateItem(CartItem item) {
+		return em.merge(item);		
 	}
 
 }

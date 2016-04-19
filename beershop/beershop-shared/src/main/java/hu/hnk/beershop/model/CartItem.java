@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 /**
  * Egy kosár adatait tartalmazó osztály.
@@ -34,7 +34,7 @@ public class CartItem implements Serializable {
 	/**
 	 * A rendelt sörök listája.
 	 */
-	@OneToOne
+	@ManyToOne
 	private Beer beer;
 
 	@Column(name = "quantity")
