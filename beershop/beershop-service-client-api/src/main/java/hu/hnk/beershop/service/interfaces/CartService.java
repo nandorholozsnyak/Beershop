@@ -25,8 +25,19 @@ public interface CartService {
 
 	public Cart findByUser(User user);
 	
+	public void deletItemFromCart(CartItem item) throws Exception;
+	
 	public void saveItemsToCart(Map<Beer,Integer> beersToCart, Cart cart);
 	
 	public Double countTotalCost(List<CartItem> cartItems);
+	
+	/**
+	 * A bónusz pontok számítása, egy vásárlás során.
+	 * A bónusz a sör alkoholtartalmának, a megrendelt darabszámból,
+	 * a sör árából illetve a kedvezmény szorzataként számolódik.
+	 * @param cartItems a kosárban levõ termékek.
+	 * @return a kiszámított bónusz pontok.
+	 */
+	public Double countBonusPoints(List<CartItem> cartItems);
 
 }

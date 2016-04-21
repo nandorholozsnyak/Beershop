@@ -2,6 +2,7 @@ package hu.hnk.beershop.service.interfaces;
 
 import java.util.Date;
 
+import hu.hnk.beershop.exception.InvalidPinCode;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 
@@ -49,4 +50,6 @@ public interface UserService {
 	public Rank countRankFromXp(User user);
 	
 	public Integer countExperiencePointsInPercentage(Double experiencePoints);
+	
+	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser) throws InvalidPinCode;
 }

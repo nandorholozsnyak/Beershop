@@ -13,6 +13,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import hu.hnk.beershop.exception.EmailNotFound;
+import hu.hnk.beershop.exception.InvalidPinCode;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.Role;
@@ -164,18 +165,27 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Integer countExperiencePointsInPercentage(Double experiencePoints) {
-		
+
 		Integer result = 0;
-		
+
 		if (experiencePoints > -1 && experiencePoints <= 2500) {
-			result = (int) ((experiencePoints/2500) * 100);
+			result = (int) ((experiencePoints / 2500) * 100);
 		} else if (experiencePoints > 2500 && experiencePoints <= 7500) {
-			result = (int) ((experiencePoints/7500) * 100);
+			result = (int) ((experiencePoints / 7500) * 100);
 		} else if (experiencePoints > 7500) {
 			result = 100;
 		}
-		
+
 		return result;
+	}
+
+	@Override
+	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser) throws InvalidPinCode {
+		if (!userPin.equals(expectedPin)) {
+			throw new InvalidPinCode("PINs are not the same.");
+		}
+		loggedInUser.setMoney(loggedInUser.getMoney() + money);
+		userDao.save(loggedInUser);
 	}
 
 }

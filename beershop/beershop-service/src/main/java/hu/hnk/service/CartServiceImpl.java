@@ -6,11 +6,12 @@ package hu.hnk.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
 
@@ -29,6 +30,7 @@ import hu.hnk.interfaces.StorageDao;
  */
 @Stateless
 @Local(CartService.class)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class CartServiceImpl implements CartService {
 
 	/**
@@ -68,12 +70,13 @@ public class CartServiceImpl implements CartService {
 
 	private void addBeerToCartItemList(Map<Beer, Integer> beersToCart, List<CartItem> cartItems,
 			List<StorageItem> storageItems, Beer beer) {
+
 		StorageItem beerInStorage = storageItems.stream().filter(e -> e.getBeer().equals(beer)).findFirst().get();
 
 		CartItem item;
 		CartItem foundItem;
 		try {
-			foundItem = cartItems.stream().filter(p -> p.getBeer().equals(beer)).findFirst().get();
+			foundItem = cartItems.stream().filter(p -> p.getBeer().equals(beer) && p.getActive()).findFirst().get();
 		} catch (Exception e) {
 			foundItem = null;
 		}
@@ -102,7 +105,39 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public Double countTotalCost(List<CartItem> cartItems) {
 		return cartItems.stream()
-				.mapToDouble(e->e.getBeer().getPrice()*e.getQuantity() * (100 - e.getBeer().getDiscountAmount())/100)
+				.mapToDouble(
+						e -> e.getBeer().getPrice() * e.getQuantity() * (100 - e.getBeer().getDiscountAmount()) / 100)
+				.sum();
+	}
+
+	@Override
+	public void deletItemFromCart(CartItem item) throws Exception {
+		try {
+			logger.info("Trying to delete item from cart.");
+			cartDao.deleteItem(item);
+			StorageItem stItem = storageDao.findByBeer(item.getBeer());
+			stItem.setQuantity(stItem.getQuantity() + item.getQuantity());
+		} catch (Exception e) {
+			logger.warn("Error while trying to delete item from user's cart.", e);
+			throw new Exception("We were not able to delete the item from the user's cart.");
+		}
+	}
+
+	/**
+	 * A bónusz pontok számítása, egy vásárlás során. A bónusz a sör
+	 * alkoholtartalmának, a megrendelt darabszámból, a sör árából illetve a
+	 * kedvezmény szorzataként számolódik.
+	 * 
+	 * @param cartItems
+	 *            a kosárban levõ termékek.
+	 * @return a kiszámított bónusz pontok.
+	 */
+	@Override
+	public Double countBonusPoints(List<CartItem> cartItems) {
+		return cartItems.stream()
+				.mapToDouble(e -> (e.getQuantity() + e.getBeer().getPrice()) / 100
+						+ (e.getBeer().getAlcoholLevel()
+						+ e.getBeer().getCapacity() + e.getBeer().getDiscountAmount()))
 				.sum();
 	}
 
