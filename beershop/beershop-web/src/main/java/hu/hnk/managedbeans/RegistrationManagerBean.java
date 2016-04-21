@@ -15,21 +15,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
+import hu.hnk.tool.FacesMessageTool;
 
 /**
  * A regisztrációs szolgáltatást megvalósító managed bean.
+ * 
  * @author Nandi
  *
  */
 @ManagedBean(name = "registrationManagerBean")
 @ViewScoped
 public class RegistrationManagerBean implements Serializable {
-	
+
 	/**
 	 * Az osztály loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(RegistrationManagerBean.class);
-	
+
 	/**
 	 * 
 	 */
@@ -41,46 +43,48 @@ public class RegistrationManagerBean implements Serializable {
 	@EJB
 	private UserService userService;
 
+	private FacesMessage msg;
+
 	/**
 	 * A jelszavak titkosításához használt BCryptPasswordEncoder.
 	 */
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	
+
 	/**
 	 * A választott felhasználónév.
 	 */
 	private String username;
-	
+
 	/**
 	 * A választott jelszó.
 	 */
 	private String password;
-	
+
 	/**
 	 * A választott jelszó újabb megadása elgépelési célok miatt.
 	 */
 	private String rePassword;
-	
+
 	/**
 	 * A választott e-mail cím.
 	 */
 	private String email;
-	
+
 	/**
 	 * A felhasználó születési dátuma.
 	 */
 	private Date dateOfBirth;
-	
+
 	/**
 	 * Szabad-e még a felhasználónév.
 	 */
 	private Boolean isUsernameFree = true;
-	
+
 	/**
 	 * Szabad-e még az e-mail cím.
 	 */
 	private Boolean isEmailFree = true;
-	
+
 	/**
 	 * Betöltötte-e már a 18. életévét.
 	 */
@@ -181,18 +185,16 @@ public class RegistrationManagerBean implements Serializable {
 			if (newUser != null) {
 				try {
 					userService.save(newUser);
-					FacesContext.getCurrentInstance().addMessage(null,
-							new FacesMessage(FacesMessage.SEVERITY_INFO, "Sikeres regisztráció.", ""));
+					msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sikeres regisztráció.", "");
 					FacesContext.getCurrentInstance().getExternalContext().redirect("/public/index.xhtml");
 				} catch (Exception e) {
-					FacesContext.getCurrentInstance().addMessage(null,
-							new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hiba regisztráció közben.", "Hiba!"));
+					msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hiba regisztráció közben.", "Hiba!");
 				}
 			}
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Regisztráció nem lehetséges.", "Hiba!"));
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Regisztráció nem lehetséges.", "Hiba!");
 		}
+		FacesMessageTool.publishMessage(msg);
 	}
 
 	/**

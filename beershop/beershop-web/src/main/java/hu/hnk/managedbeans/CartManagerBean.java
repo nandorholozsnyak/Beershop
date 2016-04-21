@@ -1,19 +1,26 @@
 package hu.hnk.managedbeans;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.Format;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.loginservices.SessionManager;
+import hu.hnk.tool.FacesMessageTool;
 
 /**
  * @author Nandi
@@ -36,6 +43,8 @@ public class CartManagerBean implements Serializable {
 	@ManagedProperty(value = "#{sessionManagerBean}")
 	private SessionManager sessionManager;
 
+	FacesMessage msg;
+
 	@EJB
 	private CartService cartService;
 
@@ -43,12 +52,32 @@ public class CartManagerBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		setItems(cartService.findByUser(sessionManager.getLoggedInUser()).getItems());
+		items = cartService.findByUser(sessionManager.getLoggedInUser()).getItems().stream().filter(e->e.getActive()).collect(Collectors.toList());
 		logger.info(items);
 	}
+
+	public String getTotalPrice() {
+		NumberFormat format = new DecimalFormat("#0.00");
+		return format.format(cartService.countTotalCost(items));
+	}
+
+	public void deleteItemFromCart(CartItem item) {
+		
+		try {
+			cartService.deletItemFromCart(item);
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Módosítások sikeresen mentve!",
+					"Módosítások sikeresen mentve!");
+		} catch (Exception e) {
+			logger.warn(e.getMessage(), e);
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Módosításokat nem tudtuk menteni!",
+					"Módosításokat nem tudtuk menteni!");
+		}
+		FacesMessageTool.publishMessage(msg);
+	}
 	
-	public double getTotalPrice() {
-		return cartService.countTotalCost(items);
+	public String countBonusPoints() {
+		NumberFormat format = new DecimalFormat("#0.00");
+		return format.format(cartService.countBonusPoints(items));
 	}
 
 	/**

@@ -1,7 +1,6 @@
 package hu.hnk.managedbeans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +18,12 @@ import org.apache.log4j.Logger;
 import hu.hnk.beershop.exception.NegativeQuantityNumber;
 import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
 import hu.hnk.beershop.model.Beer;
-import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.BeerService;
 import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.beershop.service.interfaces.StorageService;
 import hu.hnk.loginservices.SessionManager;
+import hu.hnk.tool.FacesMessageTool;
 
 /**
  * @author Nandi
@@ -107,10 +106,7 @@ public class BeerShopManager implements Serializable {
 			logger.warn(e.getMessage());
 		}
 
-		if (msg != null) {
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			msg = null;
-		}
+		FacesMessageTool.publishMessage(msg);
 
 	}
 
@@ -130,14 +126,17 @@ public class BeerShopManager implements Serializable {
 					"A darabszám nem lehet negatív érték!");
 		}
 
-		if (msg != null) {
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			msg = null;
-		}
+		FacesMessageTool.publishMessage(msg);
 	}
 
 	public void saveItemsToCart() {
+
 		cartService.saveItemsToCart(beersToCart, getSessionManager().getLoggedInUser().getCart());
+
+		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Termékek a kosárba helyezve.",
+				"Termékek a kosárba helyezve.");
+
+		FacesMessageTool.publishMessage(msg);
 	}
 
 	/**
@@ -194,7 +193,8 @@ public class BeerShopManager implements Serializable {
 	}
 
 	/**
-	 * @param sessionManager the sessionManager to set
+	 * @param sessionManager
+	 *            the sessionManager to set
 	 */
 	public void setSessionManager(SessionManager sessionManager) {
 		this.sessionManager = sessionManager;

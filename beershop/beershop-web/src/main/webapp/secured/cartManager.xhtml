@@ -41,8 +41,17 @@
 											<p:column headerText="Kedvezmény">
 												<h:outputText value="#{item.beer.discountAmount}" />
 											</p:column>
+											<p:column headerText="">
+												<p:commandButton icon="fa fa-trash"
+													action="#{cartManagerBean.deleteItemFromCart(item)}"
+													update="cartTable cart:cartMessage" />
+											</p:column>
 											<f:facet name="footer">
-												<p:outputLabel value="Fizetendő összeg:#{cartManagerBean.getTotalPrice()}" />
+												<p:outputLabel
+													value="Fizetendő összeg:#{cartManagerBean.getTotalPrice()}" />
+													<p:spacer height="25" />
+												<p:outputLabel
+													value="Gyűjthető bónusz pontok:#{cartManagerBean.countBonusPoints()}" />
 											</f:facet>
 										</p:dataTable>
 									</h:form>

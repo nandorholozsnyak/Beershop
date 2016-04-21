@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/baseNobeerTemplate.xhtml">
+	<h:head>
+		<!-- Font Awesome -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+		<style>
+tr:first-child {
+	background: #eeeeee !important;
+	border: 0 none !important;
+}
+
+.ui-widget-content {
+	text-align: center !important;
+	background: transparent !important;
+	margin: auto !important;
+	width: 50% !important;
+}
+</style>
+		<h:outputScript name="js/copyblock.js" />
+	</h:head>
+	<ui:define name="content">
+		<h:body>
+			<div class="container">
+				<div class="inside">
+					<h2>Egyenlegfeltöltés</h2>
+					<div class="box">
+						<div class="left-top-corner">
+							<div class="right-top-corner">
+								<div class="border-top"></div>
+							</div>
+						</div>
+						<div class="xcontent">
+							<div class="border-left">
+								<div class="border-right">
+									<div class="inner1">
+										<h:form id="form">
+											<p:growl id="moneyMsg" />
+											<p:panelGrid columns="1" layout="grid">
+												<p:selectOneMenu id="moneySelection"
+													value="#{moneyTransferManagerBean.money}">
+													style="width:250px">
+													<f:selectItem itemLabel="Válasszon egyet" itemValue="" />
+													<f:selectItems
+														value="#{moneyTransferManagerBean.moneyValues}" />
+												</p:selectOneMenu>
+												<h:outputText value="Ellenörző kód" />
+												<h:inputText id="pinCode" readonly="" disabled="true"
+													value="#{moneyTransferManagerBean.pin}"
+													onkeydown="return false;" onkeypress="return false;"
+													onkeyup="return false;" />
+												<h:inputText value="#{moneyTransferManagerBean.userPin}" />
+												<p:commandButton value="Feltöltés" update="moneyMsg userMoney"
+													action="#{moneyTransferManagerBean.transferMoney}" />
+											</p:panelGrid>
+										</h:form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="left-bot-corner">
+							<div class="right-bot-corner">
+								<div class="border-bot"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:body>
+	</ui:define>
+</ui:composition>

@@ -37,7 +37,7 @@
 .profile .ui-widget-content {
 	background: transparent !important;
 	font-weight: bold;
-	font-size: large;
+	font-size: medium;
 	color: black;
 }
 
@@ -67,6 +67,8 @@ tr {
 					<sec:authorize access="hasRole('ROLE_USER')">
 						<li><a href="#{request.contextPath}/secured/shop.xhtml"><span>A
 									mi sörünk</span></a></li>
+						<li><a
+							href="#{request.contextPath}/secured/moneyTransfer.xhtml"><span>Egyenlegfeltöltés</span></a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<li><a
@@ -80,13 +82,18 @@ tr {
 						<li><p:panelGrid columns="1" layout="grid">
 								<h:outputText
 									value="Üdv #{sessionManagerBean.loggedInUser.username}" />
-								<h:outputText value="#{sessionManagerBean.getUserRank()}" />
+								<h:outputLabel id="userMoney"
+									value="Egyenleged: #{sessionManagerBean.loggedInUser.money} HUF" />
 								<h:outputText value="Tapasztalatpontjaid" />
 								<p:progressBar
 									value="#{sessionManagerBean.getUserExperiencePoints()}"
-									displayOnly="true" />
+									displayOnly="true"
+									labelTemplate="#{sessionManagerBean.loggedInUser.experiencePoints}" />
 							</p:panelGrid></li>
-						<li><a href="#{request.contextPath}/secured/cartManager.xhtml"><span>Kosaram</span></a></li>
+						<li><a
+							href="#{request.contextPath}/secured/cartManager.xhtml"><span>Kosaram</span></a></li>
+						<!-- 						<li><a -->
+						<!-- 							href="#{request.contextPath}/secured/moneyTransfer.xhtml"><span>Egyenlegfeltöltés</span></a></li> -->
 						<li><a href="#{request.contextPath}/logout"><span>Kijelentkezés</span></a></li>
 					</ul>
 					</nav>

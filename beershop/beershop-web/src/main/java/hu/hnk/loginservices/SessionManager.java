@@ -93,5 +93,9 @@ public class SessionManager implements Serializable {
 	public Integer getUserExperiencePoints() {
 		return userService.countExperiencePointsInPercentage(loggedInUser.getExperiencePoints());
 	}
+	
+	public void moneyTransfer() {
+		
+	}
 
 }
