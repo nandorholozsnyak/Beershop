@@ -29,7 +29,8 @@ public class CartDaoImpl implements CartDao {
 	 */
 	@PersistenceContext
 	private EntityManager em;
-
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -59,17 +60,14 @@ public class CartDaoImpl implements CartDao {
 	}
 
 	@Override
-	public void deleteItem(Long id) {
-		
-		CartItem found = em.find(CartItem.class, id);
-		
-		em.remove(found);
-		
+	public void deleteItem(CartItem item) {
+		item.setActive(false);
+		em.merge(item);
 	}
 
 	@Override
 	public CartItem updateItem(CartItem item) {
-		return em.merge(item);		
+		return em.merge(item);
 	}
 
 }

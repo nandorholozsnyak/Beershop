@@ -30,8 +30,9 @@ public interface CartDao {
 
 	public Cart findByUser(User user);
 
-	public void deleteItem(Long id);
+	public void deleteItem(CartItem item) throws Exception;
 
 	public CartItem updateItem(CartItem item);
+	
 
 }

@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.interfaces.StorageDao;
 
@@ -50,6 +51,11 @@ public class StorageDaoImpl implements StorageDao {
 	@Override
 	public StorageItem save(StorageItem storageItem) {
 		return em.merge(storageItem);
+	}
+
+	@Override
+	public StorageItem findByBeer(Beer beer) {
+		return em.createNamedQuery("StorageItem.findByBeer", StorageItem.class).setParameter("beer", beer).getSingleResult();
 	}
 
 }

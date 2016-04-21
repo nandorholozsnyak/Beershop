@@ -2,6 +2,7 @@ package hu.hnk.interfaces;
 
 import java.util.List;
 
+import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 
 /**
@@ -20,4 +21,6 @@ public interface StorageDao {
 	public void saveAllChanges(List<StorageItem> storage);
 
 	public StorageItem save(StorageItem storageItem);
+	
+	public StorageItem findByBeer(Beer beer);
 }
