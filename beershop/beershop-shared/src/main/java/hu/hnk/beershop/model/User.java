@@ -93,6 +93,12 @@ public class User implements Serializable {
 	private Cart cart;
 
 	/**
+	 * A felhasználó egyenlege amellyel majd söröket vásárolhat.
+	 */
+	@Column(name = "money", columnDefinition = "Decimal(10,2) default '0.0'")
+	private Long money;
+
+	/**
 	 * @return the dateOfBirth
 	 */
 	public Date getDateOfBirth() {
@@ -224,6 +230,21 @@ public class User implements Serializable {
 	 */
 	public void setCart(Cart cart) {
 		this.cart = cart;
+	}
+
+	/**
+	 * @return the money
+	 */
+	public Long getMoney() {
+		return money;
+	}
+
+	/**
+	 * @param money
+	 *            the money to set
+	 */
+	public void setMoney(Long money) {
+		this.money = money;
 	}
 
 	// /**

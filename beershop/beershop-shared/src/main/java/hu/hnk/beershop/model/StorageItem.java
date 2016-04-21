@@ -20,7 +20,8 @@ import javax.persistence.OneToOne;
  *
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = "StorageItem.findAll", query = "SELECT s FROM StorageItem s") })
+@NamedQueries({ @NamedQuery(name = "StorageItem.findAll", query = "SELECT s FROM StorageItem s"),
+		@NamedQuery(name = "StorageItem.findByBeer", query = "SELECT s FROM StorageItem s WHERE beer = :beer") })
 public class StorageItem implements Serializable {
 
 	/**

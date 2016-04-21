@@ -3,11 +3,14 @@ package hu.hnk.beershop.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  * Egy kosár adatait tartalmazó osztály.
@@ -128,5 +131,6 @@ public class CartItem implements Serializable {
 		return "CartItem [id=" + id + ", beer=" + beer + ", quantity=" + quantity + ", active=" + active
 				+ ", addedToCart=" + addedToCart + ", payDate=" + payDate + "]";
 	}
+
 
 }
