@@ -2,6 +2,8 @@ package hu.hnk.dao;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -16,6 +18,7 @@ import hu.hnk.interfaces.RoleDao;
  */
 @Stateless
 @Local(RoleDao.class)
+@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class RoleDaoImpl implements RoleDao {
 	
 	/**

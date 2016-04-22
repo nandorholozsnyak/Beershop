@@ -2,6 +2,8 @@ package hu.hnk.dao;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -22,6 +24,7 @@ import hu.hnk.interfaces.UserDao;
  */
 @Stateless
 @Local(UserDao.class)
+@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class UserDaoImpl implements UserDao {
 
 	/**
@@ -99,14 +102,14 @@ public class UserDaoImpl implements UserDao {
 		em.remove(em.contains(user) ? user : em.merge(user));
 	}
 
-//	@Override
-//	public User findByRole(List<Role> roleName) {
-//		CriteriaBuilder cb = em.getCriteriaBuilder();
-//		CriteriaQuery cq = cb.createQuery(User.class);
-//		Root<User> user = cq.from(User.class);
-//		cq.select(user).where(user.get("roles")).from(User.class).in(roleName);
-//		return (User) em.createQuery(cq).getResultList().get(0);
-//	}
+	// @Override
+	// public User findByRole(List<Role> roleName) {
+	// CriteriaBuilder cb = em.getCriteriaBuilder();
+	// CriteriaQuery cq = cb.createQuery(User.class);
+	// Root<User> user = cq.from(User.class);
+	// cq.select(user).where(user.get("roles")).from(User.class).in(roleName);
+	// return (User) em.createQuery(cq).getResultList().get(0);
+	// }
 
 	/**
 	 * Felhasználó keresése felhasználónév alapján.
@@ -123,8 +126,8 @@ public class UserDaoImpl implements UserDao {
 		query.setParameter("name", username);
 		String user;
 		try {
-			 user = query.getSingleResult();
-			 return user;
+			user = query.getSingleResult();
+			return user;
 		} catch (Exception e) {
 			throw new UsernameNotFound("There is no user with this username.");
 		}
@@ -145,8 +148,8 @@ public class UserDaoImpl implements UserDao {
 		query.setParameter("email", email);
 		String user;
 		try {
-			 user = query.getSingleResult();
-			 return user;
+			user = query.getSingleResult();
+			return user;
 		} catch (Exception e) {
 			throw new EmailNotFound("There is no user with this email.");
 		}

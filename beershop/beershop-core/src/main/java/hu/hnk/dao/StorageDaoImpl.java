@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -21,6 +23,7 @@ import hu.hnk.interfaces.StorageDao;
  */
 @Stateless
 @Local(StorageDao.class)
+@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class StorageDaoImpl implements StorageDao {
 
 	/**

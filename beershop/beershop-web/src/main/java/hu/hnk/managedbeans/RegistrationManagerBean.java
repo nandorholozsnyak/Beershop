@@ -13,6 +13,7 @@ import javax.faces.event.ActionEvent;
 import org.apache.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import hu.hnk.beershop.model.Cart;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.tool.FacesMessageTool;
@@ -182,11 +183,14 @@ public class RegistrationManagerBean implements Serializable {
 			newUser.setEmail(email);
 			newUser.setPoints((double) 0);
 			newUser.setDateOfBirth(dateOfBirth);
+			newUser.setExperiencePoints((double) 0);
+			newUser.setMoney((long) 0);
+			newUser.setCart(new Cart());
 			if (newUser != null) {
 				try {
 					userService.save(newUser);
 					msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sikeres regisztráció.", "");
-					FacesContext.getCurrentInstance().getExternalContext().redirect("/public/index.xhtml");
+					FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
 				} catch (Exception e) {
 					msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hiba regisztráció közben.", "Hiba!");
 				}
@@ -236,9 +240,9 @@ public class RegistrationManagerBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("registration:dateOfBirth",
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Csak 18 fölött lehetséges a regisztráció.",
 							"Csak 18 fölött lehetséges a regisztráció."));
-			isOlderThanEighteen = true;
-		} else {
 			isOlderThanEighteen = false;
+		} else {
+			isOlderThanEighteen = true;
 		}
 	}
 

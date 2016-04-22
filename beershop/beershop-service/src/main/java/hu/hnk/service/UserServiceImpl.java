@@ -11,6 +11,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.InvalidPinCode;
@@ -30,6 +32,7 @@ import hu.hnk.interfaces.UserDao;
  */
 @Stateless(name = "userService")
 @Local(UserService.class)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class UserServiceImpl implements UserService {
 
 	/**
@@ -54,7 +57,6 @@ public class UserServiceImpl implements UserService {
 		Role role = roleDao.findByName("ROLE_USER");
 
 		if (role == null) {
-			System.out.println("Role null->ROLE_USER");
 			role = new Role();
 			role.setName("ROLE_USER");
 			role = roleDao.save(role);
@@ -69,9 +71,8 @@ public class UserServiceImpl implements UserService {
 
 		userRoles.add(role);
 		userData.setRoles(userRoles);
-
+		userData.getCart().setUser(userData);
 		getUserDao().save(userData);
-		System.out.println("UserService after save!");
 	}
 
 	/**
@@ -180,7 +181,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser) throws InvalidPinCode {
+	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser)
+			throws InvalidPinCode {
 		if (!userPin.equals(expectedPin)) {
 			throw new InvalidPinCode("PINs are not the same.");
 		}

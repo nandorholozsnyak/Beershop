@@ -70,7 +70,7 @@ public class User implements Serializable {
 	/**
 	 * A felhasználó pontjai.
 	 */
-	@Column(name = "points")
+	@Column(name = "points", columnDefinition = "Decimal(10,2) default '0.0'")
 	private Double points;
 
 	/**
@@ -89,7 +89,7 @@ public class User implements Serializable {
 	/**
 	 * A felhasználó saját kosara amelybe termékeket tud majd elhelyezni.
 	 */
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Cart cart;
 
 	/**

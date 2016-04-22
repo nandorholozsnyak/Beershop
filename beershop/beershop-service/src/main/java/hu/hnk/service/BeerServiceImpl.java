@@ -8,6 +8,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.service.interfaces.BeerService;
@@ -19,6 +21,7 @@ import hu.hnk.interfaces.BeerDao;
  */
 @Stateless
 @Local(BeerService.class)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class BeerServiceImpl implements BeerService {
 	
 	/**
