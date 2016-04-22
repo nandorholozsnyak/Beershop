@@ -97,6 +97,7 @@ public class BeerShopManager implements Serializable {
 		try {
 			storageService.checkStorageItemQuantityLimit(items, beer, ++quantity);
 			beersToCart.put(beer, quantity);
+			msg = null;
 		} catch (StorageItemQuantityExceeded e) {
 			logger.warn(e.getMessage());
 			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "A raktár maximumát elérte.",
@@ -117,6 +118,7 @@ public class BeerShopManager implements Serializable {
 		try {
 			storageService.checkStorageItemQuantityLimit(storageService.findAll(), beer, --quantity);
 			beersToCart.put(beer, quantity);
+			msg = null;
 		} catch (StorageItemQuantityExceeded e) {
 			logger.warn(e.getMessage());
 			beersToCart.put(beer, items.stream().filter(p -> p.getBeer().equals(beer)).findFirst().get().getQuantity());

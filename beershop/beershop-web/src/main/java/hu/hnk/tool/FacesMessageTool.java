@@ -10,6 +10,7 @@ public class FacesMessageTool {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			msg = null;
 		}
+		msg = null;
 	}
 
 }
