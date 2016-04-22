@@ -66,15 +66,21 @@ public class StorageServiceImpl implements StorageService {
 				.filter(p -> quantity > p.getQuantity()).collect(Collectors.toList());
 
 		if (!exceededList.isEmpty()) {
-
 			throw new StorageItemQuantityExceeded("The asked quantity is bigger than the storage quantity given.");
 		}
 
 		if (quantity < 0) {
-
 			throw new NegativeQuantityNumber("Can not take negative quantity to cart.");
 		}
 
+	}
+
+	/**
+	 * @param storageDao
+	 *            the storageDao to set
+	 */
+	public void setStorageDao(StorageDao storageDao) {
+		this.storageDao = storageDao;
 	}
 
 }
