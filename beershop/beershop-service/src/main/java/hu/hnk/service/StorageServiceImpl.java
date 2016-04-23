@@ -48,8 +48,15 @@ public class StorageServiceImpl implements StorageService {
 
 	@Override
 	public void saveAllChanges(List<StorageItem> storage) throws NegativeQuantityNumber {
-		if (storage.stream().filter(p -> p.getQuantity() < 0).collect(Collectors.toList()).isEmpty() && storage.stream()
-				.filter(p -> p.getBeer().getDiscountAmount() < 0).collect(Collectors.toList()).isEmpty()) {
+		if (storage.stream()
+				.filter(p -> p.getQuantity() < 0)
+				.collect(Collectors.toList())
+				.isEmpty()
+				&& storage.stream()
+						.filter(p -> p.getBeer()
+								.getDiscountAmount() < 0)
+						.collect(Collectors.toList())
+						.isEmpty()) {
 			storageDao.saveAllChanges(storage);
 		} else {
 			throw new NegativeQuantityNumber("Negative number can't be stored in the storage table!");
@@ -62,8 +69,11 @@ public class StorageServiceImpl implements StorageService {
 	public void checkStorageItemQuantityLimit(List<StorageItem> storage, Beer beer, Integer quantity)
 			throws StorageItemQuantityExceeded, NegativeQuantityNumber {
 		logger.info("Trying to modify item quantity.");
-		List<StorageItem> exceededList = storage.stream().filter(p -> p.getBeer().equals(beer))
-				.filter(p -> quantity > p.getQuantity()).collect(Collectors.toList());
+		List<StorageItem> exceededList = storage.stream()
+				.filter(p -> p.getBeer()
+						.equals(beer))
+				.filter(p -> quantity > p.getQuantity())
+				.collect(Collectors.toList());
 
 		if (!exceededList.isEmpty()) {
 			throw new StorageItemQuantityExceeded("The asked quantity is bigger than the storage quantity given.");

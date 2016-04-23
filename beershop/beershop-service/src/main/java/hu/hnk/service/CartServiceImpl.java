@@ -71,12 +71,20 @@ public class CartServiceImpl implements CartService {
 	private void addBeerToCartItemList(Map<Beer, Integer> beersToCart, List<CartItem> cartItems,
 			List<StorageItem> storageItems, Beer beer) {
 
-		StorageItem beerInStorage = storageItems.stream().filter(e -> e.getBeer().equals(beer)).findFirst().get();
+		StorageItem beerInStorage = storageItems.stream()
+				.filter(e -> e.getBeer()
+						.equals(beer))
+				.findFirst()
+				.get();
 
 		CartItem item;
 		CartItem foundItem;
 		try {
-			foundItem = cartItems.stream().filter(p -> p.getBeer().equals(beer) && p.getActive()).findFirst().get();
+			foundItem = cartItems.stream()
+					.filter(p -> p.getBeer()
+							.equals(beer) && p.getActive())
+					.findFirst()
+					.get();
 		} catch (Exception e) {
 			foundItem = null;
 		}
@@ -105,8 +113,11 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public Double countTotalCost(List<CartItem> cartItems) {
 		return cartItems.stream()
-				.mapToDouble(
-						e -> e.getBeer().getPrice() * e.getQuantity() * (100 - e.getBeer().getDiscountAmount()) / 100)
+				.mapToDouble(e -> e.getBeer()
+						.getPrice() * e.getQuantity()
+						* (100 - e.getBeer()
+								.getDiscountAmount())
+						/ 100)
 				.sum();
 	}
 
@@ -135,9 +146,14 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public Double countBonusPoints(List<CartItem> cartItems) {
 		return cartItems.stream()
-				.mapToDouble(e -> (e.getQuantity() + e.getBeer().getPrice()) / 100
-						+ (e.getBeer().getAlcoholLevel()
-						+ e.getBeer().getCapacity() + e.getBeer().getDiscountAmount()))
+				.mapToDouble(e -> (e.getQuantity() + e.getBeer()
+						.getPrice()) / 100
+						+ (e.getBeer()
+								.getAlcoholLevel()
+								+ e.getBeer()
+										.getCapacity()
+								+ e.getBeer()
+										.getDiscountAmount()))
 				.sum();
 	}
 

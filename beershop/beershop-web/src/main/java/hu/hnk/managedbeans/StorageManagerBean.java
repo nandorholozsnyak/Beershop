@@ -34,8 +34,7 @@ public class StorageManagerBean implements Serializable {
 	 */
 	@EJB
 	private StorageService storageService;
-	
-	
+
 	/**
 	 * 
 	 */
@@ -71,7 +70,8 @@ public class StorageManagerBean implements Serializable {
 			storage = storageService.findAll();
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		FacesContext.getCurrentInstance()
+				.addMessage(null, msg);
 	}
 
 }

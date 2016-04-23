@@ -11,7 +11,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
@@ -102,7 +101,12 @@ public class BeerShopManager implements Serializable {
 			logger.warn(e.getMessage());
 			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "A raktár maximumát elérte.",
 					"A raktár maximumát elérte.");
-			beersToCart.put(beer, items.stream().filter(p -> p.getBeer().equals(beer)).findFirst().get().getQuantity());
+			beersToCart.put(beer, items.stream()
+					.filter(p -> p.getBeer()
+							.equals(beer))
+					.findFirst()
+					.get()
+					.getQuantity());
 		} catch (NegativeQuantityNumber e) {
 			logger.warn(e.getMessage());
 		}
@@ -121,7 +125,12 @@ public class BeerShopManager implements Serializable {
 			msg = null;
 		} catch (StorageItemQuantityExceeded e) {
 			logger.warn(e.getMessage());
-			beersToCart.put(beer, items.stream().filter(p -> p.getBeer().equals(beer)).findFirst().get().getQuantity());
+			beersToCart.put(beer, items.stream()
+					.filter(p -> p.getBeer()
+							.equals(beer))
+					.findFirst()
+					.get()
+					.getQuantity());
 		} catch (NegativeQuantityNumber e) {
 			logger.warn(e.getMessage());
 			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "A darabszám nem lehet negatív érték!",
@@ -133,7 +142,8 @@ public class BeerShopManager implements Serializable {
 
 	public void saveItemsToCart() {
 
-		cartService.saveItemsToCart(beersToCart, getSessionManager().getLoggedInUser().getCart());
+		cartService.saveItemsToCart(beersToCart, getSessionManager().getLoggedInUser()
+				.getCart());
 
 		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Termékek a kosárba helyezve.",
 				"Termékek a kosárba helyezve.");

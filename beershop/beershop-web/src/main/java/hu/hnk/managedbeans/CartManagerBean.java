@@ -2,7 +2,6 @@ package hu.hnk.managedbeans;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.text.Format;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +12,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
@@ -52,7 +50,11 @@ public class CartManagerBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		items = cartService.findByUser(sessionManager.getLoggedInUser()).getItems().stream().filter(e->e.getActive()).collect(Collectors.toList());
+		items = cartService.findByUser(sessionManager.getLoggedInUser())
+				.getItems()
+				.stream()
+				.filter(e -> e.getActive())
+				.collect(Collectors.toList());
 		logger.info(items);
 	}
 
@@ -62,7 +64,7 @@ public class CartManagerBean implements Serializable {
 	}
 
 	public void deleteItemFromCart(CartItem item) {
-		
+
 		try {
 			cartService.deletItemFromCart(item);
 			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Módosítások sikeresen mentve!",
@@ -74,10 +76,14 @@ public class CartManagerBean implements Serializable {
 		}
 		FacesMessageTool.publishMessage(msg);
 	}
-	
+
 	public String countBonusPoints() {
 		NumberFormat format = new DecimalFormat("#0.00");
 		return format.format(cartService.countBonusPoints(items));
+	}
+
+	public void buyItems() {
+
 	}
 
 	/**

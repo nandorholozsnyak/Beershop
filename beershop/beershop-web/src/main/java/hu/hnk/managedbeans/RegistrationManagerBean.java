@@ -190,7 +190,9 @@ public class RegistrationManagerBean implements Serializable {
 				try {
 					userService.save(newUser);
 					msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sikeres regisztráció.", "");
-					FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+					FacesContext.getCurrentInstance()
+							.getExternalContext()
+							.redirect("index.xhtml");
 				} catch (Exception e) {
 					msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hiba regisztráció közben.", "Hiba!");
 				}
@@ -207,9 +209,9 @@ public class RegistrationManagerBean implements Serializable {
 	public void usernameListener() {
 		if (userService.isUsernameAlreadyTaken(username)) {
 			logger.info("Felhasználónév már foglalt!");
-			FacesContext.getCurrentInstance().addMessage("registration:username",
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Ez a felhasználónév már foglalt!",
-							"Ez a felhasználónév már foglalt!"));
+			FacesContext.getCurrentInstance()
+					.addMessage("registration:username", new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Ez a felhasználónév már foglalt!", "Ez a felhasználónév már foglalt!"));
 			isUsernameFree = false;
 		} else {
 			isUsernameFree = true;
@@ -222,8 +224,9 @@ public class RegistrationManagerBean implements Serializable {
 	public void emailListener() {
 		if (userService.isEmailAlreadyTaken(email)) {
 			logger.info("E-mail cím már foglalt!");
-			FacesContext.getCurrentInstance().addMessage("registration:email", new FacesMessage(
-					FacesMessage.SEVERITY_WARN, "Ez az e-mail cím már foglalt!", "Ez az e-mail cím már foglalt!"));
+			FacesContext.getCurrentInstance()
+					.addMessage("registration:email", new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Ez az e-mail cím már foglalt!", "Ez az e-mail cím már foglalt!"));
 			isEmailFree = false;
 		} else {
 			isEmailFree = true;
@@ -237,9 +240,9 @@ public class RegistrationManagerBean implements Serializable {
 	public void ageListener() {
 		if (!userService.isOlderThanEighteen(dateOfBirth)) {
 			logger.info("Csak 18 év fölött lehetséges a regisztráció.");
-			FacesContext.getCurrentInstance().addMessage("registration:dateOfBirth",
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Csak 18 fölött lehetséges a regisztráció.",
-							"Csak 18 fölött lehetséges a regisztráció."));
+			FacesContext.getCurrentInstance()
+					.addMessage("registration:dateOfBirth", new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Csak 18 fölött lehetséges a regisztráció.", "Csak 18 fölött lehetséges a regisztráció."));
 			isOlderThanEighteen = false;
 		} else {
 			isOlderThanEighteen = true;

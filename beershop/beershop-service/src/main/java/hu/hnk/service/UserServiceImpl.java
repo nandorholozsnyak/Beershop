@@ -20,6 +20,7 @@ import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
+import hu.hnk.beershop.service.interfaces.EventLogService;
 import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.interfaces.RoleDao;
 import hu.hnk.interfaces.UserDao;
@@ -48,6 +49,12 @@ public class UserServiceImpl implements UserService {
 	private RoleDao roleDao;
 
 	/**
+	 * Az eseményeket kezelõ szolgáltatás.
+	 */
+	@EJB
+	private EventLogService eventLogService;
+
+	/**
 	 * A felhasználó mentése.
 	 * 
 	 * @param user
@@ -71,7 +78,8 @@ public class UserServiceImpl implements UserService {
 
 		userRoles.add(role);
 		userData.setRoles(userRoles);
-		userData.getCart().setUser(userData);
+		userData.getCart()
+				.setUser(userData);
 		getUserDao().save(userData);
 	}
 
@@ -85,8 +93,10 @@ public class UserServiceImpl implements UserService {
 	public boolean isOlderThanEighteen(Date dateOfBirth) {
 		LocalDate now = LocalDate.now();
 		Instant instant = Instant.ofEpochMilli(dateOfBirth.getTime());
-		LocalDate birth = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-		return birth.until(now).getYears() > 17;
+		LocalDate birth = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+				.toLocalDate();
+		return birth.until(now)
+				.getYears() > 17;
 	}
 
 	/**

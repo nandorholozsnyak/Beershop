@@ -77,7 +77,7 @@ public class MoneyTransferManagerBean implements Serializable {
 			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Az ellenörzõ pin kód nem egyezik meg.",
 					"Az ellenörzõ pin kód nem egyezik meg.");
 		}
-		
+
 		FacesMessageTool.publishMessage(msg);
 	}
 
