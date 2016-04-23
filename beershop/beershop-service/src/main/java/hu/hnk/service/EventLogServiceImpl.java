@@ -1,6 +1,5 @@
 package hu.hnk.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -12,7 +11,6 @@ import javax.ejb.TransactionAttributeType;
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.EventLogService;
-import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.interfaces.EventLogDao;
 
 @Stateless
@@ -33,31 +31,6 @@ public class EventLogServiceImpl implements EventLogService {
 		return eventLogDao.save(event);
 	}
 
-	@Override
-	public EventLog createEventLog(EventLogType logType, User user) {
-		EventLog result = null;
-		if (logType.equals(EventLogType.Registration)) {
-			result = createRegistrationEventLog(user);
-		} else if (logType.equals(EventLogType.MoneyTransfer)) {
-			result = createMoneyTransferEventLog(user);
-		}
-		return result;
-	}
-
-	private EventLog createRegistrationEventLog(User user) {
-		EventLog event = new EventLog();
-		event.setDate(LocalDateTime.now());
-		event.setAction("User registration.");
-		event.setUser(user);
-		return event;
-	}
-
-	private EventLog createMoneyTransferEventLog(User user) {
-		EventLog event = new EventLog();
-		event.setDate(LocalDateTime.now());
-		event.setAction("Money transfer.");
-		event.setUser(user);
-		return event;
-	}
+	
 
 }

@@ -14,6 +14,8 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import org.apache.log4j.Logger;
+
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.InvalidPinCode;
 import hu.hnk.beershop.exception.UsernameNotFound;
@@ -22,8 +24,10 @@ import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.EventLogService;
 import hu.hnk.beershop.service.interfaces.UserService;
+import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.interfaces.RoleDao;
 import hu.hnk.interfaces.UserDao;
+import hu.hnk.service.factory.EventLogFactory;
 
 /**
  * A felhasználói szolgálatásokkal foglalkozó osztály. Enterprise Java Bean.
@@ -35,6 +39,11 @@ import hu.hnk.interfaces.UserDao;
 @Local(UserService.class)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class UserServiceImpl implements UserService {
+
+	/**
+	 * Az osztály loggere.
+	 */
+	public static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
 	/**
 	 * A felhasználókat kezelõ adathozzáférési objektum.
@@ -69,7 +78,7 @@ public class UserServiceImpl implements UserService {
 			role = roleDao.save(role);
 		}
 
-		User userData = getUserDao().save(user);
+		User userData = userDao.save(user);
 		List<Role> userRoles = userData.getRoles();
 
 		if (userRoles == null || userRoles.isEmpty()) {
@@ -80,7 +89,8 @@ public class UserServiceImpl implements UserService {
 		userData.setRoles(userRoles);
 		userData.getCart()
 				.setUser(userData);
-		getUserDao().save(userData);
+		userDao.save(userData);
+		eventLogService.save(EventLogFactory.createEventLog(EventLogType.Registration, userData));
 	}
 
 	/**
@@ -110,9 +120,9 @@ public class UserServiceImpl implements UserService {
 	public User findByUsername(String username) {
 		User user = null;
 		try {
-			user = getUserDao().findByUsername(username);
+			user = userDao.findByUsername(username);
 		} catch (UsernameNotFound e) {
-
+			logger.warn("Username:" + username + " is not found in our database.");
 		}
 		return user;
 	}
@@ -128,7 +138,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isUsernameAlreadyTaken(String username) {
 		try {
-			getUserDao().findUsername(username);
+			userDao.findUsername(username);
 			return true;
 		} catch (UsernameNotFound e) {
 			return false;
@@ -146,19 +156,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isEmailAlreadyTaken(String email) {
 		try {
-			getUserDao().findEmail(email);
+			userDao.findEmail(email);
 			return true;
 		} catch (EmailNotFound e) {
 			return false;
 		}
-	}
-
-	public UserDao getUserDao() {
-		return userDao;
-	}
-
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
 	}
 
 	@Override
@@ -166,9 +168,9 @@ public class UserServiceImpl implements UserService {
 		Rank userRank = null;
 		if (user.getExperiencePoints() > -1 && user.getExperiencePoints() <= 2500) {
 			userRank = Rank.Amatuer;
-		} else if (user.getExperiencePoints() > 2500 && user.getExperiencePoints() <= 7500) {
+		} else if (user.getExperiencePoints() > 2500 && user.getExperiencePoints() <= 5000) {
 			userRank = Rank.Beginner;
-		} else if (user.getExperiencePoints() > 7500) {
+		} else if (user.getExperiencePoints() > 5000) {
 			userRank = Rank.Expert;
 		}
 		return userRank;
@@ -181,9 +183,10 @@ public class UserServiceImpl implements UserService {
 
 		if (experiencePoints > -1 && experiencePoints <= 2500) {
 			result = (int) ((experiencePoints / 2500) * 100);
-		} else if (experiencePoints > 2500 && experiencePoints <= 7500) {
-			result = (int) ((experiencePoints / 7500) * 100);
-		} else if (experiencePoints > 7500) {
+		} else if (experiencePoints > 2500 && experiencePoints <= 5000) {
+			experiencePoints -= 2500;
+			result = (int) ((experiencePoints / 2500) * 100);
+		} else if (experiencePoints > 5000) {
 			result = 100;
 		}
 
@@ -198,6 +201,14 @@ public class UserServiceImpl implements UserService {
 		}
 		loggedInUser.setMoney(loggedInUser.getMoney() + money);
 		userDao.save(loggedInUser);
+		eventLogService.save(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, loggedInUser));
 	}
 
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	public void setEventLogService(EventLogService eventLogService) {
+		this.eventLogService = eventLogService;
+	}
 }

@@ -9,10 +9,16 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import hu.hnk.beershop.exception.EmailNotFound;
+import hu.hnk.beershop.exception.InvalidPinCode;
 import hu.hnk.beershop.exception.UsernameNotFound;
+import hu.hnk.beershop.model.EventLog;
+import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
+import hu.hnk.beershop.service.interfaces.EventLogService;
+import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.UserServiceImpl;
+import hu.hnk.service.factory.EventLogFactory;
 
 public class UserServiceTest {
 
@@ -20,11 +26,15 @@ public class UserServiceTest {
 
 	private UserDao userDao;
 
+	private EventLogService eventLogService;
+
 	@Before
 	public void bootContainer() throws Exception {
 		userService = Mockito.spy(new UserServiceImpl());
 		userDao = Mockito.mock(UserDao.class);
+		eventLogService = Mockito.mock(EventLogService.class);
 		userService.setUserDao(userDao);
+		userService.setEventLogService(eventLogService);
 	}
 
 	@Test
@@ -50,7 +60,8 @@ public class UserServiceTest {
 		// Mockito.when(userDao.save(user)).thenReturn(user);
 		userDao.save(user);
 		// Mockito.when(userDao.findUsername("EmailTest")).thenReturn("EmailTest");
-		Mockito.when(userDao.findUsername("NameTest")).thenReturn("NameTest");
+		Mockito.when(userDao.findUsername("NameTest"))
+				.thenReturn("NameTest");
 		Assert.assertEquals(true, userService.isUsernameAlreadyTaken("NameTest"));
 	}
 
@@ -65,8 +76,10 @@ public class UserServiceTest {
 		user.setDateOfBirth(new Date());
 		userDao.save(user);
 
-		Mockito.when(userDao.findUsername("EmailTest")).thenReturn("EmailTest");
-		Mockito.when(userService.isUsernameAlreadyTaken("EmailTest")).thenThrow(UsernameNotFound.class);
+		Mockito.when(userDao.findUsername("EmailTest"))
+				.thenReturn("EmailTest");
+		Mockito.when(userService.isUsernameAlreadyTaken("EmailTest"))
+				.thenThrow(UsernameNotFound.class);
 		Assert.assertEquals(false, userService.isUsernameAlreadyTaken("EmailTest"));
 	}
 
@@ -75,7 +88,8 @@ public class UserServiceTest {
 		User user = new User();
 		user.setEmail("email@test.co");
 		userDao.save(user);
-		Mockito.when(userDao.findEmail("email@test.co")).thenReturn("email@test.co");
+		Mockito.when(userDao.findEmail("email@test.co"))
+				.thenReturn("email@test.co");
 		Assert.assertEquals(true, userService.isEmailAlreadyTaken("email@test.co"));
 	}
 
@@ -85,9 +99,62 @@ public class UserServiceTest {
 		User user = new User();
 		user.setEmail("email@test.co");
 		userDao.save(user);
-		Mockito.when(userDao.findEmail("email@test.co")).thenReturn("email@test.co");
-		Mockito.when(userService.isEmailAlreadyTaken("email@test.co")).thenThrow(EmailNotFound.class);
+		Mockito.when(userDao.findEmail("email@test.co"))
+				.thenReturn("email@test.co");
+		Mockito.when(userService.isEmailAlreadyTaken("email@test.co"))
+				.thenThrow(EmailNotFound.class);
 		Assert.assertEquals(false, userService.isEmailAlreadyTaken("email@test.co"));
+	}
+
+	@Test(expected = InvalidPinCode.class)
+	public void testTransferMoneyShouldThrowInvalidPinCode() throws InvalidPinCode {
+		String userPin = "0000";
+		String expectedPin = "9999";
+		Integer money = 1000;
+		User loggedInUser = new User();
+		loggedInUser.setMoney((long) 0);
+		userService.transferMoney(userPin, expectedPin, money, loggedInUser);
+	}
+
+	@Test
+	public void testTransferMoney() throws InvalidPinCode {
+		String userPin = "0000";
+		String expectedPin = "0000";
+		Integer money = 1000;
+		User loggedInUser = new User();
+		loggedInUser.setMoney((long) 0);
+		Mockito.when(userDao.save(loggedInUser))
+				.thenReturn(loggedInUser);
+		Mockito.when(eventLogService.save(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, loggedInUser)))
+				.thenReturn(new EventLog());
+		userService.transferMoney(userPin, expectedPin, money, loggedInUser);
+	}
+
+	@Test
+	public void testCountExperiencePointsInPercentage() {
+		Assert.assertEquals(0, (double) userService.countExperiencePointsInPercentage((double) -1), 0.0);
+		Assert.assertEquals(0, (double) userService.countExperiencePointsInPercentage((double) 0), 0.0);
+		Assert.assertEquals(50, (double) userService.countExperiencePointsInPercentage((double) 1250), 0.0);
+		Assert.assertEquals(100, (double) userService.countExperiencePointsInPercentage((double) 2500), 0.0);
+		Assert.assertEquals(0, (double) userService.countExperiencePointsInPercentage((double) 2501), 0.0);
+		Assert.assertEquals(50, (double) userService.countExperiencePointsInPercentage((double) 3750), 0.0);
+		Assert.assertEquals(100, (double) userService.countExperiencePointsInPercentage((double) 5000), 0.0);
+		Assert.assertEquals(100, (double) userService.countExperiencePointsInPercentage((double) 5001), 0.0);
+	}
+
+	@Test
+	public void testCountRankFromXp() {
+		User user = new User();
+		user.setExperiencePoints((double) 0);
+		Assert.assertEquals(Rank.Amatuer, userService.countRankFromXp(user));
+		user.setExperiencePoints((double) 2500);
+		Assert.assertEquals(Rank.Amatuer, userService.countRankFromXp(user));
+		user.setExperiencePoints((double) 2501);
+		Assert.assertEquals(Rank.Beginner, userService.countRankFromXp(user));
+		user.setExperiencePoints((double) 4999);
+		Assert.assertEquals(Rank.Beginner, userService.countRankFromXp(user));
+		user.setExperiencePoints((double) 5001);
+		Assert.assertEquals(Rank.Expert, userService.countRankFromXp(user));
 	}
 
 	@After
