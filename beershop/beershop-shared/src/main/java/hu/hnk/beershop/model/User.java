@@ -8,9 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -28,20 +25,12 @@ import javax.persistence.OneToOne;
 		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
 		@NamedQuery(name = "User.findUsername", query = "SELECT u.username FROM User u WHERE u.username = :name"),
 		@NamedQuery(name = "User.findEmail", query = "SELECT u.email FROM User u WHERE u.email = :email") })
-public class User implements Serializable {
+public class User extends BaseEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8256608378786882228L;
-
-	/**
-	 * A felhasználó egyedi azonosítója.
-	 */
-	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
 
 	/**
 	 * A felhasználó felhasználóneve.
@@ -89,7 +78,7 @@ public class User implements Serializable {
 	/**
 	 * A felhasználó saját kosara amelybe termékeket tud majd elhelyezni.
 	 */
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Cart cart;
 
 	/**
@@ -141,21 +130,6 @@ public class User implements Serializable {
 	 */
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/**

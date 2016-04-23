@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
@@ -17,22 +15,14 @@ import javax.persistence.OneToOne;
  * @author Nandi
  *
  */
-//@Table(name = "cargo")
+// @Table(name = "cargo")
 @Entity
-public class Cargo implements Serializable {
+public class Cargo extends BaseEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
-
-	/**
-	 * A rendelés egyedi azonosítója.
-	 */
-	@Id
-	@Column(name = "id")
-	@GeneratedValue
-	private Long id;
 
 	/**
 	 * A rendelt sörök listája.
@@ -63,21 +53,6 @@ public class Cargo implements Serializable {
 	 */
 	@Column(name = "address")
 	private String address;
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the beers

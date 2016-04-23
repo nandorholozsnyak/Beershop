@@ -1,15 +1,11 @@
 package hu.hnk.beershop.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
@@ -20,20 +16,13 @@ import javax.persistence.OneToOne;
  *
  */
 @Entity
-public class Cart implements Serializable {
+public class Cart extends BaseEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
 
-	/**
-	 * A kosár egyedi azonosítója.
-	 */
-	@Id
-	@Column(name = "id")
-	@GeneratedValue
-	private Long id;
 
 	/**
 	 * A rendelt sörök listája darabszámokkal együtt.
@@ -53,20 +42,6 @@ public class Cart implements Serializable {
 	// @Column(name = "takenToCart")
 	// private Date takenToCart;
 
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public User getUser() {
 		return user;
