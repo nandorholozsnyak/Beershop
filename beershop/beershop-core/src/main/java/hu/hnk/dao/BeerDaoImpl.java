@@ -17,6 +17,7 @@ import hu.hnk.beershop.model.Beer;
 import hu.hnk.interfaces.BeerDao;
 
 /**
+ * A söröket kezelõ adathozzáférési osztály implementációja.
  * @author Nandi
  *
  */
@@ -31,10 +32,9 @@ public class BeerDaoImpl implements BeerDao {
 	@PersistenceContext
 	private EntityManager em;
 
+	
 	/**
-	 * Az összes sör lekérdezése az adatbázisból.
-	 * 
-	 * @return a sörök listája
+	 * {@inheritDoc}
 	 */
 	@Override
 	public List<Beer> findAll() {

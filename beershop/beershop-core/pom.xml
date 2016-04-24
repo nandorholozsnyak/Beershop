@@ -102,6 +102,17 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<show>private</show>
+					<includeDependencySources>true</includeDependencySources>
+					<dependencySourceIncludes>
+						<dependencySourceInclude>hu.hnk.prt:*</dependencySourceInclude>
+					</dependencySourceIncludes>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>3.4.2</version>

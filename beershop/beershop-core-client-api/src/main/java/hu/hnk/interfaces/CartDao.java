@@ -7,6 +7,8 @@ import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
 
 /**
+ * A kosarat kezelõ adathozzáférési osztály interfésze.
+ * 
  * @author Nandi
  *
  */
@@ -28,11 +30,32 @@ public interface CartDao {
 	 */
 	public Cart save(Cart cart);
 
+	/**
+	 * Kosár keresése felhasználó alapján.
+	 * 
+	 * @param user
+	 *            a keresendõ kosár birtokosa.
+	 * @return a megtalált kosár.
+	 */
 	public Cart findByUser(User user);
 
-	public void deleteItem(CartItem item) throws Exception;
+	/**
+	 * Termék logikai törlése a kosárból.
+	 * 
+	 * @param item
+	 *            a törlendõ termék.
+	 * @throws Exception
+	 *             bármilyen hibás adatbázis mûvelet esetén.
+	 */
+	public void deleteItemLogically(CartItem item) throws Exception;
 
+	/**
+	 * Kosárban lévõ termék frissítése.
+	 * 
+	 * @param item
+	 *            a frissítendõ termék.
+	 * @return a frissített termék.
+	 */
 	public CartItem updateItem(CartItem item);
-	
 
 }

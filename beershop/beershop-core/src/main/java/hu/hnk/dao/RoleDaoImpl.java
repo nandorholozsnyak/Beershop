@@ -27,10 +27,9 @@ public class RoleDaoImpl implements RoleDao {
 	@PersistenceContext(unitName = "BeerShopUnit")
 	private EntityManager em;
 	
+
 	/**
-	 * Jogkör keresése név alapján.
-	 * @param name a keresendõ jogkör neve.
-	 * @return a talált jogkör.
+	 * {@inheritDoc}
 	 */
 	public Role findByName(String name) {
 		TypedQuery<Role> role = em.createNamedQuery("Role.findByName", Role.class);
@@ -38,10 +37,9 @@ public class RoleDaoImpl implements RoleDao {
 		return role.getSingleResult();
 	}
 	
+
 	/**
-	 * Jogkör mentése az adatbázisba.
-	 * @param role a mentendõ jogkör.
-	 * @return a mentett jogkör.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Role save(Role role) {

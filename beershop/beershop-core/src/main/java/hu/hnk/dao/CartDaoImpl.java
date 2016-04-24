@@ -19,6 +19,8 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.CartDao;
 
 /**
+ * A kosarakat kezelõ adathozzáférési osztály implementációja.
+ * 
  * @author Nandi
  *
  */
@@ -32,12 +34,9 @@ public class CartDaoImpl implements CartDao {
 	 */
 	@PersistenceContext
 	private EntityManager em;
-	
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see hu.hnk.interfaces.CartDao#findAll()
+
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public List<Cart> findAll() {
@@ -45,16 +44,17 @@ public class CartDaoImpl implements CartDao {
 		return q.getResultList();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see hu.hnk.interfaces.CartDao#save(hu.hnk.beershop.model.Cart)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Cart save(Cart cart) {
 		return em.merge(cart);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Cart findByUser(User user) {
 		Query q = em.createQuery("SELECT c FROM Cart c WHERE user = :user");
@@ -62,12 +62,18 @@ public class CartDaoImpl implements CartDao {
 		return (Cart) q.getSingleResult();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void deleteItem(CartItem item) {
+	public void deleteItemLogically(CartItem item) {
 		item.setActive(false);
 		em.merge(item);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public CartItem updateItem(CartItem item) {
 		return em.merge(item);

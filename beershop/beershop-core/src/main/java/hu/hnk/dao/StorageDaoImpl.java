@@ -33,9 +33,7 @@ public class StorageDaoImpl implements StorageDao {
 	private EntityManager em;
 
 	/**
-	 * A raktár információit lekérdezõ metódus.
-	 * 
-	 * @return a raktár információi.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public List<StorageItem> findAll() {
@@ -43,22 +41,38 @@ public class StorageDaoImpl implements StorageDao {
 		return query.getResultList();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void saveAllChanges(List<StorageItem> storage) {
-		storage.stream().forEach(entity -> em.merge(entity));
+		storage.stream()
+				.forEach(entity -> em.merge(entity));
 		// for(Storage stItem : storage) {
 		// em.merge(stItem);
 		// }
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see hu.hnk.interfaces.StorageDao#save(hu.hnk.beershop.model.StorageItem)
+	 */
 	@Override
 	public StorageItem save(StorageItem storageItem) {
 		return em.merge(storageItem);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see hu.hnk.interfaces.StorageDao#findByBeer(hu.hnk.beershop.model.Beer)
+	 */
 	@Override
 	public StorageItem findByBeer(Beer beer) {
-		return em.createNamedQuery("StorageItem.findByBeer", StorageItem.class).setParameter("beer", beer).getSingleResult();
+		return em.createNamedQuery("StorageItem.findByBeer", StorageItem.class)
+				.setParameter("beer", beer)
+				.getSingleResult();
 	}
 
 }

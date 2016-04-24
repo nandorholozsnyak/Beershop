@@ -14,14 +14,26 @@ import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.EventLogDao;
 
+/**
+ * Az eseményeket kezelõ adathozzáférési osztály implementációja.
+ * 
+ * @author Nandi
+ *
+ */
 @Stateless
 @Local(EventLogDao.class)
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class EventLogDaoImpl implements EventLogDao {
 
+	/**
+	 * 
+	 */
 	@PersistenceContext
 	private EntityManager em;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<EventLog> findByUser(User user) {
 		TypedQuery<EventLog> query = em.createNamedQuery("EventLog.findByUser", EventLog.class);
@@ -29,6 +41,9 @@ public class EventLogDaoImpl implements EventLogDao {
 		return query.getResultList();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public EventLog save(EventLog event) {
 		return em.merge(event);

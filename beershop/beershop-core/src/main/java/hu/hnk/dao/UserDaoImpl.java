@@ -39,11 +39,7 @@ public class UserDaoImpl implements UserDao {
 	private EntityManager em;
 
 	/**
-	 * Új felhasználó mentése.
-	 * 
-	 * @param user
-	 *            az új felhasználó
-	 * @return a mentett felhasználó
+	 * {@inheritDoc}
 	 */
 	public User save(User user) {
 		logger.info("Felhasználó mentése.");
@@ -51,13 +47,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	/**
-	 * Felhasználó keresése felhasználónév alapján.
-	 * 
-	 * @param username
-	 *            a keresendõ felhasználó felhasználóneve.
-	 * @return a megtalált felhasználó
-	 * @throws UsernameNotFound
-	 *             ha nem létezik ilyen felhasználónévvel felhasználó.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public User findByUsername(String username) throws UsernameNotFound {
@@ -73,13 +63,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	/**
-	 * Felhasználó keresése e-mail cím alapján.
-	 * 
-	 * @param email
-	 *            a keresendõ felhasználó e-mail címe.
-	 * @return a megtalált felhasználó
-	 * @throws EmailNotFound
-	 *             ha nem létezik ilyen e-mail címmel felhasználó.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public User findByEmail(String email) throws EmailNotFound {
@@ -95,7 +79,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	/**
-	 * Felhasználó törlése.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void remove(User user) {
@@ -112,13 +96,7 @@ public class UserDaoImpl implements UserDao {
 	// }
 
 	/**
-	 * Felhasználó keresése felhasználónév alapján.
-	 * 
-	 * @param username
-	 *            a keresendõ felhasználónév.
-	 * @return a kapott felhasználónév.
-	 * @throws UsernameNotFound
-	 *             ha a keresett felhasználónévvel nem létezik felhasználó.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String findUsername(String username) throws UsernameNotFound {
@@ -134,13 +112,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	/**
-	 * Felhasználó keresése e-mail cím alapján.
-	 * 
-	 * @param email
-	 *            a keresendõ e-mail cím.
-	 * @return a kapott e-mail cím.
-	 * @throws EmailNotFound
-	 *             ha a keresett e-mail címmel nem létezik felhasználó.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String findEmail(String email) throws EmailNotFound {
