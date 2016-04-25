@@ -6,12 +6,11 @@ package hu.hnk.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
 
@@ -25,12 +24,15 @@ import hu.hnk.interfaces.CartDao;
 import hu.hnk.interfaces.StorageDao;
 
 /**
+ * A felhasználók kosarait kezelõ szolgáltatás. Amikor a felhasználó hozzáad egy
+ * elemet a kosarához a {@link CartService#saveItemsToCart(Map, Cart)} metódus
+ * fogja ezt a kosarába pakolni.
+ * 
  * @author Nandi
  *
  */
 @Stateless
 @Local(CartService.class)
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class CartServiceImpl implements CartService {
 
 	/**
@@ -38,22 +40,49 @@ public class CartServiceImpl implements CartService {
 	 */
 	public static final Logger logger = Logger.getLogger(CartServiceImpl.class);
 
+	/**
+	 * A kosármûveletek végzõ adathozzáférési objektumn.
+	 */
 	@EJB
 	CartDao cartDao;
 
+	/**
+	 * A raktárt kezelõ adathozzáférési objektum.
+	 */
 	@EJB
 	StorageDao storageDao;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * hu.hnk.beershop.service.interfaces.CartService#save(hu.hnk.beershop.model
+	 * .Cart)
+	 */
 	@Override
 	public Cart save(Cart cart) {
 		return cartDao.save(cart);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * hu.hnk.beershop.service.interfaces.CartService#findByUser(hu.hnk.beershop
+	 * .model.User)
+	 */
 	@Override
 	public Cart findByUser(User user) {
 		return cartDao.findByUser(user);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * hu.hnk.beershop.service.interfaces.CartService#saveItemsToCart(java.util.
+	 * Map, hu.hnk.beershop.model.Cart)
+	 */
 	@Override
 	public void saveItemsToCart(Map<Beer, Integer> beersToCart, Cart cart) {
 		logger.info("Trying save items to user's cart.");
@@ -68,51 +97,123 @@ public class CartServiceImpl implements CartService {
 		logger.info("Items saved succesfuly to the user's cart.");
 	}
 
+	/**
+	 * A kiválasztott sör kosárba való helyezése. A metódus ellenõrzi hogy a
+	 * kiválaszott sör szerepel-e a raktárban a
+	 * {@link CartServiceImpl#findBeerInStorage(List, Beer)} metódus
+	 * segítségével, amint ez megtörtént ellenõrzi hogy a választott sör
+	 * szerepel-e már a felhasználó kosarában a
+	 * {@link CartServiceImpl#findBeerInUsersCart(List, Beer)} metódus
+	 * meghívásával. Amint adottak a feltételek megnézzük mennyi sört kell
+	 * berakni a kosárba, megtörténik a tranzakció.
+	 * 
+	 * @param beersToCart
+	 *            a sörök Map-je darabszámmal együtt.
+	 * @param cartItems
+	 *            a már kosárban levõ termékek listája.
+	 * @param storageItems
+	 *            a raktárban szereplõ termékek listája.
+	 * @param beer
+	 *            a kiválasztott sör.
+	 */
 	private void addBeerToCartItemList(Map<Beer, Integer> beersToCart, List<CartItem> cartItems,
 			List<StorageItem> storageItems, Beer beer) {
 
-		StorageItem beerInStorage = storageItems.stream()
+		StorageItem beerInStorage = null;
+
+		// Elõbb megkeressük a sört a raktárból.
+		try {
+			beerInStorage = findBeerInStorage(storageItems, beer);
+		} catch (NoSuchElementException e) {
+			logger.warn("Beer has not been found in the storage.");
+		}
+
+		CartItem item;
+		CartItem foundItem;
+
+		// Megnézzük hogy a választott sör szerepel-e már a felhasználó
+		// kosarában.
+		try {
+			foundItem = findBeerInUsersCart(cartItems, beer);
+		} catch (NoSuchElementException e) {
+			foundItem = null;
+			logger.info("Beer has not found in the user's cart.");
+		}
+
+		// Leellenõrizzük hogy a sör létezik-e raktárban.
+		if (beerInStorage != null) {
+			if (beersToCart.get(beer) > 0 && beerInStorage.getQuantity() > 0) {
+				if (foundItem == null) {
+					item = new CartItem();
+					item.setAddedToCart(LocalDateTime.now());
+					item.setBeer(beer);
+					item.setQuantity(beersToCart.get(beer));
+					item.setActive(true);
+					cartItems.add(item);
+				} else {
+					cartItems.remove(foundItem);
+					foundItem.setQuantity(foundItem.getQuantity() + beersToCart.get(beer));
+					foundItem.setAddedToCart(LocalDateTime.now());
+					cartDao.updateItem(foundItem);
+					cartItems.add(foundItem);
+				}
+
+				beerInStorage.setQuantity(beerInStorage.getQuantity() - beersToCart.get(beer));
+				storageDao.save(beerInStorage);
+			}
+		}
+	}
+
+	/**
+	 * Ellenõrzi hogy a sör (<code>beer</code>) szerepel-e már a felhasználó
+	 * kosarában.
+	 * 
+	 * @param cartItems
+	 *            a felhasználó kosarában meglévõ termékek.
+	 * @param beer
+	 *            a kiválasztott sör.
+	 * @return visszaadja a terméket ha már szerepel a felhasználó kosarában.
+	 * @throws NoSuchElementException
+	 *             ha nem szerepel a termék a felhasználó kosarában.
+	 */
+	private CartItem findBeerInUsersCart(List<CartItem> cartItems, Beer beer) throws NoSuchElementException {
+		return cartItems.stream()
+				.filter(p -> p.getBeer()
+						.equals(beer) && p.getActive())
+				.findFirst()
+				.get();
+	}
+
+	/**
+	 * Ellenõrzi hogy a sör (<code>beer</code>) létezik-e a raktárban.
+	 * 
+	 * @param storageItems
+	 *            a raktárban szereplõ termékek listája.
+	 * @param beer
+	 *            az ellenõrizendõ sör.
+	 * @return a megtalált termék.
+	 * @throws NoSuchElementException
+	 *             ha a termék nem szerepel a raktárban.
+	 */
+	private StorageItem findBeerInStorage(List<StorageItem> storageItems, Beer beer) throws NoSuchElementException {
+		return storageItems.stream()
 				.filter(e -> e.getBeer()
 						.equals(beer))
 				.findFirst()
 				.get();
-
-		CartItem item;
-		CartItem foundItem;
-		try {
-			foundItem = cartItems.stream()
-					.filter(p -> p.getBeer()
-							.equals(beer) && p.getActive())
-					.findFirst()
-					.get();
-		} catch (Exception e) {
-			foundItem = null;
-		}
-
-		if (beersToCart.get(beer) > 0 && beerInStorage.getQuantity() > 0) {
-			if (foundItem == null) {
-				item = new CartItem();
-				item.setAddedToCart(LocalDateTime.now());
-				item.setBeer(beer);
-				item.setQuantity(beersToCart.get(beer));
-				item.setActive(true);
-				cartItems.add(item);
-			} else {
-				cartItems.remove(foundItem);
-				foundItem.setQuantity(foundItem.getQuantity() + beersToCart.get(beer));
-				foundItem.setAddedToCart(LocalDateTime.now());
-				cartDao.updateItem(foundItem);
-				cartItems.add(foundItem);
-			}
-
-			beerInStorage.setQuantity(beerInStorage.getQuantity() - beersToCart.get(beer));
-			storageDao.save(beerInStorage);
-		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * hu.hnk.beershop.service.interfaces.CartService#countTotalCost(java.util.
+	 * List)
+	 */
 	@Override
 	public Double countTotalCost(List<CartItem> cartItems) {
 		return cartItems.stream()
+				.filter(p->p.getActive())
 				.mapToDouble(e -> e.getBeer()
 						.getPrice() * e.getQuantity()
 						* (100 - e.getBeer()
@@ -121,11 +222,18 @@ public class CartServiceImpl implements CartService {
 				.sum();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * hu.hnk.beershop.service.interfaces.CartService#deletItemFromCart(hu.hnk.
+	 * beershop.model.CartItem)
+	 */
 	@Override
 	public void deletItemFromCart(CartItem item) throws Exception {
 		try {
 			logger.info("Trying to delete item from cart.");
-			cartDao.deleteItem(item);
+			cartDao.deleteItemLogically(item);
 			StorageItem stItem = storageDao.findByBeer(item.getBeer());
 			stItem.setQuantity(stItem.getQuantity() + item.getQuantity());
 		} catch (Exception e) {
@@ -134,14 +242,12 @@ public class CartServiceImpl implements CartService {
 		}
 	}
 
-	/**
-	 * A bónusz pontok számítása, egy vásárlás során. A bónusz a sör
-	 * alkoholtartalmának, a megrendelt darabszámból, a sör árából illetve a
-	 * kedvezmény szorzataként számolódik.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param cartItems
-	 *            a kosárban levõ termékek.
-	 * @return a kiszámított bónusz pontok.
+	 * @see
+	 * hu.hnk.beershop.service.interfaces.CartService#countBonusPoints(java.util
+	 * .List)
 	 */
 	@Override
 	public Double countBonusPoints(List<CartItem> cartItems) {

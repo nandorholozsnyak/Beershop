@@ -21,7 +21,6 @@ import hu.hnk.interfaces.BeerDao;
  */
 @Stateless
 @Local(BeerService.class)
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class BeerServiceImpl implements BeerService {
 	
 	/**

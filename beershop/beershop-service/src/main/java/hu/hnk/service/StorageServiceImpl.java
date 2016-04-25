@@ -27,7 +27,6 @@ import hu.hnk.interfaces.StorageDao;
  */
 @Stateless
 @Local(StorageService.class)
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class StorageServiceImpl implements StorageService {
 
 	/**

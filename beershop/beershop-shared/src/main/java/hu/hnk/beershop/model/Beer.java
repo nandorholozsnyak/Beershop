@@ -60,7 +60,6 @@ public class Beer extends BaseEntity implements Serializable {
 	@Column(name = "discountAmount", nullable = false, columnDefinition = "int(5) default 0")
 	private Integer discountAmount;
 
-
 	/**
 	 * @return the name
 	 */
@@ -149,6 +148,61 @@ public class Beer extends BaseEntity implements Serializable {
 	 */
 	public void setDiscountAmount(Integer discountAmount) {
 		this.discountAmount = discountAmount;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((alcoholLevel == null) ? 0 : alcoholLevel.hashCode());
+		result = prime * result + ((capacity == null) ? 0 : capacity.hashCode());
+		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
+		result = prime * result + ((discountAmount == null) ? 0 : discountAmount.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Beer other = (Beer) obj;
+		if (alcoholLevel == null) {
+			if (other.alcoholLevel != null)
+				return false;
+		} else if (!alcoholLevel.equals(other.alcoholLevel))
+			return false;
+		if (capacity == null) {
+			if (other.capacity != null)
+				return false;
+		} else if (!capacity.equals(other.capacity))
+			return false;
+		if (comment == null) {
+			if (other.comment != null)
+				return false;
+		} else if (!comment.equals(other.comment))
+			return false;
+		if (discountAmount == null) {
+			if (other.discountAmount != null)
+				return false;
+		} else if (!discountAmount.equals(other.discountAmount))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (price == null) {
+			if (other.price != null)
+				return false;
+		} else if (!price.equals(other.price))
+			return false;
+		return true;
 	}
 
 }

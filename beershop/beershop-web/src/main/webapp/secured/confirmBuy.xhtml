@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/baseNobeerTemplate.xhtml">
+	<ui:define name="extraheader">
+		<!-- Font Awesome -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+		<style>
+#buyPanel tr {
+	background: transparent !important;
+	color: navy !important;
+}
+
+#buyPanel table {
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+</style>
+	</ui:define>
+	<ui:define name="content">
+		<div class="container">
+			<div class="inside">
+				<h2>Kosár</h2>
+				<div class="box">
+					<div class="left-top-corner">
+						<div class="right-top-corner">
+							<div class="border-top"></div>
+						</div>
+					</div>
+					<div class="xcontent">
+						<div class="border-left">
+							<div class="border-right">
+								<div class="inner1">
+									<h:form id="buyForm">
+										<p:growl id="buyMessage" />
+
+										<p:panel id="buyPanel">
+											<h:panelGrid
+												style="margin-left: auto !important;
+	margin-right: auto !important;"
+												id="buyPanelGrid" columns="2" cellpadding="10"
+												cellspacing="10">
+
+												<p:outputLabel for="address" value="Szállítási cím:" />
+												<p:inputText id="address"
+													requiredMessage="A szállítási cím megadása kötelező!"
+													value="#{transactionManagerBean.address}" required="true"
+													label="Szállítási cím">
+												</p:inputText>
+
+												<p:outputLabel for="payMode" value="Fizetési mód:" />
+												<p:selectOneRadio id="payMode"
+													value="#{transactionManagerBean.payMode}">
+													<f:selectItem itemLabel="Utalás" itemValue="money" />
+													<f:selectItem itemLabel="Bónusz pont"
+														itemValue="bonusPoint" />
+												</p:selectOneRadio>
+
+												<p:outputLabel value="Rendelkezésére áll elég egyenleg: "></p:outputLabel>
+												<p:outputLabel
+													value="#{transactionManagerBean.isThereEnoughMoney() == true?'Igen':'Nem'}" />
+												<p:row>
+													<p:column colspan="2">
+														<p:commandButton style="margin:auto !important;"
+															value="Vásárlás" validateClient="true"
+															actionListener="#{registrationManagerBean.saveUser}"
+															icon="fa fa-money" iconPos="left" />
+													</p:column>
+												</p:row>
+											</h:panelGrid>
+
+										</p:panel>
+									</h:form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="left-bot-corner">
+						<div class="right-bot-corner">
+							<div class="border-bot"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

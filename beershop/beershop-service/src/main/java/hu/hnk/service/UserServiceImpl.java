@@ -37,7 +37,6 @@ import hu.hnk.service.factory.EventLogFactory;
  */
 @Stateless(name = "userService")
 @Local(UserService.class)
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class UserServiceImpl implements UserService {
 
 	/**

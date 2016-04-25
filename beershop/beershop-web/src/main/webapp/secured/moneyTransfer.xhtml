@@ -5,7 +5,7 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/baseNobeerTemplate.xhtml">
-	<h:head>
+	<ui:define name="extraheader">
 		<!-- Font Awesome -->
 		<link rel="stylesheet"
 			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
@@ -15,15 +15,9 @@ tr:first-child {
 	border: 0 none !important;
 }
 
-.ui-widget-content {
-	text-align: center !important;
-	background: transparent !important;
-	margin: auto !important;
-	width: 50% !important;
-}
 </style>
 		<h:outputScript name="js/copyblock.js" />
-	</h:head>
+	</ui:define>
 	<ui:define name="content">
 		<h:body>
 			<div class="container">
@@ -39,12 +33,15 @@ tr:first-child {
 							<div class="border-left">
 								<div class="border-right">
 									<div class="inner1">
-										<h:form id="form">
+										<h:form id="moneyTransferForm">
 											<p:growl id="moneyMsg" />
-											<p:panelGrid columns="1" layout="grid">
+											<p:panelGrid id="moneyPanelGrid"
+												style="margin-left: auto !important;
+	margin-right: auto !important;"
+												columns="1" layout="grid">
 												<p:selectOneMenu id="moneySelection"
 													value="#{moneyTransferManagerBean.money}">
-													style="width:250px">
+													style="width:300px">
 													<f:selectItem itemLabel="Válasszon egyet" itemValue="" />
 													<f:selectItems
 														value="#{moneyTransferManagerBean.moneyValues}" />
@@ -55,7 +52,8 @@ tr:first-child {
 													onkeydown="return false;" onkeypress="return false;"
 													onkeyup="return false;" />
 												<h:inputText value="#{moneyTransferManagerBean.userPin}" />
-												<p:commandButton value="Feltöltés" update="moneyMsg userMoney"
+												<p:commandButton value="Feltöltés"
+													update="moneyMsg userMoney"
 													action="#{moneyTransferManagerBean.transferMoney}" />
 											</p:panelGrid>
 										</h:form>

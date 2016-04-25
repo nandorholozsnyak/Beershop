@@ -72,6 +72,8 @@ public class MoneyTransferManagerBean implements Serializable {
 					"A pénz feltöltése megtörtént.");
 		} catch (NumberFormatException e) {
 			logger.warn(e);
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Az ellenörzõ mezõbe csak számot írjon!",
+					"Az ellenörzõ mezõbe csak számot írjon!");
 		} catch (InvalidPinCode e) {
 			logger.warn(e);
 			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Az ellenörzõ pin kód nem egyezik meg.",

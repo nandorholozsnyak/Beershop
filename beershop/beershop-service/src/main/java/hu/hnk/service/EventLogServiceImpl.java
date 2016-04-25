@@ -15,7 +15,6 @@ import hu.hnk.interfaces.EventLogDao;
 
 @Stateless
 @Local(EventLogService.class)
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class EventLogServiceImpl implements EventLogService {
 
 	@EJB

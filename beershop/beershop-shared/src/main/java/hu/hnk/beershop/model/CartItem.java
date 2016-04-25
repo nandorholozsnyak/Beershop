@@ -22,7 +22,7 @@ public class CartItem extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -4761818681252091051L;
 
 	/**
-	 * A rendelt sörök listája.
+	 * A rendelt sör.
 	 */
 	@ManyToOne
 	private Beer beer;
