@@ -32,24 +32,32 @@ public interface CartService {
 	 * @return a keresett kosár.
 	 */
 	public Cart findByUser(User user);
-	
+
 	/**
-	 * Termék logikai törlése a kosárból. 
-	 * @param item a törlendõ elem.
-	 * @throws Exception bármilyen adatbázis hiba esetén.
+	 * Termék logikai törlése a kosárból.
+	 * 
+	 * @param item
+	 *            a törlendõ elem.
+	 * @throws Exception
+	 *             bármilyen adatbázis hiba esetén.
 	 */
 	public void deletItemFromCart(CartItem item) throws Exception;
-	
+
 	/**
-	 * Elemek kosárba történõ mentése. 
-	 * @param beersToCart a mentendõ sörök darabszámmal.
-	 * @param cart a felhasználó kosara.
+	 * Elemek kosárba történõ mentése.
+	 * 
+	 * @param beersToCart
+	 *            a mentendõ sörök darabszámmal.
+	 * @param cart
+	 *            a felhasználó kosara.
 	 */
 	public void saveItemsToCart(Map<Beer, Integer> beersToCart, Cart cart);
-	
+
 	/**
-	 * A vásárlás során fizetendõ összeg számítása. 
-	 * @param cartItems a felhasználó kosarában szereplõ termékek listája.
+	 * A vásárlás során fizetendõ összeg számítása.
+	 * 
+	 * @param cartItems
+	 *            a felhasználó kosarában szereplõ termékek listája.
 	 * @return a fizetendõ összeg.
 	 */
 	public Double countTotalCost(List<CartItem> cartItems);
@@ -64,5 +72,12 @@ public interface CartService {
 	 * @return a kiszámított bónusz pontok.
 	 */
 	public Double countBonusPoints(List<CartItem> cartItems);
+
+	/**
+	 * @param user
+	 * @param paymentMode
+	 * @return
+	 */
+	public Double countMoneyAfterPayment(User user,Double cost, String paymentMode);
 
 }

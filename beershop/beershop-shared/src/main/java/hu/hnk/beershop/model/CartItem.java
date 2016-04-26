@@ -93,4 +93,61 @@ public class CartItem extends BaseEntity implements Serializable {
 		this.removedFromCart = removedFromCart;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((active == null) ? 0 : active.hashCode());
+		result = prime * result + ((addedToCart == null) ? 0 : addedToCart.hashCode());
+		result = prime * result + ((beer == null) ? 0 : beer.hashCode());
+		result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
+		result = prime * result + ((removedFromCart == null) ? 0 : removedFromCart.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CartItem other = (CartItem) obj;
+		if (active == null) {
+			if (other.active != null)
+				return false;
+		} else if (!active.equals(other.active))
+			return false;
+		if (addedToCart == null) {
+			if (other.addedToCart != null)
+				return false;
+		} else if (!addedToCart.equals(other.addedToCart))
+			return false;
+		if (beer == null) {
+			if (other.beer != null)
+				return false;
+		} else if (!beer.equals(other.beer))
+			return false;
+		if (quantity == null) {
+			if (other.quantity != null)
+				return false;
+		} else if (!quantity.equals(other.quantity))
+			return false;
+		if (removedFromCart == null) {
+			if (other.removedFromCart != null)
+				return false;
+		} else if (!removedFromCart.equals(other.removedFromCart))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "CartItem [beer=" + beer + ", quantity=" + quantity + ", active=" + active + ", addedToCart="
+				+ addedToCart + ", removedFromCart=" + removedFromCart + "]";
+	}
+	
+	
+
 }

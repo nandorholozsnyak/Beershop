@@ -44,13 +44,13 @@ public class CartServiceImpl implements CartService {
 	 * A kosármûveletek végzõ adathozzáférési objektumn.
 	 */
 	@EJB
-	CartDao cartDao;
+	private CartDao cartDao;
 
 	/**
 	 * A raktárt kezelõ adathozzáférési objektum.
 	 */
 	@EJB
-	StorageDao storageDao;
+	private StorageDao storageDao;
 
 	/*
 	 * (non-Javadoc)
@@ -213,7 +213,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public Double countTotalCost(List<CartItem> cartItems) {
 		return cartItems.stream()
-				.filter(p->p.getActive())
+				.filter(p -> p.getActive())
 				.mapToDouble(e -> e.getBeer()
 						.getPrice() * e.getQuantity()
 						* (100 - e.getBeer()
@@ -252,15 +252,34 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public Double countBonusPoints(List<CartItem> cartItems) {
 		return cartItems.stream()
-				.mapToDouble(e -> (e.getQuantity() + e.getBeer()
-						.getPrice()) / 100
-						+ (e.getBeer()
-								.getAlcoholLevel()
-								+ e.getBeer()
-										.getCapacity()
-								+ e.getBeer()
-										.getDiscountAmount()))
+				.mapToDouble(e -> (e.getQuantity() * e.getBeer().getPrice()) / 100
+						+ (e.getBeer().getAlcoholLevel() + e.getBeer().getCapacity() + e.getBeer().getDiscountAmount()))
 				.sum();
+	}
+
+	@Override
+	public Double countMoneyAfterPayment(User user, Double cost, String paymentMode) {
+		Double result = (double) 0;
+		if (paymentMode.equals("money")) {
+			result = user.getMoney() - cost;
+		} else if (paymentMode.equals("bonusPoint")) {
+			result = user.getPoints() - cost;
+		}
+		return result;
+	}
+
+	/**
+	 * @param cartDao
+	 */
+	public void setCartDao(CartDao cartDao) {
+		this.cartDao = cartDao;
+	}
+
+	/**
+	 * @param storageDao
+	 */
+	public void setStorageDao(StorageDao storageDao) {
+		this.storageDao = storageDao;
 	}
 
 }

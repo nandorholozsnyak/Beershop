@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  * Egy rendelés adatait tartalmazó osztály.
@@ -53,6 +54,13 @@ public class Cargo extends BaseEntity implements Serializable {
 	 */
 	@Column(name = "address")
 	private String address;
+
+	/**
+	 * A rendelés fizetésének típusa, utalás vagy bónusz pont.
+	 */
+	@NotNull
+	@Column(name = "paymentMode")
+	private String paymentMode;
 
 	/**
 	 * @return the orderDate
@@ -113,6 +121,14 @@ public class Cargo extends BaseEntity implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getPaymentMode() {
+		return paymentMode;
+	}
+
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
 	}
 
 }
