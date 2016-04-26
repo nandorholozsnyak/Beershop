@@ -67,8 +67,9 @@
 													<p:column colspan="2">
 														<p:commandButton style="margin:auto !important;"
 															value="Vásárlás" validateClient="true"
-															actionListener="#{registrationManagerBean.saveUser}"
-															icon="fa fa-money" iconPos="left" />
+															action="#{transactionManagerBean.doTransaction}"
+															icon="fa fa-money" iconPos="left"
+															update="buyForm:buyMessage" />
 													</p:column>
 												</p:row>
 											</h:panelGrid>

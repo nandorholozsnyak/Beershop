@@ -36,8 +36,8 @@ public class CartItem extends BaseEntity implements Serializable {
 	@Column(name = "addedToCart")
 	private LocalDateTime addedToCart;
 
-	@Column(name = "payDate")
-	private LocalDateTime payDate;
+	@Column(name = "removedFromCart")
+	private LocalDateTime removedFromCart;
 
 	public Beer getBeer() {
 		return beer;
@@ -85,30 +85,12 @@ public class CartItem extends BaseEntity implements Serializable {
 		this.addedToCart = addedToCart;
 	}
 
-	/**
-	 * @return the payDate
-	 */
-	public LocalDateTime getPayDate() {
-		return payDate;
+	public LocalDateTime getRemovedFromCart() {
+		return removedFromCart;
 	}
 
-	/**
-	 * @param payDate
-	 *            the payDate to set
-	 */
-	public void setPayDate(LocalDateTime payDate) {
-		this.payDate = payDate;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "CartItem [id=" + id + ", beer=" + beer + ", quantity=" + quantity + ", active=" + active
-				+ ", addedToCart=" + addedToCart + ", payDate=" + payDate + "]";
+	public void setRemovedFromCart(LocalDateTime removedFromCart) {
+		this.removedFromCart = removedFromCart;
 	}
 
 }

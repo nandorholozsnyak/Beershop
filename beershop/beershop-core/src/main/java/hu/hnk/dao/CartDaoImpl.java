@@ -3,6 +3,7 @@
  */
 package hu.hnk.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -68,6 +69,7 @@ public class CartDaoImpl implements CartDao {
 	@Override
 	public void deleteItemLogically(CartItem item) {
 		item.setActive(false);
+		item.setRemovedFromCart(LocalDateTime.now());
 		em.merge(item);
 	}
 

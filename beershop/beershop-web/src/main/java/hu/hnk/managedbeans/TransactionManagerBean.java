@@ -1,17 +1,22 @@
 package hu.hnk.managedbeans;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.log4j.Logger;
 
+import hu.hnk.beershop.model.Cargo;
+import hu.hnk.beershop.service.interfaces.CargoService;
 import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.loginservices.SessionManager;
+import hu.hnk.tool.FacesMessageTool;
 
 /**
  * @author Nandi
@@ -36,6 +41,14 @@ public class TransactionManagerBean implements Serializable {
 	 */
 	@EJB
 	private CartService cartService;
+
+	/**
+	 * 
+	 */
+	@EJB
+	private CargoService cargoService;
+
+	private FacesMessage msg;
 
 	/**
 	 * A sessiont kezelõ managed bean.
@@ -75,17 +88,35 @@ public class TransactionManagerBean implements Serializable {
 	 * @return
 	 */
 	public boolean isThereEnoughMoney() {
-		return totalCost <= sessionManager.getLoggedInUser()
-				.getMoney();
+		return cargoService.isThereEnoughMoney(sessionManager.getLoggedInUser());
 	}
-	
+
 	/**
 	 * 
 	 */
 	public void doTransaction() {
-		
+		if (isThereEnoughMoney()) {
+			Cargo cargo = new Cargo();
+			cargo.setItems(sessionManager.getLoggedInUser()
+					.getCart()
+					.getItems());
+			cargo.setAddress(address);
+			cargo.setOrderDate(new Date());
+			cargo.setUser(sessionManager.getLoggedInUser());
+			cargo.setTotalPrice(totalCost);
+			try {
+				cargoService.saveNewCargo(cargo);
+				FacesMessageTool.createInfoMessage("Sikeres vásárlás.");
+			} catch (Exception e) {
+				FacesMessageTool.createWarnMessage("Hiba történt a fizetés közben.");
+			}
+
+		} else {
+			FacesMessageTool.createWarnMessage("Nem áll rendelkezésére elegendõ pénz vagy pont.");
+
+		}
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -136,6 +167,22 @@ public class TransactionManagerBean implements Serializable {
 
 	public void setTotalCost(Double totalCost) {
 		this.totalCost = totalCost;
+	}
+
+	public CargoService getCargoService() {
+		return cargoService;
+	}
+
+	public void setCargoService(CargoService cargoService) {
+		this.cargoService = cargoService;
+	}
+
+	public FacesMessage getMsg() {
+		return msg;
+	}
+
+	public void setMsg(FacesMessage msg) {
+		this.msg = msg;
 	}
 
 }

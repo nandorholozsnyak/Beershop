@@ -28,7 +28,7 @@ public class Cargo extends BaseEntity implements Serializable {
 	 * A rendelt sörök listája.
 	 */
 	@ManyToMany
-	private List<Beer> beers;
+	private List<CartItem> items;
 
 	/**
 	 * A felhasználó aki leadta a rendelést.
@@ -53,21 +53,6 @@ public class Cargo extends BaseEntity implements Serializable {
 	 */
 	@Column(name = "address")
 	private String address;
-
-	/**
-	 * @return the beers
-	 */
-	public List<Beer> getBeers() {
-		return beers;
-	}
-
-	/**
-	 * @param beers
-	 *            the beers to set
-	 */
-	public void setBeers(List<Beer> beers) {
-		this.beers = beers;
-	}
 
 	/**
 	 * @return the orderDate
@@ -112,6 +97,22 @@ public class Cargo extends BaseEntity implements Serializable {
 	 */
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public List<CartItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<CartItem> items) {
+		this.items = items;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

@@ -26,8 +26,14 @@
 								<div class="inner1">
 									<h:form id="cart">
 										<p:growl id="cartMessage" />
+										<div class="text-center">
+											<p:outputLabel style="font-size:large;"
+												value="Az Ön kosara üres!"
+												rendered="#{empty cartManagerBean.items}" />
+										</div>
 										<p:dataTable id="cartTable" value="#{cartManagerBean.items}"
-											var="item" editable="true" editMode="cell">
+											var="item" editable="true" editMode="cell"
+											rendered="#{not empty cartManagerBean.items}">
 											<!-- 											<f:facet name="header"> -->
 											<!-- 												<p:commandButton value="Rendelés" -->
 											<!-- 													actionListener="#{storageManagerBean.saveChanges()}" -->
@@ -58,8 +64,9 @@
 													value="Gyűjthető bónusz pontok:#{cartManagerBean.countBonusPoints()}" />
 												<br />
 												<p:commandButton value="Megrendel"
-													icon="fa fa-fw fa-shopping-cart" action="confirmBuy?faces-redirect=true" iconPos="left">
-													
+													icon="fa fa-fw fa-shopping-cart"
+													action="confirmBuy?faces-redirect=true" iconPos="left">
+
 												</p:commandButton>
 											</f:facet>
 										</p:dataTable>
