@@ -15,6 +15,7 @@ import javax.persistence.TypedQuery;
 
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.interfaces.BeerDao;
+import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 
 /**
  * A söröket kezelõ adathozzáférési osztály implementációja.
@@ -29,7 +30,7 @@ public class BeerDaoImpl implements BeerDao {
 	/**
 	 * JPA Entity Manager.
 	 */
-	@PersistenceContext
+	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
 	private EntityManager em;
 
 	

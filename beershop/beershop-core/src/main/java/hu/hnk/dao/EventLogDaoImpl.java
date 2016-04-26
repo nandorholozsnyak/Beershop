@@ -13,6 +13,7 @@ import javax.persistence.TypedQuery;
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.EventLogDao;
+import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 
 /**
  * Az eseményeket kezelõ adathozzáférési osztály implementációja.
@@ -28,7 +29,7 @@ public class EventLogDaoImpl implements EventLogDao {
 	/**
 	 * 
 	 */
-	@PersistenceContext
+	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
 	private EntityManager em;
 
 	/**

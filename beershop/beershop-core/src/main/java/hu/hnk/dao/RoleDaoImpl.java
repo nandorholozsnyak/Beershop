@@ -10,9 +10,11 @@ import javax.persistence.TypedQuery;
 
 import hu.hnk.beershop.model.Role;
 import hu.hnk.interfaces.RoleDao;
+import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 
 /**
  * A jogköröket kezelõ adathozzáférési osztály megvalósítása.
+ * 
  * @author Nandi
  *
  */
@@ -20,13 +22,12 @@ import hu.hnk.interfaces.RoleDao;
 @Local(RoleDao.class)
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class RoleDaoImpl implements RoleDao {
-	
+
 	/**
 	 * JPA Entity Manager.
 	 */
-	@PersistenceContext(unitName = "BeerShopUnit")
+	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
 	private EntityManager em;
-	
 
 	/**
 	 * {@inheritDoc}
@@ -34,9 +35,12 @@ public class RoleDaoImpl implements RoleDao {
 	public Role findByName(String name) {
 		TypedQuery<Role> role = em.createNamedQuery("Role.findByName", Role.class);
 		role.setParameter("name", name);
-		return role.getSingleResult();
+		try {
+			return role.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
 	}
-	
 
 	/**
 	 * {@inheritDoc}

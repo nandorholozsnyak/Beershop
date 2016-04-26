@@ -16,6 +16,7 @@ import javax.persistence.Query;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.interfaces.StorageDao;
+import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 
 /**
  * @author Nandi
@@ -29,7 +30,7 @@ public class StorageDaoImpl implements StorageDao {
 	/**
 	 * JPA Entity Manager.
 	 */
-	@PersistenceContext
+	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
 	private EntityManager em;
 
 	/**

@@ -18,6 +18,7 @@ import hu.hnk.beershop.model.Cart;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.CargoDao;
+import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 
 /**
  * A kosarakat kezelõ adathozzáférési osztály implementációja.
@@ -33,7 +34,7 @@ public class CargoDaoImpl implements CargoDao {
 	/**
 	 * JPA Entity Manager.
 	 */
-	@PersistenceContext
+	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
 	private EntityManager em;
 
 	@Override

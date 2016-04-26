@@ -25,9 +25,10 @@
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
-<property name="hibernate.enable_lazy_load_no_trans" value="true"/>
+			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
 			<!-- <property name="hibernate.transaction.jta.platform" -->
 			<!-- value="org.hibernate.transaction.JTATransactionFactory" /> -->
+
 
 			<!-- hikari CP -->
 			<!-- <property name="hibernate.connection.provider_class" -->
@@ -45,6 +46,34 @@
 		</properties>
 	</persistence-unit>
 
+	<persistence-unit name="BeerShopUnitDerby"
+		transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>jdbc/__TimerPool</jta-data-source>
+		<class>hu.hnk.beershop.model.User</class>
+		<class>hu.hnk.beershop.model.Role</class>
+		<class>hu.hnk.beershop.model.Beer</class>
+		<class>hu.hnk.beershop.model.Cargo</class>
+		<class>hu.hnk.beershop.model.CartItem</class>
+		<class>hu.hnk.beershop.model.Cart</class>
+		<class>hu.hnk.beershop.model.StorageItem</class>
+		<class>hu.hnk.beershop.model.BaseEntity</class>
+		<class>hu.hnk.beershop.model.EventLog</class>
+		<properties>
+<!-- 		<property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true"/> -->
+<!--         <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/> -->
+
+			<!-- Hibernate Options -->
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" /> -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.transaction.jta.platform"
+				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
+			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
+			<property name="hibernate.use_sql_comments" value="false" />
+		</properties>
+	</persistence-unit>
 	<!-- <persistence-unit name="BeerShopUnitTest" -->
 	<!-- transaction-type="RESOURCE_LOCAL"> -->
 	<!-- <class>hu.hnk.beershop.model.User</class> -->

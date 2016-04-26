@@ -14,6 +14,7 @@ import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.UserDao;
+import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 
 /**
  * A felhasználókat kezelõ adathozzáférési osztály implementációja. Enterprise
@@ -35,7 +36,7 @@ public class UserDaoImpl implements UserDao {
 	/**
 	 * Az osztály entitás menedzsere.
 	 */
-	@PersistenceContext
+	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
 	private EntityManager em;
 
 	/**
