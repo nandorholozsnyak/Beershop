@@ -57,7 +57,7 @@ public class TransactionManagerBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		setTotalCost(countTotalCost());
+		totalCost = countTotalCost();
 	}
 
 	/**
@@ -78,7 +78,14 @@ public class TransactionManagerBean implements Serializable {
 		return totalCost <= sessionManager.getLoggedInUser()
 				.getMoney();
 	}
-
+	
+	/**
+	 * 
+	 */
+	public void doTransaction() {
+		
+	}
+	
 	/**
 	 * @return
 	 */

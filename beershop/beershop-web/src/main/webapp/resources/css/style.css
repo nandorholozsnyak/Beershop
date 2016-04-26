@@ -102,8 +102,10 @@ footer {
 /*---- tailings ----*/
 .body-bg {
 	background-image: url(../images/main-bg.jpg.xhtml);
-	background-repeat: repeat;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
 	background-position: center top;
+	background-color: #FFA901;
 }
 
 #page1 .body-bg {
