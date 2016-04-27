@@ -80,6 +80,12 @@
       <property name="URL" value="jdbc:oracle:thin:@db.inf.unideb.hu:1521:ora11g"></property>
     </jdbc-connection-pool>
     <jdbc-resource pool-name="BeerShopOra" jndi-name="beerShopConOra"></jdbc-resource>
+	<jdbc-connection-pool driver-classname="org.h2.jdbcx.JdbcDataSource" name="BeerShopH2" res-type="java.sql.Driver">
+      <property name="Password" description="password" value=""></property>
+      <property name="user" value="sa"></property>
+      <property name="URL" value="jdbc:h2:mem:beershop;DB_CLOSE_DELAY=-1"></property>
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="BeerShopH2" jndi-name="beerShopConH2"></jdbc-resource>
   </resources>
   <servers>
     <server config-ref="server-config" name="server">
