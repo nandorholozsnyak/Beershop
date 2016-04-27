@@ -22,6 +22,7 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.hbm2ddl.import_files" value="initial_data.sql" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
@@ -45,7 +46,7 @@
 			<!-- <property name="hibernate.hikari.password" value="mysql" /> -->
 		</properties>
 	</persistence-unit>
-	
+
 	<persistence-unit name="BeerShopUnitOra"
 		transaction-type="JTA">
 		<description>The persistence unit for the entity manager.</description>
@@ -64,7 +65,39 @@
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.hbm2ddl.import_files_sql_extractor"
+				value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" />
+			<property name="hibernate.hbm2ddl.import_files" value="initial_data.sql" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.transaction.jta.platform"
+				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
+			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
+		</properties>
+	</persistence-unit>
+
+	<persistence-unit name="BeerShopUnitH2"
+		transaction-type="JTA">
+		<description>The persistence unit for the entity manager.</description>
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>beerShopConH2</jta-data-source>
+		<class>hu.hnk.beershop.model.User</class>
+		<class>hu.hnk.beershop.model.Role</class>
+		<class>hu.hnk.beershop.model.Beer</class>
+		<class>hu.hnk.beershop.model.Cargo</class>
+		<class>hu.hnk.beershop.model.CartItem</class>
+		<class>hu.hnk.beershop.model.Cart</class>
+		<class>hu.hnk.beershop.model.StorageItem</class>
+		<class>hu.hnk.beershop.model.BaseEntity</class>
+		<class>hu.hnk.beershop.model.EventLog</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+			<property name="hibernate.hbm2ddl.import_files_sql_extractor"
+				value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" />
+			<property name="hibernate.hbm2ddl.import_files" value="initial_data.sql" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
@@ -86,13 +119,14 @@
 		<class>hu.hnk.beershop.model.BaseEntity</class>
 		<class>hu.hnk.beershop.model.EventLog</class>
 		<properties>
-<!-- 		<property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true"/> -->
-<!--         <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/> -->
+			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true"/> -->
+			<!-- <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/> -->
 
 			<!-- Hibernate Options -->
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" /> -->
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" 
+				/> -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
