@@ -11,6 +11,15 @@
 	<properties>
 		<glassfish.directory>D:/latest-glassfish_USE_IT/glassfish4/glassfish/</glassfish.directory>
 	</properties>
+	<repositories>
+		<repository>
+			<id>Codehaus repository</id>
+			<name>codehaus-mule-repo</name>
+			<url>https://repository-master.mulesoft.org/nexus/content/groups/public/
+       </url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>hu.hnk.prt</groupId>
@@ -71,30 +80,98 @@
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>1.1.0.Alpha7</version>
 			</plugin>
-			<plugin>
-				<groupId>org.glassfish.maven.plugin</groupId>
-				<artifactId>maven-glassfish-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<glassfishDirectory>${glassfish.directory}</glassfishDirectory>
-					<user>admin</user>
-					<passwordFile>${glassfish.directory}/domains/beerShopPrt/config/domain-passwords</passwordFile>
-					<domain>
-						<name>beerShopPrt</name>
-						<httpPort>8080</httpPort>
-						<adminPort>8048</adminPort>
-					</domain>
-					<components>
-						<component>
-							<name>${project.artifactId}</name>
-							<artifact>target/${project.build.finalName}.ear</artifact>
-						</component>
-					</components>
-					<debug>true</debug>
-					<terse>false</terse>
-					<echo>true</echo>
+			<!-- <plugin> -->
+			<!-- <groupId>org.glassfish.maven.plugin</groupId> -->
+			<!-- <artifactId>maven-glassfish-plugin</artifactId> -->
+			<!-- <version>2.1</version> -->
+			<!-- <configuration> -->
+			<!-- <glassfishDirectory>${glassfish.directory}</glassfishDirectory> -->
+			<!-- <user>admin</user> -->
+			<!-- <passwordFile>${glassfish.directory}/domains/beerShopPrt/config/domain-passwords</passwordFile> -->
+			<!-- <domain> -->
+			<!-- <name>beerShopPrt</name> -->
+			<!-- <httpPort>8080</httpPort> -->
+			<!-- <adminPort>8048</adminPort> -->
+			<!-- </domain> -->
+			<!-- <components> -->
+			<!-- <component> -->
+			<!-- <name>${project.artifactId}</name> -->
+			<!-- <artifact>target/${project.build.finalName}.ear</artifact> -->
+			<!-- </component> -->
+			<!-- </components> -->
+			<!-- <debug>true</debug> -->
+			<!-- <terse>false</terse> -->
+			<!-- <echo>true</echo> -->
 
+			<!-- </configuration> -->
+			<!-- </plugin> -->
+			<plugin>
+				<groupId>org.glassfish.embedded</groupId>
+				<artifactId>maven-embedded-glassfish-plugin</artifactId>
+				<version>4.1.1</version>
+				<configuration>
+					<app>target/beershop-ear-1.0.ear</app>
+					<autoDelete>true</autoDelete>
+					<port>8080</port>
+					<name>web-app</name>
+					<configFile>${basedir}/domain.xml</configFile>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.38</version>
+					</dependency>
+					<dependency>
+						<groupId>org.jboss.logging</groupId>
+						<artifactId>jboss-logging</artifactId>
+						<version>3.3.0.Final</version>
+					</dependency>
+<!-- 					<dependency> -->
+<!-- 						<groupId>org.apache.derby</groupId> -->
+<!-- 						<artifactId>derby</artifactId> -->
+<!-- 						<version>10.12.1.1</version> -->
+<!-- 					</dependency> -->
+
+				</dependencies>
+				<!-- <executions> -->
+				<!-- <execution> -->
+				<!-- <phase>package</phase> -->
+				<!-- <goals> -->
+				<!-- <goal>run</goal> -->
+				<!-- </goals> -->
+				<!-- </execution> -->
+				<!-- </executions> -->
+				<executions>
+					<execution>
+						<id>start-glassfish</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>glassfish-deploy</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+					<!-- <execution> -->
+					<!-- <id>glassfish-undeploy</id> -->
+					<!-- <phase>post-integration-test</phase> -->
+					<!-- <goals> -->
+					<!-- <goal>undeploy</goal> -->
+					<!-- </goals> -->
+					<!-- </execution> -->
+					<!-- <execution> -->
+					<!-- <id>stop-glassfish</id> -->
+					<!-- <phase>post-integration-test</phase> -->
+					<!-- <goals> -->
+					<!-- <goal>stop</goal> -->
+					<!-- </goals> -->
+					<!-- </execution> -->
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

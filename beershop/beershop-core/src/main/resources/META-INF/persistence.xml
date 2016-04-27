@@ -45,6 +45,32 @@
 			<!-- <property name="hibernate.hikari.password" value="mysql" /> -->
 		</properties>
 	</persistence-unit>
+	
+	<persistence-unit name="BeerShopUnitOra"
+		transaction-type="JTA">
+		<description>The persistence unit for the entity manager.</description>
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>beerShopConOra</jta-data-source>
+		<class>hu.hnk.beershop.model.User</class>
+		<class>hu.hnk.beershop.model.Role</class>
+		<class>hu.hnk.beershop.model.Beer</class>
+		<class>hu.hnk.beershop.model.Cargo</class>
+		<class>hu.hnk.beershop.model.CartItem</class>
+		<class>hu.hnk.beershop.model.Cart</class>
+		<class>hu.hnk.beershop.model.StorageItem</class>
+		<class>hu.hnk.beershop.model.BaseEntity</class>
+		<class>hu.hnk.beershop.model.EventLog</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.transaction.jta.platform"
+				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
+			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
+		</properties>
+	</persistence-unit>
 
 	<persistence-unit name="BeerShopUnitDerby"
 		transaction-type="JTA">

@@ -18,7 +18,12 @@ public class PersistenceUnitDeclaration {
 	 * Az Apache Derby-s beállításra vonatkozó konstans.
 	 */
 	public final static String DERBY = "BeerShopUnitDerby";
-
+	
+	/**
+	 * 
+	 */
+	public final static String ORACLE = "BeerShopUnitOra";
+	
 	/**
 	 * Az aktuálisan használandó perzisztens egység neve.
 	 */

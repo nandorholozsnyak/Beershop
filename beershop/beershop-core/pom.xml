@@ -98,10 +98,10 @@
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.apache.derby</groupId> -->
+<!-- 			<artifactId>derby</artifactId> -->
+<!-- 		</dependency> -->
 	</dependencies>
 	<build>
 		<plugins>
