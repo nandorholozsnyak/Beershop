@@ -8,12 +8,6 @@ import hu.hnk.beershop.model.Cargo;
  * @author Nandi
  *
  */
-public interface CargoDao {
+public interface CargoDao extends BaseDao<Cargo> {
 
-	/**
-	 * @param cargo
-	 * @return
-	 */
-	public Cargo save(Cargo cargo);
-	
 }

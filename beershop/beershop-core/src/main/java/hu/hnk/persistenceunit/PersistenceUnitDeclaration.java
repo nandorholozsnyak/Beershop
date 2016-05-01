@@ -28,10 +28,15 @@ public class PersistenceUnitDeclaration {
 	 * 
 	 */
 	public final static String H2 = "BeerShopUnitH2";
-
+	
+	/**
+	 * 
+	 */
+	public final static String HSQLDB = "BeerShopUnitHSQLDB";
+	
 	/**
 	 * Az aktuálisan használandó perzisztens egység neve.
 	 */
-	public final static String PERSISTENCE_UNIT = H2;
+	public final static String PERSISTENCE_UNIT = MYSQL;
 
 }

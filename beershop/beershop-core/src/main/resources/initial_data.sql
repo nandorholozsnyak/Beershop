@@ -47,7 +47,8 @@ INSERT INTO `user` (`id`, `dateOfBirth`, `email`, `password`, `points`, `usernam
 (1, '1995-10-20 00:00:00', 'holi60@gmail.com', '$2a$10$2xgwOhINMMmb8L9jXcoXsO7w0ie3418DOU0q3hZ7IxYF9ULGlEw76', 0, 'Holi60', '750.00', null, '115500.00');
 
 INSERT INTO `user_role` (`User_id`, `roles_id`) VALUES
-(1, 1);
+(1, 1),
+(1, 2);
 
 UPDATE `cart` SET `user_id` = 1 where `id` = 1;
 UPDATE `user` SET `cart_id` = 1 WHERE `id` = 1;

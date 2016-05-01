@@ -8,7 +8,7 @@ import hu.hnk.beershop.model.Beer;
  * @author Nandi
  *
  */
-public interface BeerDao {
+public interface BeerDao extends BaseDao<Beer> {
 	/**
 	 * Az összes sör lekérdezése az adatbázisból.
 	 * 

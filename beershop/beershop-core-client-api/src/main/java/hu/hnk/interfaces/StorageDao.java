@@ -11,7 +11,7 @@ import hu.hnk.beershop.model.StorageItem;
  * @author Nandi
  *
  */
-public interface StorageDao {
+public interface StorageDao extends BaseDao<StorageItem> {
 
 	/**
 	 * A raktár információit lekérdezõ metódus.
@@ -28,15 +28,6 @@ public interface StorageDao {
 	 *            a mentendõ raktárbeli elemek listája.
 	 */
 	public void saveAllChanges(List<StorageItem> storage);
-
-	/**
-	 * A paraméterként kapott raktárbeli elem mentése.
-	 * 
-	 * @param storageItem
-	 *            a mentendõ raktárbeli elem.
-	 * @return a mentett raktárbeli elem.
-	 */
-	public StorageItem save(StorageItem storageItem);
 
 	/**
 	 * Raktárbeli elem keresése sör alapján.

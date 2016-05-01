@@ -29,7 +29,7 @@ public class UserDaoTest {
 	// private EntityManager em;
 	// private EntityTransaction tx;
 	private static EJBContainer container;
-	
+
 	@EJB
 	private UserDao userDao;
 
@@ -43,12 +43,13 @@ public class UserDaoTest {
 	@Before
 	public void setUp() throws NamingException {
 		container = EJBContainer.createEJBContainer();
-		container.getContext().bind("inject", this);
+		container.getContext()
+				.bind("inject", this);
 	}
 
-//	@Test
-//	@Transaction(rollback = true)
-	public void testFindByName() throws UsernameNotFound {
+	// @Test
+	// @Transaction(rollback = true)
+	public void testFindByName() throws Exception {
 
 		User user = new User();
 		user.setUsername("NameTest");
@@ -65,9 +66,9 @@ public class UserDaoTest {
 
 	}
 
-//	@Test
-//	@Transaction(rollback = true)
-	public void testFindByEmail() throws EmailNotFound {
+	// @Test
+	// @Transaction(rollback = true)
+	public void testFindByEmail() throws Exception {
 
 		User user = new User();
 		user.setUsername("EmailTest");
@@ -84,8 +85,8 @@ public class UserDaoTest {
 
 	}
 
-//	@Test
-	public void testFindByRole() throws UsernameNotFound {
+	// @Test
+	public void testFindByRole() throws Exception {
 		User user = new User();
 		user.setUsername("RoleMe");
 		user.setEmail("role@me.com");
@@ -101,7 +102,9 @@ public class UserDaoTest {
 
 		User roledUser = userDao.findByUsername("RoleMe");
 		System.out.println(roledUser);
-		Assert.assertEquals("ROLE_USER", roledUser.getRoles().get(0).getName());
+		Assert.assertEquals("ROLE_USER", roledUser.getRoles()
+				.get(0)
+				.getName());
 		userDao.remove(roledUser);
 	}
 

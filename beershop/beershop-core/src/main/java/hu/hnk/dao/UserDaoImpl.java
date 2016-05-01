@@ -26,7 +26,14 @@ import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 @Stateless
 @Local(UserDao.class)
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
+
+	/**
+	 * Az osztály konstuktora.
+	 */
+	public UserDaoImpl() {
+		super(User.class);
+	}
 
 	/**
 	 * Az osztály Logger-e.
@@ -44,7 +51,9 @@ public class UserDaoImpl implements UserDao {
 	 */
 	public User save(User user) {
 		logger.info("Felhasználó mentése.");
-		return em.merge(user);
+		// return em.merge(user);
+		em.persist(user);
+		return user;
 	}
 
 	/**

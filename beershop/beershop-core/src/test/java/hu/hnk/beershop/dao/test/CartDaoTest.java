@@ -51,7 +51,7 @@ public class CartDaoTest {
 
 //	@Test
 //	@Transaction(rollback = true)
-	public void testSaveWithItems() throws UsernameNotFound {
+	public void testSaveWithItems() throws Exception {
 		List<CartItem> items = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			CartItem item = new CartItem();

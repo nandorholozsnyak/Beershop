@@ -4,13 +4,10 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import hu.hnk.beershop.model.Role;
 import hu.hnk.interfaces.RoleDao;
-import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 
 /**
  * A jogköröket kezelõ adathozzáférési osztály megvalósítása.
@@ -21,33 +18,26 @@ import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 @Stateless
 @Local(RoleDao.class)
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-public class RoleDaoImpl implements RoleDao {
+public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
 
 	/**
-	 * JPA Entity Manager.
+	 * Az osztály konstuktora.
 	 */
-	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
-	private EntityManager em;
+	public RoleDaoImpl() {
+		super(Role.class);
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Role findByName(String name) {
-		TypedQuery<Role> role = em.createNamedQuery("Role.findByName", Role.class);
+		TypedQuery<Role> role = entityManager.createNamedQuery("Role.findByName", Role.class);
 		role.setParameter("name", name);
 		try {
 			return role.getSingleResult();
 		} catch (Exception e) {
 			return null;
 		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Role save(Role role) {
-		return em.merge(role);
 	}
 
 }

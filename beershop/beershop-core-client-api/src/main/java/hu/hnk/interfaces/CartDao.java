@@ -12,7 +12,7 @@ import hu.hnk.beershop.model.User;
  * @author Nandi
  *
  */
-public interface CartDao {
+public interface CartDao extends BaseDao<Cart> {
 
 	/**
 	 * Egy kosár információit lekérdezõ metódus.
@@ -20,15 +20,6 @@ public interface CartDao {
 	 * @return a kosár információi.
 	 */
 	public List<Cart> findAll();
-
-	/**
-	 * A kosár tartalmának mentése adatbázisba.
-	 * 
-	 * @param cart
-	 *            a mentendõ kosár.
-	 * @return a mentett kosár.
-	 */
-	public Cart save(Cart cart);
 
 	/**
 	 * Kosár keresése felhasználó alapján.

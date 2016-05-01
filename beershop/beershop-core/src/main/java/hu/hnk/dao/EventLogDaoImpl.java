@@ -6,14 +6,11 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.EventLogDao;
-import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 
 /**
  * Az eseményeket kezelõ adathozzáférési osztály implementációja.
@@ -24,30 +21,23 @@ import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 @Stateless
 @Local(EventLogDao.class)
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-public class EventLogDaoImpl implements EventLogDao {
+public class EventLogDaoImpl extends BaseDaoImpl<EventLog> implements EventLogDao {
 
 	/**
-	 * 
+	 * Az osztály konstuktora.
 	 */
-	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
-	private EntityManager em;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<EventLog> findByUser(User user) {
-		TypedQuery<EventLog> query = em.createNamedQuery("EventLog.findByUser", EventLog.class);
-		query.setParameter("user", user);
-		return query.getResultList();
+	public EventLogDaoImpl() {
+		super(EventLog.class);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public EventLog save(EventLog event) {
-		return em.merge(event);
+	public List<EventLog> findByUser(User user) {
+		TypedQuery<EventLog> query = entityManager.createNamedQuery("EventLog.findByUser", EventLog.class);
+		query.setParameter("user", user);
+		return query.getResultList();
 	}
 
 }

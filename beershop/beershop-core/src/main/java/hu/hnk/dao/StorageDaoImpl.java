@@ -9,14 +9,13 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
+import org.apache.log4j.Logger;
 
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.interfaces.StorageDao;
-import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 
 /**
  * @author Nandi
@@ -25,20 +24,26 @@ import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 @Stateless
 @Local(StorageDao.class)
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-public class StorageDaoImpl implements StorageDao {
+public class StorageDaoImpl extends BaseDaoImpl<StorageItem> implements StorageDao {
+	
+	/**
+	 * Az osztály konstuktora.
+	 */
+	public StorageDaoImpl() {
+		super(StorageItem.class);
+	}
 
 	/**
-	 * JPA Entity Manager.
+	 * Az osztály loggere.
 	 */
-	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
-	private EntityManager em;
+	public static final Logger logger = Logger.getLogger(StorageDaoImpl.class);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public List<StorageItem> findAll() {
-		Query query = em.createQuery("SELECT s FROM StorageItem s");
+		Query query = entityManager.createQuery("SELECT s FROM StorageItem s");
 		return query.getResultList();
 	}
 
@@ -48,20 +53,13 @@ public class StorageDaoImpl implements StorageDao {
 	@Override
 	public void saveAllChanges(List<StorageItem> storage) {
 		storage.stream()
-				.forEach(entity -> em.merge(entity));
-		// for(Storage stItem : storage) {
-		// em.merge(stItem);
-		// }
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see hu.hnk.interfaces.StorageDao#save(hu.hnk.beershop.model.StorageItem)
-	 */
-	@Override
-	public StorageItem save(StorageItem storageItem) {
-		return em.merge(storageItem);
+				.forEach(entity -> {
+					try {
+						save(entity);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				});
 	}
 
 	/*
@@ -71,7 +69,7 @@ public class StorageDaoImpl implements StorageDao {
 	 */
 	@Override
 	public StorageItem findByBeer(Beer beer) {
-		return em.createNamedQuery("StorageItem.findByBeer", StorageItem.class)
+		return entityManager.createNamedQuery("StorageItem.findByBeer", StorageItem.class)
 				.setParameter("beer", beer)
 				.getSingleResult();
 	}

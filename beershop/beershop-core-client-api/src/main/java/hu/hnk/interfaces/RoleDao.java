@@ -7,7 +7,7 @@ import hu.hnk.beershop.model.Role;
  * @author Nandi
  *
  */
-public interface RoleDao {
+public interface RoleDao extends BaseDao<Role> {
 	
 	/**
 	 * Jogkör keresése név alapján.
@@ -16,10 +16,4 @@ public interface RoleDao {
 	 */
 	public Role findByName(String name);
 	
-	/**
-	 * Jogkör mentése az adatbázisba.
-	 * @param role a mentendõ jogkör.
-	 * @return a mentett jogkör.
-	 */
-	public Role save(Role role);
 }

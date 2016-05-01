@@ -10,16 +10,8 @@ import hu.hnk.beershop.model.User;
  * @author Nandi
  *
  */
-public interface UserDao {
-	/**
-	 * Új felhasználó mentése.
-	 * 
-	 * @param user
-	 *            az új felhasználó
-	 * @return a mentett felhasználó
-	 */
-	public User save(User user);
-
+public interface UserDao extends BaseDao<User> {
+	
 	/**
 	 * Felhasználó keresése felhasználónév alapján.
 	 * 
