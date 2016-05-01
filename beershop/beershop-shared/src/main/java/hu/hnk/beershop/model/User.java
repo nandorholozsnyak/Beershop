@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * A felhasználó osztály tartalmazza egy felhasználó adatait.
@@ -19,7 +20,7 @@ import javax.persistence.OneToOne;
  * @author Nandi
  *
  */
-// @Table(name = "user")
+// @Table(name = "player")
 @Entity
 @NamedQueries({ @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :name"),
 		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
@@ -85,7 +86,7 @@ public class User extends BaseEntity implements Serializable {
 	 * A felhasználó egyenlege amellyel majd söröket vásárolhat.
 	 */
 	@Column(name = "money", columnDefinition = "Decimal(10,2) default '0.0'")
-	private Long money;
+	private Double money;
 
 	/**
 	 * @return the dateOfBirth
@@ -209,7 +210,7 @@ public class User extends BaseEntity implements Serializable {
 	/**
 	 * @return the money
 	 */
-	public Long getMoney() {
+	public Double getMoney() {
 		return money;
 	}
 
@@ -217,7 +218,7 @@ public class User extends BaseEntity implements Serializable {
 	 * @param money
 	 *            the money to set
 	 */
-	public void setMoney(Long money) {
+	public void setMoney(Double money) {
 		this.money = money;
 	}
 
