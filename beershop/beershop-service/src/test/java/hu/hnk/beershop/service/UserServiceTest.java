@@ -58,7 +58,7 @@ public class UserServiceTest {
 		user.setPoints((double) 150);
 		user.setDateOfBirth(new Date());
 		// Mockito.when(userDao.save(user)).thenReturn(user);
-		userDao.save(user);
+		// userDao.save(user);
 		// Mockito.when(userDao.findUsername("EmailTest")).thenReturn("EmailTest");
 		Mockito.when(userDao.findUsername("NameTest"))
 				.thenReturn("NameTest");
@@ -74,7 +74,7 @@ public class UserServiceTest {
 		user.setPassword("ASD");
 		user.setPoints((double) 150);
 		user.setDateOfBirth(new Date());
-		userDao.save(user);
+		// userDao.save(user);
 
 		Mockito.when(userDao.findUsername("EmailTest"))
 				.thenReturn("EmailTest");
@@ -87,7 +87,7 @@ public class UserServiceTest {
 	public void testIfEmailAlreadyExistsReturnTrue() throws EmailNotFound {
 		User user = new User();
 		user.setEmail("email@test.co");
-		userDao.save(user);
+		/// userDao.save(user);
 		Mockito.when(userDao.findEmail("email@test.co"))
 				.thenReturn("email@test.co");
 		Assert.assertEquals(true, userService.isEmailAlreadyTaken("email@test.co"));
@@ -98,7 +98,7 @@ public class UserServiceTest {
 
 		User user = new User();
 		user.setEmail("email@test.co");
-		userDao.save(user);
+		// userDao.save(user);
 		Mockito.when(userDao.findEmail("email@test.co"))
 				.thenReturn("email@test.co");
 		Mockito.when(userService.isEmailAlreadyTaken("email@test.co"))
@@ -112,17 +112,17 @@ public class UserServiceTest {
 		String expectedPin = "9999";
 		Integer money = 1000;
 		User loggedInUser = new User();
-		loggedInUser.setMoney((long) 0);
+		loggedInUser.setMoney(0.0);
 		userService.transferMoney(userPin, expectedPin, money, loggedInUser);
 	}
 
 	@Test
-	public void testTransferMoney() throws InvalidPinCode {
+	public void testTransferMoney() throws Exception {
 		String userPin = "0000";
 		String expectedPin = "0000";
 		Integer money = 1000;
 		User loggedInUser = new User();
-		loggedInUser.setMoney((long) 0);
+		loggedInUser.setMoney(0.0);
 		Mockito.when(userDao.save(loggedInUser))
 				.thenReturn(loggedInUser);
 		Mockito.when(eventLogService.save(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, loggedInUser)))

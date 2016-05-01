@@ -61,7 +61,13 @@ public class CartServiceImpl implements CartService {
 	 */
 	@Override
 	public Cart save(Cart cart) {
-		return cartDao.save(cart);
+		try {
+			return cartDao.save(cart);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cart;
 	}
 
 	/*
@@ -93,7 +99,12 @@ public class CartServiceImpl implements CartService {
 		}
 
 		cart.setItems(cartItems);
-		cartDao.save(cart);
+		try {
+			cartDao.update(cart);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		logger.info("Items saved succesfuly to the user's cart.");
 	}
 
@@ -150,16 +161,24 @@ public class CartServiceImpl implements CartService {
 					item.setQuantity(beersToCart.get(beer));
 					item.setActive(true);
 					cartItems.add(item);
+					logger.info("New item added to user's cart list.");
 				} else {
 					cartItems.remove(foundItem);
 					foundItem.setQuantity(foundItem.getQuantity() + beersToCart.get(beer));
 					foundItem.setAddedToCart(LocalDateTime.now());
 					cartDao.updateItem(foundItem);
 					cartItems.add(foundItem);
+					logger.info("Found item updated in user's cart.");
 				}
 
 				beerInStorage.setQuantity(beerInStorage.getQuantity() - beersToCart.get(beer));
-				storageDao.save(beerInStorage);
+				try {
+					storageDao.save(beerInStorage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
 		}
 	}
@@ -252,8 +271,14 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public Double countBonusPoints(List<CartItem> cartItems) {
 		return cartItems.stream()
-				.mapToDouble(e -> (e.getQuantity() * e.getBeer().getPrice()) / 100
-						+ (e.getBeer().getAlcoholLevel() + e.getBeer().getCapacity() + e.getBeer().getDiscountAmount()))
+				.mapToDouble(e -> (e.getQuantity() * e.getBeer()
+						.getPrice()) / 100
+						+ (e.getBeer()
+								.getAlcoholLevel()
+								+ e.getBeer()
+										.getCapacity()
+								+ e.getBeer()
+										.getDiscountAmount()))
 				.sum();
 	}
 

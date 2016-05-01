@@ -74,10 +74,21 @@ public class UserServiceImpl implements UserService {
 		if (role == null) {
 			role = new Role();
 			role.setName("ROLE_USER");
-			role = roleDao.save(role);
+			try {
+				role = roleDao.save(role);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
-		User userData = userDao.save(user);
+		User userData = null;
+		try {
+			userData = userDao.save(user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		List<Role> userRoles = userData.getRoles();
 
 		if (userRoles == null || userRoles.isEmpty()) {
@@ -88,7 +99,12 @@ public class UserServiceImpl implements UserService {
 		userData.setRoles(userRoles);
 		userData.getCart()
 				.setUser(userData);
-		userDao.save(userData);
+		try {
+			userDao.update(userData);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		eventLogService.save(EventLogFactory.createEventLog(EventLogType.Registration, userData));
 	}
 
@@ -199,7 +215,12 @@ public class UserServiceImpl implements UserService {
 			throw new InvalidPinCode("PINs are not the same.");
 		}
 		loggedInUser.setMoney(loggedInUser.getMoney() + money);
-		userDao.save(loggedInUser);
+		try {
+			userDao.update(loggedInUser);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		eventLogService.save(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, loggedInUser));
 	}
 

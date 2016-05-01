@@ -47,8 +47,8 @@ public class CartServiceTest {
 	@Test
 	public void testCountMoneyAfterPayment() {
 		User user = new User();
-		user.setMoney((long) 2500);
-		user.setPoints((double) 500);
+		user.setMoney(2500.0);
+		user.setPoints(500.0);
 		Assert.assertEquals(1500.0, cartService.countMoneyAfterPayment(user, (double) 1000, "money"));
 		Assert.assertEquals(400.0, cartService.countMoneyAfterPayment(user, (double) 100, "bonusPoint"));
 		//Lehetetlen eset.
@@ -237,8 +237,8 @@ public class CartServiceTest {
 
 		// Azt teszteljük hogy vajon a kosarunkban a termék megegyezik-e mint
 		// amit mi várunk.
-		System.out.println("Exp->" + Arrays.asList(firstExpected));
-		System.out.println("Cart->" + cart.getItems());
+		// System.out.println("Exp->" + Arrays.asList(firstExpected));
+		// System.out.println("Cart->" + cart.getItems());
 		Assert.assertEquals(Arrays.asList(firstExpected), cart.getItems());
 		Assert.assertEquals(firstExpected.getQuantity(), cart.getItems()
 				.get(0)

@@ -27,7 +27,13 @@ public class EventLogServiceImpl implements EventLogService {
 
 	@Override
 	public EventLog save(EventLog event) {
-		return eventLogDao.save(event);
+		try {
+			return eventLogDao.save(event);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return event;
 	}
 
 	
