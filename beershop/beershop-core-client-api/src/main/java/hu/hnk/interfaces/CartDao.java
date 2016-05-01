@@ -30,23 +30,4 @@ public interface CartDao extends BaseDao<Cart> {
 	 */
 	public Cart findByUser(User user);
 
-	/**
-	 * Termék logikai törlése a kosárból.
-	 * 
-	 * @param item
-	 *            a törlendõ termék.
-	 * @throws Exception
-	 *             bármilyen hibás adatbázis mûvelet esetén.
-	 */
-	public void deleteItemLogically(CartItem item) throws Exception;
-
-	/**
-	 * Kosárban lévõ termék frissítése.
-	 * 
-	 * @param item
-	 *            a frissítendõ termék.
-	 * @return a frissített termék.
-	 */
-	public CartItem updateItem(CartItem item);
-
 }

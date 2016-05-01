@@ -23,11 +23,10 @@ public class Cart extends BaseEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
 
-
 	/**
 	 * A rendelt sörök listája darabszámokkal együtt.
 	 */
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private List<CartItem> items;
 
 	/**
@@ -41,7 +40,6 @@ public class Cart extends BaseEntity implements Serializable {
 	// */
 	// @Column(name = "takenToCart")
 	// private Date takenToCart;
-
 
 	public User getUser() {
 		return user;

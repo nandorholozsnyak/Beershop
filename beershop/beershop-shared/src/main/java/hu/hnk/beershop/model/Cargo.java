@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -28,7 +29,7 @@ public class Cargo extends BaseEntity implements Serializable {
 	/**
 	 * A rendelt sörök listája.
 	 */
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<CartItem> items;
 
 	/**

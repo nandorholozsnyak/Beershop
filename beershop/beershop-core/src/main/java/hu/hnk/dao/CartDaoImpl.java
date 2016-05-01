@@ -3,7 +3,6 @@
  */
 package hu.hnk.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -13,7 +12,6 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.Query;
 
 import hu.hnk.beershop.model.Cart;
-import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.CartDao;
 
@@ -52,22 +50,6 @@ public class CartDaoImpl extends BaseDaoImpl<Cart> implements CartDao {
 		Query q = entityManager.createQuery("SELECT c FROM Cart c WHERE user = :user");
 		q.setParameter("user", user);
 		return (Cart) q.getSingleResult();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void deleteItemLogically(CartItem item) {
-		item.setActive(false);
-		item.setRemovedFromCart(LocalDateTime.now());
-		entityManager.merge(item);
-	}
-
-	@Override
-	public CartItem updateItem(CartItem item) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

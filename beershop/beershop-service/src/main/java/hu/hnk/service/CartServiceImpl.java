@@ -21,6 +21,7 @@ import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.interfaces.CartDao;
+import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.StorageDao;
 
 /**
@@ -45,6 +46,12 @@ public class CartServiceImpl implements CartService {
 	 */
 	@EJB
 	private CartDao cartDao;
+
+	/**
+	 * A kosarat kezelõ adathozzáférési osztály.
+	 */
+	@EJB
+	private CartItemDao cartItemDao;
 
 	/**
 	 * A raktárt kezelõ adathozzáférési objektum.
@@ -166,7 +173,12 @@ public class CartServiceImpl implements CartService {
 					cartItems.remove(foundItem);
 					foundItem.setQuantity(foundItem.getQuantity() + beersToCart.get(beer));
 					foundItem.setAddedToCart(LocalDateTime.now());
-					cartDao.updateItem(foundItem);
+					try {
+						cartItemDao.update(foundItem);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					cartItems.add(foundItem);
 					logger.info("Found item updated in user's cart.");
 				}
@@ -252,7 +264,7 @@ public class CartServiceImpl implements CartService {
 	public void deletItemFromCart(CartItem item) throws Exception {
 		try {
 			logger.info("Trying to delete item from cart.");
-			cartDao.deleteItemLogically(item);
+			cartItemDao.deleteItemLogically(item);
 			StorageItem stItem = storageDao.findByBeer(item.getBeer());
 			stItem.setQuantity(stItem.getQuantity() + item.getQuantity());
 		} catch (Exception e) {
@@ -305,6 +317,13 @@ public class CartServiceImpl implements CartService {
 	 */
 	public void setStorageDao(StorageDao storageDao) {
 		this.storageDao = storageDao;
+	}
+
+	/**
+	 * @param cartItemDao
+	 */
+	public void setCartItemDao(CartItemDao cartItemDao) {
+		this.cartItemDao = cartItemDao;
 	}
 
 }

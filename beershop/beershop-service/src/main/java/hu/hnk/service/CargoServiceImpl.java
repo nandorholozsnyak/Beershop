@@ -14,6 +14,7 @@ import hu.hnk.beershop.service.interfaces.CargoService;
 import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.interfaces.CargoDao;
 import hu.hnk.interfaces.CartDao;
+import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.factory.EventLogFactory;
@@ -41,6 +42,12 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	@EJB
 	private CartDao cartDao;
+	
+	/**
+	 * A kosarat kezelõ adathozzáférési osztály.
+	 */
+	@EJB
+	private CartItemDao cartItemDao;
 
 	/**
 	 * A felhasználókat kezelõ adathozzáférési osztály.
@@ -76,7 +83,7 @@ public class CargoServiceImpl implements CargoService {
 				.stream()
 				.forEach(p -> {
 					try {
-						cartDao.deleteItemLogically(p);
+						cartItemDao.deleteItemLogically(p);
 					} catch (Exception e) {
 						logger.warn("Exception while trying to remove items from user's cart.");
 						logger.warn(e);

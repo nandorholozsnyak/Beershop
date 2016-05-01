@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,6 +20,7 @@ import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.CartDao;
+import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.StorageDao;
 import hu.hnk.service.CartServiceImpl;
 import junit.framework.Assert;
@@ -34,13 +33,17 @@ public class CartServiceTest {
 
 	private StorageDao storageDao;
 
+	private CartItemDao cartItemDao;
+
 	@Before
 	public void bootContainer() throws Exception {
 		cartService = Mockito.spy(new CartServiceImpl());
 		cartDao = Mockito.mock(CartDao.class);
+		cartItemDao = Mockito.mock(CartItemDao.class);
 		storageDao = Mockito.mock(StorageDao.class);
 		cartService.setCartDao(cartDao);
 		cartService.setStorageDao(storageDao);
+		cartService.setCartItemDao(cartItemDao);
 	}
 
 	// List<StorageItem> storage, Beer beer, Integer quantity
@@ -51,7 +54,7 @@ public class CartServiceTest {
 		user.setPoints(500.0);
 		Assert.assertEquals(1500.0, cartService.countMoneyAfterPayment(user, (double) 1000, "money"));
 		Assert.assertEquals(400.0, cartService.countMoneyAfterPayment(user, (double) 100, "bonusPoint"));
-		//Lehetetlen eset.
+		// Lehetetlen eset.
 		Assert.assertEquals(0.0, cartService.countMoneyAfterPayment(user, (double) 100, "invalid"));
 	}
 
@@ -72,7 +75,7 @@ public class CartServiceTest {
 		cartItems.add(cartItem);
 		Assert.assertEquals(20.5, cartService.countBonusPoints(cartItems));
 	}
-	
+
 	@Test
 	public void testCountTotalCost() {
 		List<CartItem> cartItems = new ArrayList<>();
@@ -83,8 +86,7 @@ public class CartServiceTest {
 		cartItem.setBeer(beer);
 		cartItem.setQuantity(5);
 		cartItems.add(cartItem);
-		
-		
+
 		CartItem cartItem2 = new CartItem();
 		Beer beer2 = new Beer();
 		beer2.setPrice(500.0);
@@ -92,12 +94,10 @@ public class CartServiceTest {
 		cartItem2.setBeer(beer2);
 		cartItem2.setQuantity(10);
 		cartItems.add(cartItem2);
-		
+
 		Assert.assertEquals(3500.0, cartService.countTotalCost(cartItems));
 	}
 
-	
-	
 	@Test
 	public void testDeleteItemFromCart() throws Exception {
 		Beer beer = new Beer();
@@ -106,7 +106,7 @@ public class CartServiceTest {
 		item.setBeer(beer);
 		item.setQuantity(10);
 		Mockito.doNothing()
-				.when(cartDao)
+				.when(cartItemDao)
 				.deleteItemLogically(item);
 		StorageItem stItem = new StorageItem();
 		stItem.setBeer(beer);
@@ -125,7 +125,7 @@ public class CartServiceTest {
 		item.setBeer(beer);
 		item.setQuantity(10);
 		Mockito.doThrow(Exception.class)
-				.when(cartDao)
+				.when(cartItemDao)
 				.deleteItemLogically(item);
 		StorageItem stItem = new StorageItem();
 		stItem.setBeer(beer);
@@ -140,36 +140,36 @@ public class CartServiceTest {
 	public void testSaveItemsToCartEmptyCart() {
 		// Létrehozunk egy kosarat.
 		Cart cart = new Cart();
-		//Most egy teljesen üres kosárral kezdünk.
+		// Most egy teljesen üres kosárral kezdünk.
 		cart.setItems(new ArrayList<>());
-		
+
 		// Definiáljuk azokat a söröket amik majd belekerülnek a kosárba.
 		Beer firstBeer = new Beer();
 		firstBeer.setName("First Beer");
 		Beer secondBeer = new Beer();
 		secondBeer.setName("Second Beer");
-		
+
 		// Belerakjuk a söröket.
 		Map<Beer, Integer> beersToCart = new HashMap<>();
 		beersToCart.put(firstBeer, 10);
 		beersToCart.put(secondBeer, 5);
-		
-		//Definiáljuk a raktárban lévõ söröket.
+
+		// Definiáljuk a raktárban lévõ söröket.
 		StorageItem firstSi = new StorageItem();
 		StorageItem secondSi = new StorageItem();
-		
+
 		firstSi.setBeer(firstBeer);
 		firstSi.setQuantity(15);
-		
+
 		secondSi.setBeer(secondBeer);
 		secondSi.setQuantity(10);
-		
-		//Mock!
+
+		// Mock!
 		List<StorageItem> stList = Arrays.asList(firstSi, secondSi);
 		Mockito.when(storageDao.findAll())
 				.thenReturn(stList);
-		
-		//A visszavárt sörök, amelyek mint kosár tárgyak helyezõdnek a kosárba.
+
+		// A visszavárt sörök, amelyek mint kosár tárgyak helyezõdnek a kosárba.
 		CartItem firstExpected = new CartItem();
 		firstExpected.setBeer(firstBeer);
 		firstExpected.setQuantity(10);
@@ -183,7 +183,7 @@ public class CartServiceTest {
 		for (CartItem cItem : cart.getItems()) {
 			cItem.setAddedToCart(null);
 		}
-		
+
 		Assert.assertEquals(Arrays.asList(secondExpected, firstExpected), cart.getItems());
 
 	}
@@ -245,9 +245,9 @@ public class CartServiceTest {
 				.getQuantity());
 
 	}
-	
-	//Olyan sört szeretnénk kérni ami nem is létezik a raktárban.
-	//Lehetetlen eset.
+
+	// Olyan sört szeretnénk kérni ami nem is létezik a raktárban.
+	// Lehetetlen eset.
 	@Test
 	public void testSaveItemsToCartWithUnmanagedBeer() {
 		// Létrehozunk egy kosarat.
@@ -274,7 +274,7 @@ public class CartServiceTest {
 
 		// Mockoljuk az eredményt amikor meghívódik a storageDao.findAll()
 		// metódusa.
-		//Itt a trükk, a második sör már nem szerepel az adatbázisban.
+		// Itt a trükk, a második sör már nem szerepel az adatbázisban.
 		List<StorageItem> stList = new LinkedList(Arrays.asList(secondSi));
 		Mockito.when(storageDao.findAll())
 				.thenReturn(stList);
@@ -295,7 +295,8 @@ public class CartServiceTest {
 		for (CartItem cItem : cart.getItems()) {
 			cItem.setAddedToCart(null);
 		}
-		Assert.assertTrue(cart.getItems().isEmpty());
+		Assert.assertTrue(cart.getItems()
+				.isEmpty());
 	}
 
 	@After
