@@ -83,6 +83,10 @@ public class BeerShopManager implements Serializable {
 	@PostConstruct
 	public void init() {
 		setBeersInShop(beerService.findAll());
+		resetCart();
+	}
+
+	private void resetCart() {
 		beersToCart = new HashMap<>();
 		for (Beer b : beersInShop) {
 			beersToCart.put(b, 0);
@@ -149,6 +153,7 @@ public class BeerShopManager implements Serializable {
 				"Termékek a kosárba helyezve.");
 
 		FacesMessageTool.publishMessage(msg);
+		resetCart();
 	}
 
 	/**

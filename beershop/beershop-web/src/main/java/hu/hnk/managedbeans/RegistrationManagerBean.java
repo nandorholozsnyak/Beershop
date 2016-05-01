@@ -184,7 +184,7 @@ public class RegistrationManagerBean implements Serializable {
 			newUser.setPoints((double) 0);
 			newUser.setDateOfBirth(dateOfBirth);
 			newUser.setExperiencePoints((double) 0);
-			newUser.setMoney((long) 0);
+			newUser.setMoney(0.0);
 			newUser.setCart(new Cart());
 			if (newUser != null) {
 				try {

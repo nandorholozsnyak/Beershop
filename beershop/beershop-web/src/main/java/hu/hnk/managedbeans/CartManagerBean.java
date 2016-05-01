@@ -67,14 +67,12 @@ public class CartManagerBean implements Serializable {
 
 		try {
 			cartService.deletItemFromCart(item);
-			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Módosítások sikeresen mentve!",
-					"Módosítások sikeresen mentve!");
+			FacesMessageTool.createInfoMessage("Módosítások sikeresen mentve!");
 		} catch (Exception e) {
 			logger.warn(e.getMessage(), e);
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Módosításokat nem tudtuk menteni!",
-					"Módosításokat nem tudtuk menteni!");
+			FacesMessageTool.createWarnMessage("Módosításokat nem tudtuk menteni!");
 		}
-		FacesMessageTool.publishMessage(msg);
+//		init();
 	}
 
 	public String countBonusPoints() {

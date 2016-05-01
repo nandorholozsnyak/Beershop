@@ -2,6 +2,7 @@ package hu.hnk.managedbeans;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -19,6 +20,9 @@ import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
 
 /**
+ * A felhasználói tranzakciókat kezelõ managed bean, amely a felhasználó
+ * kosarában levõ dolgokat helyezi új rendelésre.
+ * 
  * @author Nandi
  *
  */
@@ -68,6 +72,11 @@ public class TransactionManagerBean implements Serializable {
 
 	private Double totalCost;
 
+	private Double moneyAfterPayment;
+
+	/**
+	 * 
+	 */
 	@PostConstruct
 	public void init() {
 		totalCost = countTotalCost();
@@ -99,11 +108,15 @@ public class TransactionManagerBean implements Serializable {
 			Cargo cargo = new Cargo();
 			cargo.setItems(sessionManager.getLoggedInUser()
 					.getCart()
-					.getItems());
+					.getItems()
+					.stream()
+					.filter(p -> p.getActive())
+					.collect(Collectors.toList()));
 			cargo.setAddress(address);
 			cargo.setOrderDate(new Date());
 			cargo.setUser(sessionManager.getLoggedInUser());
 			cargo.setTotalPrice(totalCost);
+			cargo.setPaymentMode(payMode);
 			try {
 				cargoService.saveNewCargo(cargo);
 				FacesMessageTool.createInfoMessage("Sikeres vásárlás.");
@@ -115,6 +128,10 @@ public class TransactionManagerBean implements Serializable {
 			FacesMessageTool.createWarnMessage("Nem áll rendelkezésére elegendõ pénz vagy pont.");
 
 		}
+	}
+
+	public void countMoneyAfterPayment() {
+
 	}
 
 	/**
@@ -183,6 +200,14 @@ public class TransactionManagerBean implements Serializable {
 
 	public void setMsg(FacesMessage msg) {
 		this.msg = msg;
+	}
+
+	public Double getMoneyAfterPayment() {
+		return moneyAfterPayment;
+	}
+
+	public void setMoneyAfterPayment(Double moneyAfterPayment) {
+		this.moneyAfterPayment = moneyAfterPayment;
 	}
 
 }

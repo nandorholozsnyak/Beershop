@@ -61,9 +61,11 @@
 												</p:selectOneRadio>
 
 												<p:outputLabel value="Rendelkezésére áll elég egyenleg: "></p:outputLabel>
-												<p:outputLabel
+												<p:outputLabel id="enoughMoney"
 													value="#{transactionManagerBean.isThereEnoughMoney() == true?'Igen':'Nem'}" />
+<!-- 												<p:outputLabel value="Fizetés utáni egyenlege: "></p:outputLabel> -->
 												<p:row>
+
 													<p:column colspan="2">
 														<p:commandButton style="margin:auto !important;"
 															value="Vásárlás" validateClient="true"
