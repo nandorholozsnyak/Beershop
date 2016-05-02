@@ -12,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
@@ -76,6 +77,20 @@ public class CartManagerBean implements Serializable {
 			logger.warn(e.getMessage(), e);
 			FacesMessageTool.createWarnMessage("Módosításokat nem tudtuk menteni!");
 		}
+		loadUserItems();
+		FacesContext.getCurrentInstance()
+				.getPartialViewContext()
+				.getRenderIds()
+				.add("cart:cartTable");
+		FacesContext.getCurrentInstance()
+				.getPartialViewContext()
+				.getRenderIds()
+				.add("cart:cartMessage");
+		FacesContext.getCurrentInstance()
+				.getPartialViewContext()
+				.getRenderIds()
+				.add("cart:emptyCart");
+
 	}
 
 	public String countBonusPoints() {

@@ -150,11 +150,11 @@ public class UserServiceTest {
 		user.setExperiencePoints((double) 2500);
 		Assert.assertEquals(Rank.Amatuer, userService.countRankFromXp(user));
 		user.setExperiencePoints((double) 2501);
-		Assert.assertEquals(Rank.Beginner, userService.countRankFromXp(user));
+		Assert.assertEquals(Rank.Sorfelelos, userService.countRankFromXp(user));
 		user.setExperiencePoints((double) 4999);
-		Assert.assertEquals(Rank.Beginner, userService.countRankFromXp(user));
+		Assert.assertEquals(Rank.Sorfelelos, userService.countRankFromXp(user));
 		user.setExperiencePoints((double) 5001);
-		Assert.assertEquals(Rank.Expert, userService.countRankFromXp(user));
+		Assert.assertEquals(Rank.Ivobajnok, userService.countRankFromXp(user));
 	}
 
 	@After

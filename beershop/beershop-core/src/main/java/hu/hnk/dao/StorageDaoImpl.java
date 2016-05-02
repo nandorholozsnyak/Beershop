@@ -25,7 +25,7 @@ import hu.hnk.interfaces.StorageDao;
 @Local(StorageDao.class)
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class StorageDaoImpl extends BaseDaoImpl<StorageItem> implements StorageDao {
-	
+
 	/**
 	 * Az osztály konstuktora.
 	 */
@@ -55,7 +55,7 @@ public class StorageDaoImpl extends BaseDaoImpl<StorageItem> implements StorageD
 		storage.stream()
 				.forEach(entity -> {
 					try {
-						save(entity);
+						update(entity);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

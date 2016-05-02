@@ -27,7 +27,7 @@
 									<h:form id="cart">
 										<p:growl id="cartMessage" />
 										<div class="text-center">
-											<p:outputLabel style="font-size:large;"
+											<p:outputLabel id="emptyCart" style="font-size:large;"
 												value="Az Ön kosara üres!"
 												rendered="#{empty cartManagerBean.items}" />
 										</div>
@@ -54,7 +54,7 @@
 											<p:column headerText="">
 												<p:commandButton icon="fa fa-trash"
 													action="#{cartManagerBean.deleteItemFromCart(item)}"
-													update="cart:cartTable cart:cartMessage" />
+													update="cart:cartTable cart:cartMessage cart:emptyCart" />
 											</p:column>
 											<f:facet name="footer">
 												<p:outputLabel

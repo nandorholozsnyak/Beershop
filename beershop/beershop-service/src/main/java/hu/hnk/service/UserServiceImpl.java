@@ -184,9 +184,9 @@ public class UserServiceImpl implements UserService {
 		if (user.getExperiencePoints() > -1 && user.getExperiencePoints() <= 2500) {
 			userRank = Rank.Amatuer;
 		} else if (user.getExperiencePoints() > 2500 && user.getExperiencePoints() <= 5000) {
-			userRank = Rank.Beginner;
+			userRank = Rank.Sorfelelos;
 		} else if (user.getExperiencePoints() > 5000) {
-			userRank = Rank.Expert;
+			userRank = Rank.Ivobajnok;
 		}
 		return userRank;
 	}
