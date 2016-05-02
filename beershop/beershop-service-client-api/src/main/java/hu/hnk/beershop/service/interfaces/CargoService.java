@@ -1,6 +1,9 @@
 package hu.hnk.beershop.service.interfaces;
 
+import java.util.List;
+
 import hu.hnk.beershop.model.Cargo;
+import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
 
 /**
@@ -13,7 +16,7 @@ public interface CargoService {
 	 * @param cargo
 	 * @return
 	 */
-	public Cargo saveNewCargo(Cargo cargo) throws Exception;
+	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items);
 
 	/**
 	 * Ellenõrzi hogy a paraméterként megadott felhasználónak rendelkezésére

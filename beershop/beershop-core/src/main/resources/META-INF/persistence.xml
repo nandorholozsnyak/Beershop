@@ -22,6 +22,8 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.hbm2ddl.import_files_sql_extractor"
+				value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" />
 			<property name="hibernate.hbm2ddl.import_files" value="initial_data.sql" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.transaction.jta.platform"
@@ -123,7 +125,7 @@
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
 			<property name="hibernate.hbm2ddl.import_files" value="initial_data.sql" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.transaction.jta.platform"

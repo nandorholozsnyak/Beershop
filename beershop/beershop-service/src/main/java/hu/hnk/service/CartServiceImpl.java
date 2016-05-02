@@ -109,7 +109,6 @@ public class CartServiceImpl implements CartService {
 		try {
 			cartDao.update(cart);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		logger.info("Items saved succesfuly to the user's cart.");
@@ -167,6 +166,11 @@ public class CartServiceImpl implements CartService {
 					item.setBeer(beer);
 					item.setQuantity(beersToCart.get(beer));
 					item.setActive(true);
+					try {
+						cartItemDao.save(item);
+					} catch (Exception e) {
+						logger.warn(e);
+					}
 					cartItems.add(item);
 					logger.info("New item added to user's cart list.");
 				} else {
@@ -176,8 +180,7 @@ public class CartServiceImpl implements CartService {
 					try {
 						cartItemDao.update(foundItem);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						logger.warn(e);
 					}
 					cartItems.add(foundItem);
 					logger.info("Found item updated in user's cart.");
@@ -187,8 +190,7 @@ public class CartServiceImpl implements CartService {
 				try {
 					storageDao.save(beerInStorage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.warn(e);
 				}
 
 			}
@@ -210,7 +212,7 @@ public class CartServiceImpl implements CartService {
 	private CartItem findBeerInUsersCart(List<CartItem> cartItems, Beer beer) throws NoSuchElementException {
 		return cartItems.stream()
 				.filter(p -> p.getBeer()
-						.equals(beer) && p.getActive())
+						.equals(beer) && p.getActive() == true)
 				.findFirst()
 				.get();
 	}
@@ -264,9 +266,9 @@ public class CartServiceImpl implements CartService {
 	public void deletItemFromCart(CartItem item) throws Exception {
 		try {
 			logger.info("Trying to delete item from cart.");
-			cartItemDao.deleteItemLogically(item);
 			StorageItem stItem = storageDao.findByBeer(item.getBeer());
 			stItem.setQuantity(stItem.getQuantity() + item.getQuantity());
+			cartItemDao.deleteItemLogically(item);
 		} catch (Exception e) {
 			logger.warn("Error while trying to delete item from user's cart.", e);
 			throw new Exception("We were not able to delete the item from the user's cart.");

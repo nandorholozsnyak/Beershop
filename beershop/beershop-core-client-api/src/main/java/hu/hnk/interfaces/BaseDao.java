@@ -1,8 +1,7 @@
 package hu.hnk.interfaces;
 
-import java.util.List;
-
 /**
+ * A bázis adahozzáférési osztály interfésze.
  * @author Nandi
  *
  * @param <T>

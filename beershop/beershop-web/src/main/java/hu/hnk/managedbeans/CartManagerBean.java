@@ -50,12 +50,16 @@ public class CartManagerBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		loadUserItems();
+		logger.info(items);
+	}
+
+	private void loadUserItems() {
 		items = cartService.findByUser(sessionManager.getLoggedInUser())
 				.getItems()
 				.stream()
-				.filter(e -> e.getActive())
+				.filter(p -> p.getActive() == true)
 				.collect(Collectors.toList());
-		logger.info(items);
 	}
 
 	public String getTotalPrice() {
@@ -72,16 +76,11 @@ public class CartManagerBean implements Serializable {
 			logger.warn(e.getMessage(), e);
 			FacesMessageTool.createWarnMessage("Módosításokat nem tudtuk menteni!");
 		}
-//		init();
 	}
 
 	public String countBonusPoints() {
 		NumberFormat format = new DecimalFormat("#0.00");
 		return format.format(cartService.countBonusPoints(items));
-	}
-
-	public void buyItems() {
-
 	}
 
 	/**

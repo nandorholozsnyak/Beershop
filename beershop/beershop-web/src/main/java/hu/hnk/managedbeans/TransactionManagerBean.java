@@ -2,6 +2,7 @@ package hu.hnk.managedbeans;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +15,7 @@ import javax.faces.bean.ViewScoped;
 import org.apache.log4j.Logger;
 
 import hu.hnk.beershop.model.Cargo;
+import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.service.interfaces.CargoService;
 import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.loginservices.SessionManager;
@@ -74,12 +76,20 @@ public class TransactionManagerBean implements Serializable {
 
 	private Double moneyAfterPayment;
 
+	private List<CartItem> items;
+
 	/**
 	 * 
 	 */
 	@PostConstruct
 	public void init() {
 		totalCost = countTotalCost();
+		items = sessionManager.getLoggedInUser()
+				.getCart()
+				.getItems()
+				.stream()
+				.filter(p -> p.getActive())
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -105,20 +115,9 @@ public class TransactionManagerBean implements Serializable {
 	 */
 	public void doTransaction() {
 		if (isThereEnoughMoney()) {
-			Cargo cargo = new Cargo();
-			cargo.setItems(sessionManager.getLoggedInUser()
-					.getCart()
-					.getItems()
-					.stream()
-					.filter(p -> p.getActive())
-					.collect(Collectors.toList()));
-			cargo.setAddress(address);
-			cargo.setOrderDate(new Date());
-			cargo.setUser(sessionManager.getLoggedInUser());
-			cargo.setTotalPrice(totalCost);
-			cargo.setPaymentMode(payMode);
+			Cargo cargo = createNewCargo();
 			try {
-				cargoService.saveNewCargo(cargo);
+				cargoService.saveNewCargo(cargo, items);
 				FacesMessageTool.createInfoMessage("Sikeres vásárlás.");
 			} catch (Exception e) {
 				FacesMessageTool.createWarnMessage("Hiba történt a fizetés közben.");
@@ -128,6 +127,16 @@ public class TransactionManagerBean implements Serializable {
 			FacesMessageTool.createWarnMessage("Nem áll rendelkezésére elegendõ pénz vagy pont.");
 
 		}
+	}
+
+	private Cargo createNewCargo() {
+		Cargo cargo = new Cargo();
+		cargo.setAddress(address);
+		cargo.setOrderDate(new Date());
+		cargo.setUser(sessionManager.getLoggedInUser());
+		cargo.setTotalPrice(totalCost);
+		cargo.setPaymentMode(payMode);
+		return cargo;
 	}
 
 	public void countMoneyAfterPayment() {

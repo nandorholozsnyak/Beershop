@@ -75,8 +75,6 @@ public class BeerShopManager implements Serializable {
 
 	private Map<Beer, Integer> beersToCart;
 
-	private FacesMessage msg;
-
 	/**
 	 * Inicializáló metódus, a managed bean létrejöttekor.
 	 */
@@ -100,22 +98,19 @@ public class BeerShopManager implements Serializable {
 		try {
 			storageService.checkStorageItemQuantityLimit(items, beer, ++quantity);
 			beersToCart.put(beer, quantity);
-			msg = null;
 		} catch (StorageItemQuantityExceeded e) {
 			logger.warn(e.getMessage());
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "A raktár maximumát elérte.",
-					"A raktár maximumát elérte.");
+
 			beersToCart.put(beer, items.stream()
 					.filter(p -> p.getBeer()
 							.equals(beer))
 					.findFirst()
 					.get()
 					.getQuantity());
+			FacesMessageTool.createInfoMessage("A raktár maximumát elérte.");
 		} catch (NegativeQuantityNumber e) {
 			logger.warn(e.getMessage());
 		}
-
-		FacesMessageTool.publishMessage(msg);
 
 	}
 
@@ -126,7 +121,6 @@ public class BeerShopManager implements Serializable {
 		try {
 			storageService.checkStorageItemQuantityLimit(storageService.findAll(), beer, --quantity);
 			beersToCart.put(beer, quantity);
-			msg = null;
 		} catch (StorageItemQuantityExceeded e) {
 			logger.warn(e.getMessage());
 			beersToCart.put(beer, items.stream()
@@ -137,22 +131,16 @@ public class BeerShopManager implements Serializable {
 					.getQuantity());
 		} catch (NegativeQuantityNumber e) {
 			logger.warn(e.getMessage());
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "A darabszám nem lehet negatív érték!",
-					"A darabszám nem lehet negatív érték!");
+			FacesMessageTool.createWarnMessage("A darabszám nem lehet negatív érték!");
 		}
 
-		FacesMessageTool.publishMessage(msg);
 	}
 
 	public void saveItemsToCart() {
 
-		cartService.saveItemsToCart(beersToCart, getSessionManager().getLoggedInUser()
-				.getCart());
+		cartService.saveItemsToCart(beersToCart, cartService.findByUser(sessionManager.getLoggedInUser()));
 
-		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Termékek a kosárba helyezve.",
-				"Termékek a kosárba helyezve.");
-
-		FacesMessageTool.publishMessage(msg);
+		FacesMessageTool.createInfoMessage("Termékek a kosárba helyezve.");
 		resetCart();
 	}
 

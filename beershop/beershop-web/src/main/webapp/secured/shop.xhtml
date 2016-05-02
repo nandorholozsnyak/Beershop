@@ -32,7 +32,7 @@ tr:first-child {
 								<div class="border-right">
 									<div class="inner1">
 										<h:form id="form">
-										<p:growl id="shopMsg" />
+											<p:growl id="shopMsg" />
 											<p:dataGrid var="beer" value="#{beerShopManager.beersInShop}"
 												columns="3" layout="grid" rows="3" paginator="true"
 												id="beers"
@@ -71,7 +71,9 @@ tr:first-child {
 													</h:panelGrid>
 												</p:panel>
 												<f:facet name="footer">
-													<p:commandButton value="Kosárba helyezés" actionListener="#{beerShopManager.saveItemsToCart}"  />
+													<p:commandButton update="form:shopMsg"
+														value="Kosárba helyezés"
+														actionListener="#{beerShopManager.saveItemsToCart}" />
 												</f:facet>
 											</p:dataGrid>
 

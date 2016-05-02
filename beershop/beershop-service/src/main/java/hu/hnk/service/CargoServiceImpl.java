@@ -1,5 +1,6 @@
 package hu.hnk.service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
@@ -9,6 +10,7 @@ import javax.ejb.Stateless;
 import org.apache.log4j.Logger;
 
 import hu.hnk.beershop.model.Cargo;
+import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.CargoService;
 import hu.hnk.beershop.service.logfactory.EventLogType;
@@ -42,7 +44,7 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	@EJB
 	private CartDao cartDao;
-	
+
 	/**
 	 * A kosarat kezelõ adathozzáférési osztály.
 	 */
@@ -62,20 +64,21 @@ public class CargoServiceImpl implements CargoService {
 	private EventLogDao eventLogDao;
 
 	@Override
-	public Cargo saveNewCargo(Cargo cargo) {
+	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items) {
 		// User user = cargo.getUser();
 		// Beállítjuk a szállítmány termékeit, de csak azokat amelyek aktívak.
-		cargo.setItems(cargo.getItems()
-				.stream()
-				.filter(p -> p.getActive())
-				.collect(Collectors.toList()));
 
 		Cargo savedCargo = null;
 		try {
 			savedCargo = cargoDao.save(cargo);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			logger.warn(e1);
+		}
+		savedCargo.setItems(items);
+		try {
+			cargoDao.update(savedCargo);
+		} catch (Exception e1) {
+			logger.warn(e1);
 		}
 		logger.info("Cargo saved.");
 		// Miután mentettük a szállítást utána töröljük a felhasználó kosarából.
@@ -97,15 +100,13 @@ public class CargoServiceImpl implements CargoService {
 		try {
 			userDao.update(cargo.getUser());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn(e);
 		}
 
 		try {
 			eventLogDao.save(EventLogFactory.createEventLog(EventLogType.Buy, cargo.getUser()));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn(e);
 		}
 		return savedCargo;
 

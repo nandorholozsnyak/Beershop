@@ -31,7 +31,6 @@ public class CartItemDaoImpl extends BaseDaoImpl<CartItem> implements CartItemDa
 		item.setActive(false);
 		item.setRemovedFromCart(LocalDateTime.now());
 		update(item);
-		entityManager.detach(item);
 	}
 
 }
