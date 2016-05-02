@@ -10,11 +10,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
 import hu.hnk.beershop.exception.InvalidPinCode;
+import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
 import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
@@ -38,7 +38,10 @@ public class MoneyTransferManagerBean implements Serializable {
 	public static final Logger logger = Logger.getLogger(MoneyTransferManagerBean.class);
 
 	@EJB
-	UserService userService;
+	private UserService userService;
+
+	@EJB
+	private RestrictionCheckerService restrictionCheckerService;
 
 	@ManagedProperty(value = "#{sessionManagerBean}")
 	private SessionManager sessionManager;
@@ -51,6 +54,11 @@ public class MoneyTransferManagerBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		generateMoneyTransferFields();
+
+	}
+
+	private void generateMoneyTransferFields() {
 		moneyValues = new LinkedHashMap<>();
 		getMoneyValues().put(1000, 1000);
 		getMoneyValues().put(2000, 2000);
@@ -62,25 +70,24 @@ public class MoneyTransferManagerBean implements Serializable {
 		logger.info("Money values set.");
 		setPin(String.valueOf((int) (Math.random() * 9000) + 1000));
 		logger.info("Pin code made.");
-
 	}
 
 	public void transferMoney() {
-		try {
-			userService.transferMoney(userPin, pin, Integer.valueOf(money), sessionManager.getLoggedInUser());
-			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "A pénz feltöltése megtörtént.",
-					"A pénz feltöltése megtörtént.");
-		} catch (NumberFormatException e) {
-			logger.warn(e);
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Az ellenörzõ mezõbe csak számot írjon!",
-					"Az ellenörzõ mezõbe csak számot írjon!");
-		} catch (InvalidPinCode e) {
-			logger.warn(e);
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Az ellenörzõ pin kód nem egyezik meg.",
-					"Az ellenörzõ pin kód nem egyezik meg.");
+		if (restrictionCheckerService.checkIfUserCanTransferMoney(sessionManager.getLoggedInUser())) {
+			try {
+				userService.transferMoney(userPin, pin, Integer.valueOf(money), sessionManager.getLoggedInUser());
+				FacesMessageTool.createInfoMessage("A pénz feltöltése megtörtént.");
+			} catch (NumberFormatException e) {
+				logger.warn(e);
+				FacesMessageTool.createWarnMessage("Az ellenörzõ mezõbe csak számot írjon!");
+			} catch (InvalidPinCode e) {
+				logger.warn(e);
+				FacesMessageTool.createWarnMessage("Az ellenörzõ pin kód nem egyezik meg.");
+			}
+		} else {
+			FacesMessageTool.createErrorMessage("Túllépte a napi limitet.");
 		}
-
-		FacesMessageTool.publishMessage(msg);
+		generateMoneyTransferFields();
 	}
 
 	/**
