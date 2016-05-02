@@ -84,8 +84,7 @@ public class TransactionManagerBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		totalCost = countTotalCost();
-		items = sessionManager.getLoggedInUser()
-				.getCart()
+		items = cartService.findByUser(sessionManager.getLoggedInUser())
 				.getItems()
 				.stream()
 				.filter(p -> p.getActive())
@@ -96,8 +95,7 @@ public class TransactionManagerBean implements Serializable {
 	 * @return
 	 */
 	public Double countTotalCost() {
-		Double totalCost = cartService.countTotalCost(sessionManager.getLoggedInUser()
-				.getCart()
+		Double totalCost = cartService.countTotalCost(cartService.findByUser(sessionManager.getLoggedInUser())
 				.getItems());
 		logger.info("Total cost:" + totalCost);
 		return totalCost;
