@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.InvalidPinCode;
-import hu.hnk.beershop.exception.MaximumMoneyTransferLimitExceeded;
+import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.Role;
@@ -230,7 +230,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser)
-			throws InvalidPinCode, MaximumMoneyTransferLimitExceeded {
+			throws InvalidPinCode, DailyMoneyTransferLimitExceeded {
 		if (restrictionCheckerService.checkIfUserCanTransferMoney(loggedInUser)) {
 			if (!userPin.equals(expectedPin)) {
 				logger.info("User entered invalid PIN code.");
@@ -238,7 +238,7 @@ public class UserServiceImpl implements UserService {
 			}
 		} else {
 			logger.info("User reached the maximum money tranfer limit today.");
-			throw new MaximumMoneyTransferLimitExceeded("Maximum limit exceeded.");
+			throw new DailyMoneyTransferLimitExceeded("Maximum limit exceeded.");
 		}
 		loggedInUser.setMoney(loggedInUser.getMoney() + money);
 		try {

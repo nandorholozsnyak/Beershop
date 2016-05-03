@@ -2,8 +2,8 @@ package hu.hnk.interfaces;
 
 /**
  * A bázis adahozzáférési osztály interfésze.
+ * 
  * @author Nandi
- *
  * @param <T>
  */
 public interface BaseDao<T> {

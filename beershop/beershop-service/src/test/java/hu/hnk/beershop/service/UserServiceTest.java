@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.InvalidPinCode;
-import hu.hnk.beershop.exception.MaximumMoneyTransferLimitExceeded;
+import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.Rank;
@@ -123,7 +123,7 @@ public class UserServiceTest {
 	}
 
 	@Test(expected = InvalidPinCode.class)
-	public void testTransferMoneyShouldThrowInvalidPinCode() throws InvalidPinCode, MaximumMoneyTransferLimitExceeded {
+	public void testTransferMoneyShouldThrowInvalidPinCode() throws InvalidPinCode, DailyMoneyTransferLimitExceeded {
 		String userPin = "0000";
 		String expectedPin = "9999";
 		Integer money = 1000;
@@ -134,9 +134,9 @@ public class UserServiceTest {
 		userService.transferMoney(userPin, expectedPin, money, loggedInUser);
 	}
 
-	@Test(expected = MaximumMoneyTransferLimitExceeded.class)
+	@Test(expected = DailyMoneyTransferLimitExceeded.class)
 	public void testTransferMoneyShouldThrowMaximumMoneyTransferLimitExceeded()
-			throws InvalidPinCode, MaximumMoneyTransferLimitExceeded {
+			throws InvalidPinCode, DailyMoneyTransferLimitExceeded {
 		String userPin = "9999";
 		String expectedPin = "9999";
 		Integer money = 1000;

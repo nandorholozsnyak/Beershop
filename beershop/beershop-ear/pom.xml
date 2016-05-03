@@ -132,6 +132,11 @@
 						<artifactId>h2</artifactId>
 						<version>1.4.191</version>
 					</dependency>
+					<dependency>
+						<groupId>org.hsqldb</groupId>
+						<artifactId>hsqldb</artifactId>
+						<version>2.3.3</version>
+					</dependency>
 					<!-- <dependency> -->
 					<!-- <groupId>org.apache.derby</groupId> -->
 					<!-- <artifactId>derby</artifactId> -->
@@ -147,20 +152,20 @@
 				<!-- </execution> -->
 				<!-- </executions> -->
 				<executions>
-					<execution>
-						<id>start-glassfish</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>start</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>glassfish-deploy</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>deploy</goal>
-						</goals>
-					</execution>
+<!-- 					<execution> -->
+<!-- 						<id>start-glassfish</id> -->
+<!-- 						<phase>pre-integration-test</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>start</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 					<execution> -->
+<!-- 						<id>glassfish-deploy</id> -->
+<!-- 						<phase>pre-integration-test</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>deploy</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
 					<!-- <execution> -->
 					<!-- <id>glassfish-undeploy</id> -->
 					<!-- <phase>post-integration-test</phase> -->

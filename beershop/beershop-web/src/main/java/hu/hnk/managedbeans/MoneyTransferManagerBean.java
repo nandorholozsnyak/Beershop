@@ -14,7 +14,7 @@ import javax.faces.bean.ViewScoped;
 import org.apache.log4j.Logger;
 
 import hu.hnk.beershop.exception.InvalidPinCode;
-import hu.hnk.beershop.exception.MaximumMoneyTransferLimitExceeded;
+import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
 import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
 import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.loginservices.SessionManager;
@@ -82,7 +82,7 @@ public class MoneyTransferManagerBean implements Serializable {
 		} catch (InvalidPinCode e) {
 			logger.warn(e);
 			FacesMessageTool.createWarnMessage("Az ellenörzõ pin kód nem egyezik meg.");
-		} catch (MaximumMoneyTransferLimitExceeded e) {
+		} catch (DailyMoneyTransferLimitExceeded e) {
 			logger.warn(e);
 			FacesMessageTool.createErrorMessage("Túllépte a napi limitet.");
 		}

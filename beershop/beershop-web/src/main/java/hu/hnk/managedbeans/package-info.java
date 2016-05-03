@@ -1,7 +1,5 @@
 /**
  * Managed beaneket tartalmazó csomag.
- */
-/**
  * @author Nandi
  *
  */

@@ -3,7 +3,7 @@ package hu.hnk.beershop.service.interfaces;
 import java.util.Date;
 
 import hu.hnk.beershop.exception.InvalidPinCode;
-import hu.hnk.beershop.exception.MaximumMoneyTransferLimitExceeded;
+import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 
@@ -66,5 +66,5 @@ public interface UserService {
 	public Integer countExperiencePointsInPercentage(Double experiencePoints);
 
 	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser)
-			throws InvalidPinCode, MaximumMoneyTransferLimitExceeded;
+			throws InvalidPinCode, DailyMoneyTransferLimitExceeded;
 }
