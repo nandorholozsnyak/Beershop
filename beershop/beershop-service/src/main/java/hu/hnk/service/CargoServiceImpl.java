@@ -1,6 +1,7 @@
 package hu.hnk.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -8,6 +9,7 @@ import javax.ejb.Stateless;
 
 import org.apache.log4j.Logger;
 
+import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
@@ -44,12 +46,6 @@ public class CargoServiceImpl implements CargoService {
 	 * A kosarat kezelõ adathozzáférési osztály.
 	 */
 	@EJB
-	private CartDao cartDao;
-
-	/**
-	 * A kosarat kezelõ adathozzáférési osztály.
-	 */
-	@EJB
 	private CartItemDao cartItemDao;
 
 	/**
@@ -68,10 +64,19 @@ public class CargoServiceImpl implements CargoService {
 	private RestrictionCheckerService restrictionCheckerService;
 
 	@Override
-	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items) throws DailyBuyActionLimitExceeded {
+	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
+			throws DailyBuyActionLimitExceeded, CanNotBuyLegendaryBeerYetException {
+
 		if (!restrictionCheckerService.checkIfUserCanBuyMoreBeer(cargo.getUser())) {
 			throw new DailyBuyActionLimitExceeded("Daily buy action limit exceeded.");
 		}
+
+		if (!legendaryItems(items).isEmpty()) {
+			if (!restrictionCheckerService.checkIfUserCanBuyLegendBeer(cargo.getUser())) {
+				throw new CanNotBuyLegendaryBeerYetException("User is not legendary yet.");
+			}
+		}
+		
 		// Beállítjuk a szállítmány termékeit
 		Cargo savedCargo = null;
 		savedCargo = saveCargo(cargo, items, savedCargo);
@@ -88,17 +93,26 @@ public class CargoServiceImpl implements CargoService {
 
 	}
 
+	private List<CartItem> legendaryItems(List<CartItem> items) {
+		return items.stream()
+				.filter(p -> p.getBeer()
+						.isLegendary())
+				.collect(Collectors.toList());
+	}
+
 	private Cargo saveCargo(Cargo cargo, List<CartItem> items, Cargo savedCargo) {
 
 		try {
 			savedCargo = cargoDao.save(cargo);
 		} catch (Exception e1) {
+			logger.warn("Error while trying to save new cargo.");
 			logger.warn(e1);
 		}
 		savedCargo.setItems(items);
 		try {
 			cargoDao.update(savedCargo);
 		} catch (Exception e1) {
+			logger.warn("Error while trying to update new cargo.");
 			logger.warn(e1);
 		}
 		logger.info("Cargo saved.");
@@ -141,6 +155,26 @@ public class CargoServiceImpl implements CargoService {
 	@Override
 	public boolean isThereEnoughMoney(User user) {
 		return true;
+	}
+
+	public void setCargoDao(CargoDao cargoDao) {
+		this.cargoDao = cargoDao;
+	}
+
+	public void setCartItemDao(CartItemDao cartItemDao) {
+		this.cartItemDao = cartItemDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	public void setEventLogDao(EventLogDao eventLogDao) {
+		this.eventLogDao = eventLogDao;
+	}
+
+	public void setRestrictionCheckerService(RestrictionCheckerService restrictionCheckerService) {
+		this.restrictionCheckerService = restrictionCheckerService;
 	}
 
 }

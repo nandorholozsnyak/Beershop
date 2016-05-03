@@ -60,6 +60,9 @@ public class Beer extends BaseEntity implements Serializable {
 	@Column(name = "discountAmount", nullable = false, columnDefinition = "int(5) default 0")
 	private Integer discountAmount;
 
+	@Column(name = "legendary")
+	private boolean legendary;
+
 	/**
 	 * @return the name
 	 */
@@ -203,6 +206,14 @@ public class Beer extends BaseEntity implements Serializable {
 		} else if (!price.equals(other.price))
 			return false;
 		return true;
+	}
+
+	public boolean isLegendary() {
+		return legendary;
+	}
+
+	public void setLegendary(boolean legendary) {
+		this.legendary = legendary;
 	}
 
 }

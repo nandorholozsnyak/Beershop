@@ -9,6 +9,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import hu.hnk.beershop.model.EventLog;
+import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
 import hu.hnk.interfaces.EventLogDao;
@@ -109,7 +110,8 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 
 	@Override
 	public boolean checkIfUserCanBuyLegendBeer(User user) {
-		// TODO Auto-generated method stub
+		if (countRankFromXp(user).equals(Rank.Legenda))
+			return true;
 		return false;
 	}
 

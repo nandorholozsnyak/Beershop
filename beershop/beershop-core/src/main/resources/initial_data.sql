@@ -1,21 +1,20 @@
-
-INSERT INTO `beer` (`id`, `alcoholLevel`, `comment`, `name`, `price`, `capacity`, `discountAmount`) VALUES
-(1, 11.6, 'A világ egyik legerõsebb söre.', 'Ultra sör', 400, 0.5, 0),
-(2, 6.5, 'A világ fõleg Európai országaiban kedvelt sör.', 'Bivaly sör', 250, 0.5, 0),
-(3, 5.7, 'Egy igazán habos sör az unalmas hétköznapokra.', 'Habos sör', 299, 0.5, 0),
-(4, 6.4, 'Egy jó buliban mindig van szükség egy jó pofa sörre.', 'Jópofa sör', 320, 0.33, 0),
-(5, 7.2, 'Az egyik legfinomabb barna sör amit inni fog.', 'Bebarnult sör', 399, 0.5, 33),
-(6, 2.2, 'Egy igazán jól elkészített lime ízesítésû sör.', 'Lime sör', 235, 0.5, 0),
-(7, 5.6, 'Egy igazán habosra készített söröcske.', 'Meghabosodott sör', 259, 0.5, 0),
-(8, 4.9, 'A nyári bulik egyik alapvetõ kelléke, egy 50 literes party hordó.', 'Party hordó', 15999, 50, 50),
-(9, 4.5, 'Egy meleg nyári délutánon a haverokkal akár 25 litert is képesek vagyunk elfogyasztani, jéghidegen a legjobb.', '25 L hordó', 8000, 25, 0),
-(10, 3.6, 'A mindennapok szerencséire való hûsítõ ital. (http://www.iconka.com)', 'Szerencse sör', 310, 0.5, 0),
-(11, 5.5, 'Csappal ellátott party hordó.', 'Csapos party hordó', 19000, 50, 0),
-(12, 3.6, 'A legjobb barátok szerencse söre, most párban. (http://www.iconka.com)', 'Barátság sör', 459, 0.5, 0),
-(13, 4.9, 'Igazán hûsítõ dobozos söröcske.', 'Jéghegy sör', 259, 0.5, 0),
-(14, 4.5, 'Hûsítõ, októberi finomság.', 'Õszi sör', 359, 0.5, 15),
-(15, 7.6, 'Kezdetben fehér aztán pedig barna sör is akár.', 'Fehér-Barna sör', 320, 0.5, 0),
-(16, 2.4, 'Sárga sör, az unalmas hétköznapokra.', 'Sárga sör', 240, 0.33, 0);
+INSERT INTO `beer` (`id`, `alcoholLevel`, `capacity`, `comment`, `discountAmount`, `name`, `price`, `legendary`) VALUES
+(1, 11.6, 0.5, 'A világ egyik legerõsebb söre.', 0, 'Ultra sör', 400, b'0'),
+(2, 6.5, 0.5, 'A világ fõleg Európai országaiban kedvelt sör.', 0, 'Bivaly sör', 250, b'0'),
+(3, 5.7, 0.5, 'Egy igazán habos sör az unalmas hétköznapokra.', 0, 'Habos sör', 299, b'0'),
+(4, 6.4, 0.33, 'Egy jó buliban mindig van szükség egy jó pofa sörre.', 0, 'Jópofa sör', 320, b'0'),
+(5, 7.2, 0.5, 'Az egyik legfinomabb barna sör amit inni fog.', 33, 'Bebarnult sör', 399, b'0'),
+(6, 2.2, 0.5, 'Egy igazán jól elkészített lime ízesítésû sör.', 0, 'Lime sör', 235, b'0'),
+(7, 5.6, 0.5, 'Egy igazán habosra készített söröcske.', 0, 'Meghabosodott sör', 259, b'0'),
+(8, 4.9, 50, 'A nyári bulik egyik alapvetõ kelléke, egy 50 literes party hordó.', 50, 'Party hordó', 15999, b'1'),
+(9, 4.5, 25, 'Egy meleg nyári délutánon a haverokkal akár 25 litert is képesek vagyunk elfogyasztani, jéghidegen a legjobb.', 0, '25 L hordó', 8000, b'0'),
+(10, 3.6, 0.5, 'A mindennapok szerencséire való hûsítõ ital. (http://www.iconka.com)', 0, 'Szerencse sör', 310, b'0'),
+(11, 5.5, 50, 'Csappal ellátott party hordó.', 0, 'Csapos party hordó', 19000, b'1'),
+(12, 3.6, 0.5, 'A legjobb barátok szerencse söre, most párban. (http://www.iconka.com)', 0, 'Barátság sör', 459, b'0'),
+(13, 4.9, 0.5, 'Igazán hûsítõ dobozos söröcske.', 0, 'Jéghegy sör', 259, b'0'),
+(14, 4.5, 0.5, 'Hûsítõ, októberi finomság.', 15, 'Õszi sör', 359, b'0'),
+(15, 7.6, 0.5, 'Kezdetben fehér aztán pedig barna sör is akár.', 0, 'Fehér-Barna sör', 320, b'0'),
+(16, 2.4, 0.33, 'Sárga sör, az unalmas hétköznapokra.', 0, 'Sárga sör', 240, b'0');
 
 INSERT INTO `storageitem` (`id`, `quantity`, `beer_id`) VALUES
 (1, 122, 1),
