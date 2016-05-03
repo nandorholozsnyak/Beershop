@@ -14,6 +14,7 @@ import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
 import hu.hnk.interfaces.EventLogDao;
+import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.MoneyTransferRestrictions;
 
 @Stateless
@@ -33,7 +34,7 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	@Override
 	public boolean checkIfUserCanTransferMoney(User user) {
 
-		List<EventLog> userEvents = getTodayEventLogs(user);
+		List<EventLog> userEvents = getTodayMoneyTransferEventLogs(user);
 		if (userEvents == null || userEvents.size() == 0) {
 			return true;
 		}
@@ -58,14 +59,14 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 
 	}
 
-	private List<EventLog> getTodayEventLogs(User user) {
+	private List<EventLog> getTodayMoneyTransferEventLogs(User user) {
 		if (eventLogDao.findByUser(user) == null) {
 			return null;
 		}
 		return eventLogDao.findByUser(user)
 				.stream()
 				.filter(p -> p.getAction()
-						.equals("Money transfer."))
+						.equals(EventLogFactory.getMoneyTransfer()))
 				.filter(p -> p.getDate()
 						.toLocalDate()
 						.equals(LocalDate.now()))
@@ -74,8 +75,22 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 
 	@Override
 	public boolean checkIfUserCanBuyMoreBeer(User user) {
-		// TODO Auto-generated method stub
+		List<EventLog> userEvents = getTodayBuyActionEventLogs(user);
+		if (userEvents == null || userEvents.size() == 0) {
+			return true;
+		}
 		return false;
+	}
+
+	private List<EventLog> getTodayBuyActionEventLogs(User user) {
+		return eventLogDao.findByUser(user)
+				.stream()
+				.filter(p -> p.getAction()
+						.equals(EventLogFactory.getBuyAction()))
+				.filter(p -> p.getDate()
+						.toLocalDate()
+						.equals(LocalDate.now()))
+				.collect(Collectors.toList());
 	}
 
 	@Override

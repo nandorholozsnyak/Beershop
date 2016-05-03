@@ -16,6 +16,10 @@ import hu.hnk.beershop.service.logfactory.EventLogType;
  */
 public class EventLogFactory {
 
+	private static final String MONEY_TRANSFER = "Money transfer.";
+	private static final String USER_REGISTRATION = "User registration.";
+	private static final String BUY_ACTION = "Buy action.";
+
 	/**
 	 * Az osztály loggere.
 	 */
@@ -34,29 +38,42 @@ public class EventLogFactory {
 	}
 
 	private static EventLog createRegistrationEventLog(User user) {
-		EventLog event = new EventLog();
-		event.setDate(LocalDateTime.now());
-		event.setAction("User registration.");
-		event.setUser(user);
+		EventLog event = createSingleEventLogForUser(user);
+		event.setAction(USER_REGISTRATION);
 		logger.info("Registration event log created for user " + user.getUsername());
 		return event;
 	}
 
 	private static EventLog createMoneyTransferEventLog(User user) {
-		EventLog event = new EventLog();
-		event.setDate(LocalDateTime.now());
-		event.setAction("Money transfer.");
-		event.setUser(user);
+		EventLog event = createSingleEventLogForUser(user);
+		event.setAction(MONEY_TRANSFER);
 		logger.info("Money transfer event log created for user " + user.getUsername());
 		return event;
 	}
 
 	private static EventLog createBuyEventLog(User user) {
-		EventLog event = new EventLog();
-		event.setDate(LocalDateTime.now());
-		event.setAction("Buy action.");
-		event.setUser(user);
+		EventLog event = createSingleEventLogForUser(user);
+		event.setAction(BUY_ACTION);
 		logger.info("Buy event log created for user " + user.getUsername());
 		return event;
+	}
+
+	private static EventLog createSingleEventLogForUser(User user) {
+		EventLog event = new EventLog();
+		event.setDate(LocalDateTime.now());
+		event.setUser(user);
+		return event;
+	}
+
+	public static String getMoneyTransfer() {
+		return MONEY_TRANSFER;
+	}
+
+	public static String getUserRegistration() {
+		return USER_REGISTRATION;
+	}
+
+	public static String getBuyAction() {
+		return BUY_ACTION;
 	}
 }
