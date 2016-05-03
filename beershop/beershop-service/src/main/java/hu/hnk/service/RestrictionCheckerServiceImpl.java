@@ -1,5 +1,6 @@
 package hu.hnk.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,8 +19,14 @@ import hu.hnk.interfaces.EventLogDao;
 public class RestrictionCheckerServiceImpl extends UserServiceImpl implements RestrictionCheckerService {
 
 	@EJB
-	EventLogDao eventLogDao;
+	private EventLogDao eventLogDao;
 
+	/**
+	 * Amatõr felhasználó csak napi 3-szor töltheti fel a kártyáját. Sörfelelõs
+	 * napi 4-szor töltheti fel a kártyáját.
+	 *  Ivóbajnok napi 5-ször töltheti fel
+	 * a kártyáját és kap minden feltöltés után bónusz 5%-ot.
+	 */
 	@Override
 	public boolean checkIfUserCanTransferMoney(User user) {
 
@@ -27,10 +34,19 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 				.stream()
 				.filter(p -> p.getAction()
 						.equals("Money transfer."))
+				.filter(p -> p.getDate()
+						.toLocalDate()
+						.equals(LocalDate.now()))
 				.collect(Collectors.toList());
 
 		if (userEvents.stream()
-				.count() > 4 && countRankFromXp(user).equals(Rank.Amatuer)) {
+				.count() > 3 && countRankFromXp(user).equals(Rank.Amatuer)) {
+			return false;
+		} else if (userEvents.stream()
+				.count() > 4 && countRankFromXp(user).equals(Rank.Sorfelelos)) {
+			return false;
+		} else if (userEvents.stream()
+				.count() > 5 && countRankFromXp(user).equals(Rank.Ivobajnok)) {
 			return false;
 		}
 
@@ -54,6 +70,10 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	public boolean checkIfUserCanPayBeers(User user) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void setEventLogDao(EventLogDao eventLogDao) {
+		this.eventLogDao = eventLogDao;
 	}
 
 }

@@ -11,8 +11,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
 
@@ -28,6 +26,7 @@ import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.interfaces.RoleDao;
 import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.factory.EventLogFactory;
+import hu.hnk.service.tools.RankInterval;
 
 /**
  * A felhasználói szolgálatásokkal foglalkozó osztály. Enterprise Java Bean.
@@ -61,6 +60,18 @@ public class UserServiceImpl implements UserService {
 	 */
 	@EJB
 	private EventLogService eventLogService;
+
+	List<RankInterval> rankIntverals;
+
+	{
+		rankIntverals = new ArrayList<>();
+		rankIntverals.add(new RankInterval(Rank.Amatuer, -1, 2500));
+		rankIntverals.add(new RankInterval(Rank.Sorfelelos, 2500, 5000));
+		rankIntverals.add(new RankInterval(Rank.Ivobajnok, 5000, 7500));
+		rankIntverals.add(new RankInterval(Rank.Sormester, 7500, 1000));
+		rankIntverals.add(new RankInterval(Rank.Sordoktor, 10000, 12500));
+		rankIntverals.add(new RankInterval(Rank.Legenda, 12500, 15000));
+	}
 
 	/**
 	 * A felhasználó mentése.
@@ -181,14 +192,31 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Rank countRankFromXp(User user) {
 		Rank userRank = null;
-		if (user.getExperiencePoints() > -1 && user.getExperiencePoints() <= 2500) {
-			userRank = Rank.Amatuer;
-		} else if (user.getExperiencePoints() > 2500 && user.getExperiencePoints() <= 5000) {
-			userRank = Rank.Sorfelelos;
-		} else if (user.getExperiencePoints() > 5000) {
-			userRank = Rank.Ivobajnok;
-		}
-		return userRank;
+		// if (user.getExperiencePoints() > -1 && user.getExperiencePoints() <=
+		// 2500) {
+		// userRank = Rank.Amatuer;
+		// } else if (user.getExperiencePoints() > 2500 &&
+		// user.getExperiencePoints() <= 5000) {
+		// userRank = Rank.Sorfelelos;
+		// } else if (user.getExperiencePoints() > 5000 &&
+		// user.getExperiencePoints() <= 7500) {
+		// userRank = Rank.Ivobajnok;
+		// } else if (user.getExperiencePoints() > 7500 &&
+		// user.getExperiencePoints() <= 10000) {
+		// userRank = Rank.Sormester;
+		// } else if (user.getExperiencePoints() > 10000 &&
+		// user.getExperiencePoints() <= 12500) {
+		// userRank = Rank.Sordoktor;
+		// } else if (user.getExperiencePoints() > 12500) {
+		// userRank = Rank.Legenda;
+		// }
+		return rankIntverals.stream()
+				.filter(p -> user.getExperiencePoints() > p.getMinimumXP()
+						&& user.getExperiencePoints() <= p.getMaximumXP())
+				.findFirst()
+				.get()
+				.getRank();
+
 	}
 
 	@Override
