@@ -61,6 +61,13 @@ public interface UserService {
 	 */
 	public boolean isEmailAlreadyTaken(String email);
 
+	/**
+	 * A felhasználó rangjának való számítása. A számítást segítõ függvény a
+	 * RankInterval nevû osztályt használja.
+	 * 
+	 * @param user
+	 * @return
+	 */
 	public Rank countRankFromXp(User user);
 
 	public Integer countExperiencePointsInPercentage(Double experiencePoints);

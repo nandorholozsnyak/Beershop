@@ -2,6 +2,7 @@ package hu.hnk.beershop.service.interfaces;
 
 import java.util.List;
 
+import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
@@ -15,8 +16,9 @@ public interface CargoService {
 	/**
 	 * @param cargo
 	 * @return
+	 * @throws DailyBuyActionLimitExceeded
 	 */
-	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items);
+	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items) throws DailyBuyActionLimitExceeded;
 
 	/**
 	 * Ellenõrzi hogy a paraméterként megadott felhasználónak rendelkezésére

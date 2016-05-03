@@ -14,6 +14,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.apache.log4j.Logger;
 
+import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.service.interfaces.CargoService;
@@ -117,6 +118,8 @@ public class TransactionManagerBean implements Serializable {
 			try {
 				cargoService.saveNewCargo(cargo, items);
 				FacesMessageTool.createInfoMessage("Sikeres vásárlás.");
+			} catch (DailyBuyActionLimitExceeded e) {
+				FacesMessageTool.createErrorMessage("Sajnálom de túllépte a napi vásárlási limitet.");
 			} catch (Exception e) {
 				FacesMessageTool.createWarnMessage("Hiba történt a fizetés közben.");
 			}
