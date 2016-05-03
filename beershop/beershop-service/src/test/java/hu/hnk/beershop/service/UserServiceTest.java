@@ -1,6 +1,10 @@
 package hu.hnk.beershop.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -10,15 +14,20 @@ import org.mockito.Mockito;
 
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.InvalidPinCode;
+import hu.hnk.beershop.exception.MaximumMoneyTransferLimitExceeded;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.EventLogService;
 import hu.hnk.beershop.service.logfactory.EventLogType;
+import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.interfaces.UserDao;
+import hu.hnk.service.RestrictionCheckerServiceImpl;
 import hu.hnk.service.UserServiceImpl;
 import hu.hnk.service.factory.EventLogFactory;
+import hu.hnk.service.tools.MoneyTransferRestrictions;
+import hu.hnk.service.tools.RankInterval;
 
 public class UserServiceTest {
 
@@ -27,14 +36,21 @@ public class UserServiceTest {
 	private UserDao userDao;
 
 	private EventLogService eventLogService;
+	private EventLogDao eventLogDao;
+	private RestrictionCheckerServiceImpl res;
 
 	@Before
 	public void bootContainer() throws Exception {
 		userService = Mockito.spy(new UserServiceImpl());
 		userDao = Mockito.mock(UserDao.class);
 		eventLogService = Mockito.mock(EventLogService.class);
+		res = Mockito.spy(new RestrictionCheckerServiceImpl());
 		userService.setUserDao(userDao);
 		userService.setEventLogService(eventLogService);
+		userService.setRestrictionCheckerService(res);
+		eventLogDao = Mockito.mock(EventLogDao.class);
+		res.setEventLogDao(eventLogDao);
+
 	}
 
 	@Test
@@ -107,12 +123,41 @@ public class UserServiceTest {
 	}
 
 	@Test(expected = InvalidPinCode.class)
-	public void testTransferMoneyShouldThrowInvalidPinCode() throws InvalidPinCode {
+	public void testTransferMoneyShouldThrowInvalidPinCode() throws InvalidPinCode, MaximumMoneyTransferLimitExceeded {
 		String userPin = "0000";
 		String expectedPin = "9999";
 		Integer money = 1000;
 		User loggedInUser = new User();
 		loggedInUser.setMoney(0.0);
+		Mockito.when(eventLogDao.findByUser(loggedInUser))
+				.thenReturn(null);
+		userService.transferMoney(userPin, expectedPin, money, loggedInUser);
+	}
+
+	@Test(expected = MaximumMoneyTransferLimitExceeded.class)
+	public void testTransferMoneyShouldThrowMaximumMoneyTransferLimitExceeded()
+			throws InvalidPinCode, MaximumMoneyTransferLimitExceeded {
+		String userPin = "9999";
+		String expectedPin = "9999";
+		Integer money = 1000;
+		User loggedInUser = new User();
+		loggedInUser.setMoney(0.0);
+		List<EventLog> logs = new ArrayList<>();
+		loggedInUser.setExperiencePoints(1.0);
+		for (int i = 0; i < MoneyTransferRestrictions.getMoneyRestrictions()
+				.stream()
+				.filter(p -> p.getRank()
+						.equals(userService.countRankFromXp(loggedInUser)))
+				.findFirst()
+				.get()
+				.getRestrictedValue() + 1; i++) {
+			EventLog event = new EventLog();
+			event.setDate(LocalDateTime.now());
+			event.setAction("Money transfer.");
+			logs.add(event);
+		}
+		Mockito.when(eventLogDao.findByUser(loggedInUser))
+				.thenReturn(logs);
 		userService.transferMoney(userPin, expectedPin, money, loggedInUser);
 	}
 

@@ -16,11 +16,13 @@ import org.apache.log4j.Logger;
 
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.InvalidPinCode;
+import hu.hnk.beershop.exception.MaximumMoneyTransferLimitExceeded;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.EventLogService;
+import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
 import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.interfaces.RoleDao;
@@ -61,17 +63,10 @@ public class UserServiceImpl implements UserService {
 	@EJB
 	private EventLogService eventLogService;
 
-	List<RankInterval> rankIntverals;
+	@EJB
+	private RestrictionCheckerService restrictionCheckerService;
 
-	{
-		rankIntverals = new ArrayList<>();
-		rankIntverals.add(new RankInterval(Rank.Amatuer, -1, 2500));
-		rankIntverals.add(new RankInterval(Rank.Sorfelelos, 2500, 5000));
-		rankIntverals.add(new RankInterval(Rank.Ivobajnok, 5000, 7500));
-		rankIntverals.add(new RankInterval(Rank.Sormester, 7500, 1000));
-		rankIntverals.add(new RankInterval(Rank.Sordoktor, 10000, 12500));
-		rankIntverals.add(new RankInterval(Rank.Legenda, 12500, 15000));
-	}
+	private List<RankInterval> rankIntverals = RankInterval.getRankIntverals();
 
 	/**
 	 * A felhasználó mentése.
@@ -88,8 +83,7 @@ public class UserServiceImpl implements UserService {
 			try {
 				role = roleDao.save(role);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warn(e);
 			}
 		}
 
@@ -97,8 +91,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userData = userDao.save(user);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn(e);
 		}
 		List<Role> userRoles = userData.getRoles();
 
@@ -113,8 +106,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userDao.update(userData);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn(e);
 		}
 		eventLogService.save(EventLogFactory.createEventLog(EventLogType.Registration, userData));
 	}
@@ -238,16 +230,21 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser)
-			throws InvalidPinCode {
-		if (!userPin.equals(expectedPin)) {
-			throw new InvalidPinCode("PINs are not the same.");
+			throws InvalidPinCode, MaximumMoneyTransferLimitExceeded {
+		if (restrictionCheckerService.checkIfUserCanTransferMoney(loggedInUser)) {
+			if (!userPin.equals(expectedPin)) {
+				logger.info("User entered invalid PIN code.");
+				throw new InvalidPinCode("PINs are not the same.");
+			}
+		} else {
+			logger.info("User reached the maximum money tranfer limit today.");
+			throw new MaximumMoneyTransferLimitExceeded("Maximum limit exceeded.");
 		}
 		loggedInUser.setMoney(loggedInUser.getMoney() + money);
 		try {
 			userDao.update(loggedInUser);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn(e);
 		}
 		eventLogService.save(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, loggedInUser));
 	}
@@ -259,4 +256,9 @@ public class UserServiceImpl implements UserService {
 	public void setEventLogService(EventLogService eventLogService) {
 		this.eventLogService = eventLogService;
 	}
+
+	public void setRestrictionCheckerService(RestrictionCheckerService restrictionCheckerService) {
+		this.restrictionCheckerService = restrictionCheckerService;
+	}
+
 }

@@ -14,7 +14,6 @@ tr:first-child {
 	background: #eeeeee !important;
 	border: 0 none !important;
 }
-
 </style>
 		<h:outputScript name="js/copyblock.js" />
 	</ui:define>
@@ -40,7 +39,7 @@ tr:first-child {
 	margin-right: auto !important;"
 												columns="1" layout="grid">
 												<p:selectOneMenu id="moneySelection"
-													value="#{moneyTransferManagerBean.money}">
+													value="#{moneyTransferManagerBean.money}"
 													style="width:300px">
 													<f:selectItem itemLabel="Válasszon egyet" itemValue="" />
 													<f:selectItems

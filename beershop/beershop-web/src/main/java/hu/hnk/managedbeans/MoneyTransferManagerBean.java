@@ -14,6 +14,7 @@ import javax.faces.bean.ViewScoped;
 import org.apache.log4j.Logger;
 
 import hu.hnk.beershop.exception.InvalidPinCode;
+import hu.hnk.beershop.exception.MaximumMoneyTransferLimitExceeded;
 import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
 import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.loginservices.SessionManager;
@@ -39,9 +40,6 @@ public class MoneyTransferManagerBean implements Serializable {
 
 	@EJB
 	private UserService userService;
-
-	@EJB
-	private RestrictionCheckerService restrictionCheckerService;
 
 	@ManagedProperty(value = "#{sessionManagerBean}")
 	private SessionManager sessionManager;
@@ -73,21 +71,22 @@ public class MoneyTransferManagerBean implements Serializable {
 	}
 
 	public void transferMoney() {
-		if (restrictionCheckerService.checkIfUserCanTransferMoney(sessionManager.getLoggedInUser())) {
-			try {
-				userService.transferMoney(userPin, pin, Integer.valueOf(money), sessionManager.getLoggedInUser());
-				FacesMessageTool.createInfoMessage("A pénz feltöltése megtörtént.");
-			} catch (NumberFormatException e) {
-				logger.warn(e);
-				FacesMessageTool.createWarnMessage("Az ellenörzõ mezõbe csak számot írjon!");
-			} catch (InvalidPinCode e) {
-				logger.warn(e);
-				FacesMessageTool.createWarnMessage("Az ellenörzõ pin kód nem egyezik meg.");
-			}
-		} else {
+
+		try {
+			userService.transferMoney(userPin, pin, Integer.valueOf(money), sessionManager.getLoggedInUser());
+			FacesMessageTool.createInfoMessage("A pénz feltöltése megtörtént.");
+			generateMoneyTransferFields();
+		} catch (NumberFormatException e) {
+			logger.warn(e);
+			FacesMessageTool.createWarnMessage("Az ellenörzõ mezõbe csak számot írjon!");
+		} catch (InvalidPinCode e) {
+			logger.warn(e);
+			FacesMessageTool.createWarnMessage("Az ellenörzõ pin kód nem egyezik meg.");
+		} catch (MaximumMoneyTransferLimitExceeded e) {
+			logger.warn(e);
 			FacesMessageTool.createErrorMessage("Túllépte a napi limitet.");
 		}
-		generateMoneyTransferFields();
+
 	}
 
 	/**

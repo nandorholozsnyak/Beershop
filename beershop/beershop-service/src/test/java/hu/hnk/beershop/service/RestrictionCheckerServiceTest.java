@@ -104,7 +104,7 @@ public class RestrictionCheckerServiceTest {
 		user.setExperiencePoints(5001.0);
 		List<EventLog> logs = new ArrayList<>();
 
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 5; i++) {
 			EventLog eventLog = new EventLog();
 			eventLog.setAction("Money transfer.");
 			eventLog.setUser(user);
@@ -117,7 +117,7 @@ public class RestrictionCheckerServiceTest {
 
 		logs = new ArrayList<>();
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 4; i++) {
 			EventLog eventLog = new EventLog();
 			eventLog.setAction("Money transfer.");
 			eventLog.setUser(user);
