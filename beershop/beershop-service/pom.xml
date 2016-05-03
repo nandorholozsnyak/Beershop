@@ -59,7 +59,6 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.5.2</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -71,6 +70,17 @@
 				<configuration>
 					<filterDeploymentDescriptor>true</filterDeploymentDescriptor>
 					<ejbVersion>3.1</ejbVersion>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<configuration>
+					<instrumentation>
+						<ignoreMethodAnnotations>
+							<ignoreMethodAnnotation>hu.hnk.service.cobertura.annotation.CoverageIgnore</ignoreMethodAnnotation>
+						</ignoreMethodAnnotations>
+					</instrumentation>
 				</configuration>
 			</plugin>
 		</plugins>

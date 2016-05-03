@@ -1,5 +1,7 @@
 package hu.hnk.service;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,8 +17,10 @@ import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.CargoService;
+import hu.hnk.beershop.service.interfaces.DiscountService;
 import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
 import hu.hnk.beershop.service.logfactory.EventLogType;
+import hu.hnk.beershop.service.tools.DiscountType;
 import hu.hnk.interfaces.CargoDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.EventLogDao;
@@ -68,7 +72,10 @@ public class CargoServiceImpl implements CargoService {
 	private RestrictionCheckerService restrictionCheckerService;
 
 	@EJB
-	BonusPointCalculator calculator;
+	private BonusPointCalculator calculator;
+
+	@EJB
+	private DiscountService discountService;
 
 	/**
 	 * {@inheritDoc}
@@ -88,12 +95,21 @@ public class CargoServiceImpl implements CargoService {
 		}
 
 		// Elkészítünk egy már a mentett szállítást reprezentáló objektumot.
-		Cargo savedCargo = null;
+		Cargo savedCargo;
 
 		// Hozzáadjuk a szállítmányhoz a szállítási költséget.
 		cargo.setTotalPrice(cargo.getTotalPrice() + BuyActionRestrictions.getShippingCost());
-		savedCargo = saveCargo(cargo, items);
 
+		savedCargo = saveCargo(cargo, items);
+		// a kedvezményeket élesítjük
+		Arrays.asList(DiscountType.values())
+				.stream()
+				.forEach(p -> discountService.validateDiscount(p, savedCargo, LocalDate.now()));
+		try {
+			cargoDao.update(savedCargo);
+		} catch (Exception e) {
+			logger.warn(e);
+		}
 		// Miután mentettük a szállítást utána töröljük a felhasználó kosarából.
 		deleteItemsFromUsersCart(cargo);
 

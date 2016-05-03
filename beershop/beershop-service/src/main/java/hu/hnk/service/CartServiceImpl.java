@@ -146,6 +146,7 @@ public class CartServiceImpl implements CartService {
 		} catch (NoSuchElementException e) {
 			foundItem = null;
 			logger.info("Beer has not found in the user's cart.");
+			logger.warn(e);
 		}
 
 		// Leellenőrizzük hogy a sör létezik-e raktárban.
@@ -272,9 +273,9 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public Double countMoneyAfterPayment(User user, Double cost, String paymentMode) {
 		Double result = (double) 0;
-		if (paymentMode.equals("money")) {
+		if ("money".equals(paymentMode)) {
 			result = user.getMoney() - cost;
-		} else if (paymentMode.equals("bonusPoint")) {
+		} else if ("bonusPoint".equals(paymentMode)) {
 			result = user.getPoints() - cost;
 		}
 		return result;

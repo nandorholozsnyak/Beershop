@@ -51,7 +51,7 @@ public class RankInterval {
 
 	static {
 		rankIntverals = new ArrayList<>();
-		rankIntverals.add(new RankInterval(Rank.Amatuer, 0, 2500));
+		rankIntverals.add(new RankInterval(Rank.Amatuer, -1, 2500));
 		rankIntverals.add(new RankInterval(Rank.Sorfelelos, 2500, 5000));
 		rankIntverals.add(new RankInterval(Rank.Ivobajnok, 5000, 7500));
 		rankIntverals.add(new RankInterval(Rank.Sormester, 7500, 10000));

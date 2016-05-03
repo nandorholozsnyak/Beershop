@@ -27,6 +27,7 @@ import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.interfaces.RoleDao;
 import hu.hnk.interfaces.UserDao;
+import hu.hnk.service.cobertura.annotation.CoverageIgnore;
 import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.RankInterval;
 
@@ -74,6 +75,8 @@ public class UserServiceImpl implements UserService {
 	 * @param user
 	 *            A mentendő felhasználó.
 	 */
+	@Override
+	@CoverageIgnore
 	public void save(User user) {
 		Role role = roleDao.findByName("ROLE_USER");
 
@@ -118,6 +121,7 @@ public class UserServiceImpl implements UserService {
 	 *            a vizsgálandó dátum.
 	 * @return igaz ha idősebb, hamis ha még nem.
 	 */
+	@Override
 	public boolean isOlderThanEighteen(Date dateOfBirth) {
 		LocalDate now = LocalDate.now();
 		Instant instant = Instant.ofEpochMilli(dateOfBirth.getTime());
@@ -135,12 +139,14 @@ public class UserServiceImpl implements UserService {
 	 * @return a megtalált felhasználó, ha nincs ilyen akkor null.
 	 */
 	@Override
+	@CoverageIgnore
 	public User findByUsername(String username) {
 		User user = null;
 		try {
 			user = userDao.findByUsername(username);
 		} catch (UsernameNotFound e) {
 			logger.warn("Username:" + username + " is not found in our database.");
+			logger.warn(e);
 		}
 		return user;
 	}
@@ -177,6 +183,8 @@ public class UserServiceImpl implements UserService {
 			userDao.findEmail(email);
 			return true;
 		} catch (EmailNotFound e) {
+			logger.info("E-mail adress is not taken.");
+			logger.warn(e);
 			return false;
 		}
 	}
@@ -204,7 +212,7 @@ public class UserServiceImpl implements UserService {
 		// } else if (user.getExperiencePoints() > 12500) {
 		// userRank = Rank.Legenda;
 		// }
-		
+
 		if (user.getExperiencePoints() == null) {
 			return Rank.Amatuer;
 		}

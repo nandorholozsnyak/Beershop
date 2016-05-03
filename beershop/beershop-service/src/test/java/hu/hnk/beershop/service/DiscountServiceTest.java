@@ -147,4 +147,34 @@ public class DiscountServiceTest {
 				.getPoints(), 0.0);
 	}
 
+	@Test
+	public void testValidateFiftyPercentageForAmatuersOnTuesday() {
+		Double expensive = 500.0;
+		Integer quantity = 5;
+
+		CartItem expensiveItem = CartItem.builder()
+				.beer(Beer.builder()
+						.name("Drága sör")
+						.price(expensive)
+						.build())
+				.quantity(quantity)
+				.build();
+
+		Double userPoints = 5000.0;
+		// Felépítünk egy szállítást.
+		Cargo c = Cargo.builder()
+				.items(Arrays.asList(expensiveItem))
+				.totalPrice((expensive * quantity) + BuyActionRestrictions.getShippingCost())
+				.user(User.builder()
+						.experiencePoints(1.0)
+						.points(userPoints)
+						.build())
+				.build();
+
+		// 2016 05 03 - keddi nap.
+		discountService.validateDiscount(DiscountType.FiftyPercentage, c, LocalDate.of(2016, 5, 3));
+		Assert.assertEquals((expensive * quantity + BuyActionRestrictions.getShippingCost()) / 2, c.getTotalPrice(),
+				0.0);
+	}
+
 }

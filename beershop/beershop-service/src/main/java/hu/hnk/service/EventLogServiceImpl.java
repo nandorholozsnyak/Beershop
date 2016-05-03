@@ -6,6 +6,8 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
+import org.apache.log4j.Logger;
+
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.EventLogService;
@@ -18,6 +20,11 @@ import hu.hnk.interfaces.EventLogDao;
 @Stateless
 @Local(EventLogService.class)
 public class EventLogServiceImpl implements EventLogService {
+
+	/**
+	 * Az osztály loggere.
+	 */
+	public static final Logger logger = Logger.getLogger(EventLogServiceImpl.class);
 
 	/**
 	 * Az eseményeket kezelő adathozzáférési objektum.
@@ -41,8 +48,7 @@ public class EventLogServiceImpl implements EventLogService {
 		try {
 			return eventLogDao.save(event);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn(e);
 		}
 		return event;
 	}

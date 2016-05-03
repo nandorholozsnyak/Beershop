@@ -11,7 +11,6 @@ import javax.ejb.Stateless;
 
 import org.apache.log4j.Logger;
 
-import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.Rank;
@@ -24,6 +23,8 @@ import hu.hnk.service.tools.DailyRankBonus;
 @Stateless
 @Local(DiscountService.class)
 public class DiscountServiceImpl implements DiscountService {
+
+	private static final String DISCOUNT_SUCCESFULLY_COMPLETED = "Discount succesfully completed.";
 
 	/**
 	 * Az osztály loggere.
@@ -43,6 +44,9 @@ public class DiscountServiceImpl implements DiscountService {
 			validateTheCheapestForFreeDiscount(cargo, today);
 		if (discountType.equals(DiscountType.ExtraBonusPoints))
 			validateExtraBonusPointsDiscount(cargo, today);
+		if (discountType.equals(DiscountType.FiftyPercentage))
+			validateFiftyPercentageDiscount(cargo, today);
+
 	}
 
 	private void validateFreeShippingDiscount(Cargo cargo, LocalDate today) {
@@ -53,20 +57,16 @@ public class DiscountServiceImpl implements DiscountService {
 		Optional<DailyRankBonus> freeShippingBonus = findDiscountByType(actualDiscount);
 
 		// Megnézzük a rangokat amik jogosultak a kedvezményhez.
-		List<Rank> allowedRanks = null;
+		List<Rank> allowedRanks;
 		if (freeShippingBonus.isPresent()) {
 			allowedRanks = freeShippingBonus.get()
 					.getRanks();
 			logger.info("Allowed ranks for Free Shipping discount: " + allowedRanks);
-			logger.debug("Free Shipping Discount day: " + freeShippingBonus.get()
-					.getDay());
-			logger.debug("Today: " + today.getDayOfWeek());
-			logger.debug(
-					"Is this day  Free Shipping discount day:" + isTodayDiscountDay(freeShippingBonus.get(), today));
+			debugLog(today, freeShippingBonus);
 			if (isTodayDiscountDay(freeShippingBonus.get(), today)) {
 				if (allowedRanks.contains(userService.countRankFromXp(cargo.getUser()))) {
 					cargo.setTotalPrice(cargo.getTotalPrice() - BuyActionRestrictions.getShippingCost());
-					logger.info("Discount succesfully completed.");
+					logger.info(DISCOUNT_SUCCESFULLY_COMPLETED);
 				}
 			}
 		}
@@ -79,16 +79,12 @@ public class DiscountServiceImpl implements DiscountService {
 		// Kikeressük a "legolcsóbb termék ingyenes" kedvezményt.
 		Optional<DailyRankBonus> theCheapestForFree = findDiscountByType(actualDiscount);
 
-		List<Rank> allowedRanks = null;
+		List<Rank> allowedRanks;
 		if (theCheapestForFree.isPresent()) {
 			allowedRanks = theCheapestForFree.get()
 					.getRanks();
 			logger.info("Allowed ranks for the Cheapest For Free discount:" + allowedRanks);
-			logger.debug("Cheapest For Free Discount day:" + theCheapestForFree.get()
-					.getDay());
-			logger.debug("Today:" + today.getDayOfWeek());
-			logger.debug("Is this day Cheapest For Free discount day:"
-					+ isTodayDiscountDay(theCheapestForFree.get(), today));
+			debugLog(today, theCheapestForFree);
 			if (isTodayDiscountDay(theCheapestForFree.get(), today)) {
 				if (allowedRanks.contains(userService.countRankFromXp(cargo.getUser()))) {
 					if (cargo.getItems()
@@ -106,53 +102,81 @@ public class DiscountServiceImpl implements DiscountService {
 						cargo.setTotalPrice(cargo.getTotalPrice() - cheapest.getQuantity() * cheapest.getBeer()
 								.getPrice());
 					}
-					logger.info("Discount succesfully completed.");
+					logger.info(DISCOUNT_SUCCESFULLY_COMPLETED);
 				}
 			}
 		}
 	}
-	
-	// A szállítás teljes árának az ötödét hozzáadja mint bónusz pont a felhasználónak.
+
+	// A szállítás teljes árának az ötödét hozzáadja mint bónusz pont a
+	// felhasználónak.
 	private void validateExtraBonusPointsDiscount(Cargo cargo, LocalDate today) {
 		DiscountType actualDiscount = DiscountType.ExtraBonusPoints;
 
 		// Kikeressük az extra bónusz pontos kedvezményt.
 		Optional<DailyRankBonus> extraBonusPoints = findDiscountByType(actualDiscount);
 
-		List<Rank> allowedRanks = null;
+		List<Rank> allowedRanks;
 		if (extraBonusPoints.isPresent()) {
 			allowedRanks = extraBonusPoints.get()
 					.getRanks();
 			logger.info("Allowed ranks for the Extra Bonus Points discount:" + allowedRanks);
-			logger.debug("Extra Bonus Points Discount day:" + extraBonusPoints.get()
-					.getDay());
-			logger.debug("Today:" + today.getDayOfWeek());
-			logger.debug(
-					"Is this day Cheapest For Free discount day:" + isTodayDiscountDay(extraBonusPoints.get(), today));
+			debugLog(today, extraBonusPoints);
 			if (isTodayDiscountDay(extraBonusPoints.get(), today)) {
 				if (allowedRanks.contains(userService.countRankFromXp(cargo.getUser()))) {
 					cargo.getUser()
 							.setPoints(cargo.getUser()
 									.getPoints() + cargo.getTotalPrice() / 5);
-					logger.info("Discount succesfully completed.");
+					logger.info(DISCOUNT_SUCCESFULLY_COMPLETED);
+				}
+			}
+		}
+	}
+
+	private void validateFiftyPercentageDiscount(Cargo cargo, LocalDate today) {
+		DiscountType actualDiscount = DiscountType.FiftyPercentage;
+
+		// Kikeressük az extra bónusz pontos kedvezményt.
+		Optional<DailyRankBonus> fiftyPercentage = findDiscountByType(actualDiscount);
+
+		List<Rank> allowedRanks;
+		if (fiftyPercentage.isPresent()) {
+			allowedRanks = fiftyPercentage.get()
+					.getRanks();
+			logger.info("Allowed ranks for the Extra Bonus Points discount:" + allowedRanks);
+			debugLog(today, fiftyPercentage);
+			if (isTodayDiscountDay(fiftyPercentage.get(), today)) {
+				if (allowedRanks.contains(userService.countRankFromXp(cargo.getUser()))) {
+					cargo.setTotalPrice(cargo.getTotalPrice() * 0.5);
+					logger.info(DISCOUNT_SUCCESFULLY_COMPLETED);
 				}
 			}
 		}
 	}
 
 	private Optional<DailyRankBonus> findDiscountByType(DiscountType actualDiscount) {
-		Optional<DailyRankBonus> freeShippingBonus = discountList.stream()
+		return discountList.stream()
 				.filter(e -> e.getDiscounts()
 						.contains(actualDiscount))
 				.collect(Collectors.toList())
 				.stream()
 				.findFirst();
-		return freeShippingBonus;
+
 	}
 
 	private boolean isTodayDiscountDay(DailyRankBonus discount, LocalDate today) {
 		return today.getDayOfWeek()
 				.equals(discount.getDay());
+	}
+
+	private void debugLog(LocalDate today, Optional<DailyRankBonus> bonus) {
+		DiscountType discount = bonus.get()
+				.getDiscounts()
+				.get(0);
+		logger.debug(discount.toString() + "day:" + bonus.get()
+				.getDay());
+		logger.debug("Today:" + today.getDayOfWeek());
+		logger.debug("Is this day " + discount.toString() + " discount day:" + isTodayDiscountDay(bonus.get(), today));
 	}
 
 	public void setUserService(UserService userService) {

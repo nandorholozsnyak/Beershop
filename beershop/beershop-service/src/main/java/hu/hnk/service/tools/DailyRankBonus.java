@@ -20,6 +20,7 @@ public class DailyRankBonus {
 
 	static {
 		DAILY_BONUSES = new ArrayList<>();
+		
 		// Amatőrök keddenként kapnak kedvezményeket.
 		// Feláras lesz minden.
 		getDailyBonuses().add(DailyRankBonus.builder()
@@ -36,7 +37,7 @@ public class DailyRankBonus {
 				.discounts(Arrays.asList(DiscountType.ExtraBonusPoints))
 				.build());
 
-		// Csütörtökönkétn az ivóbajnok a legolcsóbb termékeket ingyen kapja
+		// Csütörtökönként az ivóbajnok a legolcsóbb termékeket ingyen kapja
 		// meg.
 		getDailyBonuses().add(DailyRankBonus.builder()
 				.day(DayOfWeek.THURSDAY)

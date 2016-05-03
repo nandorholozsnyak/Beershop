@@ -136,7 +136,6 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	 */
 	@Override
 	public boolean checkIfUserCanPayBeers(User user) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
