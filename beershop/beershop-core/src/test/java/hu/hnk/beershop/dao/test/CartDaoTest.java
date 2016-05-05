@@ -82,7 +82,6 @@ public class CartDaoTest {
 		cartDao.save(cart);
 
 		Cart asked = cartDao.findByUser(namedUser);
-		System.out.println(asked.getItems());
 		asked.getItems().stream().forEach(System.out::println);
 
 	}

@@ -1,6 +1,5 @@
 package hu.hnk.beershop.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,9 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.InvalidPinCode;
-import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.Rank;
@@ -27,7 +26,6 @@ import hu.hnk.service.RestrictionCheckerServiceImpl;
 import hu.hnk.service.UserServiceImpl;
 import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.MoneyTransferRestrictions;
-import hu.hnk.service.tools.RankInterval;
 
 
 public class UserServiceTest {

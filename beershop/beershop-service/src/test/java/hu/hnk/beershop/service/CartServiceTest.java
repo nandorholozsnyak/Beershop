@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -23,8 +24,6 @@ import hu.hnk.interfaces.CartDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.StorageDao;
 import hu.hnk.service.CartServiceImpl;
-import junit.framework.Assert;
-
 
 public class CartServiceTest {
 
@@ -53,10 +52,10 @@ public class CartServiceTest {
 		User user = new User();
 		user.setMoney(2500.0);
 		user.setPoints(500.0);
-		Assert.assertEquals(1500.0, cartService.countMoneyAfterPayment(user, (double) 1000, "money"));
-		Assert.assertEquals(400.0, cartService.countMoneyAfterPayment(user, (double) 100, "bonusPoint"));
+		Assert.assertEquals(1500.0, cartService.countMoneyAfterPayment(user, (double) 1000, "money"),0.0);
+		Assert.assertEquals(400.0, cartService.countMoneyAfterPayment(user, (double) 100, "bonusPoint"),0.0);
 		// Lehetetlen eset.
-		Assert.assertEquals(0.0, cartService.countMoneyAfterPayment(user, (double) 100, "invalid"));
+		Assert.assertEquals(0.0, cartService.countMoneyAfterPayment(user, (double) 100, "invalid"),0.0);
 	}
 
 	@Test
@@ -74,7 +73,7 @@ public class CartServiceTest {
 		cartItem.setQuantity(5);
 		// (5*200) / 100 + 10 + 0.5 + 0
 		cartItems.add(cartItem);
-		Assert.assertEquals(20.5, cartService.countBonusPoints(cartItems));
+		Assert.assertEquals(20.5, cartService.countBonusPoints(cartItems),0.0);
 	}
 
 	@Test
@@ -96,7 +95,7 @@ public class CartServiceTest {
 		cartItem2.setQuantity(10);
 		cartItems.add(cartItem2);
 
-		Assert.assertEquals(3500.0, cartService.countTotalCost(cartItems));
+		Assert.assertEquals(3500.0, cartService.countTotalCost(cartItems),0.0);
 	}
 
 	@Test

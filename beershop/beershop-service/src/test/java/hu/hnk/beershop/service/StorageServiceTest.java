@@ -1,27 +1,19 @@
 package hu.hnk.beershop.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.NegativeQuantityNumber;
 import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
-import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
-import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.StorageDao;
-import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.StorageServiceImpl;
-import hu.hnk.service.UserServiceImpl;
 
 
 public class StorageServiceTest {

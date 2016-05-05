@@ -1,6 +1,5 @@
 package hu.hnk.beershop.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,15 +172,12 @@ public class RestrictionCheckerServiceTest {
 		User user = new User();
 		user.setExperiencePoints(0.0);
 		List<EventLog> logs = new ArrayList<>();
-		System.out.println(RankInterval.getRankIntverals()
-				.size());
 		for (int i = 0; i < RankInterval.getRankIntverals()
 				.size(); i++) {
 			logs = new ArrayList<>();
 			user.setExperiencePoints((double) (RankInterval.getRankIntverals()
 					.get(i)
 					.getMinimumXP() + 1));
-			System.out.println("User experience:" + user.getExperiencePoints());
 			for (int j = 0; j < BuyActionRestrictions.getRestirctedValues()
 					.get(i)
 					.getRestrictedValue() - 1; j++) {

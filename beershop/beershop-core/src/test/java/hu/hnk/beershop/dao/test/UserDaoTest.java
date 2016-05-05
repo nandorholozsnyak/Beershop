@@ -101,7 +101,6 @@ public class UserDaoTest {
 		userDao.save(user);
 
 		User roledUser = userDao.findByUsername("RoleMe");
-		System.out.println(roledUser);
 		Assert.assertEquals("ROLE_USER", roledUser.getRoles()
 				.get(0)
 				.getName());
