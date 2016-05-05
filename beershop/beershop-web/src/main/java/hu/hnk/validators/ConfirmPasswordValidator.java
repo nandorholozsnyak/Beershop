@@ -8,8 +8,9 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+
 /**
- * A jelszavakat valid·lÛ oszt·ly.
+ * A jelszavakat valid√°l√≥ oszt√°ly.
  * @author Nandi
  *
  */
@@ -17,7 +18,7 @@ import javax.faces.validator.ValidatorException;
 public class ConfirmPasswordValidator implements Validator {
 	
 	/**
-	 * A regisztr·ciÛs fel¸leten lÈvı jelszavak egyezÈsÈt valid·lja.
+	 * A regisztr√°ci√≥s fel√ºleten l√©v≈ë jelszavak egyez√©s√©t valid√°lja.
 	 * 
 	 * @param context
 	 *            {@link FacesContext}
@@ -36,7 +37,7 @@ public class ConfirmPasswordValidator implements Validator {
 		}
 
 		if (!password.equals((String) confirmPassword.getSubmittedValue())) {
-			throw new ValidatorException(new FacesMessage("A kÈt jelszÛnak egyeznie kell."));
+			throw new ValidatorException(new FacesMessage("A k√©t jelsz√≥nak egyeznie kell."));
 		}
 	}
 

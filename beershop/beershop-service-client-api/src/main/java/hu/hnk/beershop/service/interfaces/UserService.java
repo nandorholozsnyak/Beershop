@@ -7,8 +7,9 @@ import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 
+
 /**
- * A felhasználó entitáshoz kapcsolódó szolgáltatások interfésze.
+ * A felhasznÃ¡lÃ³ entitÃ¡shoz kapcsolÃ³dÃ³ szolgÃ¡ltatÃ¡sok interfÃ©sze.
  * 
  * @author Nandi
  *
@@ -16,54 +17,54 @@ import hu.hnk.beershop.model.User;
 public interface UserService {
 
 	/**
-	 * Felhasználó mentése.
+	 * FelhasznÃ¡lÃ³ mentÃ©se.
 	 * 
 	 * @param user
-	 *            a mentendõ felhasználó.
+	 *            a mentendÅ‘ felhasznÃ¡lÃ³.
 	 */
 	public void save(User user);
 
 	/**
-	 * Ellenõrzi hogy a megadott dátum már "idõsebb" mint 18 év.
+	 * EllenÅ‘rzi hogy a megadott dÃ¡tum mÃ¡r "idÅ‘sebb" mint 18 Ã©v.
 	 * 
 	 * @param dateOfBirth
-	 *            a vizsgálandó dátum.
-	 * @return igaz ha idõsebb, hamis ha még nem.
+	 *            a vizsgÃ¡landÃ³ dÃ¡tum.
+	 * @return igaz ha idÅ‘sebb, hamis ha mÃ©g nem.
 	 */
 	public boolean isOlderThanEighteen(Date dateOfBirth);
 
 	/**
-	 * Felhasználó keresése a felhasználóneve alapján.
+	 * FelhasznÃ¡lÃ³ keresÃ©se a felhasznÃ¡lÃ³neve alapjÃ¡n.
 	 * 
 	 * @param username
-	 *            a keresendõ felhasználónév
-	 * @return a megtalált felhasználó, ha nincs ilyen akkor null.
+	 *            a keresendÅ‘ felhasznÃ¡lÃ³nÃ©v
+	 * @return a megtalÃ¡lt felhasznÃ¡lÃ³, ha nincs ilyen akkor null.
 	 */
 	public User findByUsername(String username);
 
 	/**
-	 * Felhasználónév ellenörzés, a kapott felhasználónevet ellenõrzi hogy
-	 * válaszható-e még a regisztráció során.
+	 * FelhasznÃ¡lÃ³nÃ©v ellenÃ¶rzÃ©s, a kapott felhasznÃ¡lÃ³nevet ellenÅ‘rzi hogy
+	 * vÃ¡laszhatÃ³-e mÃ©g a regisztrÃ¡ciÃ³ sorÃ¡n.
 	 * 
 	 * @param username
-	 *            az ellenõrizendõ felhasználónév.
-	 * @return igaz ha szabad a felhasználónév, hamis ha már nem.
+	 *            az ellenÅ‘rizendÅ‘ felhasznÃ¡lÃ³nÃ©v.
+	 * @return igaz ha szabad a felhasznÃ¡lÃ³nÃ©v, hamis ha mÃ¡r nem.
 	 */
 	public boolean isUsernameAlreadyTaken(String username);
 
 	/**
-	 * E-mail cím ellenörzés, a kapott e-mail címet ellenõrzi hogy válaszható-e
-	 * még a regisztráció során.
+	 * E-mail cÃ­m ellenÃ¶rzÃ©s, a kapott e-mail cÃ­met ellenÅ‘rzi hogy vÃ¡laszhatÃ³-e
+	 * mÃ©g a regisztrÃ¡ciÃ³ sorÃ¡n.
 	 * 
 	 * @param email
-	 *            az ellenõrizendõ e-mail cím.
-	 * @return igaz ha szabad a email cím, hamis ha már nem.
+	 *            az ellenÅ‘rizendÅ‘ e-mail cÃ­m.
+	 * @return igaz ha szabad a email cÃ­m, hamis ha mÃ¡r nem.
 	 */
 	public boolean isEmailAlreadyTaken(String email);
 
 	/**
-	 * A felhasználó rangjának való számítása. A számítást segítõ függvény a
-	 * RankInterval nevû osztályt használja.
+	 * A felhasznÃ¡lÃ³ rangjÃ¡nak valÃ³ szÃ¡mÃ­tÃ¡sa. A szÃ¡mÃ­tÃ¡st segÃ­tÅ‘ fÃ¼ggvÃ©ny a
+	 * RankInterval nevÅ± osztÃ¡lyt hasznÃ¡lja.
 	 * 
 	 * @param user
 	 * @return

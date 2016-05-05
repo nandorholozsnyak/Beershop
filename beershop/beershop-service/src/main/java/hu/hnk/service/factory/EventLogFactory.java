@@ -8,8 +8,9 @@ import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.logfactory.EventLogType;
 
+
 /**
- * Az esemÈnyeket lÈtrehozÛ Factory oszt·ly.
+ * Az esem√©nyeket l√©trehoz√≥ Factory oszt√°ly.
  * 
  * @author Nandi
  *
@@ -21,7 +22,7 @@ public class EventLogFactory {
 	private static final String BUY_ACTION = "Buy action.";
 
 	/**
-	 * Az oszt·ly loggere.
+	 * Az oszt√°ly loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(EventLogFactory.class);
 

@@ -18,6 +18,7 @@ import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.BuyActionRestrictions;
 import hu.hnk.service.tools.RankInterval;
 
+
 /**
  * @author Nandi
  *

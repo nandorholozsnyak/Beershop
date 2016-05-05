@@ -8,26 +8,26 @@ import hu.hnk.interfaces.BaseDao;
 import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 
 /**
- * Egy bázis adathozzáférési osztály amely az alapvetõ adatbázis mûveletek fogja
- * nekünk szolgáltatni egy abstract osztályként. A négy darab alap mûveletet itt
- * írjuk le, kihasználva az öröklõdést, ezzel gyorsítva a fejlesztés menetét,
- * minden egyes DAO megírásakor csak ezt az osztályt kell kiterjeszteni és
- * azonnal használhatóvá válik a négy darab mûvelet.
- * {@link BaseDaoImpl#save(BaseEntity)} - egy új entitás mentése az adatbázisba
- * {@link BaseDaoImpl#update(BaseEntity)} - már egy meglévõ entitás frissítése
- * {@link BaseDaoImpl#delete(Long)} - egy meglévõ entitás törlés, paramétere az
- * entitás azonosítója {@link BaseDaoImpl#find(Long)} - entitás keresése az
- * azonosítója alapján.
+ * Egy bÃ¡zis adathozzÃ¡fÃ©rÃ©si osztÃ¡ly amely az alapvetÅ‘ adatbÃ¡zis mÅ±veletek fogja
+ * nekÃ¼nk szolgÃ¡ltatni egy abstract osztÃ¡lykÃ©nt. A nÃ©gy darab alap mÅ±veletet itt
+ * Ã­rjuk le, kihasznÃ¡lva az Ã¶rÃ¶klÅ‘dÃ©st, ezzel gyorsÃ­tva a fejlesztÃ©s menetÃ©t,
+ * minden egyes DAO megÃ­rÃ¡sakor csak ezt az osztÃ¡lyt kell kiterjeszteni Ã©s
+ * azonnal hasznÃ¡lhatÃ³vÃ¡ vÃ¡lik a nÃ©gy darab mÅ±velet.
+ * {@link BaseDaoImpl#save(BaseEntity)} - egy Ãºj entitÃ¡s mentÃ©se az adatbÃ¡zisba
+ * {@link BaseDaoImpl#update(BaseEntity)} - mÃ¡r egy meglÃ©vÅ‘ entitÃ¡s frissÃ­tÃ©se
+ * {@link BaseDaoImpl#delete(Long)} - egy meglÃ©vÅ‘ entitÃ¡s tÃ¶rlÃ©s, paramÃ©tere az
+ * entitÃ¡s azonosÃ­tÃ³ja {@link BaseDaoImpl#find(Long)} - entitÃ¡s keresÃ©se az
+ * azonosÃ­tÃ³ja alapjÃ¡n.
  * 
  * @author Nandi
  * @param <E>
- *            a DAO által kezelt entitás
+ *            a DAO Ã¡ltal kezelt entitÃ¡s
  *
  */
 public abstract class BaseDaoImpl<E extends BaseEntity> implements BaseDao<E> {
 
 	/**
-	 * Az entitásokat kezelõ entitás menedzser objektum.
+	 * Az entitÃ¡sokat kezelÅ‘ entitÃ¡s menedzser objektum.
 	 */
 	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
 	protected EntityManager entityManager;
@@ -35,10 +35,10 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements BaseDao<E> {
 	protected Class<E> entityClass;
 
 	/**
-	 * Az osztály konstuktora.
+	 * Az osztÃ¡ly konstuktora.
 	 * 
 	 * @param entityClass
-	 *            a kezelendõ entitás.
+	 *            a kezelendÅ‘ entitÃ¡s.
 	 */
 	public BaseDaoImpl(Class<E> entityClass) {
 		this.entityClass = entityClass;

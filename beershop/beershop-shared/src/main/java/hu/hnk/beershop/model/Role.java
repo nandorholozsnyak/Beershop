@@ -6,8 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 
+
 /**
- * A jogkör leírását tartalmazó osztály.
+ * A jogkÃ¶r leÃ­rÃ¡sÃ¡t tartalmazÃ³ osztÃ¡ly.
  * 
  * @author Nandi
  *
@@ -22,7 +23,7 @@ public class Role extends BaseEntity implements Serializable {
 	 private static final long serialVersionUID = 1L;
 
 	/**
-	 * A jogkör neve.
+	 * A jogkÃ¶r neve.
 	 */
 	@Column(name = "name")
 	private String name;

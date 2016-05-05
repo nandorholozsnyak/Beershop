@@ -1,5 +1,5 @@
 /**
- * Factory oszt·lyokat tartalmazÛ csomag.
+ * Factory oszt√°lyokat tartalmaz√≥ csomag.
  * @author Nandi
  *
  */

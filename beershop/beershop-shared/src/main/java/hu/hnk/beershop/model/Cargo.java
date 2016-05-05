@@ -11,8 +11,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+
 /**
- * Egy rendelés adatait tartalmazó osztály.
+ * Egy rendelÃ©s adatait tartalmazÃ³ osztÃ¡ly.
  * 
  * @author Nandi
  *
@@ -27,37 +28,37 @@ public class Cargo extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -4761818681252091051L;
 
 	/**
-	 * A rendelt sörök listája.
+	 * A rendelt sÃ¶rÃ¶k listÃ¡ja.
 	 */
 	@ManyToMany(cascade = CascadeType.MERGE)
 	private List<CartItem> items;
 
 	/**
-	 * A felhasználó aki leadta a rendelést.
+	 * A felhasznÃ¡lÃ³ aki leadta a rendelÃ©st.
 	 */
 	@OneToOne
 	private User user;
 
 	/**
-	 * A rendelés leadásának dátuma.
+	 * A rendelÃ©s leadÃ¡sÃ¡nak dÃ¡tuma.
 	 */
 	@Column(name = "dateOfOrder")
 	private Date orderDate;
 
 	/**
-	 * A rendelés teljes összege.
+	 * A rendelÃ©s teljes Ã¶sszege.
 	 */
 	@Column(name = "totalprice")
 	private Double totalPrice;
 
 	/**
-	 * A rendelõ vendég szállítási címe.
+	 * A rendelÅ‘ vendÃ©g szÃ¡llÃ­tÃ¡si cÃ­me.
 	 */
 	@Column(name = "address")
 	private String address;
 
 	/**
-	 * A rendelés fizetésének típusa, utalás vagy bónusz pont.
+	 * A rendelÃ©s fizetÃ©sÃ©nek tÃ­pusa, utalÃ¡s vagy bÃ³nusz pont.
 	 */
 	@NotNull
 	@Column(name = "paymentMode")

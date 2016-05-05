@@ -1,9 +1,9 @@
 /**
- * A szolgáltatások segédeszközei. A
- * {@link hu.hnk.service.tools.MoneyTransferRestrictions} osztály a napi
- * pénzfeltöltést szabályozó osztály, míg a
- * {@link hu.hnk.service.tools.RankInterval} a rangot tapasztalatponthoz kötõ
- * osztály.
+ * A szolgÃ¡ltatÃ¡sok segÃ©deszkÃ¶zei. A
+ * {@link hu.hnk.service.tools.MoneyTransferRestrictions} osztÃ¡ly a napi
+ * pÃ©nzfeltÃ¶ltÃ©st szabÃ¡lyozÃ³ osztÃ¡ly, mÃ­g a
+ * {@link hu.hnk.service.tools.RankInterval} a rangot tapasztalatponthoz kÃ¶tÅ‘
+ * osztÃ¡ly.
  * 
  * @author Nandi
  *

@@ -7,8 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
+
 /**
- * A sör osztály ami tartalmazza a sör adatait.
+ * A sÃ¶r osztÃ¡ly ami tartalmazza a sÃ¶r adatait.
  * 
  * @author Nandi
  *
@@ -25,37 +26,37 @@ public class Beer extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -4761818681252091051L;
 
 	/**
-	 * A sör neve.
+	 * A sÃ¶r neve.
 	 */
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 
 	/**
-	 * A sör alkoholtartalma.
+	 * A sÃ¶r alkoholtartalma.
 	 */
 	@Column(name = "alcoholLevel", nullable = false)
 	private Double alcoholLevel;
 
 	/**
-	 * A sör ára.
+	 * A sÃ¶r Ã¡ra.
 	 */
 	@Column(name = "price", nullable = false)
 	private Double price;
 
 	/**
-	 * A sörhöz tartozó megjegyzés.
+	 * A sÃ¶rhÃ¶z tartozÃ³ megjegyzÃ©s.
 	 */
 	@Column(name = "comment", length = 255)
 	private String comment;
 
 	/**
-	 * A sör ûrtartalma.
+	 * A sÃ¶r Å±rtartalma.
 	 */
 	@Column(name = "capacity")
 	private Double capacity;
 
 	/**
-	 * A sör akció során beállított kedvezménye.
+	 * A sÃ¶r akciÃ³ sorÃ¡n beÃ¡llÃ­tott kedvezmÃ©nye.
 	 */
 	@Column(name = "discountAmount", nullable = false, columnDefinition = "int(5) default 0")
 	private Integer discountAmount;

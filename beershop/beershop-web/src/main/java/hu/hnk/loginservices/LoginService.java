@@ -19,6 +19,7 @@ import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
 
+
 /**
  * @author Nandi
  *
@@ -33,18 +34,18 @@ public class LoginService implements Serializable, UserDetailsService {
 	private static final long serialVersionUID = 2856400278569714670L;
 	
 	/**
-	 * A felhasználó szolgáltatások kezelõje.
+	 * A felhasznÃ¡lÃ³ szolgÃ¡ltatÃ¡sok kezelÅ‘je.
 	 */
 	@EJB
 	private UserService userService;
 
 	/**
-	 * A bejelentkezõ felhasználó megadott felhasználóneve.
+	 * A bejelentkezÅ‘ felhasznÃ¡lÃ³ megadott felhasznÃ¡lÃ³neve.
 	 */
 	private String username;
 	
 	/**
-	 * A bejelentkezõ felhasználó megadott jelszava.
+	 * A bejelentkezÅ‘ felhasznÃ¡lÃ³ megadott jelszava.
 	 */
 	private String password;
 
@@ -79,9 +80,9 @@ public class LoginService implements Serializable, UserDetailsService {
 	}
 	
 	/**
-	 * Felhsználó betöltése felhasználónév alapján.
-	 * @param username a betöltendõ felhasználó felhasználóneve.
-	 * @return a betöltött felhasználó.
+	 * FelhsznÃ¡lÃ³ betÃ¶ltÃ©se felhasznÃ¡lÃ³nÃ©v alapjÃ¡n.
+	 * @param username a betÃ¶ltendÅ‘ felhasznÃ¡lÃ³ felhasznÃ¡lÃ³neve.
+	 * @return a betÃ¶ltÃ¶tt felhasznÃ¡lÃ³.
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -112,9 +113,9 @@ public class LoginService implements Serializable, UserDetailsService {
 	}
 	
 	/**
-	 * A felhasználó jogköreit betöltõ metódus.
-	 * @param userRoles a felhasználó jogkörei.
-	 * @return a betöltött jogkörök.
+	 * A felhasznÃ¡lÃ³ jogkÃ¶reit betÃ¶ltÅ‘ metÃ³dus.
+	 * @param userRoles a felhasznÃ¡lÃ³ jogkÃ¶rei.
+	 * @return a betÃ¶ltÃ¶tt jogkÃ¶rÃ¶k.
 	 */
 	private List<GrantedAuthority> buildUserAuthority(List<Role> userRoles) {
 

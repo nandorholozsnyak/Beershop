@@ -1,7 +1,5 @@
 /**
- * A service osztályok interfészeit megvalósító csomag.
- */
-/**
+ * A service osztÃ¡lyok interfÃ©szeit megvalÃ³sÃ­tÃ³ csomag.
  * @author Nandi
  *
  */

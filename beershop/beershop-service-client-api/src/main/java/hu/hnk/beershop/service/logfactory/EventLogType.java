@@ -1,7 +1,8 @@
 package hu.hnk.beershop.service.logfactory;
 
+
 /**
- * Az események típusait tartalmazó enumeráció.
+ * Az esemÃ©nyek tÃ­pusait tartalmazÃ³ enumerÃ¡ciÃ³.
  * 
  * @author Nandi
  *

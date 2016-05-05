@@ -86,6 +86,12 @@
       <property name="URL" value="jdbc:h2:mem:beershop;DB_CLOSE_DELAY=-1"></property>
     </jdbc-connection-pool>
     <jdbc-resource pool-name="BeerShopH2" jndi-name="beerShopConH2"></jdbc-resource>
+	<jdbc-connection-pool driver-classname="org.apache.derby.jdbc.EmbeddedDriver" name="BeerShopDerby" res-type="java.sql.Driver">
+      <property name="Password" description="password" value=""></property>
+      <property name="user" value="sa"></property>
+      <property name="URL" value="jdbc:derby:memory:beershop;create=true"></property>
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="BeerShopDerby" jndi-name="beerShopConDerby"></jdbc-resource>
   </resources>
   <servers>
     <server config-ref="server-config" name="server">

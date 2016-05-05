@@ -1,24 +1,25 @@
 package hu.hnk.beershop.model;
 
+
 /**
- * A rank enumeráció amely az egyes felhasználók rangjai lehetnek.
+ * A rank enumerÃ¡ciÃ³ amely az egyes felhasznÃ¡lÃ³k rangjai lehetnek.
  * 
  * @author Nandi
  *
  */
 public enum Rank {
 	/**
-	 * Amatõr.
+	 * AmatÅ‘r.
 	 */
 	Amatuer(10L),
 
 	/**
-	 * Sörfelelõs.
+	 * SÃ¶rfelelÅ‘s.
 	 */
 	Sorfelelos(20L),
 
 	/**
-	 * Sörmester.
+	 * SÃ¶rmester.
 	 */
 	Sormester(30L),
 
@@ -28,7 +29,7 @@ public enum Rank {
 	Ivobajnok(40L),
 
 	/**
-	 * Sördoktor.
+	 * SÃ¶rdoktor.
 	 */
 	Sordoktor(50L),
 
@@ -38,26 +39,26 @@ public enum Rank {
 	Legenda(60L);
 
 	/**
-	 * A rank értéke.
+	 * A rank Ã©rtÃ©ke.
 	 */
 	private Long value;
 
 	/**
-	 * Konstuktor, mely létrehoz egy Rang objektumot a megadott értékkel.
+	 * Konstuktor, mely lÃ©trehoz egy Rang objektumot a megadott Ã©rtÃ©kkel.
 	 * 
 	 * @param value
-	 *            a rank értéke
+	 *            a rank Ã©rtÃ©ke
 	 */
 	Rank(Long value) {
 		this.value = value;
 	}
 
 	/**
-	 * Megadja egy választott érték rangját.
+	 * Megadja egy vÃ¡lasztott Ã©rtÃ©k rangjÃ¡t.
 	 * 
 	 * @param value
-	 *            a megadott érték
-	 * @return a hozzá tartozó Rank
+	 *            a megadott Ã©rtÃ©k
+	 * @return a hozzÃ¡ tartozÃ³ Rank
 	 */
 	public static Rank getValue(Long value) {
 		for (Rank item : Rank.values()) {

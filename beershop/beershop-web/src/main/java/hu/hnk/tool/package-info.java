@@ -1,5 +1,5 @@
 /**
- * A megjelenítésben résztvevõ segédeszközök csomagja.
+ * A megjelenÃ­tÃ©sben rÃ©sztvevÅ‘ segÃ©deszkÃ¶zÃ¶k csomagja.
  * @author Nandi
  *
  */

@@ -21,6 +21,7 @@ import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
 
+
 /**
  * @author Nandi
  *
@@ -35,7 +36,7 @@ public class CartManagerBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Az osztály loggere.
+	 * Az osztÃ¡ly loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(CartManagerBean.class);
 
@@ -72,10 +73,10 @@ public class CartManagerBean implements Serializable {
 
 		try {
 			cartService.deletItemFromCart(item);
-			FacesMessageTool.createInfoMessage("Módosítások sikeresen mentve!");
+			FacesMessageTool.createInfoMessage("MÃ³dosÃ­tÃ¡sok sikeresen mentve!");
 		} catch (Exception e) {
 			logger.warn(e.getMessage(), e);
-			FacesMessageTool.createWarnMessage("Módosításokat nem tudtuk menteni!");
+			FacesMessageTool.createWarnMessage("MÃ³dosÃ­tÃ¡sokat nem tudtuk menteni!");
 		}
 		loadUserItems();
 		FacesContext.getCurrentInstance()

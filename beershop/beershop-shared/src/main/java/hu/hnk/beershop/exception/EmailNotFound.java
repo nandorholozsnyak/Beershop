@@ -3,6 +3,7 @@
  */
 package hu.hnk.beershop.exception;
 
+
 /**
  * @author Nandi
  *
@@ -15,31 +16,31 @@ public class EmailNotFound extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Konstuktor, mely létrehoz egy EmailNotFound kivételt.
+	 * Konstuktor, mely lÃ©trehoz egy EmailNotFound kivÃ©telt.
 	 */
 	public EmailNotFound() {
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy EmailNotFound kivételt a megadott üzenettel.
-	 * @param message a részletes üzenet.
+	 * Konstuktor, mely lÃ©trehoz egy EmailNotFound kivÃ©telt a megadott Ã¼zenettel.
+	 * @param message a rÃ©szletes Ã¼zenet.
 	 */
 	public EmailNotFound(String message) {
 		super(message);
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy EmailNotFound kivételt a megadott okozóval.
-	 * @param cause az okozó
+	 * Konstuktor, mely lÃ©trehoz egy EmailNotFound kivÃ©telt a megadott okozÃ³val.
+	 * @param cause az okozÃ³
 	 */
 	public EmailNotFound(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy EmailNotFound kivételt a megadott üzenettel és okozóval.
-	 * @param message a részletes üzenet.
-	 * @param cause az okozó.
+	 * Konstuktor, mely lÃ©trehoz egy EmailNotFound kivÃ©telt a megadott Ã¼zenettel Ã©s okozÃ³val.
+	 * @param message a rÃ©szletes Ã¼zenet.
+	 * @param cause az okozÃ³.
 	 */
 	public EmailNotFound(String message, Throwable cause) {
 		super(message, cause);

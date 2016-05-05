@@ -9,8 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
+
 /**
- * Egy eseménynek a logját leíró entitást.
+ * Egy esemÃ©nynek a logjÃ¡t leÃ­rÃ³ entitÃ¡st.
  * 
  * @author Nandi
  *
@@ -25,20 +26,20 @@ public class EventLog extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -2757899869474041195L;
 
 	/**
-	 * Az eseménynek az akciója, azaz mi történt, egy esetleges vásárlás vagy
-	 * pénzfeltöltés.
+	 * Az esemÃ©nynek az akciÃ³ja, azaz mi tÃ¶rtÃ©nt, egy esetleges vÃ¡sÃ¡rlÃ¡s vagy
+	 * pÃ©nzfeltÃ¶ltÃ©s.
 	 */
 	@Column(name = "action")
 	private String action;
 
 	/**
-	 * Az eseményben résztvevõ felhasználó.
+	 * Az esemÃ©nyben rÃ©sztvevÅ‘ felhasznÃ¡lÃ³.
 	 */
 	@ManyToOne
 	private User user;
 
 	/**
-	 * Az esemény dátuma.
+	 * Az esemÃ©ny dÃ¡tuma.
 	 */
 	private LocalDateTime date;
 

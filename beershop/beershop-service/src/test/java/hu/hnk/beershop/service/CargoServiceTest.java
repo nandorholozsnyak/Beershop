@@ -24,6 +24,7 @@ import hu.hnk.service.RestrictionCheckerServiceImpl;
 import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.BuyActionRestrictions;
 
+
 public class CargoServiceTest {
 
 	private CargoServiceImpl cargoServiceImpl;
@@ -48,14 +49,14 @@ public class CargoServiceTest {
 	public void testSaveNewCargoShouldThorwDailyBuyActionLimitExceeded()
 			throws DailyBuyActionLimitExceeded, CanNotBuyLegendaryBeerYetException {
 		User user = new User();
-		// Amatır lesz a felhaszn·lÛnk.
+		// Amat≈ër lesz a felhaszn√°l√≥nk.
 		user.setExperiencePoints(1.0);
 		List<CartItem> items = new ArrayList<>();
 		Cargo cargo = new Cargo();
 		cargo.setUser(user);
 
 		List<EventLog> logs = new ArrayList<>();
-		// az amatır rendelÈsi limitnÈl egyel nagyobbat adunk meg.
+		// az amat≈ër rendel√©si limitn√©l egyel nagyobbat adunk meg.
 		for (int i = 0; i < BuyActionRestrictions.getRestirctedValues()
 				.get(0)
 				.getRestrictedValue() + 1; i++) {
@@ -70,13 +71,13 @@ public class CargoServiceTest {
 	public void testSaveNewCargoShouldThorwCanNotBuyLegendaryBeerYetException()
 			throws DailyBuyActionLimitExceeded, CanNotBuyLegendaryBeerYetException {
 		User user = new User();
-		// Amatır lesz a felhaszn·lÛnk.
+		// Amat≈ër lesz a felhaszn√°l√≥nk.
 		user.setExperiencePoints(1.0);
 		List<CartItem> items = new ArrayList<>();
 		Cargo cargo = new Cargo();
 		cargo.setUser(user);
 
-		// Legend·s sˆr elkÈszÌtÈse.
+		// Legend√°s s√∂r elk√©sz√≠t√©se.
 		Beer beer = new Beer();
 		beer.setLegendary(true);
 
@@ -85,7 +86,7 @@ public class CargoServiceTest {
 		cartItem.setQuantity(1);
 		items.add(cartItem);
 		List<EventLog> logs = new ArrayList<>();
-		// az amatır rendelÈsi limitnÈl egyel nagyobbat adunk meg.
+		// az amat≈ër rendel√©si limitn√©l egyel nagyobbat adunk meg.
 		for (int i = 0; i < BuyActionRestrictions.getRestirctedValues()
 				.get(0)
 				.getRestrictedValue(); i++) {
@@ -101,14 +102,14 @@ public class CargoServiceTest {
 	@Test
 	public void testSaveNewCargoShouldUpdateUsersMoneyAfterPayment() throws Exception {
 		User user = new User();
-		// Amatır lesz a felhaszn·lÛnk.
+		// Amat≈ër lesz a felhaszn√°l√≥nk.
 		user.setExperiencePoints(1.0);
 		user.setMoney(250.0);
 		List<CartItem> items = new ArrayList<>();
 		Cargo cargo = new Cargo();
 		cargo.setUser(user);
 
-		// Sˆr elkÈszÌtÈse.
+		// S√∂r elk√©sz√≠t√©se.
 		Beer beer = new Beer();
 		beer.setPrice(100.0);
 
@@ -116,11 +117,11 @@ public class CargoServiceTest {
 		cartItem.setBeer(beer);
 		cartItem.setQuantity(1);
 		items.add(cartItem);
-		// ¡ra 100 Ft;
+		// √Åra 100 Ft;
 		cargo.setItems(items);
 		cargo.setTotalPrice(100.0);
 		List<EventLog> logs = new ArrayList<>();
-		// az amatır rendelÈsi limitnÈl egyel nagyobbat adunk meg.
+		// az amat≈ër rendel√©si limitn√©l egyel nagyobbat adunk meg.
 		for (int i = 0; i < BuyActionRestrictions.getRestirctedValues()
 				.get(0)
 				.getRestrictedValue(); i++) {

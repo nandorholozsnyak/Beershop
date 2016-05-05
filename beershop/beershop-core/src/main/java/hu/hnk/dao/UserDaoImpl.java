@@ -16,8 +16,9 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.UserDao;
 import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 
+
 /**
- * A felhaszn·lÛkat kezelı adathozz·fÈrÈsi oszt·ly implement·ciÛja. Enterprise
+ * A felhaszn√°l√≥kat kezel≈ë adathozz√°f√©r√©si oszt√°ly implement√°ci√≥ja. Enterprise
  * Java Bean
  * 
  * @author Nandi
@@ -29,19 +30,19 @@ import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
 	/**
-	 * Az oszt·ly konstuktora.
+	 * Az oszt√°ly konstuktora.
 	 */
 	public UserDaoImpl() {
 		super(User.class);
 	}
 
 	/**
-	 * Az oszt·ly Logger-e.
+	 * Az oszt√°ly Logger-e.
 	 */
 	public static final Logger logger = Logger.getLogger(UserDaoImpl.class);
 
 	/**
-	 * Az oszt·ly entit·s menedzsere.
+	 * Az oszt√°ly entit√°s menedzsere.
 	 */
 	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
 	private EntityManager em;
@@ -50,7 +51,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	 * {@inheritDoc}
 	 */
 	public User save(User user) {
-		logger.info("Felhaszn·lÛ mentÈse.");
+		logger.info("Felhaszn√°l√≥ ment√©se.");
 		// return em.merge(user);
 		em.persist(user);
 		return user;

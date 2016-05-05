@@ -29,6 +29,7 @@ import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.MoneyTransferRestrictions;
 import hu.hnk.service.tools.RankInterval;
 
+
 public class UserServiceTest {
 
 	private UserServiceImpl userService;

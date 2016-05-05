@@ -17,6 +17,7 @@ import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.BuyActionRestrictions;
 import hu.hnk.service.tools.MoneyTransferRestrictions;
 
+
 /**
  * @author Nandi
  *
@@ -32,9 +33,9 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	private List<BuyActionRestrictions> boyActionRestrictions = BuyActionRestrictions.getRestirctedValues();
 
 	/**
-	 * Amatõr felhasználó csak napi 3-szor töltheti fel a kártyáját. Sörfelelõs
-	 * napi 4-szor töltheti fel a kártyáját. Ivóbajnok napi 5-ször töltheti fel
-	 * a kártyáját és kap minden feltöltés után bónusz 5%-ot.
+	 * AmatÅ‘r felhasznÃ¡lÃ³ csak napi 3-szor tÃ¶ltheti fel a kÃ¡rtyÃ¡jÃ¡t. SÃ¶rfelelÅ‘s
+	 * napi 4-szor tÃ¶ltheti fel a kÃ¡rtyÃ¡jÃ¡t. IvÃ³bajnok napi 5-szÃ¶r tÃ¶ltheti fel
+	 * a kÃ¡rtyÃ¡jÃ¡t Ã©s kap minden feltÃ¶ltÃ©s utÃ¡n bÃ³nusz 5%-ot.
 	 */
 	@Override
 	public boolean checkIfUserCanTransferMoney(User user) {

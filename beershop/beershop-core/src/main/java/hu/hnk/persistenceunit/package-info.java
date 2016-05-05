@@ -1,7 +1,7 @@
 /**
- * Az entitás menedzser beállításait tartalmazó csomag. A
- * {@link hu.hnk.persistenceunit.PersistenceUnitDeclaration} osztályban a
- * használandó persitence-unit-ot tudjuk beállítani.
+ * Az entitÃ¡s menedzser beÃ¡llÃ­tÃ¡sait tartalmazÃ³ csomag. A
+ * {@link hu.hnk.persistenceunit.PersistenceUnitDeclaration} osztÃ¡lyban a
+ * hasznÃ¡landÃ³ persitence-unit-ot tudjuk beÃ¡llÃ­tani.
  * 
  * @author Nandi
  *

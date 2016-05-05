@@ -2,8 +2,9 @@ package hu.hnk.interfaces;
 
 import hu.hnk.beershop.model.Cargo;
 
+
 /**
- * A szállításokat kezelõ adathozzáférési osztály interfésze.
+ * A szÃ¡llÃ­tÃ¡sokat kezelÅ‘ adathozzÃ¡fÃ©rÃ©si osztÃ¡ly interfÃ©sze.
  * 
  * @author Nandi
  *

@@ -12,7 +12,8 @@ import hu.hnk.beershop.model.Cargo;
 import hu.hnk.interfaces.CargoDao;
 
 /**
- * A kosarakat kezelı adathozz·fÈrÈsi oszt·ly implement·ciÛja.
+ * 
+ * A kosarakat kezel≈ë adathozz√°f√©r√©si oszt√°ly implement√°ci√≥ja.
  * 
  * @author Nandi
  *
@@ -23,7 +24,7 @@ import hu.hnk.interfaces.CargoDao;
 public class CargoDaoImpl extends BaseDaoImpl<Cargo> implements CargoDao {
 
 	/**
-	 * Az oszt·ly konstuktora.
+	 * Az oszt√°ly konstuktora.
 	 */
 	public CargoDaoImpl() {
 		super(Cargo.class);

@@ -24,6 +24,7 @@ import hu.hnk.beershop.service.interfaces.StorageService;
 import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
 
+
 /**
  * @author Nandi
  *
@@ -38,24 +39,24 @@ public class BeerShopManager implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Az osztály loggere.
+	 * Az osztÃ¡ly loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(BeerShopManager.class);
 
 	/**
-	 * A söröket kezelõ szolgáltatás.
+	 * A sÃ¶rÃ¶ket kezelÅ‘ szolgÃ¡ltatÃ¡s.
 	 */
 	@EJB
 	private BeerService beerService;
 
 	/**
-	 * A raktárt kezelõ szolgáltatás.
+	 * A raktÃ¡rt kezelÅ‘ szolgÃ¡ltatÃ¡s.
 	 */
 	@EJB
 	private StorageService storageService;
 
 	/**
-	 * A kosarat kezelõ szolgáltatás.
+	 * A kosarat kezelÅ‘ szolgÃ¡ltatÃ¡s.
 	 */
 	@EJB
 	private CartService cartService;
@@ -64,19 +65,19 @@ public class BeerShopManager implements Serializable {
 	private SessionManager sessionManager;
 
 	/**
-	 * A sörök listája.
+	 * A sÃ¶rÃ¶k listÃ¡ja.
 	 */
 	private List<Beer> beersInShop;
 
 	/**
-	 * A kiválasztott sör.
+	 * A kivÃ¡lasztott sÃ¶r.
 	 */
 	private Beer selectedBeer;
 
 	private Map<Beer, Integer> beersToCart;
 
 	/**
-	 * Inicializáló metódus, a managed bean létrejöttekor.
+	 * InicializÃ¡lÃ³ metÃ³dus, a managed bean lÃ©trejÃ¶ttekor.
 	 */
 	@PostConstruct
 	public void init() {
@@ -107,7 +108,7 @@ public class BeerShopManager implements Serializable {
 					.findFirst()
 					.get()
 					.getQuantity());
-			FacesMessageTool.createInfoMessage("A raktár maximumát elérte.");
+			FacesMessageTool.createInfoMessage("A raktÃ¡r maximumÃ¡t elÃ©rte.");
 		} catch (NegativeQuantityNumber e) {
 			logger.warn(e.getMessage());
 		}
@@ -131,7 +132,7 @@ public class BeerShopManager implements Serializable {
 					.getQuantity());
 		} catch (NegativeQuantityNumber e) {
 			logger.warn(e.getMessage());
-			FacesMessageTool.createWarnMessage("A darabszám nem lehet negatív érték!");
+			FacesMessageTool.createWarnMessage("A darabszÃ¡m nem lehet negatÃ­v Ã©rtÃ©k!");
 		}
 
 	}
@@ -140,43 +141,43 @@ public class BeerShopManager implements Serializable {
 
 		cartService.saveItemsToCart(beersToCart, cartService.findByUser(sessionManager.getLoggedInUser()));
 
-		FacesMessageTool.createInfoMessage("Termékek a kosárba helyezve.");
+		FacesMessageTool.createInfoMessage("TermÃ©kek a kosÃ¡rba helyezve.");
 		resetCart();
 	}
 
 	/**
-	 * Visszaadja az adatbázisban szereplõ sörök listáját.
+	 * Visszaadja az adatbÃ¡zisban szereplÅ‘ sÃ¶rÃ¶k listÃ¡jÃ¡t.
 	 * 
-	 * @return az adatbázisban szereplõ sörök listája.
+	 * @return az adatbÃ¡zisban szereplÅ‘ sÃ¶rÃ¶k listÃ¡ja.
 	 */
 	public List<Beer> getBeersInShop() {
 		return beersInShop;
 	}
 
 	/**
-	 * Beállítja a megjelenítendõ sörök listáját.
+	 * BeÃ¡llÃ­tja a megjelenÃ­tendÅ‘ sÃ¶rÃ¶k listÃ¡jÃ¡t.
 	 * 
 	 * @param beersInShop
-	 *            a megjelenítendõ sörök.
+	 *            a megjelenÃ­tendÅ‘ sÃ¶rÃ¶k.
 	 */
 	public void setBeersInShop(List<Beer> beersInShop) {
 		this.beersInShop = beersInShop;
 	}
 
 	/**
-	 * Visszaadja a kiválasztott sört a lisátból.
+	 * Visszaadja a kivÃ¡lasztott sÃ¶rt a lisÃ¡tbÃ³l.
 	 * 
-	 * @return a kiválasztott sör.
+	 * @return a kivÃ¡lasztott sÃ¶r.
 	 */
 	public Beer getSelectedBeer() {
 		return selectedBeer;
 	}
 
 	/**
-	 * Beállítja a kiválasztott sört.
+	 * BeÃ¡llÃ­tja a kivÃ¡lasztott sÃ¶rt.
 	 * 
 	 * @param selectedBeer
-	 *            a kiválsztott sör.
+	 *            a kivÃ¡lsztott sÃ¶r.
 	 */
 	public void setSelectedBeer(Beer selectedBeer) {
 		this.selectedBeer = selectedBeer;

@@ -3,6 +3,7 @@
  */
 package hu.hnk.beershop.exception;
 
+
 /**
  * @author Nandi
  *
@@ -15,31 +16,31 @@ public class UsernameNotFound extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Konstuktor, mely létrehoz egy UsernameNotFound kivételt null értékkel.
+	 * Konstuktor, mely lÃ©trehoz egy UsernameNotFound kivÃ©telt null Ã©rtÃ©kkel.
 	 */
 	public UsernameNotFound() {
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy UsernameNotFound kivételt a megadott üzenettel.
-	 * @param message a részletes üzenet.
+	 * Konstuktor, mely lÃ©trehoz egy UsernameNotFound kivÃ©telt a megadott Ã¼zenettel.
+	 * @param message a rÃ©szletes Ã¼zenet.
 	 */
 	public UsernameNotFound(String message) {
 		super(message);
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy UsernameNotFound kivételt a megadott okozóval.
-	 * @param cause az okozó.
+	 * Konstuktor, mely lÃ©trehoz egy UsernameNotFound kivÃ©telt a megadott okozÃ³val.
+	 * @param cause az okozÃ³.
 	 */
 	public UsernameNotFound(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy UsernameNotFound kivételt a megadott üzenettel és okozóval.
-	 * @param message a részletes üzenet.
-	 * @param cause az okozó.
+	 * Konstuktor, mely lÃ©trehoz egy UsernameNotFound kivÃ©telt a megadott Ã¼zenettel Ã©s okozÃ³val.
+	 * @param message a rÃ©szletes Ã¼zenet.
+	 * @param cause az okozÃ³.
 	 */
 	public UsernameNotFound(String message, Throwable cause) {
 		super(message, cause);

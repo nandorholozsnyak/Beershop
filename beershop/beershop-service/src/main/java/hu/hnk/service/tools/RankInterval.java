@@ -5,8 +5,9 @@ import java.util.List;
 
 import hu.hnk.beershop.model.Rank;
 
+
 /**
- * A rangok tapasztalatponthoz kˆtˆtt inform·ciÛit leÌrÛ oszt·ly.
+ * A rangok tapasztalatponthoz k√∂t√∂tt inform√°ci√≥it le√≠r√≥ oszt√°ly.
  * 
  * @author Nandi
  *
@@ -14,28 +15,28 @@ import hu.hnk.beershop.model.Rank;
 public class RankInterval {
 
 	/**
-	 * A rang amit a minimum illetve maximum tapasztalatpont hat·roz meg.
+	 * A rang amit a minimum illetve maximum tapasztalatpont hat√°roz meg.
 	 */
 	private Rank rank;
 	/**
-	 * A minim·lis tapasztalatpont.
+	 * A minim√°lis tapasztalatpont.
 	 */
 	private Integer minimumXP;
 	/**
-	 * A maxim·lis tapasztalatpont.
+	 * A maxim√°lis tapasztalatpont.
 	 */
 	private Integer maximumXP;
 
 	/**
-	 * A rangokat tartalmazÛ statikus lista.
+	 * A rangokat tartalmaz√≥ statikus lista.
 	 */
 	private static List<RankInterval> rankIntverals;
 
 	/**
-	 * Az oszt·ly konstuktora.
+	 * Az oszt√°ly konstuktora.
 	 * 
 	 * @param rank
-	 *            a szab·lyozandÛ rang.
+	 *            a szab√°lyozand√≥ rang.
 	 * @param minimumXP
 	 *            a minimum tapasztalatpont.
 	 * @param maximumXP
@@ -68,27 +69,27 @@ public class RankInterval {
 	}
 
 	/**
-	 * Visszaadja a minim·lis tapasztalatpontot.
+	 * Visszaadja a minim√°lis tapasztalatpontot.
 	 * 
-	 * @return a minim·lis tapasztalatpont.
+	 * @return a minim√°lis tapasztalatpont.
 	 */
 	public Integer getMinimumXP() {
 		return minimumXP;
 	}
 
 	/**
-	 * Visszaadja a maxim·lis tapasztalatpontot.
+	 * Visszaadja a maxim√°lis tapasztalatpontot.
 	 * 
-	 * @return a maxim·lis tapasztalatpont.
+	 * @return a maxim√°lis tapasztalatpont.
 	 */
 	public Integer getMaximumXP() {
 		return maximumXP;
 	}
 
 	/**
-	 * Visszaadja a m·r meghat·rozott rangok list·j·t.
+	 * Visszaadja a m√°r meghat√°rozott rangok list√°j√°t.
 	 * 
-	 * @return a meghat·rozott rangok list·ja.
+	 * @return a meghat√°rozott rangok list√°ja.
 	 */
 	public static List<RankInterval> getRankIntverals() {
 		return rankIntverals;

@@ -2,6 +2,7 @@ package hu.hnk.interfaces;
 
 import hu.hnk.beershop.model.CartItem;
 
+
 /**
  * @author Nandi
  *
@@ -9,12 +10,12 @@ import hu.hnk.beershop.model.CartItem;
 public interface CartItemDao extends BaseDao<CartItem> {
 
 	/**
-	 * Termék logikai törlése a kosárból.
+	 * TermÃ©k logikai tÃ¶rlÃ©se a kosÃ¡rbÃ³l.
 	 * 
 	 * @param item
-	 *            a törlendõ termék.
+	 *            a tÃ¶rlendÅ‘ termÃ©k.
 	 * @throws Exception
-	 *             bármilyen hibás adatbázis mûvelet esetén.
+	 *             bÃ¡rmilyen hibÃ¡s adatbÃ¡zis mÅ±velet esetÃ©n.
 	 */
 	public void deleteItemLogically(CartItem item) throws Exception;
 }

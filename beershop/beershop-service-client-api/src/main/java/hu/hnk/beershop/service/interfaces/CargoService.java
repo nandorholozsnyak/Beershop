@@ -8,6 +8,7 @@ import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
 
+
 /**
  * @author Nandi
  *
@@ -23,12 +24,12 @@ public interface CargoService {
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items) throws DailyBuyActionLimitExceeded, CanNotBuyLegendaryBeerYetException;
 
 	/**
-	 * Ellenõrzi hogy a paraméterként megadott felhasználónak rendelkezésére
-	 * áll-e elegendõ pénz a fizetésre.
+	 * EllenÅ‘rzi hogy a paramÃ©terkÃ©nt megadott felhasznÃ¡lÃ³nak rendelkezÃ©sÃ©re
+	 * Ã¡ll-e elegendÅ‘ pÃ©nz a fizetÃ©sre.
 	 * 
 	 * @param user
-	 *            az ellenõrizendõ felhaszánló.
-	 * @return igaz ha van elég pénze, hamis ha nem.
+	 *            az ellenÅ‘rizendÅ‘ felhaszÃ¡nlÃ³.
+	 * @return igaz ha van elÃ©g pÃ©nze, hamis ha nem.
 	 */
 	public boolean isThereEnoughMoney(User user);
 }

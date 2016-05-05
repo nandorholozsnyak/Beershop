@@ -25,6 +25,7 @@ import hu.hnk.interfaces.StorageDao;
 import hu.hnk.service.CartServiceImpl;
 import junit.framework.Assert;
 
+
 public class CartServiceTest {
 
 	private CartServiceImpl cartService;
@@ -60,8 +61,8 @@ public class CartServiceTest {
 
 	@Test
 	public void testCountBonusPoints() {
-		// Képlet: (Mennyiség*Ár) / 100 + Alkoholtartalom + kapacitás +
-		// kedvezmény
+		// KÃ©plet: (MennyisÃ©g*Ãr) / 100 + Alkoholtartalom + kapacitÃ¡s +
+		// kedvezmÃ©ny
 		List<CartItem> cartItems = new ArrayList<>();
 		CartItem cartItem = new CartItem();
 		Beer beer = new Beer();
@@ -138,23 +139,23 @@ public class CartServiceTest {
 
 	@Test
 	public void testSaveItemsToCartEmptyCart() {
-		// Létrehozunk egy kosarat.
+		// LÃ©trehozunk egy kosarat.
 		Cart cart = new Cart();
-		// Most egy teljesen üres kosárral kezdünk.
+		// Most egy teljesen Ã¼res kosÃ¡rral kezdÃ¼nk.
 		cart.setItems(new ArrayList<>());
 
-		// Definiáljuk azokat a söröket amik majd belekerülnek a kosárba.
+		// DefiniÃ¡ljuk azokat a sÃ¶rÃ¶ket amik majd belekerÃ¼lnek a kosÃ¡rba.
 		Beer firstBeer = new Beer();
 		firstBeer.setName("First Beer");
 		Beer secondBeer = new Beer();
 		secondBeer.setName("Second Beer");
 
-		// Belerakjuk a söröket.
+		// Belerakjuk a sÃ¶rÃ¶ket.
 		Map<Beer, Integer> beersToCart = new HashMap<>();
 		beersToCart.put(firstBeer, 10);
 		beersToCart.put(secondBeer, 5);
 
-		// Definiáljuk a raktárban lévõ söröket.
+		// DefiniÃ¡ljuk a raktÃ¡rban lÃ©vÅ‘ sÃ¶rÃ¶ket.
 		StorageItem firstSi = new StorageItem();
 		StorageItem secondSi = new StorageItem();
 
@@ -169,7 +170,7 @@ public class CartServiceTest {
 		Mockito.when(storageDao.findAll())
 				.thenReturn(stList);
 
-		// A visszavárt sörök, amelyek mint kosár tárgyak helyezõdnek a kosárba.
+		// A visszavÃ¡rt sÃ¶rÃ¶k, amelyek mint kosÃ¡r tÃ¡rgyak helyezÅ‘dnek a kosÃ¡rba.
 		CartItem firstExpected = new CartItem();
 		firstExpected.setBeer(firstBeer);
 		firstExpected.setQuantity(10);
@@ -178,7 +179,7 @@ public class CartServiceTest {
 		secondExpected.setBeer(secondBeer);
 		secondExpected.setQuantity(5);
 
-		// Szükséges a dátum set-elése miatt.
+		// SzÃ¼ksÃ©ges a dÃ¡tum set-elÃ©se miatt.
 		cartService.saveItemsToCart(beersToCart, cart);
 		for (CartItem cItem : cart.getItems()) {
 			cItem.setAddedToCart(null);
@@ -190,20 +191,20 @@ public class CartServiceTest {
 
 	@Test
 	public void testSaveItemsToCartWithOneItemInIt() {
-		// Létrehozunk egy kosarat.
+		// LÃ©trehozunk egy kosarat.
 		Cart cart = new Cart();
 
-		// Definiáljuk azokat a söröket amik majd belekerülnek a kosárba.
+		// DefiniÃ¡ljuk azokat a sÃ¶rÃ¶ket amik majd belekerÃ¼lnek a kosÃ¡rba.
 		Beer firstBeer = new Beer();
 		firstBeer.setName("First Beer");
 		Beer secondBeer = new Beer();
 		secondBeer.setName("Second Beer");
 
-		// Belerakjuk az elsõ sört, 10 darabszámmal.
+		// Belerakjuk az elsÅ‘ sÃ¶rt, 10 darabszÃ¡mmal.
 		Map<Beer, Integer> beersToCart = new HashMap<>();
 		beersToCart.put(firstBeer, 10);
 
-		// Létrehozzuk a raktárban való megfelelójüket.
+		// LÃ©trehozzuk a raktÃ¡rban valÃ³ megfelelÃ³jÃ¼ket.
 		StorageItem firstSi = new StorageItem();
 		StorageItem secondSi = new StorageItem();
 		firstSi.setBeer(firstBeer);
@@ -212,31 +213,31 @@ public class CartServiceTest {
 		secondSi.setBeer(secondBeer);
 		secondSi.setQuantity(10);
 
-		// Mockoljuk az eredményt amikor meghívódik a storageDao.findAll()
-		// metódusa.
+		// Mockoljuk az eredmÃ©nyt amikor meghÃ­vÃ³dik a storageDao.findAll()
+		// metÃ³dusa.
 		List<StorageItem> stList = new LinkedList(Arrays.asList(firstSi, secondSi));
 		Mockito.when(storageDao.findAll())
 				.thenReturn(stList);
 
-		// A legelsõ elemet várjuk ami benne van a mi kosarunkban.
-		// Már szerepel egy ilyen termék, a 10 darabszámmal a kosárban most azt
-		// várjuk hogy ezután 20 darab lesz belõle.
+		// A legelsÅ‘ elemet vÃ¡rjuk ami benne van a mi kosarunkban.
+		// MÃ¡r szerepel egy ilyen termÃ©k, a 10 darabszÃ¡mmal a kosÃ¡rban most azt
+		// vÃ¡rjuk hogy ezutÃ¡n 20 darab lesz belÅ‘le.
 		CartItem firstExpected = new CartItem();
 		firstExpected.setBeer(firstBeer);
 		firstExpected.setActive(true);
 		firstExpected.setQuantity(10);
 
-		// Most már egy olyan kosarunk van amelyben szerepel egy termék.
+		// Most mÃ¡r egy olyan kosarunk van amelyben szerepel egy termÃ©k.
 		cart.setItems(new LinkedList(Arrays.asList(firstExpected)));
 
-		// Szükséges a dátum set-elése miatt.
+		// SzÃ¼ksÃ©ges a dÃ¡tum set-elÃ©se miatt.
 		cartService.saveItemsToCart(beersToCart, cart);
 		for (CartItem cItem : cart.getItems()) {
 			cItem.setAddedToCart(null);
 		}
 
-		// Azt teszteljük hogy vajon a kosarunkban a termék megegyezik-e mint
-		// amit mi várunk.
+		// Azt teszteljÃ¼k hogy vajon a kosarunkban a termÃ©k megegyezik-e mint
+		// amit mi vÃ¡runk.
 		// System.out.println("Exp->" + Arrays.asList(firstExpected));
 		// System.out.println("Cart->" + cart.getItems());
 		Assert.assertEquals(Arrays.asList(firstExpected), cart.getItems());
@@ -246,24 +247,24 @@ public class CartServiceTest {
 
 	}
 
-	// Olyan sört szeretnénk kérni ami nem is létezik a raktárban.
+	// Olyan sÃ¶rt szeretnÃ©nk kÃ©rni ami nem is lÃ©tezik a raktÃ¡rban.
 	// Lehetetlen eset.
 	@Test
 	public void testSaveItemsToCartWithUnmanagedBeer() {
-		// Létrehozunk egy kosarat.
+		// LÃ©trehozunk egy kosarat.
 		Cart cart = new Cart();
 
-		// Definiáljuk azokat a söröket amik majd belekerülnek a kosárba.
+		// DefiniÃ¡ljuk azokat a sÃ¶rÃ¶ket amik majd belekerÃ¼lnek a kosÃ¡rba.
 		Beer firstBeer = new Beer();
 		firstBeer.setName("First Beer");
 		Beer secondBeer = new Beer();
 		secondBeer.setName("Second Beer");
 
-		// Belerakjuk az elsõ sört, 10 darabszámmal.
+		// Belerakjuk az elsÅ‘ sÃ¶rt, 10 darabszÃ¡mmal.
 		Map<Beer, Integer> beersToCart = new HashMap<>();
 		beersToCart.put(firstBeer, 10);
 
-		// Létrehozzuk a raktárban való megfelelójüket.
+		// LÃ©trehozzuk a raktÃ¡rban valÃ³ megfelelÃ³jÃ¼ket.
 		StorageItem firstSi = new StorageItem();
 		StorageItem secondSi = new StorageItem();
 		firstSi.setBeer(firstBeer);
@@ -272,25 +273,25 @@ public class CartServiceTest {
 		secondSi.setBeer(secondBeer);
 		secondSi.setQuantity(10);
 
-		// Mockoljuk az eredményt amikor meghívódik a storageDao.findAll()
-		// metódusa.
-		// Itt a trükk, a második sör már nem szerepel az adatbázisban.
+		// Mockoljuk az eredmÃ©nyt amikor meghÃ­vÃ³dik a storageDao.findAll()
+		// metÃ³dusa.
+		// Itt a trÃ¼kk, a mÃ¡sodik sÃ¶r mÃ¡r nem szerepel az adatbÃ¡zisban.
 		List<StorageItem> stList = new LinkedList(Arrays.asList(secondSi));
 		Mockito.when(storageDao.findAll())
 				.thenReturn(stList);
 
-		// A legelsõ elemet várjuk ami benne van a mi kosarunkban.
-		// Már szerepel egy ilyen termék, a 10 darabszámmal a kosárban most azt
-		// várjuk hogy ezután 20 darab lesz belõle.
+		// A legelsÅ‘ elemet vÃ¡rjuk ami benne van a mi kosarunkban.
+		// MÃ¡r szerepel egy ilyen termÃ©k, a 10 darabszÃ¡mmal a kosÃ¡rban most azt
+		// vÃ¡rjuk hogy ezutÃ¡n 20 darab lesz belÅ‘le.
 		CartItem firstExpected = new CartItem();
 		firstExpected.setBeer(firstBeer);
 		firstExpected.setActive(true);
 		firstExpected.setQuantity(10);
 
-		// Most már egy olyan kosarunk van amelyben szerepel egy termék.
+		// Most mÃ¡r egy olyan kosarunk van amelyben szerepel egy termÃ©k.
 		cart.setItems(new ArrayList<>());
 
-		// Szükséges a dátum set-elése miatt.
+		// SzÃ¼ksÃ©ges a dÃ¡tum set-elÃ©se miatt.
 		cartService.saveItemsToCart(beersToCart, cart);
 		for (CartItem cItem : cart.getItems()) {
 			cItem.setAddedToCart(null);

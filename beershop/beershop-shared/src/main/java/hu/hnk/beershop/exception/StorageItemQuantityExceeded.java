@@ -3,6 +3,7 @@
  */
 package hu.hnk.beershop.exception;
 
+
 /**
  * @author Nandi
  *
@@ -15,31 +16,31 @@ public class StorageItemQuantityExceeded extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Konstuktor, mely létrehoz egy StorageQuantityExceeded kivételt.
+	 * Konstuktor, mely lÃ©trehoz egy StorageQuantityExceeded kivÃ©telt.
 	 */
 	public StorageItemQuantityExceeded() {
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy StorageQuantityExceeded kivételt a megadott üzenettel.
-	 * @param message a részletes üzenet.
+	 * Konstuktor, mely lÃ©trehoz egy StorageQuantityExceeded kivÃ©telt a megadott Ã¼zenettel.
+	 * @param message a rÃ©szletes Ã¼zenet.
 	 */
 	public StorageItemQuantityExceeded(String message) {
 		super(message);
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy StorageQuantityExceeded kivételt a megadott okozóval.
-	 * @param cause az okozó
+	 * Konstuktor, mely lÃ©trehoz egy StorageQuantityExceeded kivÃ©telt a megadott okozÃ³val.
+	 * @param cause az okozÃ³
 	 */
 	public StorageItemQuantityExceeded(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy StorageQuantityExceeded kivételt a megadott üzenettel és okozóval.
-	 * @param message a részletes üzenet.
-	 * @param cause az okozó.
+	 * Konstuktor, mely lÃ©trehoz egy StorageQuantityExceeded kivÃ©telt a megadott Ã¼zenettel Ã©s okozÃ³val.
+	 * @param message a rÃ©szletes Ã¼zenet.
+	 * @param cause az okozÃ³.
 	 */
 	public StorageItemQuantityExceeded(String message, Throwable cause) {
 		super(message, cause);

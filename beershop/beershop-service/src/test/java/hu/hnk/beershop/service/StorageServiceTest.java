@@ -23,6 +23,7 @@ import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.StorageServiceImpl;
 import hu.hnk.service.UserServiceImpl;
 
+
 public class StorageServiceTest {
 
 	private StorageServiceImpl storageService;
@@ -41,7 +42,7 @@ public class StorageServiceTest {
 	public void testTheckStorageItemQuantityLimitShouldThrowStorageItemQuantityExceeded()
 			throws StorageItemQuantityExceeded, NegativeQuantityNumber {
 		Beer beer = new Beer();
-		beer.setName("Teszt sör");
+		beer.setName("Teszt sÃ¶r");
 		StorageItem item = new StorageItem();
 		item.setBeer(beer);
 		item.setQuantity(1);
@@ -55,7 +56,7 @@ public class StorageServiceTest {
 	public void testTheckStorageItemQuantityLimitShouldThrowNegativeQuantityNumber()
 			throws StorageItemQuantityExceeded, NegativeQuantityNumber {
 		Beer beer = new Beer();
-		beer.setName("Teszt sör");
+		beer.setName("Teszt sÃ¶r");
 		StorageItem item = new StorageItem();
 		item.setBeer(beer);
 		item.setQuantity(1);
@@ -68,7 +69,7 @@ public class StorageServiceTest {
 	@Test(expected = NegativeQuantityNumber.class)
 	public void testSaveAllChangesShouldThrowNegativeQuantityNumber() throws NegativeQuantityNumber {
 		Beer beer = new Beer();
-		beer.setName("Teszt sör");
+		beer.setName("Teszt sÃ¶r");
 		StorageItem item = new StorageItem();
 		item.setBeer(beer);
 		item.setQuantity(-1);
@@ -81,7 +82,7 @@ public class StorageServiceTest {
 	@Test
 	public void testSaveAllChangesShouldThrowNothing() throws NegativeQuantityNumber {
 		Beer beer = new Beer();
-		beer.setName("Teszt sör");
+		beer.setName("Teszt sÃ¶r");
 		beer.setDiscountAmount(0);
 		StorageItem item = new StorageItem();
 		item.setBeer(beer);

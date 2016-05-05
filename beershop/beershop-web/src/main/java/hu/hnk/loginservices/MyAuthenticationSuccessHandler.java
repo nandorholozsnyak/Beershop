@@ -16,8 +16,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
+
 /**
- * Az authentik·ciÛs szolg·ltat·s.
+ * Az authentik√°ci√≥s szolg√°ltat√°s.
  * 
  * @author Nandi
  *
@@ -26,7 +27,7 @@ import org.springframework.stereotype.Service;
 public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
 	/**
-	 * Az authentik·ciÛt vÈgzı metÛdus.
+	 * Az authentik√°ci√≥t v√©gz≈ë met√≥dus.
 	 * 
 	 * @param request
 	 *            a {@link HttpServletRequest}

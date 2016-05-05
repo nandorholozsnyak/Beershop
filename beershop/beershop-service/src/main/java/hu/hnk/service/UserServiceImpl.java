@@ -30,8 +30,9 @@ import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.RankInterval;
 
+
 /**
- * A felhaszn·lÛi szolg·lat·sokkal foglalkozÛ oszt·ly. Enterprise Java Bean.
+ * A felhaszn√°l√≥i szolg√°lat√°sokkal foglalkoz√≥ oszt√°ly. Enterprise Java Bean.
  * 
  * @author Nandi
  * 
@@ -41,24 +42,24 @@ import hu.hnk.service.tools.RankInterval;
 public class UserServiceImpl implements UserService {
 
 	/**
-	 * Az oszt·ly loggere.
+	 * Az oszt√°ly loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
 	/**
-	 * A felhaszn·lÛkat kezelı adathozz·fÈrÈsi objektum.
+	 * A felhaszn√°l√≥kat kezel≈ë adathozz√°f√©r√©si objektum.
 	 */
 	@EJB
 	private UserDao userDao;
 
 	/**
-	 * A jogkˆrˆket kezelı adathozz·fÈrÈsi objektum.
+	 * A jogk√∂r√∂ket kezel≈ë adathozz√°f√©r√©si objektum.
 	 */
 	@EJB
 	private RoleDao roleDao;
 
 	/**
-	 * Az esemÈnyeket kezelı szolg·ltat·s.
+	 * Az esem√©nyeket kezel≈ë szolg√°ltat√°s.
 	 */
 	@EJB
 	private EventLogService eventLogService;
@@ -69,10 +70,10 @@ public class UserServiceImpl implements UserService {
 	private List<RankInterval> rankIntverals = RankInterval.getRankIntverals();
 
 	/**
-	 * A felhaszn·lÛ mentÈse.
+	 * A felhaszn√°l√≥ ment√©se.
 	 * 
 	 * @param user
-	 *            A mentendı felhaszn·lÛ.
+	 *            A mentend≈ë felhaszn√°l√≥.
 	 */
 	public void save(User user) {
 		Role role = roleDao.findByName("ROLE_USER");
@@ -112,11 +113,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * Ellenırzi hogy a megadott d·tum m·r "idısebb" mint 18 Èv.
+	 * Ellen≈ërzi hogy a megadott d√°tum m√°r "id≈ësebb" mint 18 √©v.
 	 * 
 	 * @param dateOfBirth
-	 *            a vizsg·landÛ d·tum.
-	 * @return igaz ha idısebb, hamis ha mÈg nem.
+	 *            a vizsg√°land√≥ d√°tum.
+	 * @return igaz ha id≈ësebb, hamis ha m√©g nem.
 	 */
 	public boolean isOlderThanEighteen(Date dateOfBirth) {
 		LocalDate now = LocalDate.now();
@@ -128,11 +129,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * Felhaszn·lÛ keresÈse a felhaszn·lÛneve alapj·n.
+	 * Felhaszn√°l√≥ keres√©se a felhaszn√°l√≥neve alapj√°n.
 	 * 
 	 * @param username
-	 *            a keresendı felhaszn·lÛnÈv
-	 * @return a megtal·lt felhaszn·lÛ, ha nincs ilyen akkor null.
+	 *            a keresend≈ë felhaszn√°l√≥n√©v
+	 * @return a megtal√°lt felhaszn√°l√≥, ha nincs ilyen akkor null.
 	 */
 	@Override
 	public User findByUsername(String username) {
@@ -146,12 +147,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * Felhaszn·lÛnÈv ellenˆrzÈs, a kapott felhaszn·lÛnevet ellenırzi hogy
-	 * v·laszhatÛ-e mÈg a regisztr·ciÛ sor·n.
+	 * Felhaszn√°l√≥n√©v ellen√∂rz√©s, a kapott felhaszn√°l√≥nevet ellen≈ërzi hogy
+	 * v√°laszhat√≥-e m√©g a regisztr√°ci√≥ sor√°n.
 	 * 
 	 * @param username
-	 *            az ellenırizendı felhaszn·lÛnÈv.
-	 * @return hamis ha szabad a felhaszn·lÛnÈv, igaz ha m·r nem.
+	 *            az ellen≈ërizend≈ë felhaszn√°l√≥n√©v.
+	 * @return hamis ha szabad a felhaszn√°l√≥n√©v, igaz ha m√°r nem.
 	 */
 	@Override
 	public boolean isUsernameAlreadyTaken(String username) {
@@ -164,12 +165,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * E-mail cÌm ellenˆrzÈs, a kapott e-mail cÌmet ellenırzi hogy v·laszhatÛ-e
-	 * mÈg a regisztr·ciÛ sor·n.
+	 * E-mail c√≠m ellen√∂rz√©s, a kapott e-mail c√≠met ellen≈ërzi hogy v√°laszhat√≥-e
+	 * m√©g a regisztr√°ci√≥ sor√°n.
 	 * 
 	 * @param email
-	 *            az ellenırizendı e-mail cÌm.
-	 * @return hamis ha szabad a email cÌm, igaz ha m·r nem.
+	 *            az ellen≈ërizend≈ë e-mail c√≠m.
+	 * @return hamis ha szabad a email c√≠m, igaz ha m√°r nem.
 	 */
 	@Override
 	public boolean isEmailAlreadyTaken(String email) {
@@ -184,6 +185,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Rank countRankFromXp(User user) {
 		Rank userRank = null;
+
 		// if (user.getExperiencePoints() > -1 && user.getExperiencePoints() <=
 		// 2500) {
 		// userRank = Rank.Amatuer;
@@ -202,6 +204,7 @@ public class UserServiceImpl implements UserService {
 		// } else if (user.getExperiencePoints() > 12500) {
 		// userRank = Rank.Legenda;
 		// }
+
 		return rankIntverals.stream()
 				.filter(p -> user.getExperiencePoints() > p.getMinimumXP()
 						&& user.getExperiencePoints() <= p.getMaximumXP())

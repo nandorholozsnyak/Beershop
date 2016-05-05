@@ -9,9 +9,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
+
 /**
- * A sör raktár, amelyben található egy sör illetve egy egész szám attribútum
- * ami a sör mennyiségét hivatott mutatni.
+ * A sÃ¶r raktÃ¡r, amelyben talÃ¡lhatÃ³ egy sÃ¶r illetve egy egÃ©sz szÃ¡m attribÃºtum
+ * ami a sÃ¶r mennyisÃ©gÃ©t hivatott mutatni.
  * 
  * @author Nandi
  *
@@ -27,13 +28,13 @@ public class StorageItem extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -4761818681252091051L;
 
 	/**
-	 * A sör.
+	 * A sÃ¶r.
 	 */
 	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Beer beer;
 
 	/**
-	 * A sör aktuális darabszáma a raktárban.
+	 * A sÃ¶r aktuÃ¡lis darabszÃ¡ma a raktÃ¡rban.
 	 */
 	private Integer quantity;
 

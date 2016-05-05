@@ -1,7 +1,5 @@
 /**
- * Valid·torokat tartalmazÛ csomag.
- */
-/**
+ * Valid√°torokat tartalmaz√≥ csomag.
  * @author Nandi
  *
  */

@@ -32,20 +32,6 @@
 			<!-- <property name="hibernate.transaction.jta.platform" -->
 			<!-- value="org.hibernate.transaction.JTATransactionFactory" /> -->
 
-
-			<!-- hikari CP -->
-			<!-- <property name="hibernate.connection.provider_class" -->
-			<!-- value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" 
-				/> -->
-			<!-- <property name="hibernate.hikari.minimumIdle" value="20" /> -->
-			<!-- <property name="hibernate.hikari.maximumPoolSize" value="100" /> -->
-			<!-- <property name="hibernate.hikari.idleTimeout" value="30000" /> -->
-			<!-- <property name="hibernate.hikari.dataSourceClassName" value="com.mysql.jdbc.Driver" 
-				/> -->
-			<!-- <property name="hibernate.hikari.dataSource.url" value="jdbc:mysql://localhost:3306/beershop" 
-				/> -->
-			<!-- <property name="hibernate.hikari.username" value="root" /> -->
-			<!-- <property name="hibernate.hikari.password" value="mysql" /> -->
 		</properties>
 	</persistence-unit>
 
@@ -139,7 +125,7 @@
 	<persistence-unit name="BeerShopUnitDerby"
 		transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>jdbc/__TimerPool</jta-data-source>
+		<jta-data-source>beerShopConDerby</jta-data-source>
 		<class>hu.hnk.beershop.model.User</class>
 		<class>hu.hnk.beershop.model.Role</class>
 		<class>hu.hnk.beershop.model.Beer</class>
@@ -150,14 +136,13 @@
 		<class>hu.hnk.beershop.model.BaseEntity</class>
 		<class>hu.hnk.beershop.model.EventLog</class>
 		<properties>
-			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true"/> -->
-			<!-- <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/> -->
-
 			<!-- Hibernate Options -->
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" 
-				/> -->
+			<property name="hibernate.hbm2ddl.import_files_sql_extractor"
+				value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" />
+			<property name="hibernate.hbm2ddl.import_files" value="initial_data.sql" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect"/>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
@@ -165,6 +150,7 @@
 			<property name="hibernate.use_sql_comments" value="false" />
 		</properties>
 	</persistence-unit>
+
 	<!-- <persistence-unit name="BeerShopUnitTest" -->
 	<!-- transaction-type="RESOURCE_LOCAL"> -->
 	<!-- <class>hu.hnk.beershop.model.User</class> -->

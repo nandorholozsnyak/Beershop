@@ -24,10 +24,11 @@ import hu.hnk.interfaces.CartDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.StorageDao;
 
+
 /**
- * A felhasználók kosarait kezelõ szolgáltatás. Amikor a felhasználó hozzáad egy
- * elemet a kosarához a {@link CartService#saveItemsToCart(Map, Cart)} metódus
- * fogja ezt a kosarába pakolni.
+ * A felhasznÃ¡lÃ³k kosarait kezelÅ‘ szolgÃ¡ltatÃ¡s. Amikor a felhasznÃ¡lÃ³ hozzÃ¡ad egy
+ * elemet a kosarÃ¡hoz a {@link CartService#saveItemsToCart(Map, Cart)} metÃ³dus
+ * fogja ezt a kosarÃ¡ba pakolni.
  * 
  * @author Nandi
  *
@@ -37,24 +38,24 @@ import hu.hnk.interfaces.StorageDao;
 public class CartServiceImpl implements CartService {
 
 	/**
-	 * Az osztály loggere.
+	 * Az osztÃ¡ly loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(CartServiceImpl.class);
 
 	/**
-	 * A kosármûveletek végzõ adathozzáférési objektumn.
+	 * A kosÃ¡rmÅ±veletek vÃ©gzÅ‘ adathozzÃ¡fÃ©rÃ©si objektumn.
 	 */
 	@EJB
 	private CartDao cartDao;
 
 	/**
-	 * A kosarat kezelõ adathozzáférési osztály.
+	 * A kosarat kezelÅ‘ adathozzÃ¡fÃ©rÃ©si osztÃ¡ly.
 	 */
 	@EJB
 	private CartItemDao cartItemDao;
 
 	/**
-	 * A raktárt kezelõ adathozzáférési objektum.
+	 * A raktÃ¡rt kezelÅ‘ adathozzÃ¡fÃ©rÃ©si objektum.
 	 */
 	@EJB
 	private StorageDao storageDao;
@@ -115,30 +116,30 @@ public class CartServiceImpl implements CartService {
 	}
 
 	/**
-	 * A kiválasztott sör kosárba való helyezése. A metódus ellenõrzi hogy a
-	 * kiválaszott sör szerepel-e a raktárban a
-	 * {@link CartServiceImpl#findBeerInStorage(List, Beer)} metódus
-	 * segítségével, amint ez megtörtént ellenõrzi hogy a választott sör
-	 * szerepel-e már a felhasználó kosarában a
-	 * {@link CartServiceImpl#findBeerInUsersCart(List, Beer)} metódus
-	 * meghívásával. Amint adottak a feltételek megnézzük mennyi sört kell
-	 * berakni a kosárba, megtörténik a tranzakció.
+	 * A kivÃ¡lasztott sÃ¶r kosÃ¡rba valÃ³ helyezÃ©se. A metÃ³dus ellenÅ‘rzi hogy a
+	 * kivÃ¡laszott sÃ¶r szerepel-e a raktÃ¡rban a
+	 * {@link CartServiceImpl#findBeerInStorage(List, Beer)} metÃ³dus
+	 * segÃ­tsÃ©gÃ©vel, amint ez megtÃ¶rtÃ©nt ellenÅ‘rzi hogy a vÃ¡lasztott sÃ¶r
+	 * szerepel-e mÃ¡r a felhasznÃ¡lÃ³ kosarÃ¡ban a
+	 * {@link CartServiceImpl#findBeerInUsersCart(List, Beer)} metÃ³dus
+	 * meghÃ­vÃ¡sÃ¡val. Amint adottak a feltÃ©telek megnÃ©zzÃ¼k mennyi sÃ¶rt kell
+	 * berakni a kosÃ¡rba, megtÃ¶rtÃ©nik a tranzakciÃ³.
 	 * 
 	 * @param beersToCart
-	 *            a sörök Map-je darabszámmal együtt.
+	 *            a sÃ¶rÃ¶k Map-je darabszÃ¡mmal egyÃ¼tt.
 	 * @param cartItems
-	 *            a már kosárban levõ termékek listája.
+	 *            a mÃ¡r kosÃ¡rban levÅ‘ termÃ©kek listÃ¡ja.
 	 * @param storageItems
-	 *            a raktárban szereplõ termékek listája.
+	 *            a raktÃ¡rban szereplÅ‘ termÃ©kek listÃ¡ja.
 	 * @param beer
-	 *            a kiválasztott sör.
+	 *            a kivÃ¡lasztott sÃ¶r.
 	 */
 	private void addBeerToCartItemList(Map<Beer, Integer> beersToCart, List<CartItem> cartItems,
 			List<StorageItem> storageItems, Beer beer) {
 
 		StorageItem beerInStorage = null;
 
-		// Elõbb megkeressük a sört a raktárból.
+		// ElÅ‘bb megkeressÃ¼k a sÃ¶rt a raktÃ¡rbÃ³l.
 		try {
 			beerInStorage = findBeerInStorage(storageItems, beer);
 		} catch (NoSuchElementException e) {
@@ -148,8 +149,8 @@ public class CartServiceImpl implements CartService {
 		CartItem item;
 		CartItem foundItem;
 
-		// Megnézzük hogy a választott sör szerepel-e már a felhasználó
-		// kosarában.
+		// MegnÃ©zzÃ¼k hogy a vÃ¡lasztott sÃ¶r szerepel-e mÃ¡r a felhasznÃ¡lÃ³
+		// kosarÃ¡ban.
 		try {
 			foundItem = findBeerInUsersCart(cartItems, beer);
 		} catch (NoSuchElementException e) {
@@ -157,7 +158,7 @@ public class CartServiceImpl implements CartService {
 			logger.info("Beer has not found in the user's cart.");
 		}
 
-		// Leellenõrizzük hogy a sör létezik-e raktárban.
+		// LeellenÅ‘rizzÃ¼k hogy a sÃ¶r lÃ©tezik-e raktÃ¡rban.
 		if (beerInStorage != null) {
 			if (beersToCart.get(beer) > 0 && beerInStorage.getQuantity() > 0) {
 				if (foundItem == null) {
@@ -198,16 +199,16 @@ public class CartServiceImpl implements CartService {
 	}
 
 	/**
-	 * Ellenõrzi hogy a sör (<code>beer</code>) szerepel-e már a felhasználó
-	 * kosarában.
+	 * EllenÅ‘rzi hogy a sÃ¶r (<code>beer</code>) szerepel-e mÃ¡r a felhasznÃ¡lÃ³
+	 * kosarÃ¡ban.
 	 * 
 	 * @param cartItems
-	 *            a felhasználó kosarában meglévõ termékek.
+	 *            a felhasznÃ¡lÃ³ kosarÃ¡ban meglÃ©vÅ‘ termÃ©kek.
 	 * @param beer
-	 *            a kiválasztott sör.
-	 * @return visszaadja a terméket ha már szerepel a felhasználó kosarában.
+	 *            a kivÃ¡lasztott sÃ¶r.
+	 * @return visszaadja a termÃ©ket ha mÃ¡r szerepel a felhasznÃ¡lÃ³ kosarÃ¡ban.
 	 * @throws NoSuchElementException
-	 *             ha nem szerepel a termék a felhasználó kosarában.
+	 *             ha nem szerepel a termÃ©k a felhasznÃ¡lÃ³ kosarÃ¡ban.
 	 */
 	private CartItem findBeerInUsersCart(List<CartItem> cartItems, Beer beer) throws NoSuchElementException {
 		return cartItems.stream()
@@ -218,15 +219,15 @@ public class CartServiceImpl implements CartService {
 	}
 
 	/**
-	 * Ellenõrzi hogy a sör (<code>beer</code>) létezik-e a raktárban.
+	 * EllenÅ‘rzi hogy a sÃ¶r (<code>beer</code>) lÃ©tezik-e a raktÃ¡rban.
 	 * 
 	 * @param storageItems
-	 *            a raktárban szereplõ termékek listája.
+	 *            a raktÃ¡rban szereplÅ‘ termÃ©kek listÃ¡ja.
 	 * @param beer
-	 *            az ellenõrizendõ sör.
-	 * @return a megtalált termék.
+	 *            az ellenÅ‘rizendÅ‘ sÃ¶r.
+	 * @return a megtalÃ¡lt termÃ©k.
 	 * @throws NoSuchElementException
-	 *             ha a termék nem szerepel a raktárban.
+	 *             ha a termÃ©k nem szerepel a raktÃ¡rban.
 	 */
 	private StorageItem findBeerInStorage(List<StorageItem> storageItems, Beer beer) throws NoSuchElementException {
 		return storageItems.stream()

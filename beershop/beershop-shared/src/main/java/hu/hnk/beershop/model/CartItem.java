@@ -9,8 +9,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
+
 /**
- * Egy kos·r adatait tartalmazÛ oszt·ly.
+ * Egy kos√°r adatait tartalmaz√≥ oszt√°ly.
  * 
  * @author Nandi
  *
@@ -24,7 +25,7 @@ public class CartItem extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -4761818681252091051L;
 
 	/**
-	 * A rendelt sˆr.
+	 * A rendelt s√∂r.
 	 */
 	@OneToOne
 	private Beer beer;

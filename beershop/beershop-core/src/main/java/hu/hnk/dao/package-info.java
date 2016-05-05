@@ -1,6 +1,7 @@
+
 /**
- * Az adatb·zist elÈrı oszt·lyok csomagja.
- * Data acces oszt·lyok tal·lhatÛak benne.
+ * Az adatb√°zist el√©r≈ë oszt√°lyok csomagja.
+ * Data acces oszt√°lyok tal√°lhat√≥ak benne.
  */
 /**
  * @author Nandi

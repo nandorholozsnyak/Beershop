@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
 
+
 /**
  * @author Nandi
  *
@@ -30,18 +31,18 @@ public class SessionManager implements Serializable {
 	private static final long serialVersionUID = -7564722048228872937L;
 
 	/**
-	 * A felhaszn·lÛ szolg·ltat·s.
+	 * A felhaszn√°l√≥ szolg√°ltat√°s.
 	 */
 	@EJB
 	private UserService userService;
 
 	/**
-	 * A bejelentkezett felhaszn·lÛ t·rolt adatai.
+	 * A bejelentkezett felhaszn√°l√≥ t√°rolt adatai.
 	 */
 	private User loggedInUser;
 
 	/**
-	 * Inicializ·lÛ metÛdus, ami a managed bean lÈtrehoz·sakor lefut.
+	 * Inicializ√°l√≥ met√≥dus, ami a managed bean l√©trehoz√°sakor lefut.
 	 */
 	@PostConstruct
 	public void init() {
@@ -68,19 +69,19 @@ public class SessionManager implements Serializable {
 	}
 
 	/**
-	 * Bejelentkezett felhaszn·lÛ lekÈrÈse.
+	 * Bejelentkezett felhaszn√°l√≥ lek√©r√©se.
 	 * 
-	 * @return a bejelentkezett felhaszn·lÛ.
+	 * @return a bejelentkezett felhaszn√°l√≥.
 	 */
 	public User getLoggedInUser() {
 		return loggedInUser;
 	}
 
 	/**
-	 * A bejelentkezett felhaszn·lÛ be·llÌt·sa.
+	 * A bejelentkezett felhaszn√°l√≥ be√°ll√≠t√°sa.
 	 * 
 	 * @param loggedInUser
-	 *            a bejelentkezett felhaszn·lÛ.
+	 *            a bejelentkezett felhaszn√°l√≥.
 	 */
 	public void setLoggedInUser(User loggedInUser) {
 		this.loggedInUser = loggedInUser;

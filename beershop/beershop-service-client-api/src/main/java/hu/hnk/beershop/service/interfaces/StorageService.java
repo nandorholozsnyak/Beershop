@@ -7,6 +7,7 @@ import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 
+
 /**
  * @author Nandi
  *
@@ -14,16 +15,16 @@ import hu.hnk.beershop.model.StorageItem;
 public interface StorageService {
 	
 	/**
-	 * A raktár információit lekérdezõ metódus.
+	 * A raktÃ¡r informÃ¡ciÃ³it lekÃ©rdezÅ‘ metÃ³dus.
 	 * 
-	 * @return a raktár információi.
+	 * @return a raktÃ¡r informÃ¡ciÃ³i.
 	 */
 	public List<StorageItem> findAll();
 	
 	/**
-	 * Meghívja a raktár adathozzáférési objektumának a mentését, amely a listában szereplõ összes módosítást menti.
-	 * @param storage a raktárban szereplõ elemek listája.
-	 * @throws NegativeQuantityNumber ha valamelyik elem darabszáma negatív.
+	 * MeghÃ­vja a raktÃ¡r adathozzÃ¡fÃ©rÃ©si objektumÃ¡nak a mentÃ©sÃ©t, amely a listÃ¡ban szereplÅ‘ Ã¶sszes mÃ³dosÃ­tÃ¡st menti.
+	 * @param storage a raktÃ¡rban szereplÅ‘ elemek listÃ¡ja.
+	 * @throws NegativeQuantityNumber ha valamelyik elem darabszÃ¡ma negatÃ­v.
 	 */
 	public void saveAllChanges(List<StorageItem> storage) throws NegativeQuantityNumber;
 	

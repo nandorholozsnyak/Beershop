@@ -5,8 +5,9 @@ import java.util.List;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 
+
 /**
- * A raktárt kezelõ adathozzáféréi osztály interfésze.
+ * A raktÃ¡rt kezelÅ‘ adathozzÃ¡fÃ©rÃ©i osztÃ¡ly interfÃ©sze.
  * 
  * @author Nandi
  *
@@ -14,27 +15,27 @@ import hu.hnk.beershop.model.StorageItem;
 public interface StorageDao extends BaseDao<StorageItem> {
 
 	/**
-	 * A raktár információit lekérdezõ metódus.
+	 * A raktÃ¡r informÃ¡ciÃ³it lekÃ©rdezÅ‘ metÃ³dus.
 	 * 
-	 * @return a raktár információi.
+	 * @return a raktÃ¡r informÃ¡ciÃ³i.
 	 */
 	public List<StorageItem> findAll();
 
 	/**
-	 * A paraméterként kapott raktárbeli elemeken végzett módosítások mentése az
-	 * adatbázisba.
+	 * A paramÃ©terkÃ©nt kapott raktÃ¡rbeli elemeken vÃ©gzett mÃ³dosÃ­tÃ¡sok mentÃ©se az
+	 * adatbÃ¡zisba.
 	 * 
 	 * @param storage
-	 *            a mentendõ raktárbeli elemek listája.
+	 *            a mentendÅ‘ raktÃ¡rbeli elemek listÃ¡ja.
 	 */
 	public void saveAllChanges(List<StorageItem> storage);
 
 	/**
-	 * Raktárbeli elem keresése sör alapján.
+	 * RaktÃ¡rbeli elem keresÃ©se sÃ¶r alapjÃ¡n.
 	 * 
 	 * @param beer
-	 *            a keresendõ sör.
-	 * @return a megtalált raktárbeli elem.
+	 *            a keresendÅ‘ sÃ¶r.
+	 * @return a megtalÃ¡lt raktÃ¡rbeli elem.
 	 */
 	public StorageItem findByBeer(Beer beer);
 }

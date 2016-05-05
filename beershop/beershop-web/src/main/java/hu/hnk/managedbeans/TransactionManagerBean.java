@@ -23,9 +23,10 @@ import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
 
+
 /**
- * A felhasználói tranzakciókat kezelõ managed bean, amely a felhasználó
- * kosarában levõ dolgokat helyezi új rendelésre.
+ * A felhasznÃ¡lÃ³i tranzakciÃ³kat kezelÅ‘ managed bean, amely a felhasznÃ¡lÃ³
+ * kosarÃ¡ban levÅ‘ dolgokat helyezi Ãºj rendelÃ©sre.
  * 
  * @author Nandi
  *
@@ -40,12 +41,12 @@ public class TransactionManagerBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Az osztály loggere.
+	 * Az osztÃ¡ly loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(TransactionManagerBean.class);
 
 	/**
-	 * A kosarat kezelõ szolgáltatás.
+	 * A kosarat kezelÅ‘ szolgÃ¡ltatÃ¡s.
 	 */
 	@EJB
 	private CartService cartService;
@@ -59,18 +60,18 @@ public class TransactionManagerBean implements Serializable {
 	private FacesMessage msg;
 
 	/**
-	 * A sessiont kezelõ managed bean.
+	 * A sessiont kezelÅ‘ managed bean.
 	 */
 	@ManagedProperty(value = "#{sessionManagerBean}")
 	private SessionManager sessionManager;
 
 	/**
-	 * A vásárló címe, ahová a termékeket szállítjuk majd.
+	 * A vÃ¡sÃ¡rlÃ³ cÃ­me, ahovÃ¡ a termÃ©keket szÃ¡llÃ­tjuk majd.
 	 */
 	private String address;
 
 	/**
-	 * Fizetési mód, utalással vagy bónuszpontokkal.
+	 * FizetÃ©si mÃ³d, utalÃ¡ssal vagy bÃ³nuszpontokkal.
 	 */
 	private String payMode;
 
@@ -118,17 +119,17 @@ public class TransactionManagerBean implements Serializable {
 			Cargo cargo = createNewCargo();
 			try {
 				cargoService.saveNewCargo(cargo, items);
-				FacesMessageTool.createInfoMessage("Sikeres vásárlás.");
+				FacesMessageTool.createInfoMessage("Sikeres vÃ¡sÃ¡rlÃ¡s.");
 			} catch (DailyBuyActionLimitExceeded e) {
-				FacesMessageTool.createErrorMessage("Sajnálom de túllépte a napi vásárlási limitet.");
+				FacesMessageTool.createErrorMessage("SajnÃ¡lom de tÃºllÃ©pte a napi vÃ¡sÃ¡rlÃ¡si limitet.");
 			} catch (CanNotBuyLegendaryBeerYetException e) {
-				FacesMessageTool.createErrorMessage("Nem vásárolhat még legendás terméket.");
+				FacesMessageTool.createErrorMessage("Nem vÃ¡sÃ¡rolhat mÃ©g legendÃ¡s termÃ©ket.");
 			} catch (Exception e) {
-				FacesMessageTool.createWarnMessage("Hiba történt a fizetés közben.");
+				FacesMessageTool.createWarnMessage("Hiba tÃ¶rtÃ©nt a fizetÃ©s kÃ¶zben.");
 			}
 
 		} else {
-			FacesMessageTool.createWarnMessage("Nem áll rendelkezésére elegendõ pénz vagy pont.");
+			FacesMessageTool.createWarnMessage("Nem Ã¡ll rendelkezÃ©sÃ©re elegendÅ‘ pÃ©nz vagy pont.");
 
 		}
 	}

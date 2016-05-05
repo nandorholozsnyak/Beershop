@@ -1,7 +1,8 @@
 package hu.hnk.interfaces;
 
+
 /**
- * A bázis adahozzáférési osztály interfésze.
+ * A bÃ¡zis adahozzÃ¡fÃ©rÃ©si osztÃ¡ly interfÃ©sze.
  * 
  * @author Nandi
  * @param <T>
@@ -9,44 +10,44 @@ package hu.hnk.interfaces;
 public interface BaseDao<T> {
 
 	/**
-	 * Entitás mentése.
+	 * EntitÃ¡s mentÃ©se.
 	 * 
 	 * @param entity
-	 *            a mentendõ entitás.
-	 * @return a mentett entitás.
+	 *            a mentendÅ‘ entitÃ¡s.
+	 * @return a mentett entitÃ¡s.
 	 * @throws Exception
-	 *             adatbázis elérési hiba esetén.
+	 *             adatbÃ¡zis elÃ©rÃ©si hiba esetÃ©n.
 	 */
 	public T save(T entity) throws Exception;
 
 	/**
-	 * Entitás frissítése.
+	 * EntitÃ¡s frissÃ­tÃ©se.
 	 * 
 	 * @param entity
-	 *            a frissítendõ entitás.
+	 *            a frissÃ­tendÅ‘ entitÃ¡s.
 	 * @throws Exception
-	 *             adatbázis elérési hiba esetén.
+	 *             adatbÃ¡zis elÃ©rÃ©si hiba esetÃ©n.
 	 */
 	public void update(T entity) throws Exception;
 
 	/**
-	 * Entitás törlése.
+	 * EntitÃ¡s tÃ¶rlÃ©se.
 	 * 
 	 * @param id
-	 *            a törlendõ entitás azonosítója.
+	 *            a tÃ¶rlendÅ‘ entitÃ¡s azonosÃ­tÃ³ja.
 	 * @throws Exception
-	 *             adatbázis elérési hiba esetén.
+	 *             adatbÃ¡zis elÃ©rÃ©si hiba esetÃ©n.
 	 */
 	public void delete(Long id) throws Exception;
 
 	/**
-	 * Entitás keresése azonosító alapján.
+	 * EntitÃ¡s keresÃ©se azonosÃ­tÃ³ alapjÃ¡n.
 	 * 
 	 * @param id
-	 *            a keresett entitás azonosítója.
-	 * @return a megtalált entitás.
+	 *            a keresett entitÃ¡s azonosÃ­tÃ³ja.
+	 * @return a megtalÃ¡lt entitÃ¡s.
 	 * @throws Exception
-	 *             adatbázis elérési hiba esetén.
+	 *             adatbÃ¡zis elÃ©rÃ©si hiba esetÃ©n.
 	 */
 	public T find(Long id) throws Exception;
 

@@ -1,8 +1,9 @@
 package hu.hnk.persistenceunit;
 
+
 /**
- * A persistence.xml f·jlhoz tartozÛ Java deklar·ciÛs f·jl, amiben ·llÌthatÛ a
- * PersistenceContext sz·m·ra haszn·landÛ perzisztens egysÈg hivatkoz·sa.
+ * A persistence.xml f√°jlhoz tartoz√≥ Java deklar√°ci√≥s f√°jl, amiben √°ll√≠that√≥ a
+ * PersistenceContext sz√°m√°ra haszn√°land√≥ perzisztens egys√©g hivatkoz√°sa.
  * 
  * @author Nandi
  *
@@ -10,12 +11,12 @@ package hu.hnk.persistenceunit;
 public class PersistenceUnitDeclaration {
 
 	/**
-	 * A MySQL-es be·llÌt·sra vonatkozÛ konstans.
+	 * A MySQL-es be√°ll√≠t√°sra vonatkoz√≥ konstans.
 	 */
 	public final static String MYSQL = "BeerShopUnit";
 
 	/**
-	 * Az Apache Derby-s be·llÌt·sra vonatkozÛ konstans.
+	 * Az Apache Derby-s be√°ll√≠t√°sra vonatkoz√≥ konstans.
 	 */
 	public final static String DERBY = "BeerShopUnitDerby";
 
@@ -35,7 +36,7 @@ public class PersistenceUnitDeclaration {
 	public final static String HSQLDB = "BeerShopUnitHSQLDB";
 
 	/**
-	 * Az aktu·lisan haszn·landÛ perzisztens egysÈg neve.
+	 * Az aktu√°lisan haszn√°land√≥ perzisztens egys√©g neve.
 	 */
 	public final static String PERSISTENCE_UNIT = MYSQL;
 

@@ -5,8 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+
 /**
- * Az entit·sok fıoszt·lya, ami tartalmazza az egyedi azonosÌtÛjukat.
+ * Az entit√°sok f≈ëoszt√°lya, ami tartalmazza az egyedi azonos√≠t√≥jukat.
  * 
  * @author Nandi
  *
@@ -15,7 +16,7 @@ import javax.persistence.MappedSuperclass;
 public class BaseEntity {
 
 	/**
-	 * Az entit·sok egyedi azonosÌtÛja.
+	 * Az entit√°sok egyedi azonos√≠t√≥ja.
 	 */
 	@Id
 	@GeneratedValue
@@ -23,19 +24,19 @@ public class BaseEntity {
 	protected Long id;
 
 	/**
-	 * Visszaadja az entit·s egyedi azonosÌtÛj·t.
+	 * Visszaadja az entit√°s egyedi azonos√≠t√≥j√°t.
 	 * 
-	 * @return az egyedi azonosÌtÛ.
+	 * @return az egyedi azonos√≠t√≥.
 	 */
 	public Long getId() {
 		return id;
 	}
 
 	/**
-	 * Be·llÌtja az entit·s egyedi azonosÌtÛj·t.
+	 * Be√°ll√≠tja az entit√°s egyedi azonos√≠t√≥j√°t.
 	 * 
 	 * @param id
-	 *            az azonosÌtÛ amit be kell ·llÌtani.
+	 *            az azonos√≠t√≥ amit be kell √°ll√≠tani.
 	 */
 	public void setId(Long id) {
 		this.id = id;

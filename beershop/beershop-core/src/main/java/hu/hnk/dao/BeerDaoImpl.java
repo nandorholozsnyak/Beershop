@@ -15,7 +15,7 @@ import hu.hnk.beershop.model.Beer;
 import hu.hnk.interfaces.BeerDao;
 
 /**
- * A söröket kezelõ adathozzáférési osztály implementációja.
+ * A sÃ¶rÃ¶ket kezelÅ‘ adathozzÃ¡fÃ©rÃ©si osztÃ¡ly implementÃ¡ciÃ³ja.
  * 
  * @author Nandi
  *
@@ -26,7 +26,7 @@ import hu.hnk.interfaces.BeerDao;
 public class BeerDaoImpl extends BaseDaoImpl<Beer> implements BeerDao {
 
 	/**
-	 * A söröket kezelõ osztály konstuktora.
+	 * A sÃ¶rÃ¶ket kezelÅ‘ osztÃ¡ly konstuktora.
 	 */
 	public BeerDaoImpl() {
 		super(Beer.class);

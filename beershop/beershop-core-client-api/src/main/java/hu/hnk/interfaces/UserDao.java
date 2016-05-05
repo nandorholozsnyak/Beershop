@@ -4,8 +4,9 @@ import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.User;
 
+
 /**
- * A felhasználókat kezelõ adathozzáférési osztály interfésze.
+ * A felhasznÃ¡lÃ³kat kezelÅ‘ adathozzÃ¡fÃ©rÃ©si osztÃ¡ly interfÃ©sze.
  * 
  * @author Nandi
  *
@@ -13,54 +14,54 @@ import hu.hnk.beershop.model.User;
 public interface UserDao extends BaseDao<User> {
 	
 	/**
-	 * Felhasználó keresése felhasználónév alapján.
+	 * FelhasznÃ¡lÃ³ keresÃ©se felhasznÃ¡lÃ³nÃ©v alapjÃ¡n.
 	 * 
 	 * @param username
-	 *            a keresendõ felhasználó felhasználóneve.
-	 * @return a megtalált felhasználó
+	 *            a keresendÅ‘ felhasznÃ¡lÃ³ felhasznÃ¡lÃ³neve.
+	 * @return a megtalÃ¡lt felhasznÃ¡lÃ³
 	 * @throws UsernameNotFound
-	 *             ha a keresett felhasználónévvel nem található felhasználó.
+	 *             ha a keresett felhasznÃ¡lÃ³nÃ©vvel nem talÃ¡lhatÃ³ felhasznÃ¡lÃ³.
 	 */
 	public User findByUsername(String username) throws UsernameNotFound;
 
 	/**
-	 * Felhasználó keresése e-mail cím alapján.
+	 * FelhasznÃ¡lÃ³ keresÃ©se e-mail cÃ­m alapjÃ¡n.
 	 * 
 	 * @param email
-	 *            a keresendõ felhasználó e-mail címe.
-	 * @return a megtalált felhasználó
+	 *            a keresendÅ‘ felhasznÃ¡lÃ³ e-mail cÃ­me.
+	 * @return a megtalÃ¡lt felhasznÃ¡lÃ³
 	 * @throws EmailNotFound
-	 *             ha a keresett e-mail címmel felhasználó nem található.
+	 *             ha a keresett e-mail cÃ­mmel felhasznÃ¡lÃ³ nem talÃ¡lhatÃ³.
 	 */
 	public User findByEmail(String email) throws EmailNotFound;
 
 	/**
-	 * Egy adott felhasználó törlése.
+	 * Egy adott felhasznÃ¡lÃ³ tÃ¶rlÃ©se.
 	 * 
 	 * @param user
-	 *            a törlendõ felhasználó
+	 *            a tÃ¶rlendÅ‘ felhasznÃ¡lÃ³
 	 */
 	public void remove(User user);
 
 	/**
-	 * Felhasználó keresése felhasználónév alapján.
+	 * FelhasznÃ¡lÃ³ keresÃ©se felhasznÃ¡lÃ³nÃ©v alapjÃ¡n.
 	 * 
 	 * @param username
-	 *            a keresendõ felhasználónév.
-	 * @return a kapott felhasználónév.
+	 *            a keresendÅ‘ felhasznÃ¡lÃ³nÃ©v.
+	 * @return a kapott felhasznÃ¡lÃ³nÃ©v.
 	 * @throws UsernameNotFound
-	 *             ha a keresett felhasználónévvel nem létezik felhasználó.
+	 *             ha a keresett felhasznÃ¡lÃ³nÃ©vvel nem lÃ©tezik felhasznÃ¡lÃ³.
 	 */
 	public String findUsername(String username) throws UsernameNotFound;
 
 	/**
-	 * Felhasználó keresése e-mail cím alapján.
+	 * FelhasznÃ¡lÃ³ keresÃ©se e-mail cÃ­m alapjÃ¡n.
 	 * 
 	 * @param email
-	 *            a keresendõ e-mail cím.
-	 * @return a kapott e-mail cím.
+	 *            a keresendÅ‘ e-mail cÃ­m.
+	 * @return a kapott e-mail cÃ­m.
 	 * @throws EmailNotFound
-	 *             ha a keresett e-mail címmel nem létezik felhasználó.
+	 *             ha a keresett e-mail cÃ­mmel nem lÃ©tezik felhasznÃ¡lÃ³.
 	 */
 	public String findEmail(String email) throws EmailNotFound;
 }

@@ -20,6 +20,7 @@ import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
 
+
 /**
  * @author Nandi
  *
@@ -34,7 +35,7 @@ public class MoneyTransferManagerBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Az osztály loggere.
+	 * Az osztÃ¡ly loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(MoneyTransferManagerBean.class);
 
@@ -74,17 +75,17 @@ public class MoneyTransferManagerBean implements Serializable {
 
 		try {
 			userService.transferMoney(userPin, pin, Integer.valueOf(money), sessionManager.getLoggedInUser());
-			FacesMessageTool.createInfoMessage("A pénz feltöltése megtörtént.");
+			FacesMessageTool.createInfoMessage("A pÃ©nz feltÃ¶ltÃ©se megtÃ¶rtÃ©nt.");
 			generateMoneyTransferFields();
 		} catch (NumberFormatException e) {
 			logger.warn(e);
-			FacesMessageTool.createWarnMessage("Az ellenörzõ mezõbe csak számot írjon!");
+			FacesMessageTool.createWarnMessage("Az ellenÃ¶rzÅ‘ mezÅ‘be csak szÃ¡mot Ã­rjon!");
 		} catch (InvalidPinCode e) {
 			logger.warn(e);
-			FacesMessageTool.createWarnMessage("Az ellenörzõ pin kód nem egyezik meg.");
+			FacesMessageTool.createWarnMessage("Az ellenÃ¶rzÅ‘ pin kÃ³d nem egyezik meg.");
 		} catch (DailyMoneyTransferLimitExceeded e) {
 			logger.warn(e);
-			FacesMessageTool.createErrorMessage("Túllépte a napi limitet.");
+			FacesMessageTool.createErrorMessage("TÃºllÃ©pte a napi limitet.");
 		}
 
 	}

@@ -18,8 +18,9 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.tool.FacesMessageTool;
 
+
 /**
- * A regisztrációs szolgáltatást megvalósító managed bean.
+ * A regisztrÃ¡ciÃ³s szolgÃ¡ltatÃ¡st megvalÃ³sÃ­tÃ³ managed bean.
  * 
  * @author Nandi
  *
@@ -29,7 +30,7 @@ import hu.hnk.tool.FacesMessageTool;
 public class RegistrationManagerBean implements Serializable {
 
 	/**
-	 * Az osztály loggere.
+	 * Az osztÃ¡ly loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(RegistrationManagerBean.class);
 
@@ -39,7 +40,7 @@ public class RegistrationManagerBean implements Serializable {
 	private static final long serialVersionUID = 2856400278569714670L;
 
 	/**
-	 * A felhasználókat kezelõ szolgáltatás.
+	 * A felhasznÃ¡lÃ³kat kezelÅ‘ szolgÃ¡ltatÃ¡s.
 	 */
 	@EJB
 	private UserService userService;
@@ -47,47 +48,47 @@ public class RegistrationManagerBean implements Serializable {
 	private FacesMessage msg;
 
 	/**
-	 * A jelszavak titkosításához használt BCryptPasswordEncoder.
+	 * A jelszavak titkosÃ­tÃ¡sÃ¡hoz hasznÃ¡lt BCryptPasswordEncoder.
 	 */
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	/**
-	 * A választott felhasználónév.
+	 * A vÃ¡lasztott felhasznÃ¡lÃ³nÃ©v.
 	 */
 	private String username;
 
 	/**
-	 * A választott jelszó.
+	 * A vÃ¡lasztott jelszÃ³.
 	 */
 	private String password;
 
 	/**
-	 * A választott jelszó újabb megadása elgépelési célok miatt.
+	 * A vÃ¡lasztott jelszÃ³ Ãºjabb megadÃ¡sa elgÃ©pelÃ©si cÃ©lok miatt.
 	 */
 	private String rePassword;
 
 	/**
-	 * A választott e-mail cím.
+	 * A vÃ¡lasztott e-mail cÃ­m.
 	 */
 	private String email;
 
 	/**
-	 * A felhasználó születési dátuma.
+	 * A felhasznÃ¡lÃ³ szÃ¼letÃ©si dÃ¡tuma.
 	 */
 	private Date dateOfBirth;
 
 	/**
-	 * Szabad-e még a felhasználónév.
+	 * Szabad-e mÃ©g a felhasznÃ¡lÃ³nÃ©v.
 	 */
 	private Boolean isUsernameFree = true;
 
 	/**
-	 * Szabad-e még az e-mail cím.
+	 * Szabad-e mÃ©g az e-mail cÃ­m.
 	 */
 	private Boolean isEmailFree = true;
 
 	/**
-	 * Betöltötte-e már a 18. életévét.
+	 * BetÃ¶ltÃ¶tte-e mÃ¡r a 18. Ã©letÃ©vÃ©t.
 	 */
 	private Boolean isOlderThanEighteen = true;
 
@@ -167,16 +168,16 @@ public class RegistrationManagerBean implements Serializable {
 	}
 
 	/**
-	 * Felhasználó mentése gomb eseménye.
+	 * FelhasznÃ¡lÃ³ mentÃ©se gomb esemÃ©nye.
 	 * 
 	 * @param actionEvent
-	 *            maga az esemény.
+	 *            maga az esemÃ©ny.
 	 */
 	public void saveUser(ActionEvent actionEvent) {
 		Boolean canRegister = isOlderThanEighteen && isEmailFree && isUsernameFree;
 		if (canRegister) {
 			User newUser = new User();
-			logger.info("Mentés gomb lenyomva.");
+			logger.info("MentÃ©s gomb lenyomva.");
 			newUser = new User();
 			newUser.setPassword(encoder.encode(password));
 			newUser.setUsername(username);
@@ -189,29 +190,29 @@ public class RegistrationManagerBean implements Serializable {
 			if (newUser != null) {
 				try {
 					userService.save(newUser);
-					msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sikeres regisztráció.", "");
+					msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sikeres regisztrÃ¡ciÃ³.", "");
 					FacesContext.getCurrentInstance()
 							.getExternalContext()
 							.redirect("index.xhtml");
 				} catch (Exception e) {
-					msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hiba regisztráció közben.", "Hiba!");
+					msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hiba regisztrÃ¡ciÃ³ kÃ¶zben.", "Hiba!");
 				}
 			}
 		} else {
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Regisztráció nem lehetséges.", "Hiba!");
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "RegisztrÃ¡ciÃ³ nem lehetsÃ©ges.", "Hiba!");
 		}
 		FacesMessageTool.publishMessage(msg);
 	}
 
 	/**
-	 * A regisztráció során a felhasználói név foglaltáságát vizsgáló metódus.
+	 * A regisztrÃ¡ciÃ³ sorÃ¡n a felhasznÃ¡lÃ³i nÃ©v foglaltÃ¡sÃ¡gÃ¡t vizsgÃ¡lÃ³ metÃ³dus.
 	 */
 	public void usernameListener() {
 		if (userService.isUsernameAlreadyTaken(username)) {
-			logger.info("Felhasználónév már foglalt!");
+			logger.info("FelhasznÃ¡lÃ³nÃ©v mÃ¡r foglalt!");
 			FacesContext.getCurrentInstance()
 					.addMessage("registration:username", new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Ez a felhasználónév már foglalt!", "Ez a felhasználónév már foglalt!"));
+							"Ez a felhasznÃ¡lÃ³nÃ©v mÃ¡r foglalt!", "Ez a felhasznÃ¡lÃ³nÃ©v mÃ¡r foglalt!"));
 			isUsernameFree = false;
 		} else {
 			isUsernameFree = true;
@@ -219,14 +220,14 @@ public class RegistrationManagerBean implements Serializable {
 	}
 
 	/**
-	 * A regisztráció során az e-mail cím foglaltáságát vizsgáló metódus.
+	 * A regisztrÃ¡ciÃ³ sorÃ¡n az e-mail cÃ­m foglaltÃ¡sÃ¡gÃ¡t vizsgÃ¡lÃ³ metÃ³dus.
 	 */
 	public void emailListener() {
 		if (userService.isEmailAlreadyTaken(email)) {
-			logger.info("E-mail cím már foglalt!");
+			logger.info("E-mail cÃ­m mÃ¡r foglalt!");
 			FacesContext.getCurrentInstance()
 					.addMessage("registration:email", new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Ez az e-mail cím már foglalt!", "Ez az e-mail cím már foglalt!"));
+							"Ez az e-mail cÃ­m mÃ¡r foglalt!", "Ez az e-mail cÃ­m mÃ¡r foglalt!"));
 			isEmailFree = false;
 		} else {
 			isEmailFree = true;
@@ -234,15 +235,15 @@ public class RegistrationManagerBean implements Serializable {
 	}
 
 	/**
-	 * A regisztráció során a 18. életévét betöltött regisztráló validálásáért
-	 * felelõ metódus.
+	 * A regisztrÃ¡ciÃ³ sorÃ¡n a 18. Ã©letÃ©vÃ©t betÃ¶ltÃ¶tt regisztrÃ¡lÃ³ validÃ¡lÃ¡sÃ¡Ã©rt
+	 * felelÅ‘ metÃ³dus.
 	 */
 	public void ageListener() {
 		if (!userService.isOlderThanEighteen(dateOfBirth)) {
-			logger.info("Csak 18 év fölött lehetséges a regisztráció.");
+			logger.info("Csak 18 Ã©v fÃ¶lÃ¶tt lehetsÃ©ges a regisztrÃ¡ciÃ³.");
 			FacesContext.getCurrentInstance()
 					.addMessage("registration:dateOfBirth", new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Csak 18 fölött lehetséges a regisztráció.", "Csak 18 fölött lehetséges a regisztráció."));
+							"Csak 18 fÃ¶lÃ¶tt lehetsÃ©ges a regisztrÃ¡ciÃ³.", "Csak 18 fÃ¶lÃ¶tt lehetsÃ©ges a regisztrÃ¡ciÃ³."));
 			isOlderThanEighteen = false;
 		} else {
 			isOlderThanEighteen = true;

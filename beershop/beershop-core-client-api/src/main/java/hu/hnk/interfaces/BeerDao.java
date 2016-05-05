@@ -4,15 +4,16 @@ import java.util.List;
 
 import hu.hnk.beershop.model.Beer;
 
+
 /**
  * @author Nandi
  *
  */
 public interface BeerDao extends BaseDao<Beer> {
 	/**
-	 * Az összes sör lekérdezése az adatbázisból.
+	 * Az Ã¶sszes sÃ¶r lekÃ©rdezÃ©se az adatbÃ¡zisbÃ³l.
 	 * 
-	 * @return a sörök listája
+	 * @return a sÃ¶rÃ¶k listÃ¡ja
 	 */
 	public List<Beer> findAll();
 }

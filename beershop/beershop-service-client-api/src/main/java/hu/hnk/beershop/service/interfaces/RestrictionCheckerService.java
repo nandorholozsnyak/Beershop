@@ -2,16 +2,17 @@ package hu.hnk.beershop.service.interfaces;
 
 import hu.hnk.beershop.model.User;
 
+
 /**
- * A felhasználó tevékenységeket korlátozó interfész. Minden felhasználónak be
- * kell tartania bizonyos szabályokat, rangtól függõen vásárolhat napi szinten
- * kezdetben csak napi 3 vásárlást bonyolíthat le, a következõ szinten már napi
- * 5 darabot, ettõl nagyobb szinteken már napi 20-at. Az egyenlegfeltöltés is
- * hasonló rendszer szerint mûködik. A legendés söröket csak az
+ * A felhasznÃ¡lÃ³ tevÃ©kenysÃ©geket korlÃ¡tozÃ³ interfÃ©sz. Minden felhasznÃ¡lÃ³nak be
+ * kell tartania bizonyos szabÃ¡lyokat, rangtÃ³l fÃ¼ggÅ‘en vÃ¡sÃ¡rolhat napi szinten
+ * kezdetben csak napi 3 vÃ¡sÃ¡rlÃ¡st bonyolÃ­that le, a kÃ¶vetkezÅ‘ szinten mÃ¡r napi
+ * 5 darabot, ettÅ‘l nagyobb szinteken mÃ¡r napi 20-at. Az egyenlegfeltÃ¶ltÃ©s is
+ * hasonlÃ³ rendszer szerint mÅ±kÃ¶dik. A legendÃ©s sÃ¶rÃ¶ket csak az
  * <p>
  * Expert
  * </p>
- * rangú felhasználók rakhatják a kosarukba illetve vásárolhatják utána meg.
+ * rangÃº felhasznÃ¡lÃ³k rakhatjÃ¡k a kosarukba illetve vÃ¡sÃ¡rolhatjÃ¡k utÃ¡na meg.
  * 
  * @author Nandi
  *
@@ -19,42 +20,42 @@ import hu.hnk.beershop.model.User;
 public interface RestrictionCheckerService {
 
 	/**
-	 * Ellenõrzi hogy a paraméterként megadott felhasználó utalhat-e még magának
-	 * pént a mai nap folyamán.
+	 * EllenÅ‘rzi hogy a paramÃ©terkÃ©nt megadott felhasznÃ¡lÃ³ utalhat-e mÃ©g magÃ¡nak
+	 * pÃ©nt a mai nap folyamÃ¡n.
 	 * 
 	 * @param user
-	 *            az ellenõrizendõ felhasználó.
-	 * @return igaz ha még utalhat, hamis ha már nem
+	 *            az ellenÅ‘rizendÅ‘ felhasznÃ¡lÃ³.
+	 * @return igaz ha mÃ©g utalhat, hamis ha mÃ¡r nem
 	 */
 	public boolean checkIfUserCanTransferMoney(User user);
 
 	/**
-	 * Ellenõrzi hogy a paraméterként megadott felhasználó vásárolhat-e még
-	 * magának sört a nap folyamán.
+	 * EllenÅ‘rzi hogy a paramÃ©terkÃ©nt megadott felhasznÃ¡lÃ³ vÃ¡sÃ¡rolhat-e mÃ©g
+	 * magÃ¡nak sÃ¶rt a nap folyamÃ¡n.
 	 * 
 	 * @param user
-	 *            az ellenõrizendõ felhasználó.
-	 * @return igaz ha még vásárolhat, hamis ha már nem
+	 *            az ellenÅ‘rizendÅ‘ felhasznÃ¡lÃ³.
+	 * @return igaz ha mÃ©g vÃ¡sÃ¡rolhat, hamis ha mÃ¡r nem
 	 */
 	public boolean checkIfUserCanBuyMoreBeer(User user);
 
 	/**
-	 * Ellenõrzi hogy a paraméterként megadott felhasználó megvásárolhatja-e már
-	 * a legendásként feltüntetett sört.
+	 * EllenÅ‘rzi hogy a paramÃ©terkÃ©nt megadott felhasznÃ¡lÃ³ megvÃ¡sÃ¡rolhatja-e mÃ¡r
+	 * a legendÃ¡skÃ©nt feltÃ¼ntetett sÃ¶rt.
 	 * 
 	 * @param user
-	 *            az ellenõrizendõ felhasználó.
-	 * @return igaz ha megvásárolhatja, hamis ha már nem
+	 *            az ellenÅ‘rizendÅ‘ felhasznÃ¡lÃ³.
+	 * @return igaz ha megvÃ¡sÃ¡rolhatja, hamis ha mÃ¡r nem
 	 */
 	public boolean checkIfUserCanBuyLegendBeer(User user);
 
 	/**
-	 * Ellenõrzi hogy a paraméterként megadott felhasználónak rendelkezésére áll
-	 * a megfelelõ számú egyenleg a fizetéshez.
+	 * EllenÅ‘rzi hogy a paramÃ©terkÃ©nt megadott felhasznÃ¡lÃ³nak rendelkezÃ©sÃ©re Ã¡ll
+	 * a megfelelÅ‘ szÃ¡mÃº egyenleg a fizetÃ©shez.
 	 * 
 	 * @param user
-	 *            az ellenõrizendõ felhasználó.
-	 * @return igaz ha még utalhat, hamis ha már nem
+	 *            az ellenÅ‘rizendÅ‘ felhasznÃ¡lÃ³.
+	 * @return igaz ha mÃ©g utalhat, hamis ha mÃ¡r nem
 	 */
 	public boolean checkIfUserCanPayBeers(User user);
 

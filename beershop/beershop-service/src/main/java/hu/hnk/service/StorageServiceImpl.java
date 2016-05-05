@@ -21,6 +21,7 @@ import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.StorageService;
 import hu.hnk.interfaces.StorageDao;
 
+
 /**
  * @author Nandi
  *
@@ -30,12 +31,12 @@ import hu.hnk.interfaces.StorageDao;
 public class StorageServiceImpl implements StorageService {
 
 	/**
-	 * Az oszt·ly loggere.
+	 * Az oszt√°ly loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(StorageServiceImpl.class);
 
 	/**
-	 * A rakt·rt kezelı adathozz·fÈrÈsi objektum.
+	 * A rakt√°rt kezel≈ë adathozz√°f√©r√©si objektum.
 	 */
 	@EJB
 	private StorageDao storageDao;

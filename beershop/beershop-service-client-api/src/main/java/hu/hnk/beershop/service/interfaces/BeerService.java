@@ -4,16 +4,17 @@ import java.util.List;
 
 import hu.hnk.beershop.model.Beer;
 
+
 /**
- * A sör entitáshoz kapcsolódó szolgáltatásokat tartalmazó interfész. 
+ * A sÃ¶r entitÃ¡shoz kapcsolÃ³dÃ³ szolgÃ¡ltatÃ¡sokat tartalmazÃ³ interfÃ©sz. 
  * @author Nandi
  *
  */
 public interface BeerService {
 	/**
-	 * Az összes sör lekérdezése.
+	 * Az Ã¶sszes sÃ¶r lekÃ©rdezÃ©se.
 	 * 
-	 * @return a sörök listája
+	 * @return a sÃ¶rÃ¶k listÃ¡ja
 	 */
 	public List<Beer> findAll();
 

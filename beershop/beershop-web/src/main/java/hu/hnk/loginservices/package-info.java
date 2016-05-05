@@ -1,6 +1,6 @@
 /**
- * Az authentikációt végzõ illetve segédeszközöket tartalmazó managed bean-ek
- * illetve szolgáltatások csomajga.
+ * Az authentikÃ¡ciÃ³t vÃ©gzÅ‘ illetve segÃ©deszkÃ¶zÃ¶ket tartalmazÃ³ managed bean-ek
+ * illetve szolgÃ¡ltatÃ¡sok csomajga.
  * 
  * @author Nandi
  *

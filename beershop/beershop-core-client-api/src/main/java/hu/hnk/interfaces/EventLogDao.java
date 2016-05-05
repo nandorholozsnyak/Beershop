@@ -5,8 +5,9 @@ import java.util.List;
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 
+
 /**
- * Az eseményeket kezelõ adathozzáférési osztály interfésze.
+ * Az esemÃ©nyeket kezelÅ‘ adathozzÃ¡fÃ©rÃ©si osztÃ¡ly interfÃ©sze.
  * 
  * @author Nandi
  *
@@ -14,11 +15,11 @@ import hu.hnk.beershop.model.User;
 public interface EventLogDao extends BaseDao<EventLog> {
 
 	/**
-	 * Eseménylista keresése felhasználó alapján.
+	 * EsemÃ©nylista keresÃ©se felhasznÃ¡lÃ³ alapjÃ¡n.
 	 * 
 	 * @param user
-	 *            a keresendõ események felhasználója.
-	 * @return a keresett felhasználó eseménylistája.
+	 *            a keresendÅ‘ esemÃ©nyek felhasznÃ¡lÃ³ja.
+	 * @return a keresett felhasznÃ¡lÃ³ esemÃ©nylistÃ¡ja.
 	 */
 	public List<EventLog> findByUser(User user);
 

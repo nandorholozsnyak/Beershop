@@ -15,6 +15,7 @@ import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.service.interfaces.BeerService;
 import hu.hnk.interfaces.BeerDao;
 
+
 /**
  * @author Nandi
  *
@@ -24,7 +25,7 @@ import hu.hnk.interfaces.BeerDao;
 public class BeerServiceImpl implements BeerService {
 	
 	/**
-	 * A söröket kezelõ adathozzáférési objektum.
+	 * A sÃ¶rÃ¶ket kezelÅ‘ adathozzÃ¡fÃ©rÃ©si objektum.
 	 */
 	@EJB
 	private BeerDao beerDao;

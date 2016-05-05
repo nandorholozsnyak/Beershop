@@ -8,6 +8,7 @@ import hu.hnk.beershop.model.Cart;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
 
+
 /**
  * @author Nandi
  *
@@ -15,61 +16,61 @@ import hu.hnk.beershop.model.User;
 public interface CartService {
 
 	/**
-	 * A kosár tartalmának mentése adatbázisba az adatelérési objektumon
-	 * keresztül.
+	 * A kosÃ¡r tartalmÃ¡nak mentÃ©se adatbÃ¡zisba az adatelÃ©rÃ©si objektumon
+	 * keresztÃ¼l.
 	 * 
 	 * @param cart
-	 *            a mentendõ kosár.
-	 * @return a mentett kosár.
+	 *            a mentendÅ‘ kosÃ¡r.
+	 * @return a mentett kosÃ¡r.
 	 */
 	public Cart save(Cart cart);
 
 	/**
-	 * Kosár megkeresése felhasználó alapján.
+	 * KosÃ¡r megkeresÃ©se felhasznÃ¡lÃ³ alapjÃ¡n.
 	 * 
 	 * @param user
-	 *            a keresett felhasználó.
-	 * @return a keresett kosár.
+	 *            a keresett felhasznÃ¡lÃ³.
+	 * @return a keresett kosÃ¡r.
 	 */
 	public Cart findByUser(User user);
 
 	/**
-	 * Termék logikai törlése a kosárból.
+	 * TermÃ©k logikai tÃ¶rlÃ©se a kosÃ¡rbÃ³l.
 	 * 
 	 * @param item
-	 *            a törlendõ elem.
+	 *            a tÃ¶rlendÅ‘ elem.
 	 * @throws Exception
-	 *             bármilyen adatbázis hiba esetén.
+	 *             bÃ¡rmilyen adatbÃ¡zis hiba esetÃ©n.
 	 */
 	public void deletItemFromCart(CartItem item) throws Exception;
 
 	/**
-	 * Elemek kosárba történõ mentése.
+	 * Elemek kosÃ¡rba tÃ¶rtÃ©nÅ‘ mentÃ©se.
 	 * 
 	 * @param beersToCart
-	 *            a mentendõ sörök darabszámmal.
+	 *            a mentendÅ‘ sÃ¶rÃ¶k darabszÃ¡mmal.
 	 * @param cart
-	 *            a felhasználó kosara.
+	 *            a felhasznÃ¡lÃ³ kosara.
 	 */
 	public void saveItemsToCart(Map<Beer, Integer> beersToCart, Cart cart);
 
 	/**
-	 * A vásárlás során fizetendõ összeg számítása.
+	 * A vÃ¡sÃ¡rlÃ¡s sorÃ¡n fizetendÅ‘ Ã¶sszeg szÃ¡mÃ­tÃ¡sa.
 	 * 
 	 * @param cartItems
-	 *            a felhasználó kosarában szereplõ termékek listája.
-	 * @return a fizetendõ összeg.
+	 *            a felhasznÃ¡lÃ³ kosarÃ¡ban szereplÅ‘ termÃ©kek listÃ¡ja.
+	 * @return a fizetendÅ‘ Ã¶sszeg.
 	 */
 	public Double countTotalCost(List<CartItem> cartItems);
 
 	/**
-	 * A bónusz pontok számítása, egy vásárlás során. A bónusz a sör
-	 * alkoholtartalmának, a megrendelt darabszámból, a sör árából illetve a
-	 * kedvezmény szorzataként számolódik.
+	 * A bÃ³nusz pontok szÃ¡mÃ­tÃ¡sa, egy vÃ¡sÃ¡rlÃ¡s sorÃ¡n. A bÃ³nusz a sÃ¶r
+	 * alkoholtartalmÃ¡nak, a megrendelt darabszÃ¡mbÃ³l, a sÃ¶r Ã¡rÃ¡bÃ³l illetve a
+	 * kedvezmÃ©ny szorzatakÃ©nt szÃ¡molÃ³dik.
 	 * 
 	 * @param cartItems
-	 *            a kosárban levõ termékek.
-	 * @return a kiszámított bónusz pontok.
+	 *            a kosÃ¡rban levÅ‘ termÃ©kek.
+	 * @return a kiszÃ¡mÃ­tott bÃ³nusz pontok.
 	 */
 	public Double countBonusPoints(List<CartItem> cartItems);
 

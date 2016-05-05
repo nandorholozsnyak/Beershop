@@ -9,8 +9,9 @@ import javax.persistence.TypedQuery;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.interfaces.RoleDao;
 
+
 /**
- * A jogkˆrˆket kezelı adathozz·fÈrÈsi oszt·ly megvalÛsÌt·sa.
+ * A jogk√∂r√∂ket kezel≈ë adathozz√°f√©r√©si oszt√°ly megval√≥s√≠t√°sa.
  * 
  * @author Nandi
  *
@@ -21,7 +22,7 @@ import hu.hnk.interfaces.RoleDao;
 public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
 
 	/**
-	 * Az oszt·ly konstuktora.
+	 * Az oszt√°ly konstuktora.
 	 */
 	public RoleDaoImpl() {
 		super(Role.class);

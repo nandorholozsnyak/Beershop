@@ -1,7 +1,5 @@
 /**
- * Az adatbázist elérõ osztályok interfészeit tartalmazó csomag.
- */
-/**
+ * Az adatbÃ¡zist elÃ©rÅ‘ osztÃ¡lyok interfÃ©szeit tartalmazÃ³ csomag.
  * @author Nandi
  *
  */

@@ -5,6 +5,7 @@ import java.util.List;
 
 import hu.hnk.beershop.model.Rank;
 
+
 public class BuyActionRestrictions {
 
 	private Rank rank;

@@ -24,6 +24,7 @@ import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.factory.EventLogFactory;
 
+
 /**
  * @author Nandi
  *
@@ -32,30 +33,30 @@ import hu.hnk.service.factory.EventLogFactory;
 @Local(CargoService.class)
 public class CargoServiceImpl implements CargoService {
 	/**
-	 * Az oszt·ly loggere.
+	 * Az oszt√°ly loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(CargoServiceImpl.class);
 
 	/**
-	 * A sz·llÌt·sokat kezelı adathozz·fÈrÈsi objektum.
+	 * A sz√°ll√≠t√°sokat kezel≈ë adathozz√°f√©r√©si objektum.
 	 */
 	@EJB
 	private CargoDao cargoDao;
 
 	/**
-	 * A kosarat kezelı adathozz·fÈrÈsi oszt·ly.
+	 * A kosarat kezel≈ë adathozz√°f√©r√©si oszt√°ly.
 	 */
 	@EJB
 	private CartItemDao cartItemDao;
 
 	/**
-	 * A felhaszn·lÛkat kezelı adathozz·fÈrÈsi oszt·ly.
+	 * A felhaszn√°l√≥kat kezel≈ë adathozz√°f√©r√©si oszt√°ly.
 	 */
 	@EJB
 	private UserDao userDao;
 
 	/**
-	 * Az esemÈnyeket kezelı adathozz·fÈrÈsi oszt·ly.
+	 * Az esem√©nyeket kezel≈ë adathozz√°f√©r√©si oszt√°ly.
 	 */
 	@EJB
 	private EventLogDao eventLogDao;
@@ -76,17 +77,18 @@ public class CargoServiceImpl implements CargoService {
 				throw new CanNotBuyLegendaryBeerYetException("User is not legendary yet.");
 			}
 		}
-		
-		// Be·llÌtjuk a sz·llÌtm·ny termÈkeit
+
+		// Be√°ll√≠tjuk a sz√°ll√≠tm√°ny term√©keit
 		Cargo savedCargo = null;
 		savedCargo = saveCargo(cargo, items, savedCargo);
 
-		// Miut·n mentett¸k a sz·llÌt·st ut·na tˆrˆlj¸k a felhaszn·lÛ kosar·bÛl.
+		// Miut√°n mentett√ºk a sz√°ll√≠t√°st ut√°na t√∂r√∂lj√ºk a felhaszn√°l√≥ kosar√°b√≥l.
 		deleteItemsFromUsersCart(cargo);
 
-		// Levonjuk a felhaszn·lÛtol a megrendelÈs ·r·t.
+		// Levonjuk a felhaszn√°l√≥tol a megrendel√©s √°r√°t.
 		updateUsersMoneyAfterPayment(cargo);
-		// KÈszÌt¸nk egy eventLog-ot a sikeres v·s·rl·srÛl.
+
+		// K√©sz√≠t√ºnk egy eventLog-ot a sikeres v√°s√°rl√°sr√≥l.
 		createEventLogForBuyAction(cargo);
 
 		return savedCargo;

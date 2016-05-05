@@ -1,7 +1,5 @@
 /**
- * A szervíz osztályok interfészeit tartalmazó csomag.
- */
-/**
+ * A szervÃ­z osztÃ¡lyok interfÃ©szeit tartalmazÃ³ csomag.
  * @author Nandi
  *
  */

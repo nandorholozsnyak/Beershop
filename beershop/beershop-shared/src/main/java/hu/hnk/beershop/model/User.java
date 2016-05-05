@@ -14,8 +14,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
 /**
- * A felhasználó osztály tartalmazza egy felhasználó adatait.
+ * A felhasznÃ¡lÃ³ osztÃ¡ly tartalmazza egy felhasznÃ¡lÃ³ adatait.
  * 
  * @author Nandi
  *
@@ -34,56 +35,56 @@ public class User extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 8256608378786882228L;
 
 	/**
-	 * A felhasználó felhasználóneve.
+	 * A felhasznÃ¡lÃ³ felhasznÃ¡lÃ³neve.
 	 */
 	@Column(name = "username", nullable = false)
 	private String username;
 
 	/**
-	 * A felhasználó jelszava.
+	 * A felhasznÃ¡lÃ³ jelszava.
 	 */
 	@Column(name = "password", nullable = false)
 	private String password;
 
 	/**
-	 * A felhasználó jogkörei.
+	 * A felhasznÃ¡lÃ³ jogkÃ¶rei.
 	 */
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Role> roles;
 
 	/**
-	 * A felhasználó e-mail címe.
+	 * A felhasznÃ¡lÃ³ e-mail cÃ­me.
 	 */
 	@Column(name = "email")
 	private String email;
 
 	/**
-	 * A felhasználó pontjai.
+	 * A felhasznÃ¡lÃ³ pontjai.
 	 */
 	@Column(name = "points", columnDefinition = "Decimal(10,2) default '0.0'")
 	private Double points;
 
 	/**
-	 * A felhasználó születési dátuma.
+	 * A felhasznÃ¡lÃ³ szÃ¼letÃ©si dÃ¡tuma.
 	 */
 	@Column(name = "dateOfBirth")
 	private Date dateOfBirth;
 
 	/**
-	 * A felhasználó tapasztalati pontja, amivel több kedvezményt illetve a
-	 * rangját ez alapaján számoljuk majd ki.
+	 * A felhasznÃ¡lÃ³ tapasztalati pontja, amivel tÃ¶bb kedvezmÃ©nyt illetve a
+	 * rangjÃ¡t ez alapajÃ¡n szÃ¡moljuk majd ki.
 	 */
 	@Column(name = "experiencePoints", nullable = false, columnDefinition = "Decimal(10,2) default '0.0'")
 	private Double experiencePoints;
 
 	/**
-	 * A felhasználó saját kosara amelybe termékeket tud majd elhelyezni.
+	 * A felhasznÃ¡lÃ³ sajÃ¡t kosara amelybe termÃ©keket tud majd elhelyezni.
 	 */
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Cart cart;
 
 	/**
-	 * A felhasználó egyenlege amellyel majd söröket vásárolhat.
+	 * A felhasznÃ¡lÃ³ egyenlege amellyel majd sÃ¶rÃ¶ket vÃ¡sÃ¡rolhat.
 	 */
 	@Column(name = "money", columnDefinition = "Decimal(10,2) default '0.0'")
 	private Double money;

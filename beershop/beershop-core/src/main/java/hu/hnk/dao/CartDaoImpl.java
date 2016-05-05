@@ -15,8 +15,9 @@ import hu.hnk.beershop.model.Cart;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.CartDao;
 
+
 /**
- * A kosarakat kezelı adathozz·fÈrÈsi oszt·ly implement·ciÛja.
+ * A kosarakat kezel≈ë adathozz√°f√©r√©si oszt√°ly implement√°ci√≥ja.
  * 
  * @author Nandi
  *
@@ -27,7 +28,7 @@ import hu.hnk.interfaces.CartDao;
 public class CartDaoImpl extends BaseDaoImpl<Cart> implements CartDao {
 
 	/**
-	 * Az oszt·ly konstuktora.
+	 * Az oszt√°ly konstuktora.
 	 */
 	public CartDaoImpl() {
 		super(Cart.class);

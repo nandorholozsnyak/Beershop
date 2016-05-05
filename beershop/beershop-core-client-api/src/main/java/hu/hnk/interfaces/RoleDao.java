@@ -2,17 +2,18 @@ package hu.hnk.interfaces;
 
 import hu.hnk.beershop.model.Role;
 
+
 /**
- * A jogkörök adatbáziskezelését leíró interfész.
+ * A jogkÃ¶rÃ¶k adatbÃ¡ziskezelÃ©sÃ©t leÃ­rÃ³ interfÃ©sz.
  * @author Nandi
  *
  */
 public interface RoleDao extends BaseDao<Role> {
 	
 	/**
-	 * Jogkör keresése név alapján.
-	 * @param name a keresendõ jogkör neve.
-	 * @return a talált jogkör.
+	 * JogkÃ¶r keresÃ©se nÃ©v alapjÃ¡n.
+	 * @param name a keresendÅ‘ jogkÃ¶r neve.
+	 * @return a talÃ¡lt jogkÃ¶r.
 	 */
 	public Role findByName(String name);
 	

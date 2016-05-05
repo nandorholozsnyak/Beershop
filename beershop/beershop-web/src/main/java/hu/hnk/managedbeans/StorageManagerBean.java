@@ -16,6 +16,7 @@ import hu.hnk.beershop.exception.NegativeQuantityNumber;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.StorageService;
 
+
 /**
  * @author Nandi
  *
@@ -25,12 +26,12 @@ import hu.hnk.beershop.service.interfaces.StorageService;
 public class StorageManagerBean implements Serializable {
 
 	/**
-	 * Az oszt·ly loggere.
+	 * Az oszt√°ly loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(StorageManagerBean.class);
 
 	/**
-	 * A rakt·rt kezelı szolg·ltat·s.
+	 * A rakt√°rt kezel≈ë szolg√°ltat√°s.
 	 */
 	@EJB
 	private StorageService storageService;
@@ -60,13 +61,13 @@ public class StorageManagerBean implements Serializable {
 
 		try {
 			storageService.saveAllChanges(storage);
-			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "MÛdosÌt·sok sikeresen mentve!",
-					"MÛdosÌt·sok sikeresen mentve!");
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "M√≥dos√≠t√°sok sikeresen mentve!",
+					"M√≥dos√≠t√°sok sikeresen mentve!");
 			logger.info("Storage database updated succesfully.");
 		} catch (NegativeQuantityNumber e) {
 			logger.warn(e.getMessage(), e);
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "NegatÌv ÈrtÈk nem t·rolhatÛ!",
-					"NegatÌv ÈrtÈk nem t·rolhatÛ!");
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Negat√≠v √©rt√©k nem t√°rolhat√≥!",
+					"Negat√≠v √©rt√©k nem t√°rolhat√≥!");
 			storage = storageService.findAll();
 		}
 

@@ -12,8 +12,9 @@ import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.EventLogDao;
 
+
 /**
- * Az esemÈnyeket kezelı adathozz·fÈrÈsi oszt·ly implement·ciÛja.
+ * Az esem√©nyeket kezel≈ë adathozz√°f√©r√©si oszt√°ly implement√°ci√≥ja.
  * 
  * @author Nandi
  *
@@ -24,7 +25,7 @@ import hu.hnk.interfaces.EventLogDao;
 public class EventLogDaoImpl extends BaseDaoImpl<EventLog> implements EventLogDao {
 
 	/**
-	 * Az oszt·ly konstuktora.
+	 * Az oszt√°ly konstuktora.
 	 */
 	public EventLogDaoImpl() {
 		super(EventLog.class);

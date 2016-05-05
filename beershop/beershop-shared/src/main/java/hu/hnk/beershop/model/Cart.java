@@ -11,8 +11,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
+
 /**
- * Egy kosár adatait tartalmazó osztály.
+ * Egy kosÃ¡r adatait tartalmazÃ³ osztÃ¡ly.
  * 
  * @author Nandi
  *
@@ -26,19 +27,19 @@ public class Cart extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -4761818681252091051L;
 
 	/**
-	 * A rendelt sörök listája darabszámokkal együtt.
+	 * A rendelt sÃ¶rÃ¶k listÃ¡ja darabszÃ¡mokkal egyÃ¼tt.
 	 */
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<CartItem> items;
 
 	/**
-	 * A felhasználó aki rendelkezik az aktuális kosárral.
+	 * A felhasznÃ¡lÃ³ aki rendelkezik az aktuÃ¡lis kosÃ¡rral.
 	 */
 	@OneToOne
 	private User user;
 
 	// /**
-	// * A kosárba helyezés idejét tartalmazza.
+	// * A kosÃ¡rba helyezÃ©s idejÃ©t tartalmazza.
 	// */
 	// @Column(name = "takenToCart")
 	// private Date takenToCart;

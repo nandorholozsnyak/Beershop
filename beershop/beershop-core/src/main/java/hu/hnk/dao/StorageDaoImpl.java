@@ -17,6 +17,7 @@ import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.interfaces.StorageDao;
 
+
 /**
  * @author Nandi
  *
@@ -27,14 +28,14 @@ import hu.hnk.interfaces.StorageDao;
 public class StorageDaoImpl extends BaseDaoImpl<StorageItem> implements StorageDao {
 
 	/**
-	 * Az oszt·ly konstuktora.
+	 * Az oszt√°ly konstuktora.
 	 */
 	public StorageDaoImpl() {
 		super(StorageItem.class);
 	}
 
 	/**
-	 * Az oszt·ly loggere.
+	 * Az oszt√°ly loggere.
 	 */
 	public static final Logger logger = Logger.getLogger(StorageDaoImpl.class);
 

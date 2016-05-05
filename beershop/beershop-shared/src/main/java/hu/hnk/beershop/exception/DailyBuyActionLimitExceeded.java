@@ -3,6 +3,7 @@
  */
 package hu.hnk.beershop.exception;
 
+
 /**
  * @author Nandi
  *
@@ -15,41 +16,41 @@ public class DailyBuyActionLimitExceeded extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Konstuktor, mely létrehoz egy DailyBuyActionLimitExceeded kivételt.
+	 * Konstuktor, mely lÃ©trehoz egy DailyBuyActionLimitExceeded kivÃ©telt.
 	 */
 	public DailyBuyActionLimitExceeded() {
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy DailyBuyActionLimitExceeded kivételt a
-	 * megadott üzenettel.
+	 * Konstuktor, mely lÃ©trehoz egy DailyBuyActionLimitExceeded kivÃ©telt a
+	 * megadott Ã¼zenettel.
 	 * 
 	 * @param message
-	 *            a részletes üzenet.
+	 *            a rÃ©szletes Ã¼zenet.
 	 */
 	public DailyBuyActionLimitExceeded(String message) {
 		super(message);
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy DailyBuyActionLimitExceeded kivételt a
-	 * megadott okozóval.
+	 * Konstuktor, mely lÃ©trehoz egy DailyBuyActionLimitExceeded kivÃ©telt a
+	 * megadott okozÃ³val.
 	 * 
 	 * @param cause
-	 *            az okozó
+	 *            az okozÃ³
 	 */
 	public DailyBuyActionLimitExceeded(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy DailyBuyActionLimitExceeded kivételt a
-	 * megadott üzenettel és okozóval.
+	 * Konstuktor, mely lÃ©trehoz egy DailyBuyActionLimitExceeded kivÃ©telt a
+	 * megadott Ã¼zenettel Ã©s okozÃ³val.
 	 * 
 	 * @param message
-	 *            a részletes üzenet.
+	 *            a rÃ©szletes Ã¼zenet.
 	 * @param cause
-	 *            az okozó.
+	 *            az okozÃ³.
 	 */
 	public DailyBuyActionLimitExceeded(String message, Throwable cause) {
 		super(message, cause);

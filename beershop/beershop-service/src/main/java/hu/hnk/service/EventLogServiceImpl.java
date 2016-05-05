@@ -13,6 +13,7 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.EventLogService;
 import hu.hnk.interfaces.EventLogDao;
 
+
 @Stateless
 @Local(EventLogService.class)
 public class EventLogServiceImpl implements EventLogService {

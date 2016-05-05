@@ -1,7 +1,5 @@
 /**
- * A model oszt·lyokat tartalmazÛ csomag.
- */
-/**
+ * A model oszt√°lyokat tartalmaz√≥ csomag.
  * @author Nandi
  *
  */
