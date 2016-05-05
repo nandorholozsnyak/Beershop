@@ -17,7 +17,6 @@ import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.BuyActionRestrictions;
 import hu.hnk.service.tools.MoneyTransferRestrictions;
 
-
 /**
  * @author Nandi
  *
@@ -26,6 +25,9 @@ import hu.hnk.service.tools.MoneyTransferRestrictions;
 @Local(RestrictionCheckerService.class)
 public class RestrictionCheckerServiceImpl extends UserServiceImpl implements RestrictionCheckerService {
 
+	/**
+	 * Az eseményeket kezelő adathozzáférési objektum.
+	 */
 	@EJB
 	private EventLogDao eventLogDao;
 
@@ -36,6 +38,10 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	 * Amatőr felhasználó csak napi 3-szor töltheti fel a kártyáját. Sörfelelős
 	 * napi 4-szor töltheti fel a kártyáját. Ivóbajnok napi 5-ször töltheti fel
 	 * a kártyáját és kap minden feltöltés után bónusz 5%-ot.
+	 */
+
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean checkIfUserCanTransferMoney(User user) {
@@ -79,6 +85,9 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 				.collect(Collectors.toList());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean checkIfUserCanBuyMoreBeer(User user) {
 		List<EventLog> userEvents = getTodayBuyActionEventLogs(user);
@@ -109,6 +118,9 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 				.collect(Collectors.toList());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean checkIfUserCanBuyLegendBeer(User user) {
 		if (countRankFromXp(user).equals(Rank.Legenda))
@@ -116,12 +128,21 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean checkIfUserCanPayBeers(User user) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/**
+	 * Beállítja az eseményeket kezelő adathozzáférési objektumot.
+	 * 
+	 * @param eventLogDao
+	 *            az adathozzáférési objektum.
+	 */
 	public void setEventLogDao(EventLogDao eventLogDao) {
 		this.eventLogDao = eventLogDao;
 	}

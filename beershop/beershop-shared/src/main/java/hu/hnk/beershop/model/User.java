@@ -15,7 +15,6 @@ import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 /**
  * A felhasználó osztály tartalmazza egy felhasználó adatait.
@@ -34,7 +33,7 @@ import lombok.NoArgsConstructor;
 public class User extends BaseEntity implements Serializable {
 
 	/**
-	 * 
+	 * serial Version.
 	 */
 	private static final long serialVersionUID = 8256608378786882228L;
 
@@ -100,93 +99,174 @@ public class User extends BaseEntity implements Serializable {
 	private Double money;
 
 	/**
-	 * @return the dateOfBirth
+	 * Visszaadja a felhasználó születési dátumát.
+	 * 
+	 * @return a felhasználó születési dátuma.
 	 */
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
 	/**
+	 * Beállítja a felhasználó születési dátumát.
+	 * 
 	 * @param dateOfBirth
-	 *            the dateOfBirth to set
+	 *            a beállítandó születési dátum.
 	 */
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
 	/**
-	 * @return the email
+	 * Visszaadja a felhasználó e-mail címét.
+	 * 
+	 * @return a felhasználó e-mail címe.
 	 */
 	public String getEmail() {
 		return email;
 	}
 
 	/**
+	 * Beállítja a felhasználó e-mail címét.
+	 * 
 	 * @param email
-	 *            the email to set
+	 *            a beállítandó e-mail cím.
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	/**
-	 * @return the roles
+	 * Visszaadja a felhasználó jögköreit egy listában.
+	 * 
+	 * @return a felhasználó jogkörei.
 	 */
 	public List<Role> getRoles() {
 		return roles;
 	}
 
 	/**
+	 * Beállítja a felhasználó jogköreit.
+	 * 
 	 * @param roles
-	 *            the roles to set
+	 *            a beállítandó jogkörök listája.
 	 */
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 
 	/**
-	 * @return the username
+	 * Visszaadja a felhasználó felhasználónevét.
+	 * 
+	 * @return a felhasználóneve.
 	 */
 	public String getUsername() {
 		return username;
 	}
 
 	/**
+	 * Beállítja a felhasználó felhasználónevét.
+	 * 
 	 * @param username
-	 *            the username to set
+	 *            a felhasználó új felhasználóneve.
 	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
 	/**
-	 * @return the password
+	 * Visszaadja a felhasználó jelszavát, titkosítva.
+	 * 
+	 * @return a felhasználó jelszava, titkosítva.
 	 */
 	public String getPassword() {
 		return password;
 	}
 
 	/**
+	 * Beállítja a felhasználó jelszavát.
+	 * 
 	 * @param password
-	 *            the password to set
+	 *            a beállítandó jelszó.
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
 	/**
-	 * @return the points
+	 * Visszaadja a felhasználó bónusz pontjait.
+	 * 
+	 * @return a felhasználó bónusz pontjai.
 	 */
 	public Double getPoints() {
 		return points;
 	}
 
 	/**
+	 * Beállítja a felhasználó bónusz pontjait.
+	 * 
 	 * @param points
-	 *            the points to set
+	 *            a felhasználó új bónusz pontjai.
 	 */
 	public void setPoints(Double points) {
 		this.points = points;
+	}
+
+	/**
+	 * Visszaadja a felhasználó tapasztalatpontjait.
+	 * 
+	 * @return a felhasználó tapasztalat pontjai.
+	 */
+	public Double getExperiencePoints() {
+		return experiencePoints;
+	}
+
+	/**
+	 * Beállítja a felhasználó tapasztalatpontjait.
+	 * 
+	 * @param experiencePoints
+	 *            a felhasználó új tapasztalatpontja.
+	 */
+	public void setExperiencePoints(Double experiencePoints) {
+		this.experiencePoints = experiencePoints;
+	}
+
+	/**
+	 * Visszaadja a felhasználó kosarát.
+	 * 
+	 * @return a felhasználó kosara.
+	 */
+	public Cart getCart() {
+		return cart;
+	}
+
+	/**
+	 * Beállítja a felhasználó kosarát.
+	 * 
+	 * @param cart
+	 *            a beállítandó felhasználói kosár.
+	 */
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
+	/**
+	 * Visszaadja a felhasználó pénzét.
+	 * 
+	 * @return a felhasználó pénze.
+	 */
+	public Double getMoney() {
+		return money;
+	}
+
+	/**
+	 * Beállítja a felhasználó pénzét.
+	 * 
+	 * @param money
+	 *            a beállítandó pénzmennyiség.
+	 */
+	public void setMoney(Double money) {
+		this.money = money;
 	}
 
 	@Override
@@ -194,58 +274,5 @@ public class User extends BaseEntity implements Serializable {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", roles=" + roles + ", email="
 				+ email + ", points=" + points + ", dateOfBirth=" + dateOfBirth + "]";
 	}
-
-	public Double getExperiencePoints() {
-		return experiencePoints;
-	}
-
-	public void setExperiencePoints(Double experiencePoints) {
-		this.experiencePoints = experiencePoints;
-	}
-
-	/**
-	 * @return the cart
-	 */
-	public Cart getCart() {
-		return cart;
-	}
-
-	/**
-	 * @param cart
-	 *            the cart to set
-	 */
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-
-	/**
-	 * @return the money
-	 */
-	public Double getMoney() {
-		return money;
-	}
-
-	/**
-	 * @param money
-	 *            the money to set
-	 */
-	public void setMoney(Double money) {
-		this.money = money;
-	}
-
-	// /**
-	// * @return the rank
-	// */
-	// public Rank getRank() {
-	// return rank;
-	// }
-	//
-	// /**
-	// * @param rank
-	// * the rank to set
-	// */
-	// public void setRank(Rank rank) {
-	// this.rank = rank;
-	// }
 
 }

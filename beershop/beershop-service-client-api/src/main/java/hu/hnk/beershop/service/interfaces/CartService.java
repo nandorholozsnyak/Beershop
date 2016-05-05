@@ -8,7 +8,6 @@ import hu.hnk.beershop.model.Cart;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
 
-
 /**
  * @author Nandi
  *
@@ -75,10 +74,17 @@ public interface CartService {
 	public Double countBonusPoints(List<CartItem> cartItems);
 
 	/**
+	 * Kiszámolja a felhasználó számára a vásárlás után elérhető egyenlegét hogy
+	 * a felhasználó képben legyen a vásárlás mértékével.
+	 * 
 	 * @param user
+	 *            a tranzakciót lefolytató felhasználó.
 	 * @param paymentMode
-	 * @return
+	 *            a fizetés módja.
+	 * @param cost
+	 *            a fizetendő összeg.
+	 * @return a fizetés utáni pénzegyenleg.
 	 */
-	public Double countMoneyAfterPayment(User user,Double cost, String paymentMode);
+	public Double countMoneyAfterPayment(User user, Double cost, String paymentMode);
 
 }

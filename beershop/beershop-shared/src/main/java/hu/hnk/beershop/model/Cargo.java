@@ -11,11 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
-import hu.hnk.beershop.model.Beer.BeerBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
-
 
 /**
  * Egy rendelés adatait tartalmazó osztály.
@@ -30,16 +27,16 @@ import lombok.NoArgsConstructor;
 public class Cargo extends BaseEntity implements Serializable {
 
 	/**
-	 * 
+	 * serial Version.
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
-	
+
 	/**
-	 * A szállítás osztály konstuktora. 
+	 * A szállítás osztály konstuktora.
 	 */
 	public Cargo() {
 	}
-	
+
 	/**
 	 * A rendelt sörök listája.
 	 */
@@ -78,70 +75,116 @@ public class Cargo extends BaseEntity implements Serializable {
 	private String paymentMode;
 
 	/**
-	 * @return the orderDate
+	 * Visszaadja a szállítás dátumát.
+	 * 
+	 * @return a szállítás dátuma.
 	 */
 	public Date getOrderDate() {
 		return orderDate;
 	}
 
 	/**
+	 * Beállítja a szállítás dátumát.
+	 * 
 	 * @param orderDate
-	 *            the orderDate to set
+	 *            a szállítás új dátuma.
 	 */
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 
 	/**
-	 * @return the totalPrice
+	 * Visszaadja a szállítás teljes árát, ebbe bele tartozik a termékek
+	 * összesített ára is.
+	 * 
+	 * @return a teljes fizetendő összeg.
 	 */
 	public Double getTotalPrice() {
 		return totalPrice;
 	}
 
 	/**
+	 * Beállítja a teljes fizetendő összeget.
+	 * 
 	 * @param totalPrice
-	 *            the totalPrice to set
+	 *            a teljes fizetendő összeg.
 	 */
 	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
 	/**
-	 * @return the address
+	 * Visszaadja a szállítás pontos címét.
+	 * 
+	 * @return a szállítás pontos címe.
 	 */
 	public String getAddress() {
 		return address;
 	}
 
 	/**
+	 * Beállítja a szállítás pontos címét.
+	 * 
 	 * @param address
-	 *            the address to set
+	 *            a szállítás új címe.
 	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
+	/**
+	 * Visszaadja a szállításban szereplő termékek listáját.
+	 * 
+	 * @return a szállításban szereplő termékek listája.
+	 */
 	public List<CartItem> getItems() {
 		return items;
 	}
 
+	/**
+	 * Beállítja a szállításban résztvevő termékek listáját.
+	 * 
+	 * @param items
+	 *            a termékek listája.
+	 */
 	public void setItems(List<CartItem> items) {
 		this.items = items;
 	}
 
+	/**
+	 * Visszaadja a szállítást kezdeményező felhasználót.
+	 * 
+	 * @return a szállítást kezdeményező felhasználó.
+	 */
 	public User getUser() {
 		return user;
 	}
 
+	/**
+	 * Beállítja a szállítást kezdeményező felhasználót.
+	 * 
+	 * @param user
+	 *            a szállítást kezdeményező felhasználó.
+	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
 
+	/**
+	 * Visszaadja a fizetési módot.
+	 * 
+	 * @return a fizetési mód.
+	 */
 	public String getPaymentMode() {
 		return paymentMode;
 	}
 
+	/**
+	 * Beállítja a fizetési módot.
+	 * 
+	 * @param paymentMode
+	 *            a szállítás fizetésének módja.
+	 */
 	public void setPaymentMode(String paymentMode) {
 		this.paymentMode = paymentMode;
 	}

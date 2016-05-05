@@ -7,7 +7,6 @@ import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 
-
 /**
  * A felhasználó entitáshoz kapcsolódó szolgáltatások interfésze.
  * 
@@ -67,12 +66,48 @@ public interface UserService {
 	 * RankInterval nevű osztályt használja.
 	 * 
 	 * @param user
-	 * @return
+	 *            a felhasználó akinek a rangját ki szeretnénk számolni.
+	 * @return a kiszámolt rang.
 	 */
 	public Rank countRankFromXp(User user);
 
+	/**
+	 * A felhasználó tapasztalatpontjának százalékos megjelenítéséhez való
+	 * segédfüggvény.
+	 * 
+	 * @param experiencePoints
+	 *            a tapasztalatpont.
+	 * @return a kiszámolt százalék.
+	 */
 	public Integer countExperiencePointsInPercentage(Double experiencePoints);
 
+	/**
+	 * Felhasználó számára való pénzfeltöltési lehetőséget is biztosít az
+	 * alkalmazás, ezzel a metódussal történik meg a tranzakció.
+	 * 
+	 * A felhasználó többféle érték közül választhat. A rendszer generál neki
+	 * egy PIN kódot amelyet a <code>exceptedPin</code> változó mutat és neki
+	 * ezt kell megadnia, <code>userPin</code>, illetve egy pénzmennyiséget.
+	 * 
+	 * Kétféle kivétellel jelezhetjük a tranzakció sikertelenségét. Az egyik az
+	 * {@link InvalidPinCode} ha a felhasználó nem az elvárt PIN kódot adta meg,
+	 * illetve a {@link DailyMoneyTransferLimitExceeded} kivétellel ha a
+	 * felhasználó túllépte a napi korlátot.
+	 * 
+	 * @param userPin
+	 *            a felhasználó által begépelt PIN kód.
+	 * @param expectedPin
+	 *            az alkalmazás által generált PIN kód.
+	 * @param money
+	 *            a feltöltendő összeg.
+	 * @param loggedInUser
+	 *            a bejelentkezett felhasználó.
+	 * @throws InvalidPinCode
+	 *             akkor dobjuk ha a felhasználó rossz PIN kódot adott meg.
+	 * @throws DailyMoneyTransferLimitExceeded
+	 *             akkor dobjuk ha a felhasználó túllépte a megadott napi
+	 *             limitet.
+	 */
 	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser)
 			throws InvalidPinCode, DailyMoneyTransferLimitExceeded;
 }

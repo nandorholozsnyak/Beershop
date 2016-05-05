@@ -30,7 +30,6 @@ import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.RankInterval;
 
-
 /**
  * A felhasználói szolgálatásokkal foglalkozó osztály. Enterprise Java Bean.
  * 
@@ -252,14 +251,23 @@ public class UserServiceImpl implements UserService {
 		eventLogService.save(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, loggedInUser));
 	}
 
+	/**
+	 * @param userDao
+	 */
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
 
+	/**
+	 * @param eventLogService
+	 */
 	public void setEventLogService(EventLogService eventLogService) {
 		this.eventLogService = eventLogService;
 	}
 
+	/**
+	 * @param restrictionCheckerService
+	 */
 	public void setRestrictionCheckerService(RestrictionCheckerService restrictionCheckerService) {
 		this.restrictionCheckerService = restrictionCheckerService;
 	}

@@ -1,8 +1,6 @@
 package hu.hnk.beershop.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,10 +9,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
-import hu.hnk.beershop.model.Beer.BeerBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 /**
  * A sör raktár, amelyben található egy sör illetve egy egész szám attribútum
@@ -43,7 +39,7 @@ public class StorageItem extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * A sör.
+	 * A raktárban számontartott sörre való hivatkozás.
 	 */
 	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Beer beer;
@@ -53,18 +49,40 @@ public class StorageItem extends BaseEntity implements Serializable {
 	 */
 	private Integer quantity;
 
+	/**
+	 * Visszaadja a sörre való hivatkozást.
+	 * 
+	 * @return a hivatkozott sör.
+	 */
 	public Beer getBeer() {
 		return beer;
 	}
 
+	/**
+	 * Beállítja a sörre való hivatkozást.
+	 * 
+	 * @param beer
+	 *            a hivatkozandó sör.
+	 */
 	public void setBeer(Beer beer) {
 		this.beer = beer;
 	}
 
+	/**
+	 * Visszaadja a raktárban elérhető számszerűsített értéket.
+	 * 
+	 * @return a raktárban előrhető mennyiség.
+	 */
 	public Integer getQuantity() {
 		return quantity;
 	}
 
+	/**
+	 * Beállítja a raktárban elérhető sörök darabszámát.
+	 * 
+	 * @param quantity
+	 *            a beállítandó érték.
+	 */
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}

@@ -8,13 +8,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.service.interfaces.BeerService;
 import hu.hnk.interfaces.BeerDao;
-
 
 /**
  * @author Nandi
@@ -23,17 +20,15 @@ import hu.hnk.interfaces.BeerDao;
 @Stateless
 @Local(BeerService.class)
 public class BeerServiceImpl implements BeerService {
-	
+
 	/**
 	 * A söröket kezelő adathozzáférési objektum.
 	 */
 	@EJB
 	private BeerDao beerDao;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see hu.hnk.beershop.service.interfaces.BeerService#findAll()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public List<Beer> findAll() {

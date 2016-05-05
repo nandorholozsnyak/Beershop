@@ -1,21 +1,15 @@
 package hu.hnk.beershop.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
-import hu.hnk.beershop.model.Beer.BeerBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 /**
  * Egy kosár adatait tartalmazó osztály.
@@ -29,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Cart extends BaseEntity implements Serializable {
 
 	/**
-	 * 
+	 * serial Version.
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
 
@@ -51,55 +45,44 @@ public class Cart extends BaseEntity implements Serializable {
 	@OneToOne
 	private User user;
 
-	// /**
-	// * A kosárba helyezés idejét tartalmazza.
-	// */
-	// @Column(name = "takenToCart")
-	// private Date takenToCart;
-
+	/**
+	 * Visszaadja a kosár tulajdonosát.
+	 * 
+	 * @return a kosár tulajdonosa.
+	 */
 	public User getUser() {
 		return user;
 	}
 
+	/**
+	 * Beállítja a kosár tulajdonosát.
+	 * 
+	 * @param user
+	 *            a kosár tulajdonosa.
+	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
 
 	/**
-	 * @return the items
+	 * Visszaadja a kosárban szereplő termékeket.
+	 * 
+	 * @return a kosárban szereplő termékek listája.
 	 */
 	public List<CartItem> getItems() {
 		return items;
 	}
 
 	/**
+	 * Beállítja a kosárba tartozó termékeket.
+	 * 
 	 * @param items
-	 *            the items to set
+	 *            a termékek amelyek a kosárban kerülnek.
 	 */
 	public void setItems(List<CartItem> items) {
 		this.items = items;
 	}
 
-	// /**
-	// * @return the takenToCart
-	// */
-	// public Date getTakenToCart() {
-	// return takenToCart;
-	// }
-	//
-	// /**
-	// * @param takenToCart
-	// * the takenToCart to set
-	// */
-	// public void setTakenToCart(Date takenToCart) {
-	// this.takenToCart = takenToCart;
-	// }
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "Cart [id=" + id + ", items=" + items + ", user=" + user + "]";

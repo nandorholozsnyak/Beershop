@@ -2,19 +2,13 @@ package hu.hnk.beershop.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
-import hu.hnk.beershop.model.Beer.BeerBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 /**
  * Egy kosár adatait tartalmazó osztály.
@@ -28,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class CartItem extends BaseEntity implements Serializable {
 
 	/**
-	 * 
+	 * serial Version.
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
 
@@ -45,68 +39,121 @@ public class CartItem extends BaseEntity implements Serializable {
 	@OneToOne
 	private Beer beer;
 
+	/**
+	 * A termék darabszáma.
+	 */
 	@Column(name = "quantity")
 	private Integer quantity;
 
+	/**
+	 * A termék kosárban lévő aktivitása.
+	 */
 	@Column(name = "active")
 	private Boolean active = true;
 
+	/**
+	 * A kosárhoz adás dátuma.
+	 */
 	@Column(name = "addedToCart")
 	private LocalDateTime addedToCart;
 
+	/**
+	 * A kosárból való eltávolítás dátuma.
+	 */
 	@Column(name = "removedFromCart")
 	private LocalDateTime removedFromCart;
 
+	/**
+	 * Visszadja a termék hivatkozását egy sörre.
+	 * 
+	 * @return a hivatkozott sör.
+	 */
 	public Beer getBeer() {
 		return beer;
 	}
 
+	/**
+	 * Beállítja a termék hivatkozását egy sörre.
+	 * 
+	 * @param beer
+	 *            a hivatkozandó sör.
+	 */
 	public void setBeer(Beer beer) {
 		this.beer = beer;
 	}
 
+	/**
+	 * Visszaadja a hivatkozott sörből való darabszámot.
+	 * 
+	 * @return a sör darabszáma.
+	 */
 	public Integer getQuantity() {
 		return quantity;
 	}
 
+	/**
+	 * Beállítja a sör darabszámát.
+	 * 
+	 * @param quantity
+	 *            a beállítandó darabszám.
+	 */
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
 	/**
-	 * @return the active
+	 * Visszaadja a termék aktivitását.
+	 * 
+	 * @return the active igaz ha a termék aktív a kosárban, egyébként hamis.
 	 */
 	public Boolean getActive() {
 		return active;
 	}
 
 	/**
+	 * Beállítja a termék aktivitását.
+	 * 
 	 * @param active
-	 *            the active to set
+	 *            a beállítnadó aktivitás.
 	 */
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
 
 	/**
-	 * @return the addedToCart
+	 * Visszaadja a dátumot amikor a termék a kosárba került.
+	 * 
+	 * @return a termék kosárba helyezésének időpontja.
 	 */
 	public LocalDateTime getAddedToCart() {
 		return addedToCart;
 	}
 
 	/**
+	 * Beállítja a termék kosárba helyezésének időpontját.
+	 * 
 	 * @param addedToCart
-	 *            the addedToCart to set
+	 *            a beállítandó dátum.
 	 */
 	public void setAddedToCart(LocalDateTime addedToCart) {
 		this.addedToCart = addedToCart;
 	}
 
+	/**
+	 * Visszaadja a termék eltávolításának idejét a kosárból.
+	 * 
+	 * @return a termék kosárból való eltávolításának ideje.
+	 */
 	public LocalDateTime getRemovedFromCart() {
 		return removedFromCart;
 	}
 
+	/**
+	 * Beállítja a termék eltávolításának időpontját.
+	 * 
+	 * @param removedFromCart
+	 *            a termék eltávolításának időpontja.
+	 */
 	public void setRemovedFromCart(LocalDateTime removedFromCart) {
 		this.removedFromCart = removedFromCart;
 	}

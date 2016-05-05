@@ -21,7 +21,6 @@ import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.StorageService;
 import hu.hnk.interfaces.StorageDao;
 
-
 /**
  * @author Nandi
  *
@@ -41,11 +40,17 @@ public class StorageServiceImpl implements StorageService {
 	@EJB
 	private StorageDao storageDao;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<StorageItem> findAll() {
 		return storageDao.findAll();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void saveAllChanges(List<StorageItem> storage) throws NegativeQuantityNumber {
 		if (storage.stream()
@@ -65,6 +70,9 @@ public class StorageServiceImpl implements StorageService {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void checkStorageItemQuantityLimit(List<StorageItem> storage, Beer beer, Integer quantity)
 			throws StorageItemQuantityExceeded, NegativeQuantityNumber {

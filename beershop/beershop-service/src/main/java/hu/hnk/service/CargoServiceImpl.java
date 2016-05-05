@@ -18,12 +18,10 @@ import hu.hnk.beershop.service.interfaces.CargoService;
 import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
 import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.interfaces.CargoDao;
-import hu.hnk.interfaces.CartDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.factory.EventLogFactory;
-
 
 /**
  * @author Nandi
@@ -61,9 +59,15 @@ public class CargoServiceImpl implements CargoService {
 	@EJB
 	private EventLogDao eventLogDao;
 
+	/**
+	 * A korlátozásokat kezelő szolgáltatás.
+	 */
 	@EJB
 	private RestrictionCheckerService restrictionCheckerService;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
 			throws DailyBuyActionLimitExceeded, CanNotBuyLegendaryBeerYetException {
@@ -159,22 +163,53 @@ public class CargoServiceImpl implements CargoService {
 		return true;
 	}
 
+	/**
+	 * Beállítja a szállításokat kezelő adathozzáférési objektumát.
+	 * 
+	 * @param cargoDao
+	 *            a beállítandó adathozzáférési osztály.
+	 */
 	public void setCargoDao(CargoDao cargoDao) {
 		this.cargoDao = cargoDao;
 	}
 
+	/**
+	 * Beállítja a kosárban / szállításban szereplő termékek adathozzáférési
+	 * objektumát.
+	 * 
+	 * @param cartItemDao
+	 *            az adathozzáférési objektum.
+	 */
 	public void setCartItemDao(CartItemDao cartItemDao) {
 		this.cartItemDao = cartItemDao;
 	}
 
+	/**
+	 * Beállítja a felhasználókat kezelő adathozzáféréi objektumot.
+	 * 
+	 * @param userDao
+	 *            az adathozzáféréi objektum.
+	 */
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
 
+	/**
+	 * Beállítja az eseményeket kezelő adathozzáférési objektumot.
+	 * 
+	 * @param eventLogDao
+	 *            az adathozzáférési objektum.
+	 */
 	public void setEventLogDao(EventLogDao eventLogDao) {
 		this.eventLogDao = eventLogDao;
 	}
 
+	/**
+	 * Beállítja a korlátozásokat kezelő adathozzáférési objektumot.
+	 * 
+	 * @param restrictionCheckerService
+	 *            az adathozzáférési objektum.
+	 */
 	public void setRestrictionCheckerService(RestrictionCheckerService restrictionCheckerService) {
 		this.restrictionCheckerService = restrictionCheckerService;
 	}

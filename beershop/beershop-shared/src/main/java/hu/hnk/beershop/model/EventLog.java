@@ -2,8 +2,6 @@ package hu.hnk.beershop.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,11 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-import hu.hnk.beershop.model.Beer.BeerBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
-
 
 /**
  * Egy eseménynek a logját leíró entitást.
@@ -30,16 +25,17 @@ import lombok.NoArgsConstructor;
 public class EventLog extends BaseEntity implements Serializable {
 
 	/**
-	 * 
+	 * serial Version.
 	 */
 	private static final long serialVersionUID = -2757899869474041195L;
-	
+
 	/**
 	 * A felhasználói eseményeket rögzítő osztály konstuktora.
 	 */
 	public EventLog() {
-	
+
 	}
+
 	/**
 	 * Az eseménynek az akciója, azaz mi történt, egy esetleges vásárlás vagy
 	 * pénzfeltöltés.
@@ -59,45 +55,57 @@ public class EventLog extends BaseEntity implements Serializable {
 	private LocalDateTime date;
 
 	/**
-	 * @return the action
+	 * Visszaadja az esemény akció mezőjének értékét.
+	 * 
+	 * @return az akció mezőjének értéke.
 	 */
 	public String getAction() {
 		return action;
 	}
 
 	/**
+	 * Beállítja az esemény akció mezőjének értékét.
+	 * 
 	 * @param action
-	 *            the action to set
+	 *            az akció mező új értéke.
 	 */
 	public void setAction(String action) {
 		this.action = action;
 	}
 
 	/**
-	 * @return the user
+	 * Visszaadja az eseményben résztvevő felhasználót.
+	 * 
+	 * @return the user az eseményben résztvető felhasználó.
 	 */
 	public User getUser() {
 		return user;
 	}
 
 	/**
+	 * Beállítja az eseményben résztvevő felhasználót.
+	 * 
 	 * @param user
-	 *            the user to set
+	 *            az eseményben résztvevő felhasználó.
 	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
 
 	/**
-	 * @return the date
+	 * Visszaadja az esemény történésének időpontját.
+	 * 
+	 * @return az esemény történésének időpontja.
 	 */
 	public LocalDateTime getDate() {
 		return date;
 	}
 
 	/**
+	 * Beállítja az esemény történésének időpontját.
+	 * 
 	 * @param date
-	 *            the date to set
+	 *            az esemény időpontja.
 	 */
 	public void setDate(LocalDateTime date) {
 		this.date = date;

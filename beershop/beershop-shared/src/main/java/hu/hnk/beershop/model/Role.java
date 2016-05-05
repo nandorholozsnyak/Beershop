@@ -1,17 +1,13 @@
 package hu.hnk.beershop.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 
-import hu.hnk.beershop.model.Beer.BeerBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 /**
  * A jogkör leírását tartalmazó osztály.
@@ -44,15 +40,19 @@ public class Role extends BaseEntity implements Serializable {
 	private String name;
 
 	/**
-	 * @return the name
+	 * Visszaadja a jogkör nevét.
+	 * 
+	 * @return a jogkör neve.
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
+	 * Beállítja a jogkör nevét.
+	 * 
 	 * @param name
-	 *            the name to set
+	 *            a jogkör új neve.
 	 */
 	public void setName(String name) {
 		this.name = name;

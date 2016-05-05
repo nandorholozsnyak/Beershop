@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-
 /**
  * Az entitások főosztálya, ami tartalmazza az egyedi azonosítójukat.
  * 

@@ -24,7 +24,6 @@ import hu.hnk.interfaces.CartDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.StorageDao;
 
-
 /**
  * A felhasználók kosarait kezelő szolgáltatás. Amikor a felhasználó hozzáad egy
  * elemet a kosarához a {@link CartService#saveItemsToCart(Map, Cart)} metódus
@@ -60,42 +59,29 @@ public class CartServiceImpl implements CartService {
 	@EJB
 	private StorageDao storageDao;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hu.hnk.beershop.service.interfaces.CartService#save(hu.hnk.beershop.model
-	 * .Cart)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Cart save(Cart cart) {
 		try {
 			return cartDao.save(cart);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn(e);
 		}
 		return cart;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hu.hnk.beershop.service.interfaces.CartService#findByUser(hu.hnk.beershop
-	 * .model.User)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Cart findByUser(User user) {
 		return cartDao.findByUser(user);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hu.hnk.beershop.service.interfaces.CartService#saveItemsToCart(java.util.
-	 * Map, hu.hnk.beershop.model.Cart)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void saveItemsToCart(Map<Beer, Integer> beersToCart, Cart cart) {
@@ -237,12 +223,8 @@ public class CartServiceImpl implements CartService {
 				.get();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hu.hnk.beershop.service.interfaces.CartService#countTotalCost(java.util.
-	 * List)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Double countTotalCost(List<CartItem> cartItems) {
@@ -256,12 +238,8 @@ public class CartServiceImpl implements CartService {
 				.sum();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hu.hnk.beershop.service.interfaces.CartService#deletItemFromCart(hu.hnk.
-	 * beershop.model.CartItem)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void deletItemFromCart(CartItem item) throws Exception {
@@ -276,12 +254,8 @@ public class CartServiceImpl implements CartService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hu.hnk.beershop.service.interfaces.CartService#countBonusPoints(java.util
-	 * .List)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Double countBonusPoints(List<CartItem> cartItems) {
@@ -297,6 +271,9 @@ public class CartServiceImpl implements CartService {
 				.sum();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Double countMoneyAfterPayment(User user, Double cost, String paymentMode) {
 		Double result = (double) 0;
@@ -309,24 +286,34 @@ public class CartServiceImpl implements CartService {
 	}
 
 	/**
+	 * Beállítja a kosarat kezelő adathozzáférési objektumát.
+	 * 
 	 * @param cartDao
+	 *            a beállítandó adathozzáférési osztály.
 	 */
 	public void setCartDao(CartDao cartDao) {
 		this.cartDao = cartDao;
 	}
 
 	/**
-	 * @param storageDao
-	 */
-	public void setStorageDao(StorageDao storageDao) {
-		this.storageDao = storageDao;
-	}
-
-	/**
+	 * Beállítja a kosárban / szállításban szereplő termékek adathozzáférési
+	 * objektumát.
+	 * 
 	 * @param cartItemDao
+	 *            az adathozzáférési objektum.
 	 */
 	public void setCartItemDao(CartItemDao cartItemDao) {
 		this.cartItemDao = cartItemDao;
+	}
+
+	/**
+	 * Beállítja a raktárt kezelő adathozzáférési objektumát.
+	 * 
+	 * @param storageDao
+	 *            az adathozzáférési objektum.
+	 */
+	public void setStorageDao(StorageDao storageDao) {
+		this.storageDao = storageDao;
 	}
 
 }

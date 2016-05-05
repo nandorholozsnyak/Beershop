@@ -13,19 +13,31 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.EventLogService;
 import hu.hnk.interfaces.EventLogDao;
 
-
+/**
+ * @author Nandi
+ *
+ */
 @Stateless
 @Local(EventLogService.class)
 public class EventLogServiceImpl implements EventLogService {
 
+	/**
+	 * Az eseményeket kezelő adathozzáférési objektum.
+	 */
 	@EJB
 	private EventLogDao eventLogDao;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<EventLog> findByUser(User user) {
 		return eventLogDao.findByUser(user);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public EventLog save(EventLog event) {
 		try {
@@ -36,7 +48,5 @@ public class EventLogServiceImpl implements EventLogService {
 		}
 		return event;
 	}
-
-	
 
 }

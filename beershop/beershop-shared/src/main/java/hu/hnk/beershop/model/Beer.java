@@ -1,8 +1,6 @@
 package hu.hnk.beershop.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +9,6 @@ import javax.persistence.NamedQuery;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 /**
  * A sör osztály ami tartalmazza a sör adatait.
@@ -28,17 +25,17 @@ import lombok.NoArgsConstructor;
 public class Beer extends BaseEntity implements Serializable {
 
 	/**
-	 * 
+	 * serial Version.
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
-	
+
 	/**
 	 * Sör osztály konstuktora.
 	 */
 	public Beer() {
-	
+
 	}
-	
+
 	/**
 	 * A sör neve.
 	 */
@@ -75,97 +72,143 @@ public class Beer extends BaseEntity implements Serializable {
 	@Column(name = "discountAmount", nullable = false, columnDefinition = "int(5) default 0")
 	private Integer discountAmount;
 
+	/**
+	 * A sör legendás státusza.
+	 */
 	@Column(name = "legendary")
 	private boolean legendary;
-	
+
 	/**
-	 * @return the name
+	 * Visszaadja a sör nevét.
+	 * 
+	 * @return a sör neve.
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
+	 * Beállítja a sör nevét.
+	 * 
 	 * @param name
-	 *            the name to set
+	 *            a sör új neve.
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * @return the alcoholLevel
+	 * Visszaadja a sör alkoholtartalmát.
+	 * 
+	 * @return a sör alkoholtartalma.
 	 */
 	public Double getAlcoholLevel() {
 		return alcoholLevel;
 	}
 
 	/**
+	 * Beállítja a sör alkoholtartalmát.
+	 * 
 	 * @param alcoholLevel
-	 *            the alcoholLevel to set
+	 *            a sör új alkoholtartalma.
 	 */
 	public void setAlcoholLevel(Double alcoholLevel) {
 		this.alcoholLevel = alcoholLevel;
 	}
 
 	/**
-	 * @return the price
+	 * Visszaadja a sör árát.
+	 * 
+	 * @return a sör ára.
 	 */
 	public Double getPrice() {
 		return price;
 	}
 
 	/**
+	 * Beállítja a sör új árát.
+	 * 
 	 * @param price
-	 *            the price to set
+	 *            a sör új ára.
 	 */
 	public void setPrice(Double price) {
 		this.price = price;
 	}
 
 	/**
-	 * @return the comment
+	 * Visszaadja a sörhöz tartozó megjegyzést.
+	 * 
+	 * @return a sörhöz tartozó megjegyzés.
 	 */
 	public String getComment() {
 		return comment;
 	}
 
 	/**
+	 * Beállítja a sörhöz tartozó megjegyzést.
+	 * 
 	 * @param comment
-	 *            the comment to set
+	 *            az új megjegyzés a sörhöz.
 	 */
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
 
 	/**
-	 * @return the capacity
+	 * Visszaadja a sör kapacitását, űrtartalmát.
+	 * 
+	 * @return az űrtartalma.
 	 */
 	public Double getCapacity() {
 		return capacity;
 	}
 
 	/**
+	 * Beállítja a sör új űrtartalmát.
+	 * 
 	 * @param capacity
-	 *            the capacity to set
+	 *            a sör új űrtartalma.
 	 */
 	public void setCapacity(Double capacity) {
 		this.capacity = capacity;
 	}
 
 	/**
-	 * @return the discountAmount
+	 * Visszaadja a sör aktuális kedvezményét.
+	 * 
+	 * @return a sör kedvezménye.
 	 */
 	public Integer getDiscountAmount() {
 		return discountAmount;
 	}
 
 	/**
+	 * Beállítja a sör kedvezményét.
+	 * 
 	 * @param discountAmount
-	 *            the discountAmount to set
+	 *            a sör új kedvezménye.
 	 */
 	public void setDiscountAmount(Integer discountAmount) {
 		this.discountAmount = discountAmount;
+	}
+
+	/**
+	 * Megmondja hogy egy sör legendás-e vagy sem.
+	 * 
+	 * @return igaz ha legendás, hamis ha nem.
+	 */
+	public boolean isLegendary() {
+		return legendary;
+	}
+
+	/**
+	 * Beállítja a sör legendás státuszát.
+	 * 
+	 * @param legendary
+	 *            a sör legendás státusza, logikai értékkel.
+	 */
+	public void setLegendary(boolean legendary) {
+		this.legendary = legendary;
 	}
 
 	@Override
@@ -221,14 +264,6 @@ public class Beer extends BaseEntity implements Serializable {
 		} else if (!price.equals(other.price))
 			return false;
 		return true;
-	}
-
-	public boolean isLegendary() {
-		return legendary;
-	}
-
-	public void setLegendary(boolean legendary) {
-		this.legendary = legendary;
 	}
 
 }
