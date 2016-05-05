@@ -11,6 +11,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import hu.hnk.beershop.model.Beer.BeerBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 
 /**
  * Egy rendelés adatait tartalmazó osztály.
@@ -20,13 +25,21 @@ import javax.validation.constraints.NotNull;
  */
 // @Table(name = "cargo")
 @Entity
+@Builder
+@AllArgsConstructor
 public class Cargo extends BaseEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
-
+	
+	/**
+	 * A szállítás osztály konstuktora. 
+	 */
+	public Cargo() {
+	}
+	
 	/**
 	 * A rendelt sörök listája.
 	 */

@@ -1,6 +1,8 @@
 package hu.hnk.beershop.model;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +11,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
+import hu.hnk.beershop.model.Beer.BeerBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 /**
  * A sör raktár, amelyben található egy sör illetve egy egész szám attribútum
@@ -20,12 +26,21 @@ import javax.persistence.OneToOne;
 @Entity
 @NamedQueries({ @NamedQuery(name = "StorageItem.findAll", query = "SELECT s FROM StorageItem s"),
 		@NamedQuery(name = "StorageItem.findByBeer", query = "SELECT s FROM StorageItem s WHERE beer = :beer") })
+@Builder
+@AllArgsConstructor
 public class StorageItem extends BaseEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
+
+	/**
+	 * A raktárban lévő tárgy osztály konstuktora.
+	 */
+	public StorageItem() {
+
+	}
 
 	/**
 	 * A sör.

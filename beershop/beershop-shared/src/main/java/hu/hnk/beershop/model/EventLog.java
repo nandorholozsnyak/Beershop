@@ -2,12 +2,19 @@ package hu.hnk.beershop.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+
+import hu.hnk.beershop.model.Beer.BeerBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -18,13 +25,21 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = "EventLog.findByUser", query = "SELECT e FROM EventLog e WHERE user = :user") })
+@Builder
+@AllArgsConstructor
 public class EventLog extends BaseEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2757899869474041195L;
-
+	
+	/**
+	 * A felhasználói eseményeket rögzítő osztály konstuktora.
+	 */
+	public EventLog() {
+	
+	}
 	/**
 	 * Az eseménynek az akciója, azaz mi történt, egy esetleges vásárlás vagy
 	 * pénzfeltöltés.

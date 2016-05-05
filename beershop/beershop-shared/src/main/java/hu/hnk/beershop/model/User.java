@@ -12,8 +12,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 /**
  * A felhasználó osztály tartalmazza egy felhasználó adatait.
@@ -27,12 +29,20 @@ import javax.persistence.Table;
 		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
 		@NamedQuery(name = "User.findUsername", query = "SELECT u.username FROM User u WHERE u.username = :name"),
 		@NamedQuery(name = "User.findEmail", query = "SELECT u.email FROM User u WHERE u.email = :email") })
+@Builder
+@AllArgsConstructor
 public class User extends BaseEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8256608378786882228L;
+
+	/**
+	 * A felhasználó osztály konstuktora.
+	 */
+	public User() {
+	}
 
 	/**
 	 * A felhasználó felhasználóneve.

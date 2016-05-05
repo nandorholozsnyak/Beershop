@@ -13,7 +13,7 @@ import javax.persistence.MappedSuperclass;
  *
  */
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
 
 	/**
 	 * Az entitások egyedi azonosítója.

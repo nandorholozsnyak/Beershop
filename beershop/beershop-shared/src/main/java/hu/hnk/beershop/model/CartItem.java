@@ -2,6 +2,8 @@ package hu.hnk.beershop.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
+import hu.hnk.beershop.model.Beer.BeerBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 /**
  * Egy kosár adatait tartalmazó osztály.
@@ -17,12 +23,21 @@ import javax.persistence.OneToOne;
  *
  */
 @Entity
+@Builder
+@AllArgsConstructor
 public class CartItem extends BaseEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
+
+	/**
+	 * A kosártermékek osztály kontruktora.
+	 */
+	public CartItem() {
+
+	}
 
 	/**
 	 * A rendelt sör.

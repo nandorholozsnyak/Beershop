@@ -1,12 +1,17 @@
 package hu.hnk.beershop.model;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 /**
  * A sör osztály ami tartalmazza a sör adatait.
@@ -18,13 +23,22 @@ import javax.persistence.NamedQuery;
 // @Table(name = "beer")
 @Entity
 @NamedQueries({ @NamedQuery(name = "Beer.findAll", query = "SELECT b FROM Beer b") })
+@Builder
+@AllArgsConstructor
 public class Beer extends BaseEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
-
+	
+	/**
+	 * Sör osztály konstuktora.
+	 */
+	public Beer() {
+	
+	}
+	
 	/**
 	 * A sör neve.
 	 */
@@ -63,7 +77,7 @@ public class Beer extends BaseEntity implements Serializable {
 
 	@Column(name = "legendary")
 	private boolean legendary;
-
+	
 	/**
 	 * @return the name
 	 */

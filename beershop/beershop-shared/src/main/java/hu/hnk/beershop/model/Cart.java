@@ -1,6 +1,7 @@
 package hu.hnk.beershop.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
+import hu.hnk.beershop.model.Beer.BeerBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 /**
  * Egy kosár adatait tartalmazó osztály.
@@ -19,12 +24,20 @@ import javax.persistence.OneToOne;
  *
  */
 @Entity
+@Builder
+@AllArgsConstructor
 public class Cart extends BaseEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
+
+	/**
+	 * A kosár osztály konstuktora.
+	 */
+	public Cart() {
+	}
 
 	/**
 	 * A rendelt sörök listája darabszámokkal együtt.
