@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
 

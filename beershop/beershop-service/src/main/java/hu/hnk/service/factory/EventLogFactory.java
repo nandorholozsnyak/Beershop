@@ -8,9 +8,9 @@ import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.logfactory.EventLogType;
 
-
 /**
  * Az eseményeket létrehozó Factory osztály.
+ * 
  * 
  * @author Nandi
  *
@@ -26,6 +26,20 @@ public class EventLogFactory {
 	 */
 	public static final Logger logger = Logger.getLogger(EventLogFactory.class);
 
+	/**
+	 * Egy eseménykészítő <code>Factory</code> osztály metódusa, amely
+	 * eseményeket hoz létre.
+	 * 
+	 * Metódusként megadható az esemény típusa, amelyet az {@link EventLogType}
+	 * enumeráció ír le. Szükséges az egyes felhasználói kritériumok miatt, a
+	 * korlátozásokat majd ezen keresztül tudjuk vizsgnáli.
+	 * 
+	 * @param logType
+	 *            az esemény típusa
+	 * @param user
+	 *            az eseményhez kötött felhasználó.
+	 * @return a létrehozott esemény.
+	 */
 	public static EventLog createEventLog(EventLogType logType, User user) {
 		EventLog result = null;
 		if (logType.equals(EventLogType.Registration)) {
@@ -66,14 +80,25 @@ public class EventLogFactory {
 		return event;
 	}
 
+	/**
+	 * Visszaadja a pénzfeltöltési esemény akciójának értékét.
+	 * 
+	 * @return a pénzfeltöltési esemény akciójának értéke.
+	 */
 	public static String getMoneyTransfer() {
 		return MONEY_TRANSFER;
 	}
 
+	/**
+	 * @return
+	 */
 	public static String getUserRegistration() {
 		return USER_REGISTRATION;
 	}
 
+	/**
+	 * @return
+	 */
 	public static String getBuyAction() {
 		return BUY_ACTION;
 	}

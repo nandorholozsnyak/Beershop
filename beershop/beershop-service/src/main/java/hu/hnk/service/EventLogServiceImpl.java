@@ -5,8 +5,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;

@@ -14,9 +14,9 @@ import javax.ejb.Stateless;
 
 import org.apache.log4j.Logger;
 
+import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.InvalidPinCode;
-import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.Role;
@@ -181,10 +181,11 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Rank countRankFromXp(User user) {
-		Rank userRank = null;
-
 		// if (user.getExperiencePoints() > -1 && user.getExperiencePoints() <=
 		// 2500) {
 		// userRank = Rank.Amatuer;
@@ -213,6 +214,9 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Integer countExperiencePointsInPercentage(Double experiencePoints) {
 
@@ -230,6 +234,9 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser)
 			throws InvalidPinCode, DailyMoneyTransferLimitExceeded {

@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.EventLog;
+import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.interfaces.EventLogDao;
@@ -16,7 +18,6 @@ import hu.hnk.service.RestrictionCheckerServiceImpl;
 import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.BuyActionRestrictions;
 import hu.hnk.service.tools.RankInterval;
-
 
 /**
  * @author Nandi
@@ -40,12 +41,12 @@ public class RestrictionCheckerServiceTest {
 		User user = new User();
 		user.setExperiencePoints(0.0);
 		List<EventLog> logs = new ArrayList<>();
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 		Assert.assertEquals(true, restrictionServiceImpl.checkIfUserCanTransferMoney(user));
 
 		logs = null;
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 		Assert.assertEquals(true, restrictionServiceImpl.checkIfUserCanTransferMoney(user));
 
@@ -61,7 +62,7 @@ public class RestrictionCheckerServiceTest {
 		for (int i = 0; i < 4; i++) {
 			logs.add(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user));
 		}
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 		Assert.assertFalse(restrictionServiceImpl.checkIfUserCanTransferMoney(user));
 
@@ -70,7 +71,7 @@ public class RestrictionCheckerServiceTest {
 		for (int i = 0; i < 3; i++) {
 			logs.add(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user));
 		}
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 		Assert.assertTrue(restrictionServiceImpl.checkIfUserCanTransferMoney(user));
 
@@ -86,7 +87,7 @@ public class RestrictionCheckerServiceTest {
 		for (int i = 0; i < 5; i++) {
 			logs.add(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user));
 		}
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 		Assert.assertFalse(restrictionServiceImpl.checkIfUserCanTransferMoney(user));
 
@@ -95,7 +96,7 @@ public class RestrictionCheckerServiceTest {
 		for (int i = 0; i < 4; i++) {
 			logs.add(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user));
 		}
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 		Assert.assertTrue(restrictionServiceImpl.checkIfUserCanTransferMoney(user));
 
@@ -111,7 +112,7 @@ public class RestrictionCheckerServiceTest {
 		for (int i = 0; i < 5; i++) {
 			logs.add(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user));
 		}
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 		Assert.assertEquals(false, restrictionServiceImpl.checkIfUserCanTransferMoney(user));
 
@@ -120,7 +121,7 @@ public class RestrictionCheckerServiceTest {
 		for (int i = 0; i < 4; i++) {
 			logs.add(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user));
 		}
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 		Assert.assertEquals(true, restrictionServiceImpl.checkIfUserCanTransferMoney(user));
 
@@ -131,12 +132,12 @@ public class RestrictionCheckerServiceTest {
 		User user = new User();
 		user.setExperiencePoints(0.0);
 		List<EventLog> logs = new ArrayList<>();
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 		Assert.assertEquals(true, restrictionServiceImpl.checkIfUserCanBuyMoreBeer(user));
 
 		logs = null;
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 
 		Assert.assertEquals(true, restrictionServiceImpl.checkIfUserCanBuyMoreBeer(user));
@@ -152,7 +153,7 @@ public class RestrictionCheckerServiceTest {
 		for (int i = 0; i < 4; i++) {
 			logs.add(EventLogFactory.createEventLog(EventLogType.Buy, user));
 		}
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 		Assert.assertEquals(false, restrictionServiceImpl.checkIfUserCanBuyMoreBeer(user));
 
@@ -161,7 +162,7 @@ public class RestrictionCheckerServiceTest {
 		for (int i = 0; i < 3; i++) {
 			logs.add(EventLogFactory.createEventLog(EventLogType.Buy, user));
 		}
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 		Assert.assertEquals(true, restrictionServiceImpl.checkIfUserCanBuyMoreBeer(user));
 
@@ -183,11 +184,60 @@ public class RestrictionCheckerServiceTest {
 					.getRestrictedValue() - 1; j++) {
 				logs.add(EventLogFactory.createEventLog(EventLogType.Buy, user));
 			}
-			Mockito.when(eventLogDao.findByUser(user))
+			Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 					.thenReturn(logs);
 			Assert.assertEquals(true, restrictionServiceImpl.checkIfUserCanBuyMoreBeer(user));
 		}
+	}
 
+	@Test
+	public void testCheckIfUserCanNotBuyMoreBeerForAllRank() {
+		User user = new User();
+		user.setExperiencePoints(0.0);
+		List<EventLog> logs = new ArrayList<>();
+		for (int i = 0; i < RankInterval.getRankIntverals()
+				.size(); i++) {
+			logs = new ArrayList<>();
+			user.setExperiencePoints((double) (RankInterval.getRankIntverals()
+					.get(i)
+					.getMinimumXP() + 1));
+			for (int j = 0; j < BuyActionRestrictions.getRestirctedValues()
+					.get(i)
+					.getRestrictedValue() + 1; j++) {
+				logs.add(EventLogFactory.createEventLog(EventLogType.Buy, user));
+			}
+			Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
+					.thenReturn(logs);
+			Assert.assertEquals(false, restrictionServiceImpl.checkIfUserCanBuyMoreBeer(user));
+		}
+	}
+
+	@Test
+	public void testCheckIfUserCanBuyLegendaryBeerShouldReturnTrue() {
+		User user = new User();
+		user.setExperiencePoints((double) RankInterval.getRankIntverals()
+				.stream()
+				.filter(p -> p.getRank()
+						.equals(Rank.Legenda))
+				.findFirst()
+				.get()
+				.getMinimumXP() + 1);
+		Assert.assertEquals(true, restrictionServiceImpl.checkIfUserCanBuyLegendBeer(user));
+	}
+
+	@Test
+	public void testCheckIfUserCanBuyLegendaryBeerShouldReturnFalse() {
+		User user = new User();
+		Rank r;
+		RankInterval.getRankIntverals()
+				.stream()
+				.filter(p -> !p.getRank()
+						.equals(Rank.Legenda))
+				.forEach(e -> {
+					user.setExperiencePoints(e.getMaximumXP()
+							.doubleValue());
+					Assert.assertEquals(false, restrictionServiceImpl.checkIfUserCanBuyLegendBeer(user));
+				});
 	}
 
 }

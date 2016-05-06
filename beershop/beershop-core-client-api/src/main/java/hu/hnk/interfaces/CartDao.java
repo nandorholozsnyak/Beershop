@@ -3,7 +3,6 @@ package hu.hnk.interfaces;
 import java.util.List;
 
 import hu.hnk.beershop.model.Cart;
-import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
 
 

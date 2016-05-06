@@ -72,10 +72,10 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	}
 
 	private List<EventLog> getTodayMoneyTransferEventLogs(User user) {
-		if (eventLogDao.findByUser(user) == null) {
+		if (eventLogDao.findByUserWhereDateIsToday(user) == null) {
 			return null;
 		}
-		return eventLogDao.findByUser(user)
+		return eventLogDao.findByUserWhereDateIsToday(user)
 				.stream()
 				.filter(p -> p.getAction()
 						.equals(EventLogFactory.getMoneyTransfer()))
@@ -105,10 +105,10 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	}
 
 	private List<EventLog> getTodayBuyActionEventLogs(User user) {
-		if (eventLogDao.findByUser(user) == null) {
+		if (eventLogDao.findByUserWhereDateIsToday(user) == null) {
 			return null;
 		}
-		return eventLogDao.findByUser(user)
+		return eventLogDao.findByUserWhereDateIsToday(user)
 				.stream()
 				.filter(p -> p.getAction()
 						.equals(EventLogFactory.getBuyAction()))
@@ -123,8 +123,11 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	 */
 	@Override
 	public boolean checkIfUserCanBuyLegendBeer(User user) {
-		if (countRankFromXp(user).equals(Rank.Legenda))
+		if (countRankFromXp(user).equals(Rank.Legenda)) {
+			logger.info("User can buy legendary beers.");
 			return true;
+		}
+		logger.info("User can NOT buy legendary beers.");
 		return false;
 	}
 

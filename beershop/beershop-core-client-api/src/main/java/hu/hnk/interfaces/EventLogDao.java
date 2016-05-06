@@ -5,7 +5,6 @@ import java.util.List;
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 
-
 /**
  * Az eseményeket kezelő adathozzáférési osztály interfésze.
  * 
@@ -23,5 +22,10 @@ public interface EventLogDao extends BaseDao<EventLog> {
 	 */
 	public List<EventLog> findByUser(User user);
 
+	/**
+	 * @param user
+	 * @return
+	 */
+	public List<EventLog> findByUserWhereDateIsToday(User user);
 
 }
