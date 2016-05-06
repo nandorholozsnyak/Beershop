@@ -128,7 +128,7 @@ public class UserServiceTest {
 		Integer money = 1000;
 		User loggedInUser = new User();
 		loggedInUser.setMoney(0.0);
-		Mockito.when(eventLogDao.findByUser(loggedInUser))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(loggedInUser))
 				.thenReturn(null);
 		userService.transferMoney(userPin, expectedPin, money, loggedInUser);
 	}
@@ -155,7 +155,7 @@ public class UserServiceTest {
 			event.setAction("Money transfer.");
 			logs.add(event);
 		}
-		Mockito.when(eventLogDao.findByUser(loggedInUser))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(loggedInUser))
 				.thenReturn(logs);
 		userService.transferMoney(userPin, expectedPin, money, loggedInUser);
 	}

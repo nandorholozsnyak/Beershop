@@ -62,7 +62,7 @@ public class CargoServiceTest {
 				.getRestrictedValue() + 1; i++) {
 			logs.add(EventLogFactory.createEventLog(EventLogType.Buy, user));
 		}
-		Mockito.when(eventLogDao.findByUser(user))
+		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
 		cargoServiceImpl.saveNewCargo(cargo, items);
 	}
