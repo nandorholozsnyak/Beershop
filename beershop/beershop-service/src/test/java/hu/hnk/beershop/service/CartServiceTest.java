@@ -24,6 +24,7 @@ import hu.hnk.interfaces.CartDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.StorageDao;
 import hu.hnk.service.CartServiceImpl;
+import hu.hnk.service.tools.BonusPointCalculator;
 
 public class CartServiceTest {
 
@@ -34,16 +35,20 @@ public class CartServiceTest {
 	private StorageDao storageDao;
 
 	private CartItemDao cartItemDao;
-
+	
+	private BonusPointCalculator calculator;
+	
 	@Before
 	public void bootContainer() throws Exception {
 		cartService = Mockito.spy(new CartServiceImpl());
+		calculator = Mockito.spy(new BonusPointCalculator());
 		cartDao = Mockito.mock(CartDao.class);
 		cartItemDao = Mockito.mock(CartItemDao.class);
 		storageDao = Mockito.mock(StorageDao.class);
 		cartService.setCartDao(cartDao);
 		cartService.setStorageDao(storageDao);
 		cartService.setCartItemDao(cartItemDao);
+		cartService.setCalculator(calculator);
 	}
 
 	// List<StorageItem> storage, Beer beer, Integer quantity

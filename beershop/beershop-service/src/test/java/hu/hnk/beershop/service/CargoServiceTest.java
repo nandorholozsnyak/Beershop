@@ -22,8 +22,9 @@ import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.service.CargoServiceImpl;
 import hu.hnk.service.RestrictionCheckerServiceImpl;
 import hu.hnk.service.factory.EventLogFactory;
+import hu.hnk.service.tools.BonusPointCalculator;
 import hu.hnk.service.tools.BuyActionRestrictions;
-
+import hu.hnk.service.tools.DailyRankBonus;
 
 public class CargoServiceTest {
 
@@ -32,17 +33,20 @@ public class CargoServiceTest {
 	private RestrictionCheckerServiceImpl res;
 	private CartItemDao cartItemDao;
 	private CargoDao cargoDao;
+	private BonusPointCalculator bonusPointCalculator;
 
 	@Before
 	public void setUp() throws Exception {
 		cargoServiceImpl = Mockito.spy(new CargoServiceImpl());
 		res = Mockito.spy(new RestrictionCheckerServiceImpl());
+		bonusPointCalculator = Mockito.spy(new BonusPointCalculator());
 		eventLogDao = Mockito.mock(EventLogDao.class);
 		cartItemDao = Mockito.mock(CartItemDao.class);
 		cargoDao = Mockito.mock(CargoDao.class);
 		cargoServiceImpl.setRestrictionCheckerService(res);
 		res.setEventLogDao(eventLogDao);
 		cargoServiceImpl.setCargoDao(cargoDao);
+		cargoServiceImpl.setCalculator(bonusPointCalculator);
 	}
 
 	@Test(expected = DailyBuyActionLimitExceeded.class)
@@ -104,14 +108,19 @@ public class CargoServiceTest {
 		User user = new User();
 		// Amatőr lesz a felhasználónk.
 		user.setExperiencePoints(1.0);
-		user.setMoney(250.0);
+		user.setMoney(1000.0);
+		user.setPoints(0.0);
 		List<CartItem> items = new ArrayList<>();
 		Cargo cargo = new Cargo();
 		cargo.setUser(user);
 
 		// Sör elkészítése.
-		Beer beer = new Beer();
-		beer.setPrice(100.0);
+		Beer beer = Beer.builder()
+				.alcoholLevel(5.0)
+				.capacity(0.5)
+				.discountAmount(0)
+				.price(100.0)
+				.build();
 
 		CartItem cartItem = new CartItem();
 		cartItem.setBeer(beer);
@@ -135,7 +144,7 @@ public class CargoServiceTest {
 				.thenReturn(cargo);
 
 		cargoServiceImpl.saveNewCargo(cargo, items);
-		Assert.assertEquals(150.0, cargo.getUser()
+		Assert.assertEquals(1000 - BuyActionRestrictions.getShippingCost() - 100, cargo.getUser()
 				.getMoney(), 0.0);
 	}
 

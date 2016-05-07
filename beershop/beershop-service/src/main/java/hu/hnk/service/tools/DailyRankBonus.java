@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import hu.hnk.beershop.model.Rank;
+import hu.hnk.beershop.service.tools.DiscountType;
 import lombok.Builder;
 
 @Builder
@@ -21,7 +22,7 @@ public class DailyRankBonus {
 		DAILY_BONUSES = new ArrayList<>();
 		// Amatőrök keddenként kapnak kedvezményeket.
 		// Feláras lesz minden.
-		DAILY_BONUSES.add(DailyRankBonus.builder()
+		getDailyBonuses().add(DailyRankBonus.builder()
 				.day(DayOfWeek.TUESDAY)
 				.ranks(Arrays.asList(Rank.Amatuer))
 				.discounts(Arrays.asList(DiscountType.FiftyPercentage))
@@ -29,7 +30,7 @@ public class DailyRankBonus {
 
 		// Sörfelelősök illetve Sörmesterek extra bónusz pontokat kapnak
 		// szerdánként.
-		DAILY_BONUSES.add(DailyRankBonus.builder()
+		getDailyBonuses().add(DailyRankBonus.builder()
 				.day(DayOfWeek.WEDNESDAY)
 				.ranks(Arrays.asList(Rank.Sorfelelos, Rank.Sormester))
 				.discounts(Arrays.asList(DiscountType.ExtraBonusPoints))
@@ -37,14 +38,14 @@ public class DailyRankBonus {
 
 		// Csütörtökönkétn az ivóbajnok a legolcsóbb termékeket ingyen kapja
 		// meg.
-		DAILY_BONUSES.add(DailyRankBonus.builder()
+		getDailyBonuses().add(DailyRankBonus.builder()
 				.day(DayOfWeek.THURSDAY)
 				.ranks(Arrays.asList(Rank.Ivobajnok))
 				.discounts(Arrays.asList(DiscountType.TheCheapestForFree))
 				.build());
 
 		// Szombatonként mindenkinek ingyenes szállítás van.
-		DAILY_BONUSES.add(DailyRankBonus.builder()
+		getDailyBonuses().add(DailyRankBonus.builder()
 				.day(DayOfWeek.SATURDAY)
 				.ranks(Arrays.asList(Rank.values()))
 				.discounts(Arrays.asList(DiscountType.FreeShipping))
@@ -68,6 +69,10 @@ public class DailyRankBonus {
 
 	public List<Rank> getRanks() {
 		return ranks;
+	}
+
+	public static List<DailyRankBonus> getDailyBonuses() {
+		return DAILY_BONUSES;
 	}
 
 }

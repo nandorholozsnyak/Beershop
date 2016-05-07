@@ -36,6 +36,11 @@ public class BuyActionRestrictions {
 	 */
 	private static List<BuyActionRestrictions> restirctedValues;
 
+	/**
+	 * A szállítási költség.
+	 */
+	private static Double shippingCost = 590.0;
+
 	static {
 		restirctedValues = new ArrayList<>();
 		restirctedValues.add(new BuyActionRestrictions(Rank.Amatuer, 3));
@@ -85,6 +90,15 @@ public class BuyActionRestrictions {
 	 */
 	public static List<BuyActionRestrictions> getRestirctedValues() {
 		return restirctedValues;
+	}
+
+	/**
+	 * Visszaadja a szállítási költséget.
+	 * 
+	 * @return a szállítási költség.
+	 */
+	public static Double getShippingCost() {
+		return shippingCost;
 	}
 
 }

@@ -204,7 +204,10 @@ public class UserServiceImpl implements UserService {
 		// } else if (user.getExperiencePoints() > 12500) {
 		// userRank = Rank.Legenda;
 		// }
-
+		
+		if (user.getExperiencePoints() == null) {
+			return Rank.Amatuer;
+		}
 		return rankIntverals.stream()
 				.filter(p -> user.getExperiencePoints() > p.getMinimumXP()
 						&& user.getExperiencePoints() <= p.getMaximumXP())
