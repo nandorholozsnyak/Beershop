@@ -2,6 +2,6 @@ language: java
 script: cd beershop && mvn install -DskipTests=true
 jdk:
   - oraclejdk8
- cache:
+cache:
   directories:
     - $HOME/.m2
