@@ -23,6 +23,7 @@ import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.interfaces.CartDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.StorageDao;
+import hu.hnk.service.tools.BonusPointCalculator;
 
 /**
  * A felhasználók kosarait kezelő szolgáltatás. Amikor a felhasználó hozzáad egy
@@ -58,6 +59,9 @@ public class CartServiceImpl implements CartService {
 	 */
 	@EJB
 	private StorageDao storageDao;
+
+	@EJB
+	BonusPointCalculator calculator;
 
 	/**
 	 * {@inheritDoc}
@@ -259,16 +263,7 @@ public class CartServiceImpl implements CartService {
 	 */
 	@Override
 	public Double countBonusPoints(List<CartItem> cartItems) {
-		return cartItems.stream()
-				.mapToDouble(e -> (e.getQuantity() * e.getBeer()
-						.getPrice()) / 100
-						+ (e.getBeer()
-								.getAlcoholLevel()
-								+ e.getBeer()
-										.getCapacity()
-								+ e.getBeer()
-										.getDiscountAmount()))
-				.sum();
+		return calculator.calculate(cartItems);
 	}
 
 	/**
@@ -314,6 +309,10 @@ public class CartServiceImpl implements CartService {
 	 */
 	public void setStorageDao(StorageDao storageDao) {
 		this.storageDao = storageDao;
+	}
+
+	public void setCalculator(BonusPointCalculator calculator) {
+		this.calculator = calculator;
 	}
 
 }

@@ -22,6 +22,8 @@ import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.factory.EventLogFactory;
+import hu.hnk.service.tools.BonusPointCalculator;
+import hu.hnk.service.tools.BuyActionRestrictions;
 
 /**
  * @author Nandi
@@ -65,6 +67,9 @@ public class CargoServiceImpl implements CargoService {
 	@EJB
 	private RestrictionCheckerService restrictionCheckerService;
 
+	@EJB
+	BonusPointCalculator calculator;
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -82,9 +87,12 @@ public class CargoServiceImpl implements CargoService {
 			}
 		}
 
-		// Beállítjuk a szállítmány termékeit
+		// Elkészítünk egy már a mentett szállítást reprezentáló objektumot.
 		Cargo savedCargo = null;
-		savedCargo = saveCargo(cargo, items, savedCargo);
+
+		// Hozzáadjuk a szállítmányhoz a szállítási költséget.
+		cargo.setTotalPrice(cargo.getTotalPrice() + BuyActionRestrictions.getShippingCost());
+		savedCargo = saveCargo(cargo, items);
 
 		// Miután mentettük a szállítást utána töröljük a felhasználó kosarából.
 		deleteItemsFromUsersCart(cargo);
@@ -92,11 +100,39 @@ public class CargoServiceImpl implements CargoService {
 		// Levonjuk a felhasználótol a megrendelés árát.
 		updateUsersMoneyAfterPayment(cargo);
 
+		// Frissítjük a felhasználó tapasztalatpontjait.
+		updateUserExperiencePoints(cargo);
+
+		// Frissítjük a felhasználó bónusz pontjait.
+		updateUserBonusPoints(cargo, savedCargo);
+
 		// Készítünk egy eventLog-ot a sikeres vásárlásról.
 		createEventLogForBuyAction(cargo);
 
 		return savedCargo;
 
+	}
+
+	private void updateUserBonusPoints(Cargo cargo, Cargo savedCargo) {
+		cargo.getUser()
+				.setPoints(cargo.getUser()
+						.getPoints() + calculator.calculate(savedCargo.getItems()));
+		try {
+			userDao.update(cargo.getUser());
+		} catch (Exception e) {
+			logger.warn(e);
+		}
+	}
+
+	private void updateUserExperiencePoints(Cargo cargo) {
+		cargo.getUser()
+				.setExperiencePoints(cargo.getUser()
+						.getExperiencePoints() + (cargo.getTotalPrice() / 10));
+		try {
+			userDao.update(cargo.getUser());
+		} catch (Exception e) {
+			logger.warn(e);
+		}
 	}
 
 	private List<CartItem> legendaryItems(List<CartItem> items) {
@@ -106,8 +142,8 @@ public class CargoServiceImpl implements CargoService {
 				.collect(Collectors.toList());
 	}
 
-	private Cargo saveCargo(Cargo cargo, List<CartItem> items, Cargo savedCargo) {
-
+	private Cargo saveCargo(Cargo cargo, List<CartItem> items) {
+		Cargo savedCargo = null;
 		try {
 			savedCargo = cargoDao.save(cargo);
 		} catch (Exception e1) {
@@ -212,6 +248,10 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	public void setRestrictionCheckerService(RestrictionCheckerService restrictionCheckerService) {
 		this.restrictionCheckerService = restrictionCheckerService;
+	}
+
+	public void setCalculator(BonusPointCalculator calculator) {
+		this.calculator = calculator;
 	}
 
 }

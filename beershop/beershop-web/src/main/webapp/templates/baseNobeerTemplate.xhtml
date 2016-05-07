@@ -37,7 +37,7 @@
 .profile .ui-widget-content {
 	background: transparent !important;
 	font-weight: bold;
-	font-size: medium;
+	font-size: small;
 	color: black;
 }
 
@@ -94,16 +94,16 @@ tr {
 									value="Üdv #{sessionManagerBean.loggedInUser.username}" />
 								<h:outputLabel id="userMoney"
 									value="Egyenleged: #{sessionManagerBean.loggedInUser.money} HUF" />
+								<h:outputLabel id="bonusPoints"
+									value="Bónusz pontok: #{sessionManagerBean.loggedInUser.points}" />
 								<h:outputText value="Tapasztalatpontjaid" />
-								<p:progressBar
+								<p:progressBar id="experiencePoints"
 									value="#{sessionManagerBean.getUserExperiencePoints()}"
 									displayOnly="true"
 									labelTemplate="#{sessionManagerBean.loggedInUser.experiencePoints}" />
 							</p:panelGrid></li>
 						<li><a
 							href="#{request.contextPath}/secured/cartManager.xhtml"><span>Kosaram</span></a></li>
-						<!-- 						<li><a -->
-						<!-- 							href="#{request.contextPath}/secured/moneyTransfer.xhtml"><span>Egyenlegfeltöltés</span></a></li> -->
 						<li><a href="#{request.contextPath}/logout"><span>Kijelentkezés</span></a></li>
 					</ul>
 					</nav>

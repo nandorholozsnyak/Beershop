@@ -51,7 +51,11 @@
 													value="#{transactionManagerBean.address}" required="true"
 													label="Szállítási cím">
 												</p:inputText>
-
+												
+												<p:outputLabel for="cost" value="Teljes összeg (+ szállítási díj):" />
+												<p:outputLabel id="cost"
+													value="#{transactionManagerBean.totalCost}" />
+													
 												<p:outputLabel for="payMode" value="Fizetési mód:" />
 												<p:selectOneRadio id="payMode"
 													value="#{transactionManagerBean.payMode}">
@@ -63,7 +67,7 @@
 												<p:outputLabel value="Rendelkezésére áll elég egyenleg: "></p:outputLabel>
 												<p:outputLabel id="enoughMoney"
 													value="#{transactionManagerBean.isThereEnoughMoney() == true?'Igen':'Nem'}" />
-<!-- 												<p:outputLabel value="Fizetés utáni egyenlege: "></p:outputLabel> -->
+												<!-- 												<p:outputLabel value="Fizetés utáni egyenlege: "></p:outputLabel> -->
 												<p:row>
 
 													<p:column colspan="2">
@@ -71,7 +75,7 @@
 															value="Vásárlás" validateClient="true"
 															action="#{transactionManagerBean.doTransaction}"
 															icon="fa fa-money" iconPos="left"
-															update="buyForm:buyMessage" />
+															update="buyForm:buyMessage experiencePoints userMoney" />
 													</p:column>
 												</p:row>
 											</h:panelGrid>
