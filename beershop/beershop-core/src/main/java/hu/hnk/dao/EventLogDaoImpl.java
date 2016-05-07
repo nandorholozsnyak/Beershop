@@ -1,6 +1,7 @@
 package hu.hnk.dao;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -49,7 +50,11 @@ public class EventLogDaoImpl extends BaseDaoImpl<EventLog> implements EventLogDa
 		TypedQuery<EventLog> query = entityManager.createNamedQuery("EventLog.findByUserWhereDateIsToday",
 				EventLog.class);
 		query.setParameter("user", user);
-		query.setParameter("date", LocalDate.now());
+		query.setParameter("startDate", LocalDate.now()
+				.atStartOfDay());
+		query.setParameter("endDate", LocalDate.now()
+				.plus(1, ChronoUnit.DAYS)
+				.atStartOfDay());
 		return query.getResultList();
 	}
 

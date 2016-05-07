@@ -1,4 +1,4 @@
-package hu.hnk.service.tools;
+package hu.hnk.beershop.service.tools;
 
 public enum DiscountType {
 
