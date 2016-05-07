@@ -3,6 +3,8 @@ package hu.hnk.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.log4j.Logger;
+
 import hu.hnk.beershop.model.BaseEntity;
 import hu.hnk.interfaces.BaseDao;
 import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
@@ -27,6 +29,11 @@ import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 public abstract class BaseDaoImpl<E extends BaseEntity> implements BaseDao<E> {
 
 	/**
+	 * Az osztály loggere.
+	 */
+	public static final Logger logger = Logger.getLogger(BaseDaoImpl.class);
+
+	/**
 	 * Az entitásokat kezelő entitás menedzser objektum.
 	 */
 	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
@@ -49,6 +56,7 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements BaseDao<E> {
 	 */
 	@Override
 	public E save(E entity) throws Exception {
+		logger.info("Persisting entity of class:" + entity.getClass());
 		entityManager.persist(entity);
 		return entity;
 	}
@@ -58,8 +66,8 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements BaseDao<E> {
 	 */
 	@Override
 	public void update(E entity) throws Exception {
+		logger.info("Updating entity of class:" + entity.getClass());
 		this.entityManager.merge(entity);
-
 	}
 
 	/**
@@ -67,7 +75,9 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements BaseDao<E> {
 	 */
 	@Override
 	public void delete(Long id) throws Exception {
+
 		E e = this.entityManager.find(entityClass, id);
+		logger.info("Deleting entity of class:" + e.getClass());
 		this.entityManager.remove(e);
 	}
 
@@ -76,6 +86,7 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements BaseDao<E> {
 	 */
 	@Override
 	public E find(Long id) throws Exception {
+		logger.info("Finding entity of class:" + entityClass);
 		return this.entityManager.find(entityClass, id);
 	}
 

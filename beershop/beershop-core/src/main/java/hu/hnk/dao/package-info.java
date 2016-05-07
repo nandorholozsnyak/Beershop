@@ -1,9 +1,7 @@
-
 /**
- * Az adatbázist elérő osztályok csomagja.
- * Data acces osztályok találhatóak benne.
- */
-/**
+ * Az adatbázist elérő osztályok csomagja. Data acces osztályok találhatóak
+ * benne.
+ * 
  * @author Nandi
  *
  */

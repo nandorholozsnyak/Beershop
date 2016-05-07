@@ -7,6 +7,8 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import org.apache.log4j.Logger;
+
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.interfaces.CartItemDao;
 
@@ -18,16 +20,21 @@ import hu.hnk.interfaces.CartItemDao;
 @Local(CartItemDao.class)
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class CartItemDaoImpl extends BaseDaoImpl<CartItem> implements CartItemDao {
+	/**
+	 * Az osztály loggere.
+	 */
+	public static final Logger logger = Logger.getLogger(CartItemDaoImpl.class);
 
 	/**
-	 * 
+	 * Az osztály paraméter nélküli konstuktora.
 	 */
 	public CartItemDaoImpl() {
 		super(CartItem.class);
 	}
-
+	
 	@Override
 	public void deleteItemLogically(CartItem item) throws Exception {
+		logger.info("Trying to delete item logically.");
 		item.setActive(false);
 		item.setRemovedFromCart(LocalDateTime.now());
 		update(item);

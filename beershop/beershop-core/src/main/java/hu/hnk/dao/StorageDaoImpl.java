@@ -17,7 +17,6 @@ import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.interfaces.StorageDao;
 
-
 /**
  * @author Nandi
  *
@@ -44,6 +43,7 @@ public class StorageDaoImpl extends BaseDaoImpl<StorageItem> implements StorageD
 	 */
 	@Override
 	public List<StorageItem> findAll() {
+		logger.info("Gettin all storage items.");
 		Query query = entityManager.createQuery("SELECT s FROM StorageItem s");
 		return query.getResultList();
 	}
@@ -53,23 +53,23 @@ public class StorageDaoImpl extends BaseDaoImpl<StorageItem> implements StorageD
 	 */
 	@Override
 	public void saveAllChanges(List<StorageItem> storage) {
+		logger.info("Saving all storage item changes.");
 		storage.stream()
 				.forEach(entity -> {
 					try {
 						update(entity);
 					} catch (Exception e) {
-						e.printStackTrace();
+						logger.warn(e);
 					}
 				});
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see hu.hnk.interfaces.StorageDao#findByBeer(hu.hnk.beershop.model.Beer)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public StorageItem findByBeer(Beer beer) {
+		logger.info("Finding storage item by beer:" + beer.getName());
 		return entityManager.createNamedQuery("StorageItem.findByBeer", StorageItem.class)
 				.setParameter("beer", beer)
 				.getSingleResult();

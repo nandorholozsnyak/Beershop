@@ -10,6 +10,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.TypedQuery;
 
+import org.apache.log4j.Logger;
+
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.EventLogDao;
@@ -26,6 +28,11 @@ import hu.hnk.interfaces.EventLogDao;
 public class EventLogDaoImpl extends BaseDaoImpl<EventLog> implements EventLogDao {
 
 	/**
+	 * Az osztály loggere.
+	 */
+	public static final Logger logger = Logger.getLogger(EventLogDaoImpl.class);
+
+	/**
 	 * Az osztály konstuktora.
 	 */
 	public EventLogDaoImpl() {
@@ -37,6 +44,7 @@ public class EventLogDaoImpl extends BaseDaoImpl<EventLog> implements EventLogDa
 	 */
 	@Override
 	public List<EventLog> findByUser(User user) {
+		logger.info("Gettin all event logs for:" + user.getUsername());
 		TypedQuery<EventLog> query = entityManager.createNamedQuery("EventLog.findByUser", EventLog.class);
 		query.setParameter("user", user);
 		return query.getResultList();
@@ -47,6 +55,7 @@ public class EventLogDaoImpl extends BaseDaoImpl<EventLog> implements EventLogDa
 	 */
 	@Override
 	public List<EventLog> findByUserWhereDateIsToday(User user) {
+		logger.info("Gettin today's event logs for:" + user.getUsername());
 		TypedQuery<EventLog> query = entityManager.createNamedQuery("EventLog.findByUserWhereDateIsToday",
 				EventLog.class);
 		query.setParameter("user", user);
