@@ -20,7 +20,7 @@ import lombok.Builder;
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = "EventLog.findByUser", query = "SELECT e FROM EventLog e WHERE user = :user"),
-		@NamedQuery(name = "EventLog.findByUserWhereDateIsToday", query = "SELECT e FROM EventLog e WHERE user = :user AND date = :date") })
+		@NamedQuery(name = "EventLog.findByUserWhereDateIsToday", query = "SELECT e FROM EventLog e WHERE user = :user AND date BETWEEN :startDate AND :endDate") })
 @Builder
 @AllArgsConstructor
 public class EventLog extends BaseEntity implements Serializable {

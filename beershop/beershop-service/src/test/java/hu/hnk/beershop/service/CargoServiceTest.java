@@ -1,5 +1,7 @@
 package hu.hnk.beershop.service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +22,12 @@ import hu.hnk.interfaces.CargoDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.service.CargoServiceImpl;
+import hu.hnk.service.DiscountServiceImpl;
 import hu.hnk.service.RestrictionCheckerServiceImpl;
+import hu.hnk.service.UserServiceImpl;
 import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.BonusPointCalculator;
 import hu.hnk.service.tools.BuyActionRestrictions;
-import hu.hnk.service.tools.DailyRankBonus;
 
 public class CargoServiceTest {
 
@@ -34,12 +37,17 @@ public class CargoServiceTest {
 	private CartItemDao cartItemDao;
 	private CargoDao cargoDao;
 	private BonusPointCalculator bonusPointCalculator;
-
+	private DiscountServiceImpl discountService;
+	private UserServiceImpl userService;
+	
 	@Before
 	public void setUp() throws Exception {
 		cargoServiceImpl = Mockito.spy(new CargoServiceImpl());
 		res = Mockito.spy(new RestrictionCheckerServiceImpl());
+		discountService = Mockito.spy(new DiscountServiceImpl());
 		bonusPointCalculator = Mockito.spy(new BonusPointCalculator());
+		userService = Mockito.spy(new UserServiceImpl());
+		discountService.setUserService(userService);
 		eventLogDao = Mockito.mock(EventLogDao.class);
 		cartItemDao = Mockito.mock(CartItemDao.class);
 		cargoDao = Mockito.mock(CargoDao.class);
@@ -47,6 +55,7 @@ public class CargoServiceTest {
 		res.setEventLogDao(eventLogDao);
 		cargoServiceImpl.setCargoDao(cargoDao);
 		cargoServiceImpl.setCalculator(bonusPointCalculator);
+		cargoServiceImpl.setDiscountService(discountService);
 	}
 
 	@Test(expected = DailyBuyActionLimitExceeded.class)
@@ -144,8 +153,14 @@ public class CargoServiceTest {
 				.thenReturn(cargo);
 
 		cargoServiceImpl.saveNewCargo(cargo, items);
-		Assert.assertEquals(1000 - BuyActionRestrictions.getShippingCost() - 100, cargo.getUser()
-				.getMoney(), 0.0);
+		if(LocalDate.now().getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
+			Assert.assertEquals(1000 - 100, cargo.getUser()
+					.getMoney(), 0.0);
+		} else {
+			Assert.assertEquals(1000 - BuyActionRestrictions.getShippingCost() - 100, cargo.getUser()
+					.getMoney(), 0.0);
+		}
+		
 	}
 
 }

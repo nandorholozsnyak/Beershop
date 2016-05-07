@@ -270,4 +270,8 @@ public class CargoServiceImpl implements CargoService {
 		this.calculator = calculator;
 	}
 
+	public void setDiscountService(DiscountService discountService) {
+		this.discountService = discountService;
+	}
+
 }
