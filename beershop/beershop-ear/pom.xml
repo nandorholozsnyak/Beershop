@@ -9,13 +9,19 @@
 	<packaging>ear</packaging>
 	<artifactId>beershop-ear</artifactId>
 	<name>Beershop-EAR</name>
+	<!-- <repositories> -->
+	<!-- <repository> -->
+	<!-- <id>Codehaus repository</id> -->
+	<!-- <name>codehaus-mule-repo</name> -->
+	<!-- <url>https://repository-master.mulesoft.org/nexus/content/groups/public/</url> -->
+	<!-- <layout>default</layout> -->
+	<!-- </repository> -->
+	<!-- </repositories> -->
 	<repositories>
 		<repository>
-			<id>Codehaus repository</id>
-			<name>codehaus-mule-repo</name>
-			<url>https://repository-master.mulesoft.org/nexus/content/groups/public/
-       </url>
-			<layout>default</layout>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
 		</repository>
 	</repositories>
 	<profiles>
@@ -121,12 +127,15 @@
 			<artifactId>beershop-web</artifactId>
 			<version>1.0</version>
 			<type>war</type>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>hu.hnk.prt</groupId>
 			<artifactId>beershop-shared</artifactId>
 			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>bootstrap</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
@@ -159,7 +168,13 @@
 					</modules>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<generateReports>false</generateReports>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>

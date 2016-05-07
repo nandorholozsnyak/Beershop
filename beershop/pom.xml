@@ -33,12 +33,19 @@
 			<roles>
 				<role>Junior Java Developer</role>
 			</roles>
-			<url>holi60.online</url>
+			<url>http://holi60.online</url>
 		</developer>
 	</developers>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+		</repository>
+	</repositories>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -117,10 +124,15 @@
 				<version>5.3</version>
 			</dependency>
 
+			<!-- <dependency> -->
+			<!-- <groupId>org.primefaces.extensions</groupId> -->
+			<!-- <artifactId>all-themes</artifactId> -->
+			<!-- <version>1.0.8</version> -->
+			<!-- </dependency> -->
 			<dependency>
-				<groupId>org.primefaces.extensions</groupId>
-				<artifactId>all-themes</artifactId>
-				<version>1.0.8</version>
+				<groupId>org.primefaces.themes</groupId>
+				<artifactId>bootstrap</artifactId>
+				<version>1.0.10</version>
 			</dependency>
 
 			<dependency>

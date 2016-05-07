@@ -15,7 +15,6 @@
 			<id>prime-repo</id>
 			<name>PrimeFaces Maven Repository</name>
 			<url>http://repository.primefaces.org</url>
-			<layout> </layout>
 		</repository>
 	</repositories>
 	<dependencies>
@@ -82,11 +81,14 @@
 		</dependency>
 
 		<!-- All Primefaces Theme -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.primefaces.extensions</groupId> -->
+		<!-- <artifactId>all-themes</artifactId> -->
+		<!-- </dependency> -->
 		<dependency>
-			<groupId>org.primefaces.extensions</groupId>
-			<artifactId>all-themes</artifactId>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>bootstrap</artifactId>
 		</dependency>
-
 		<!-- Primefaces Extension -->
 		<dependency>
 			<groupId>org.primefaces.extensions</groupId>
@@ -99,7 +101,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>beerShop</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
