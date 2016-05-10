@@ -1,4 +1,4 @@
-package hu.hnk.service;
+package hu.hnk.service.impl;
 
 import java.time.LocalDate;
 import java.util.Arrays;

@@ -21,11 +21,11 @@ import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.interfaces.CargoDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.EventLogDao;
-import hu.hnk.service.CargoServiceImpl;
-import hu.hnk.service.DiscountServiceImpl;
-import hu.hnk.service.RestrictionCheckerServiceImpl;
-import hu.hnk.service.UserServiceImpl;
 import hu.hnk.service.factory.EventLogFactory;
+import hu.hnk.service.impl.CargoServiceImpl;
+import hu.hnk.service.impl.DiscountServiceImpl;
+import hu.hnk.service.impl.RestrictionCheckerServiceImpl;
+import hu.hnk.service.impl.UserServiceImpl;
 import hu.hnk.service.tools.BonusPointCalculator;
 import hu.hnk.service.tools.BuyActionRestrictions;
 

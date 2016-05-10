@@ -14,8 +14,8 @@ import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.interfaces.EventLogDao;
-import hu.hnk.service.RestrictionCheckerServiceImpl;
 import hu.hnk.service.factory.EventLogFactory;
+import hu.hnk.service.impl.RestrictionCheckerServiceImpl;
 import hu.hnk.service.tools.BuyActionRestrictions;
 import hu.hnk.service.tools.RankInterval;
 

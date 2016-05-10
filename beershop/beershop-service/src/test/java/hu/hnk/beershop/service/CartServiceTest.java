@@ -23,7 +23,7 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.CartDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.StorageDao;
-import hu.hnk.service.CartServiceImpl;
+import hu.hnk.service.impl.CartServiceImpl;
 import hu.hnk.service.tools.BonusPointCalculator;
 
 public class CartServiceTest {

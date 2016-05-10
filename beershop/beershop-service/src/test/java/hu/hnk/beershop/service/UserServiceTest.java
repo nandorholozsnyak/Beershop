@@ -22,9 +22,9 @@ import hu.hnk.beershop.service.interfaces.EventLogService;
 import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.interfaces.UserDao;
-import hu.hnk.service.RestrictionCheckerServiceImpl;
-import hu.hnk.service.UserServiceImpl;
 import hu.hnk.service.factory.EventLogFactory;
+import hu.hnk.service.impl.RestrictionCheckerServiceImpl;
+import hu.hnk.service.impl.UserServiceImpl;
 import hu.hnk.service.tools.MoneyTransferRestrictions;
 
 

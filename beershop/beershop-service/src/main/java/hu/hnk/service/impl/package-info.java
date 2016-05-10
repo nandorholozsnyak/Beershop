@@ -3,4 +3,4 @@
  * @author Nandi
  *
  */
-package hu.hnk.service;
+package hu.hnk.service.impl;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hu.hnk.service;
+package hu.hnk.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;

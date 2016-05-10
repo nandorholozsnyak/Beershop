@@ -13,7 +13,7 @@ import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.interfaces.StorageDao;
-import hu.hnk.service.StorageServiceImpl;
+import hu.hnk.service.impl.StorageServiceImpl;
 
 
 public class StorageServiceTest {

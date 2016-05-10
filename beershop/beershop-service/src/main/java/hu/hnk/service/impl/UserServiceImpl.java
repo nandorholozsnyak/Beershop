@@ -1,4 +1,4 @@
-package hu.hnk.service;
+package hu.hnk.service.impl;
 
 import java.time.Instant;
 import java.time.LocalDate;

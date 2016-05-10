@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hu.hnk.service;
+package hu.hnk.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
