@@ -3,7 +3,8 @@ package hu.hnk.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.model.BaseEntity;
 import hu.hnk.interfaces.BaseDao;
@@ -31,7 +32,7 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements BaseDao<E> {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(BaseDaoImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(BaseDaoImpl.class);
 
 	/**
 	 * Az entitásokat kezelő entitás menedzser objektum.

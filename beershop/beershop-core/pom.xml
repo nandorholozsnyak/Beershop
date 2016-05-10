@@ -90,6 +90,7 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -98,10 +99,10 @@
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.apache.derby</groupId> -->
-<!-- 			<artifactId>derby</artifactId> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.derby</groupId> -->
+		<!-- <artifactId>derby</artifactId> -->
+		<!-- </dependency> -->
 	</dependencies>
 	<build>
 		<plugins>

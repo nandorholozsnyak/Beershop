@@ -11,7 +11,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.TypedQuery;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.interfaces.BeerDao;
@@ -30,7 +31,7 @@ public class BeerDaoImpl extends BaseDaoImpl<Beer> implements BeerDao {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(BeerDaoImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(BeerDaoImpl.class);
 
 	/**
 	 * A söröket kezelő osztály konstuktora.
