@@ -9,6 +9,7 @@ import javax.persistence.NamedQuery;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.ToString;
 
 /**
  * A sör osztály ami tartalmazza a sör adatait.
@@ -22,6 +23,7 @@ import lombok.Builder;
 @NamedQueries({ @NamedQuery(name = "Beer.findAll", query = "SELECT b FROM Beer b") })
 @Builder
 @AllArgsConstructor
+@ToString
 public class Beer extends BaseEntity implements Serializable {
 
 	/**
@@ -69,7 +71,7 @@ public class Beer extends BaseEntity implements Serializable {
 	/**
 	 * A sör akció során beállított kedvezménye.
 	 */
-	@Column(name = "discountAmount", nullable = false, columnDefinition = "int(5) default 0")
+	@Column(name = "discountAmount", nullable = false)
 	private Integer discountAmount;
 
 	/**

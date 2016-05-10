@@ -1,5 +1,7 @@
 package hu.hnk.dao;
 
+import java.util.List;
+
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -48,6 +50,12 @@ public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
 			logger.warn(e);
 			return null;
 		}
+	}
+
+	@Override
+	public List<Role> findAll() {
+		TypedQuery<Role> query = entityManager.createQuery("SELECT r FROM Role r", Role.class);
+		return query.getResultList();
 	}
 
 }

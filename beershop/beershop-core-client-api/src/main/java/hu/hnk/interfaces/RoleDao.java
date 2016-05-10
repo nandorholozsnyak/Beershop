@@ -1,5 +1,7 @@
 package hu.hnk.interfaces;
 
+import java.util.List;
+
 import hu.hnk.beershop.model.Role;
 
 
@@ -16,5 +18,7 @@ public interface RoleDao extends BaseDao<Role> {
 	 * @return a talált jogkör.
 	 */
 	public Role findByName(String name);
+	
+	public List<Role> findAll();
 	
 }

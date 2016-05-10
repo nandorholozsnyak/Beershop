@@ -1,9 +1,10 @@
 package hu.hnk.interfaces;
 
+import java.util.List;
+
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.UsernameNotFound;
 import hu.hnk.beershop.model.User;
-
 
 /**
  * A felhasználókat kezelő adathozzáférési osztály interfésze.
@@ -12,7 +13,7 @@ import hu.hnk.beershop.model.User;
  *
  */
 public interface UserDao extends BaseDao<User> {
-	
+
 	/**
 	 * Felhasználó keresése felhasználónév alapján.
 	 * 
@@ -64,4 +65,6 @@ public interface UserDao extends BaseDao<User> {
 	 *             ha a keresett e-mail címmel nem létezik felhasználó.
 	 */
 	public String findEmail(String email) throws EmailNotFound;
+
+	public List<User> findAll();
 }

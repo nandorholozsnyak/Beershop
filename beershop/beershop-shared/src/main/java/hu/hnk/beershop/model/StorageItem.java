@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.ToString;
 
 /**
  * A sör raktár, amelyben található egy sör illetve egy egész szám attribútum
@@ -24,6 +25,7 @@ import lombok.Builder;
 		@NamedQuery(name = "StorageItem.findByBeer", query = "SELECT s FROM StorageItem s WHERE beer = :beer") })
 @Builder
 @AllArgsConstructor
+@ToString
 public class StorageItem extends BaseEntity implements Serializable {
 
 	/**

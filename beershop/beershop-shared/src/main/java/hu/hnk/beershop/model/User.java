@@ -12,6 +12,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +26,7 @@ import lombok.Builder;
  * @author Nandi
  *
  */
-// @Table(name = "player")
+@Table(name = "users")
 @Entity
 @NamedQueries({ @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :name"),
 		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
@@ -30,6 +34,7 @@ import lombok.Builder;
 		@NamedQuery(name = "User.findEmail", query = "SELECT u.email FROM User u WHERE u.email = :email") })
 @Builder
 @AllArgsConstructor
+@DynamicInsert
 public class User extends BaseEntity implements Serializable {
 
 	/**
@@ -70,7 +75,8 @@ public class User extends BaseEntity implements Serializable {
 	/**
 	 * A felhasználó pontjai.
 	 */
-	@Column(name = "points", columnDefinition = "Decimal(10,2) default '0.0'")
+	@Column(name = "points")
+	@ColumnDefault(value = "0.0")
 	private Double points;
 
 	/**
@@ -83,7 +89,8 @@ public class User extends BaseEntity implements Serializable {
 	 * A felhasználó tapasztalati pontja, amivel több kedvezményt illetve a
 	 * rangját ez alapaján számoljuk majd ki.
 	 */
-	@Column(name = "experiencePoints", nullable = false, columnDefinition = "Decimal(10,2) default '0.0'")
+	@Column(name = "experiencePoints", nullable = false)
+	@ColumnDefault(value = "0.0")
 	private Double experiencePoints;
 
 	/**
@@ -95,7 +102,8 @@ public class User extends BaseEntity implements Serializable {
 	/**
 	 * A felhasználó egyenlege amellyel majd söröket vásárolhat.
 	 */
-	@Column(name = "money", columnDefinition = "Decimal(10,2) default '0.0'")
+	@Column(name = "money")
+	@ColumnDefault(value = "0.0")
 	private Double money;
 
 	/**

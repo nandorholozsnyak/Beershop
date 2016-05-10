@@ -53,9 +53,11 @@
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.hbm2ddl.import_files_sql_extractor"
-				value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" />
-			<property name="hibernate.hbm2ddl.import_files" value="initial_data.sql" />
+			<!-- <property name="hibernate.hbm2ddl.import_files_sql_extractor" -->
+			<!-- value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" 
+				/> -->
+			<!-- <property name="hibernate.hbm2ddl.import_files" value="initial_data.sql" 
+				/> -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.transaction.jta.platform"
@@ -83,9 +85,11 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
-			<property name="hibernate.hbm2ddl.import_files_sql_extractor"
-				value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" />
-			<property name="hibernate.hbm2ddl.import_files" value="initial_data.sql" />
+			<!-- <property name="hibernate.hbm2ddl.import_files_sql_extractor" -->
+			<!-- value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" 
+				/> -->
+			<!-- <property name="hibernate.hbm2ddl.import_files" value="initial_data.sql" 
+				/> -->
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
@@ -139,11 +143,13 @@
 			<!-- Hibernate Options -->
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect"/>
-			<property name="hibernate.hbm2ddl.import_files_sql_extractor"
-				value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" />
-<!-- 			<property name="hibernate.hbm2ddl.import_files" value="initial_data.sql" /> -->
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+			<!-- <property name="hibernate.hbm2ddl.import_files_sql_extractor" -->
+			<!-- value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" 
+				/> -->
+			<!-- <property name="hibernate.hbm2ddl.import_files" value="initial_data.sql" 
+				/> -->
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
 			<property name="hibernate.enable_lazy_load_no_trans" value="true" />

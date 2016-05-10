@@ -1,5 +1,7 @@
 package hu.hnk.dao;
 
+import java.util.List;
+
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -12,6 +14,7 @@ import org.apache.log4j.Logger;
 
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.UsernameNotFound;
+import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.UserDao;
 import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
@@ -119,6 +122,12 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 			logger.warn(e);
 			throw new EmailNotFound("There is no user with this email.");
 		}
+	}
+
+	@Override
+	public List<User> findAll() {
+		TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u", User.class);
+		return query.getResultList();
 	}
 
 }

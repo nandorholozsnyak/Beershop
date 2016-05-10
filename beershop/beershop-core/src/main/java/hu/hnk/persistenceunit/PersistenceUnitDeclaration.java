@@ -1,6 +1,5 @@
 package hu.hnk.persistenceunit;
 
-
 /**
  * A persistence.xml fájlhoz tartozó Java deklarációs fájl, amiben állítható a
  * PersistenceContext számára használandó perzisztens egység hivatkozása.
@@ -38,6 +37,6 @@ public class PersistenceUnitDeclaration {
 	/**
 	 * Az aktuálisan használandó perzisztens egység neve.
 	 */
-	public final static String PERSISTENCE_UNIT = MYSQL;
+	public final static String PERSISTENCE_UNIT = DERBY;
 
 }
