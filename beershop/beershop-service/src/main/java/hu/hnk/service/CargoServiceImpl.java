@@ -274,4 +274,9 @@ public class CargoServiceImpl implements CargoService {
 		this.discountService = discountService;
 	}
 
+	@Override
+	public List<Cargo> findByUser(User user) {
+		return cargoDao.findByUser(user);
+	}
+
 }

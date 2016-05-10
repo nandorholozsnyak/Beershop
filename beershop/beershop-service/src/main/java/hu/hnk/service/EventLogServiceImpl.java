@@ -6,7 +6,8 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
@@ -24,7 +25,7 @@ public class EventLogServiceImpl implements EventLogService {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(EventLogServiceImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(EventLogServiceImpl.class);
 
 	/**
 	 * Az eseményeket kezelő adathozzáférési objektum.
@@ -48,7 +49,7 @@ public class EventLogServiceImpl implements EventLogService {
 		try {
 			return eventLogDao.save(event);
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage(), e);
 		}
 		return event;
 	}

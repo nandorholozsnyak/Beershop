@@ -45,4 +45,6 @@ public interface CargoService {
 	 * @return igaz ha van elég pénze, hamis ha nem.
 	 */
 	public boolean isThereEnoughMoney(User user);
+
+	public List<Cargo> findByUser(User user);
 }

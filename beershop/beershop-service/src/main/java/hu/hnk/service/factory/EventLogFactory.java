@@ -2,7 +2,8 @@ package hu.hnk.service.factory;
 
 import java.time.LocalDateTime;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
@@ -24,7 +25,7 @@ public class EventLogFactory {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(EventLogFactory.class);
+	public static final Logger logger = LoggerFactory.getLogger(EventLogFactory.class);
 
 	/**
 	 * Egy eseménykészítő <code>Factory</code> osztály metódusa, amely

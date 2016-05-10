@@ -116,7 +116,7 @@ public class CargoServiceTest {
 	public void testSaveNewCargoShouldUpdateUsersMoneyAfterPayment() throws Exception {
 		User user = new User();
 		// Amatőr lesz a felhasználónk.
-		user.setExperiencePoints(1.0);
+		user.setExperiencePoints(2501.0);
 		user.setMoney(1000.0);
 		user.setPoints(0.0);
 		List<CartItem> items = new ArrayList<>();
