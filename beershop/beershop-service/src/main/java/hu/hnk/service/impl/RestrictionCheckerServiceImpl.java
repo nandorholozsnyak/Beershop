@@ -8,6 +8,9 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
@@ -24,6 +27,11 @@ import hu.hnk.service.tools.MoneyTransferRestrictions;
 @Stateless
 @Local(RestrictionCheckerService.class)
 public class RestrictionCheckerServiceImpl extends UserServiceImpl implements RestrictionCheckerService {
+
+	/**
+	 * Az osztály loggere.
+	 */
+	public static final Logger logger = LoggerFactory.getLogger(RestrictionCheckerServiceImpl.class);
 
 	/**
 	 * Az eseményeket kezelő adathozzáférési objektum.

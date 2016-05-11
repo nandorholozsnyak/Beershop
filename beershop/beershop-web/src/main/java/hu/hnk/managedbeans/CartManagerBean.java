@@ -14,13 +14,13 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
-
 
 /**
  * @author Nandi
@@ -38,7 +38,7 @@ public class CartManagerBean implements Serializable {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(CartManagerBean.class);
+	public static final Logger logger = LoggerFactory.getLogger(CartManagerBean.class);
 
 	@ManagedProperty(value = "#{sessionManagerBean}")
 	private SessionManager sessionManager;
@@ -53,7 +53,6 @@ public class CartManagerBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		loadUserItems();
-		logger.info(items);
 	}
 
 	private void loadUserItems() {

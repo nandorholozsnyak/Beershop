@@ -9,7 +9,8 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
@@ -29,7 +30,7 @@ public class DiscountServiceImpl implements DiscountService {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(DiscountServiceImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(DiscountServiceImpl.class);
 
 	@EJB
 	private UserService userService;

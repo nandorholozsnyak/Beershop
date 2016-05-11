@@ -6,18 +6,15 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.exception.EmailNotFound;
 import hu.hnk.beershop.exception.UsernameNotFound;
-import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.UserDao;
-import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
 
 /**
  * A felhasználókat kezelő adathozzáférési osztály implementációja. Enterprise
@@ -41,7 +38,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	/**
 	 * Az osztály Logger-e.
 	 */
-	public static final Logger logger = Logger.getLogger(UserDaoImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
 	/**
 	 * {@inheritDoc}
@@ -55,7 +52,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		try {
 			user = query.getSingleResult();
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 			throw new UsernameNotFound("There is no user with this username.");
 		}
 		return user;
@@ -73,7 +70,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		try {
 			user = query.getSingleResult();
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 			throw new EmailNotFound("There is no user with this e-mail.");
 		}
 		return user;
@@ -101,7 +98,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 			user = query.getSingleResult();
 			return user;
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 			throw new UsernameNotFound("There is no user with this username.");
 		}
 	}
@@ -119,7 +116,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 			user = query.getSingleResult();
 			return user;
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 			throw new EmailNotFound("There is no user with this email.");
 		}
 	}

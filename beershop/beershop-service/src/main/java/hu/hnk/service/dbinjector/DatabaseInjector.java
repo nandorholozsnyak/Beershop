@@ -32,19 +32,19 @@ public class DatabaseInjector {
 	public static final Logger logger = LoggerFactory.getLogger(DatabaseInjector.class);
 
 	@EJB
-	UserDao userDao;
+	private UserDao userDao;
 
 	@EJB
-	BeerDao beerDao;
+	private BeerDao beerDao;
 
 	@EJB
-	RoleDao roleDao;
+	private RoleDao roleDao;
 
 	@EJB
-	CartDao cartDao;
+	private CartDao cartDao;
 
 	@EJB
-	StorageDao storageDao;
+	private StorageDao storageDao;
 
 	private String[] beerNames = { "Ultra sör", "Bivaly sör", "Habos sör", "Jópofa sör", "Bebarnult sör", "Lime sör",
 			"Meghabosodott sör", "Party hordó", "25L-es hordó", "Szerencse sör", "Csapos party hordó", "Barátság sör",

@@ -19,7 +19,7 @@
 		<class>hu.hnk.beershop.model.EventLog</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
-			<property name="hibernate.show_sql" value="true" />
+			<!-- <property name="hibernate.show_sql" value="true" /> -->
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.hbm2ddl.import_files_sql_extractor"
@@ -82,8 +82,8 @@
 		<class>hu.hnk.beershop.model.EventLog</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
-			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.use_sql_comments" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 			<!-- <property name="hibernate.hbm2ddl.import_files_sql_extractor" -->
 			<!-- value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" 

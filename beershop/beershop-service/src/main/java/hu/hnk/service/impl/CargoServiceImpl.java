@@ -9,7 +9,8 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
@@ -39,7 +40,7 @@ public class CargoServiceImpl implements CargoService {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(CargoServiceImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(CargoServiceImpl.class);
 
 	/**
 	 * A szállításokat kezelő adathozzáférési objektum.
@@ -108,7 +109,7 @@ public class CargoServiceImpl implements CargoService {
 		try {
 			cargoDao.update(savedCargo);
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 		}
 		// Miután mentettük a szállítást utána töröljük a felhasználó kosarából.
 		deleteItemsFromUsersCart(cargo);
@@ -136,7 +137,7 @@ public class CargoServiceImpl implements CargoService {
 		try {
 			userDao.update(cargo.getUser());
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -147,7 +148,7 @@ public class CargoServiceImpl implements CargoService {
 		try {
 			userDao.update(cargo.getUser());
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -164,14 +165,14 @@ public class CargoServiceImpl implements CargoService {
 			savedCargo = cargoDao.save(cargo);
 		} catch (Exception e1) {
 			logger.warn("Error while trying to save new cargo.");
-			logger.warn(e1);
+			logger.error(e1.getMessage());
 		}
 		savedCargo.setItems(items);
 		try {
 			cargoDao.update(savedCargo);
 		} catch (Exception e1) {
 			logger.warn("Error while trying to update new cargo.");
-			logger.warn(e1);
+			logger.error(e1.getMessage());
 		}
 		logger.info("Cargo saved.");
 		return savedCargo;
@@ -181,7 +182,7 @@ public class CargoServiceImpl implements CargoService {
 		try {
 			eventLogDao.save(EventLogFactory.createEventLog(EventLogType.Buy, cargo.getUser()));
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 		}
 
 	}
@@ -193,7 +194,7 @@ public class CargoServiceImpl implements CargoService {
 		try {
 			userDao.update(cargo.getUser());
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -205,7 +206,7 @@ public class CargoServiceImpl implements CargoService {
 						cartItemDao.deleteItemLogically(p);
 					} catch (Exception e) {
 						logger.warn("Exception while trying to remove items from user's cart.");
-						logger.warn(e);
+						logger.error(e.getMessage());
 					}
 				});
 	}

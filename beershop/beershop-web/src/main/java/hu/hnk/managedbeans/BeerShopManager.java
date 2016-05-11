@@ -11,7 +11,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.exception.NegativeQuantityNumber;
 import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
@@ -22,7 +23,6 @@ import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.beershop.service.interfaces.StorageService;
 import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
-
 
 /**
  * @author Nandi
@@ -40,7 +40,7 @@ public class BeerShopManager implements Serializable {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(BeerShopManager.class);
+	public static final Logger logger = LoggerFactory.getLogger(BeerShopManager.class);
 
 	/**
 	 * A söröket kezelő szolgáltatás.

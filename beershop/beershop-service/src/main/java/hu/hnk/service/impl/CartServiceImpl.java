@@ -12,7 +12,8 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.Cart;
@@ -40,7 +41,7 @@ public class CartServiceImpl implements CartService {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(CartServiceImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
 
 	/**
 	 * A kosárműveletek végző adathozzáférési objektumn.
@@ -71,7 +72,7 @@ public class CartServiceImpl implements CartService {
 		try {
 			return cartDao.save(cart);
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 		}
 		return cart;
 	}
@@ -146,7 +147,6 @@ public class CartServiceImpl implements CartService {
 		} catch (NoSuchElementException e) {
 			foundItem = null;
 			logger.info("Beer has not found in the user's cart.");
-			logger.warn(e);
 		}
 
 		// Leellenőrizzük hogy a sör létezik-e raktárban.
@@ -161,7 +161,7 @@ public class CartServiceImpl implements CartService {
 					try {
 						cartItemDao.save(item);
 					} catch (Exception e) {
-						logger.warn(e);
+						logger.error(e.getMessage());
 					}
 					cartItems.add(item);
 					logger.info("New item added to user's cart list.");
@@ -172,7 +172,7 @@ public class CartServiceImpl implements CartService {
 					try {
 						cartItemDao.update(foundItem);
 					} catch (Exception e) {
-						logger.warn(e);
+						logger.error(e.getMessage());
 					}
 					cartItems.add(foundItem);
 					logger.info("Found item updated in user's cart.");
@@ -182,7 +182,7 @@ public class CartServiceImpl implements CartService {
 				try {
 					storageDao.save(beerInStorage);
 				} catch (Exception e) {
-					logger.warn(e);
+					logger.error(e.getMessage());
 				}
 
 			}

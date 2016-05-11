@@ -12,7 +12,8 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
 import hu.hnk.beershop.exception.EmailNotFound;
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(UserServiceImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	/**
 	 * A felhasználókat kezelő adathozzáférési objektum.
@@ -86,7 +87,7 @@ public class UserServiceImpl implements UserService {
 			try {
 				role = roleDao.save(role);
 			} catch (Exception e) {
-				logger.warn(e);
+				logger.error(e.getMessage());
 			}
 		}
 
@@ -94,7 +95,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userData = userDao.save(user);
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 		}
 		List<Role> userRoles = userData.getRoles();
 
@@ -109,7 +110,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userDao.update(userData);
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 		}
 		eventLogService.save(EventLogFactory.createEventLog(EventLogType.Registration, userData));
 	}
@@ -146,7 +147,7 @@ public class UserServiceImpl implements UserService {
 			user = userDao.findByUsername(username);
 		} catch (UsernameNotFound e) {
 			logger.warn("Username:" + username + " is not found in our database.");
-			logger.warn(e);
+			logger.error(e.getMessage());
 		}
 		return user;
 	}
@@ -184,7 +185,7 @@ public class UserServiceImpl implements UserService {
 			return true;
 		} catch (EmailNotFound e) {
 			logger.info("E-mail adress is not taken.");
-			logger.warn(e);
+			logger.error(e.getMessage());
 			return false;
 		}
 	}
@@ -264,7 +265,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userDao.update(loggedInUser);
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 		}
 		eventLogService.save(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, loggedInUser));
 	}

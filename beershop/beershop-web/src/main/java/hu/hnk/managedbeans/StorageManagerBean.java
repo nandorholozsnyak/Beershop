@@ -10,12 +10,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.exception.NegativeQuantityNumber;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.StorageService;
-
 
 /**
  * @author Nandi
@@ -28,7 +28,7 @@ public class StorageManagerBean implements Serializable {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(StorageManagerBean.class);
+	public static final Logger logger = LoggerFactory.getLogger(StorageManagerBean.class);
 
 	/**
 	 * A raktárt kezelő szolgáltatás.

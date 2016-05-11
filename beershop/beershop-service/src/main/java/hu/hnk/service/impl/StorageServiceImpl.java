@@ -10,7 +10,8 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.exception.NegativeQuantityNumber;
 import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
@@ -30,7 +31,7 @@ public class StorageServiceImpl implements StorageService {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(StorageServiceImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(StorageServiceImpl.class);
 
 	/**
 	 * A raktárt kezelő adathozzáférési objektum.

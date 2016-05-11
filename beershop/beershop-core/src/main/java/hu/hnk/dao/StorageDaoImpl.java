@@ -11,7 +11,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.Query;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
@@ -36,7 +37,7 @@ public class StorageDaoImpl extends BaseDaoImpl<StorageItem> implements StorageD
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(StorageDaoImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(StorageDaoImpl.class);
 
 	/**
 	 * {@inheritDoc}
@@ -59,7 +60,7 @@ public class StorageDaoImpl extends BaseDaoImpl<StorageItem> implements StorageD
 					try {
 						update(entity);
 					} catch (Exception e) {
-						logger.warn(e);
+						logger.error(e.getMessage());
 					}
 				});
 	}

@@ -8,7 +8,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.TypedQuery;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.model.Role;
 import hu.hnk.interfaces.RoleDao;
@@ -27,7 +28,7 @@ public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(RoleDaoImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(RoleDaoImpl.class);
 
 	/**
 	 * Az osztály konstuktora.
@@ -47,7 +48,7 @@ public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
 		try {
 			return role.getSingleResult();
 		} catch (Exception e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 			return null;
 		}
 	}

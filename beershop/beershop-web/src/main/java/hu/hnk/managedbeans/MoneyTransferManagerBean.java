@@ -11,15 +11,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import hu.hnk.beershop.exception.InvalidPinCode;
 import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
-import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
+import hu.hnk.beershop.exception.InvalidPinCode;
 import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
-
 
 /**
  * @author Nandi
@@ -37,7 +36,7 @@ public class MoneyTransferManagerBean implements Serializable {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(MoneyTransferManagerBean.class);
+	public static final Logger logger = LoggerFactory.getLogger(MoneyTransferManagerBean.class);
 
 	@EJB
 	private UserService userService;
@@ -78,13 +77,13 @@ public class MoneyTransferManagerBean implements Serializable {
 			FacesMessageTool.createInfoMessage("A pénz feltöltése megtörtént.");
 			generateMoneyTransferFields();
 		} catch (NumberFormatException e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 			FacesMessageTool.createWarnMessage("Az ellenörző mezőbe csak számot írjon!");
 		} catch (InvalidPinCode e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 			FacesMessageTool.createWarnMessage("Az ellenörző pin kód nem egyezik meg.");
 		} catch (DailyMoneyTransferLimitExceeded e) {
-			logger.warn(e);
+			logger.error(e.getMessage());
 			FacesMessageTool.createErrorMessage("Túllépte a napi limitet.");
 		}
 

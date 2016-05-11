@@ -10,14 +10,14 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import hu.hnk.beershop.model.Cart;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.tool.FacesMessageTool;
-
 
 /**
  * A regisztrációs szolgáltatást megvalósító managed bean.
@@ -32,7 +32,7 @@ public class RegistrationManagerBean implements Serializable {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(RegistrationManagerBean.class);
+	public static final Logger logger = LoggerFactory.getLogger(RegistrationManagerBean.class);
 
 	/**
 	 * 

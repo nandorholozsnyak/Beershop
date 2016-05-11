@@ -37,6 +37,6 @@ public class PersistenceUnitDeclaration {
 	/**
 	 * Az aktuálisan használandó perzisztens egység neve.
 	 */
-	public final static String PERSISTENCE_UNIT = DERBY;
+	public final static String PERSISTENCE_UNIT = H2;
 
 }

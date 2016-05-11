@@ -12,7 +12,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
@@ -43,7 +44,7 @@ public class TransactionManagerBean implements Serializable {
 	/**
 	 * Az osztály loggere.
 	 */
-	public static final Logger logger = Logger.getLogger(TransactionManagerBean.class);
+	public static final Logger logger = LoggerFactory.getLogger(TransactionManagerBean.class);
 
 	/**
 	 * A kosarat kezelő szolgáltatás.
