@@ -117,6 +117,29 @@
 								<artifactId>derbynet</artifactId>
 								<version>10.12.1.1</version>
 							</dependency>
+							<dependency>
+								<groupId>org.slf4j</groupId>
+								<artifactId>slf4j-api</artifactId>
+								<version>1.7.5</version>
+								<scope>compile</scope>
+							</dependency>
+							<dependency>
+								<groupId>ch.qos.logback</groupId>
+								<artifactId>logback-core</artifactId>
+								<version>1.1.7</version>
+								<scope>runtime</scope>
+							</dependency>
+							<dependency>
+								<groupId>ch.qos.logback</groupId>
+								<artifactId>logback-classic</artifactId>
+								<version>1.1.7</version>
+								<scope>runtime</scope>
+							</dependency>
+							<dependency>
+								<groupId>commons-logging</groupId>
+								<artifactId>commons-logging</artifactId>
+								<version>1.2</version>
+							</dependency>
 						</dependencies>
 						<executions>
 							<execution>
@@ -160,6 +183,18 @@
 		</profile>
 	</profiles>
 	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>hu.hnk.prt</groupId>
 			<artifactId>beershop-core</artifactId>
