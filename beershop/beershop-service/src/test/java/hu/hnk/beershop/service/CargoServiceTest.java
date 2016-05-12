@@ -1,7 +1,12 @@
 package hu.hnk.beershop.service;
 
+import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.zone.ZoneOffsetTransitionRule;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +44,7 @@ public class CargoServiceTest {
 	private BonusPointCalculator bonusPointCalculator;
 	private DiscountServiceImpl discountService;
 	private UserServiceImpl userService;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		cargoServiceImpl = Mockito.spy(new CargoServiceImpl());
@@ -153,14 +158,32 @@ public class CargoServiceTest {
 				.thenReturn(cargo);
 
 		cargoServiceImpl.saveNewCargo(cargo, items);
-		if(LocalDate.now().getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
+		if (LocalDate.now()
+				.getDayOfWeek()
+				.equals(DayOfWeek.SATURDAY)) {
 			Assert.assertEquals(1000 - 100, cargo.getUser()
 					.getMoney(), 0.0);
 		} else {
 			Assert.assertEquals(1000 - BuyActionRestrictions.getShippingCost() - 100, cargo.getUser()
 					.getMoney(), 0.0);
 		}
-		
+
+	}
+
+	@Test
+	public void testCountdownTenMinutePackageAlreadySent() {
+		LocalDateTime orderDate = LocalDateTime.now();
+		String result = cargoServiceImpl.countdownTenMinute(Date.from(orderDate.minusMinutes(10)
+				.toInstant(ZoneOffset.of("+2"))));
+		Assert.assertEquals("Csomag kiküldve", result);
+	}
+	
+	@Test
+	public void testCountdownTenMinutePackageHasNotSentYet() {
+		LocalDateTime orderDate = LocalDateTime.now();
+		String result = cargoServiceImpl.countdownTenMinute(Date.from(orderDate.minusMinutes(9)
+				.toInstant(ZoneOffset.of("+2"))));
+		Assert.assertEquals("0 perc 59 másodperc", result);
 	}
 
 }

@@ -35,7 +35,9 @@
 												<p:poll interval="1" update="orderTable:packagingTime" />
 											</p:column>
 											<p:column headerText="Rendelés dátuma ">
-												<p:outputLabel id="orderDate" value="#{orderItem.orderDate}" />
+												<p:outputLabel id="orderDate" value="#{orderItem.orderDate}">
+													<f:convertDateTime dateStyle="full" locale="hu_HU"></f:convertDateTime>
+												</p:outputLabel>
 											</p:column>
 										</p:dataTable>
 									</h:form>

@@ -1,5 +1,6 @@
 package hu.hnk.beershop.service.interfaces;
 
+import java.util.Date;
 import java.util.List;
 
 import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
@@ -49,4 +50,7 @@ public interface CargoService {
 	public List<Cargo> findByUser(User user);
 
 	public Double countMoneyAfterPayment(Double totalcost, User user);
+
+	public String countdownTenMinute(Date orderDate);
+
 }

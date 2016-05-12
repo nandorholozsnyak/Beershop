@@ -24,6 +24,7 @@ import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.interfaces.CartDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.StorageDao;
+import hu.hnk.service.cobertura.annotation.CoverageIgnore;
 import hu.hnk.service.tools.BonusPointCalculator;
 
 /**
@@ -68,11 +69,12 @@ public class CartServiceImpl implements CartService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@CoverageIgnore
 	public Cart save(Cart cart) {
 		try {
 			return cartDao.save(cart);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 		return cart;
 	}
@@ -81,6 +83,7 @@ public class CartServiceImpl implements CartService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@CoverageIgnore
 	public Cart findByUser(User user) {
 		return cartDao.findByUser(user);
 	}
@@ -101,7 +104,7 @@ public class CartServiceImpl implements CartService {
 		try {
 			cartDao.update(cart);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		logger.info("Items saved succesfuly to the user's cart.");
 	}
@@ -135,6 +138,7 @@ public class CartServiceImpl implements CartService {
 			beerInStorage = findBeerInStorage(storageItems, beer);
 		} catch (NoSuchElementException e) {
 			logger.warn("Beer has not been found in the storage.");
+			logger.error(e.getMessage(), e);
 		}
 
 		CartItem item;
@@ -147,6 +151,7 @@ public class CartServiceImpl implements CartService {
 		} catch (NoSuchElementException e) {
 			foundItem = null;
 			logger.info("Beer has not found in the user's cart.");
+			logger.error(e.getMessage(), e);
 		}
 
 		// Leellenőrizzük hogy a sör létezik-e raktárban.
@@ -161,7 +166,7 @@ public class CartServiceImpl implements CartService {
 					try {
 						cartItemDao.save(item);
 					} catch (Exception e) {
-						logger.error(e.getMessage());
+						logger.error(e.getMessage(), e);
 					}
 					cartItems.add(item);
 					logger.info("New item added to user's cart list.");
@@ -172,7 +177,7 @@ public class CartServiceImpl implements CartService {
 					try {
 						cartItemDao.update(foundItem);
 					} catch (Exception e) {
-						logger.error(e.getMessage());
+						logger.error(e.getMessage(), e);
 					}
 					cartItems.add(foundItem);
 					logger.info("Found item updated in user's cart.");
@@ -182,7 +187,7 @@ public class CartServiceImpl implements CartService {
 				try {
 					storageDao.save(beerInStorage);
 				} catch (Exception e) {
-					logger.error(e.getMessage());
+					logger.error(e.getMessage(), e);
 				}
 
 			}
@@ -204,7 +209,7 @@ public class CartServiceImpl implements CartService {
 	private CartItem findBeerInUsersCart(List<CartItem> cartItems, Beer beer) throws NoSuchElementException {
 		return cartItems.stream()
 				.filter(p -> p.getBeer()
-						.equals(beer) && p.getActive() == true)
+						.equals(beer) && p.getActive())
 				.findFirst()
 				.get();
 	}

@@ -55,11 +55,7 @@ public class UserOrderManagerBean implements Serializable {
 	}
 
 	public String countdownTenMinute(Date orderDate) {
-		LocalDateTime dateTime = LocalDateTime.ofInstant(orderDate.toInstant(), ZoneId.systemDefault());
-		Duration tenMinute = Duration.between(dateTime, LocalDateTime.now());
-		return tenMinute.toMinutes() > 10 ? orderDate.toString()
-				: String.valueOf((9 - ((int) tenMinute.getSeconds() / 60))) + " perc "
-						+ String.valueOf(59 - (tenMinute.getSeconds() % 60)) + " másodperc";
+		return cargoService.countdownTenMinute(orderDate);
 	}
 
 	public List<Cargo> getUserCargos() {

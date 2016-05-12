@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.service.interfaces.BeerService;
 import hu.hnk.interfaces.BeerDao;
+import hu.hnk.service.cobertura.annotation.CoverageIgnore;
 
 /**
  * @author Nandi
@@ -31,6 +32,7 @@ public class BeerServiceImpl implements BeerService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@CoverageIgnore
 	public List<Beer> findAll() {
 		return beerDao.findAll();
 	}

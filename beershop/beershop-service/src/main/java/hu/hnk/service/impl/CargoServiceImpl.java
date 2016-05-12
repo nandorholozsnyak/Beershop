@@ -1,7 +1,11 @@
 package hu.hnk.service.impl;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +31,7 @@ import hu.hnk.interfaces.CargoDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.interfaces.UserDao;
+import hu.hnk.service.cobertura.annotation.CoverageIgnore;
 import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.BonusPointCalculator;
 
@@ -89,10 +94,9 @@ public class CargoServiceImpl implements CargoService {
 			throw new DailyBuyActionLimitExceeded("Daily buy action limit exceeded.");
 		}
 
-		if (!legendaryItems(items).isEmpty()) {
-			if (!restrictionCheckerService.checkIfUserCanBuyLegendBeer(cargo.getUser())) {
-				throw new CanNotBuyLegendaryBeerYetException("User is not legendary yet.");
-			}
+		if (!legendaryItems(items).isEmpty()
+				&& !restrictionCheckerService.checkIfUserCanBuyLegendBeer(cargo.getUser())) {
+			throw new CanNotBuyLegendaryBeerYetException("User is not legendary yet.");
 		}
 
 		// Elkészítünk egy már a mentett szállítást reprezentáló objektumot.
@@ -109,7 +113,7 @@ public class CargoServiceImpl implements CargoService {
 		try {
 			cargoDao.update(savedCargo);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 		// Miután mentettük a szállítást utána töröljük a felhasználó kosarából.
 		deleteItemsFromUsersCart(cargo);
@@ -137,7 +141,7 @@ public class CargoServiceImpl implements CargoService {
 		try {
 			userDao.update(cargo.getUser());
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -148,7 +152,7 @@ public class CargoServiceImpl implements CargoService {
 		try {
 			userDao.update(cargo.getUser());
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -213,11 +217,7 @@ public class CargoServiceImpl implements CargoService {
 
 	@Override
 	public boolean isThereEnoughMoney(Double totalcost, User user) {
-		if (totalcost + BuyActionRestrictions.getShippingCost() <= user.getMoney()) {
-			return true;
-		} else {
-			return false;
-		}
+		return totalcost + BuyActionRestrictions.getShippingCost() <= user.getMoney() ? true : false;
 	}
 
 	@Override
@@ -226,7 +226,21 @@ public class CargoServiceImpl implements CargoService {
 		logger.info("Money after payment:" + result + " for user " + user.getUsername());
 		return result < 0 ? null : result;
 	}
+	
+	@Override
+	@CoverageIgnore
+	public List<Cargo> findByUser(User user) {
+		return cargoDao.findByUser(user);
+	}
 
+	@Override
+	public String countdownTenMinute(Date orderDate) {
+		LocalDateTime dateTime = LocalDateTime.ofInstant(orderDate.toInstant(), ZoneId.systemDefault());
+		Duration tenMinute = Duration.between(dateTime, LocalDateTime.now());
+		return tenMinute.toMinutes() > 9 ? "Csomag kiküldve"
+				: String.valueOf((9 - ((int) tenMinute.getSeconds() / 60))) + " perc "
+						+ String.valueOf(59 - (tenMinute.getSeconds() % 60)) + " másodperc";
+	}
 	/**
 	 * Beállítja a szállításokat kezelő adathozzáférési objektumát.
 	 * 
@@ -284,11 +298,6 @@ public class CargoServiceImpl implements CargoService {
 
 	public void setDiscountService(DiscountService discountService) {
 		this.discountService = discountService;
-	}
-
-	@Override
-	public List<Cargo> findByUser(User user) {
-		return cargoDao.findByUser(user);
 	}
 
 }

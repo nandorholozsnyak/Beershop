@@ -13,6 +13,7 @@ import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.EventLogService;
 import hu.hnk.interfaces.EventLogDao;
+import hu.hnk.service.cobertura.annotation.CoverageIgnore;
 
 /**
  * @author Nandi
@@ -37,6 +38,7 @@ public class EventLogServiceImpl implements EventLogService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@CoverageIgnore
 	public List<EventLog> findByUser(User user) {
 		return eventLogDao.findByUser(user);
 	}
@@ -45,6 +47,7 @@ public class EventLogServiceImpl implements EventLogService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@CoverageIgnore
 	public EventLog save(EventLog event) {
 		try {
 			return eventLogDao.save(event);
