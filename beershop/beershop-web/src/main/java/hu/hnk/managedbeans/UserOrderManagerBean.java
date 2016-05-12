@@ -54,13 +54,12 @@ public class UserOrderManagerBean implements Serializable {
 		userCargos = cargoService.findByUser(sessionManager.getLoggedInUser());
 	}
 
-	public String tenMinutes(Date orderDate) {
+	public String countdownTenMinute(Date orderDate) {
 		LocalDateTime dateTime = LocalDateTime.ofInstant(orderDate.toInstant(), ZoneId.systemDefault());
 		Duration tenMinute = Duration.between(dateTime, LocalDateTime.now());
-		logger.info(String.valueOf(tenMinute.toMinutes()));
 		return tenMinute.toMinutes() > 10 ? orderDate.toString()
-				: String.valueOf(((int) tenMinute.getSeconds() / 60)) + " perc "
-						+ String.valueOf(tenMinute.getSeconds() % 60) + " másodperc";
+				: String.valueOf((9 - ((int) tenMinute.getSeconds() / 60))) + " perc "
+						+ String.valueOf(59 - (tenMinute.getSeconds() % 60)) + " másodperc";
 	}
 
 	public List<Cargo> getUserCargos() {

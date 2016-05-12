@@ -26,15 +26,16 @@
 										<p:dataTable id="orderTable"
 											value="#{userOrderManager.userCargos}" var="orderItem"
 											editable="true" editMode="cell">
-
-											<p:column headerText="Helye">
+											<p:column headerText="Szállítási hely">
 												<p:outputLabel value="#{orderItem.address}" />
 											</p:column>
-
-											<p:column headerText="Rendelés időpontja">
-												<p:outputLabel id="orderDate"
-													value="#{userOrderManager.tenMinutes(orderItem.orderDate)}" />
-													<p:poll interval="1" update="orderTable:orderDate" />
+											<p:column headerText="Csomagolási visszaszámlálás">
+												<p:outputLabel id="packagingTime"
+													value="#{userOrderManager.countdownTenMinute(orderItem.orderDate)}" />
+												<p:poll interval="1" update="orderTable:packagingTime" />
+											</p:column>
+											<p:column headerText="Rendelés dátuma ">
+												<p:outputLabel id="orderDate" value="#{orderItem.orderDate}" />
 											</p:column>
 										</p:dataTable>
 									</h:form>
