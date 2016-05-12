@@ -21,6 +21,7 @@ import hu.hnk.beershop.service.interfaces.CargoService;
 import hu.hnk.beershop.service.interfaces.DiscountService;
 import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
 import hu.hnk.beershop.service.logfactory.EventLogType;
+import hu.hnk.beershop.service.tools.BuyActionRestrictions;
 import hu.hnk.beershop.service.tools.DiscountType;
 import hu.hnk.interfaces.CargoDao;
 import hu.hnk.interfaces.CartItemDao;
@@ -28,7 +29,6 @@ import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.BonusPointCalculator;
-import hu.hnk.service.tools.BuyActionRestrictions;
 
 /**
  * @author Nandi
@@ -212,8 +212,12 @@ public class CargoServiceImpl implements CargoService {
 	}
 
 	@Override
-	public boolean isThereEnoughMoney(User user) {
-		return true;
+	public boolean isThereEnoughMoney(Double totalcost, User user) {
+		if (totalcost + BuyActionRestrictions.getShippingCost() <= user.getMoney()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**

@@ -18,6 +18,7 @@ import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.logfactory.EventLogType;
+import hu.hnk.beershop.service.tools.BuyActionRestrictions;
 import hu.hnk.interfaces.CargoDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.EventLogDao;
@@ -27,7 +28,6 @@ import hu.hnk.service.impl.DiscountServiceImpl;
 import hu.hnk.service.impl.RestrictionCheckerServiceImpl;
 import hu.hnk.service.impl.UserServiceImpl;
 import hu.hnk.service.tools.BonusPointCalculator;
-import hu.hnk.service.tools.BuyActionRestrictions;
 
 public class CargoServiceTest {
 

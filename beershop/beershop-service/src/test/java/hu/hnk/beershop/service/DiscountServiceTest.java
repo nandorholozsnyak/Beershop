@@ -12,10 +12,10 @@ import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
+import hu.hnk.beershop.service.tools.BuyActionRestrictions;
 import hu.hnk.beershop.service.tools.DiscountType;
 import hu.hnk.service.impl.DiscountServiceImpl;
 import hu.hnk.service.impl.UserServiceImpl;
-import hu.hnk.service.tools.BuyActionRestrictions;
 
 public class DiscountServiceTest {
 

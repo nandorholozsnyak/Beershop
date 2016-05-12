@@ -15,10 +15,10 @@ import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
+import hu.hnk.beershop.service.tools.BuyActionRestrictions;
+import hu.hnk.beershop.service.tools.MoneyTransferRestrictions;
 import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.service.factory.EventLogFactory;
-import hu.hnk.service.tools.BuyActionRestrictions;
-import hu.hnk.service.tools.MoneyTransferRestrictions;
 
 /**
  * @author Nandi

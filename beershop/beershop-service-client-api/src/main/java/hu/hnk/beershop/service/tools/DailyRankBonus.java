@@ -1,4 +1,4 @@
-package hu.hnk.service.tools;
+package hu.hnk.beershop.service.tools;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;

@@ -8,16 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.logfactory.EventLogType;
+import hu.hnk.beershop.service.tools.BuyActionRestrictions;
+import hu.hnk.beershop.service.tools.RankInterval;
 import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.impl.RestrictionCheckerServiceImpl;
-import hu.hnk.service.tools.BuyActionRestrictions;
-import hu.hnk.service.tools.RankInterval;
 
 /**
  * @author Nandi

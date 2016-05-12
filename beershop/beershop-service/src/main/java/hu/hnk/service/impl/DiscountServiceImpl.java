@@ -17,9 +17,9 @@ import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.service.interfaces.DiscountService;
 import hu.hnk.beershop.service.interfaces.UserService;
+import hu.hnk.beershop.service.tools.BuyActionRestrictions;
+import hu.hnk.beershop.service.tools.DailyRankBonus;
 import hu.hnk.beershop.service.tools.DiscountType;
-import hu.hnk.service.tools.BuyActionRestrictions;
-import hu.hnk.service.tools.DailyRankBonus;
 
 @Stateless
 @Local(DiscountService.class)

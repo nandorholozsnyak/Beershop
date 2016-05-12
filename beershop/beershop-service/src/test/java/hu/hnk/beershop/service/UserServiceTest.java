@@ -20,12 +20,12 @@ import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.EventLogService;
 import hu.hnk.beershop.service.logfactory.EventLogType;
+import hu.hnk.beershop.service.tools.MoneyTransferRestrictions;
 import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.impl.RestrictionCheckerServiceImpl;
 import hu.hnk.service.impl.UserServiceImpl;
-import hu.hnk.service.tools.MoneyTransferRestrictions;
 
 
 public class UserServiceTest {
