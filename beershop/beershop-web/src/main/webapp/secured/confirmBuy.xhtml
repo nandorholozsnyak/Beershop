@@ -51,11 +51,12 @@
 													value="#{transactionManagerBean.address}" required="true"
 													label="Szállítási cím">
 												</p:inputText>
-												
-												<p:outputLabel for="cost" value="Teljes összeg (+ szállítási díj):" />
+
+												<p:outputLabel for="cost"
+													value="Teljes összeg (+ szállítási díj):" />
 												<p:outputLabel id="cost"
-													value="#{transactionManagerBean.totalCost}" />
-													
+													value="#{transactionManagerBean.totalCost} + #{transactionManagerBean.shippingCost} = #{transactionManagerBean.totalCost +transactionManagerBean.shippingCost}" />
+
 												<p:outputLabel for="payMode" value="Fizetési mód:" />
 												<p:selectOneRadio id="payMode"
 													value="#{transactionManagerBean.payMode}">

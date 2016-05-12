@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.BusyConversationException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -21,9 +22,9 @@ import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.service.interfaces.CargoService;
 import hu.hnk.beershop.service.interfaces.CartService;
+import hu.hnk.beershop.service.tools.BuyActionRestrictions;
 import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
-
 
 /**
  * A felhasználói tranzakciókat kezelő managed bean, amely a felhasználó
@@ -78,6 +79,8 @@ public class TransactionManagerBean implements Serializable {
 
 	private Double totalCost;
 
+	private Double shippingCost;
+
 	private Double moneyAfterPayment;
 
 	private List<CartItem> items;
@@ -93,6 +96,8 @@ public class TransactionManagerBean implements Serializable {
 				.stream()
 				.filter(p -> p.getActive())
 				.collect(Collectors.toList());
+		shippingCost = BuyActionRestrictions.getShippingCost();
+
 	}
 
 	/**
@@ -109,7 +114,7 @@ public class TransactionManagerBean implements Serializable {
 	 * @return
 	 */
 	public boolean isThereEnoughMoney() {
-		return cargoService.isThereEnoughMoney(sessionManager.getLoggedInUser());
+		return cargoService.isThereEnoughMoney(totalCost, sessionManager.getLoggedInUser());
 	}
 
 	/**
@@ -223,6 +228,14 @@ public class TransactionManagerBean implements Serializable {
 
 	public void setMoneyAfterPayment(Double moneyAfterPayment) {
 		this.moneyAfterPayment = moneyAfterPayment;
+	}
+
+	public Double getShippingCost() {
+		return shippingCost;
+	}
+
+	public void setShippingCost(Double shippingCost) {
+		this.shippingCost = shippingCost;
 	}
 
 }
