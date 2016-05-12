@@ -163,16 +163,16 @@ public class CargoServiceImpl implements CargoService {
 		Cargo savedCargo = null;
 		try {
 			savedCargo = cargoDao.save(cargo);
-		} catch (Exception e1) {
+		} catch (Exception e) {
 			logger.warn("Error while trying to save new cargo.");
-			logger.error(e1.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 		savedCargo.setItems(items);
 		try {
 			cargoDao.update(savedCargo);
-		} catch (Exception e1) {
+		} catch (Exception e) {
 			logger.warn("Error while trying to update new cargo.");
-			logger.error(e1.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 		logger.info("Cargo saved.");
 		return savedCargo;
@@ -182,7 +182,7 @@ public class CargoServiceImpl implements CargoService {
 		try {
 			eventLogDao.save(EventLogFactory.createEventLog(EventLogType.Buy, cargo.getUser()));
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 
 	}
@@ -194,7 +194,7 @@ public class CargoServiceImpl implements CargoService {
 		try {
 			userDao.update(cargo.getUser());
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -206,7 +206,7 @@ public class CargoServiceImpl implements CargoService {
 						cartItemDao.deleteItemLogically(p);
 					} catch (Exception e) {
 						logger.warn("Exception while trying to remove items from user's cart.");
-						logger.error(e.getMessage());
+						logger.error(e.getMessage(), e);
 					}
 				});
 	}
@@ -218,6 +218,13 @@ public class CargoServiceImpl implements CargoService {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public Double countMoneyAfterPayment(Double totalcost, User user) {
+		Double result = user.getMoney() - totalcost - BuyActionRestrictions.getShippingCost();
+		logger.info("Money after payment:" + result + " for user " + user.getUsername());
+		return result < 0 ? null : result;
 	}
 
 	/**

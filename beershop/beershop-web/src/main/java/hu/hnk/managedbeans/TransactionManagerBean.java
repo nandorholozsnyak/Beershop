@@ -127,10 +127,13 @@ public class TransactionManagerBean implements Serializable {
 				cargoService.saveNewCargo(cargo, items);
 				FacesMessageTool.createInfoMessage("Sikeres vásárlás.");
 			} catch (DailyBuyActionLimitExceeded e) {
+				logger.error(e.getMessage(), e);
 				FacesMessageTool.createErrorMessage("Sajnálom de túllépte a napi vásárlási limitet.");
 			} catch (CanNotBuyLegendaryBeerYetException e) {
+				logger.error(e.getMessage(), e);
 				FacesMessageTool.createErrorMessage("Nem vásárolhat még legendás terméket.");
 			} catch (Exception e) {
+				logger.error(e.getMessage(), e);
 				FacesMessageTool.createWarnMessage("Hiba történt a fizetés közben.");
 			}
 
@@ -150,8 +153,8 @@ public class TransactionManagerBean implements Serializable {
 		return cargo;
 	}
 
-	public void countMoneyAfterPayment() {
-
+	public Double countMoneyAfterPayment() {
+		return cargoService.countMoneyAfterPayment(totalCost, sessionManager.getLoggedInUser());
 	}
 
 	/**

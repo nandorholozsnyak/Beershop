@@ -65,14 +65,17 @@
 														itemValue="bonusPoint" />
 												</p:selectOneRadio>
 
-												<p:outputLabel value="Rendelkezésére áll elég egyenleg: "></p:outputLabel>
+												<p:outputLabel value="Rendelkezésére áll elég egyenleg: " />
 												<p:outputLabel id="enoughMoney"
 													value="#{transactionManagerBean.isThereEnoughMoney() == true?'Igen':'Nem'}" />
-												<!-- 												<p:outputLabel value="Fizetés utáni egyenlege: "></p:outputLabel> -->
+
+												<p:outputLabel value="Fizetés utáni egyenlege: " />
+												<p:outputLabel
+													value="#{transactionManagerBean.countMoneyAfterPayment() == null?'Nincs elég pénze':transactionManagerBean.countMoneyAfterPayment()}"></p:outputLabel>
 												<p:row>
 
-													<p:column colspan="2">
-														<p:commandButton style="margin:auto !important;"
+													<p:column colspan="1">
+														<p:commandButton style="margin:auto !important;" id="actionButton"
 															value="Vásárlás" validateClient="true"
 															action="#{transactionManagerBean.doTransaction}"
 															icon="fa fa-money" iconPos="left"

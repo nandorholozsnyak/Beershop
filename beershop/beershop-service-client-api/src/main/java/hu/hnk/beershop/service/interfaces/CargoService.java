@@ -13,7 +13,7 @@ import hu.hnk.beershop.model.User;
  *
  */
 public interface CargoService {
-	
+
 	/**
 	 * Előkészíti egy új szállítás mentését. A megkapott <code>cargo</code>
 	 * objektumot elmenti majd az elmentett objektumot ahogy visszakaptuk
@@ -47,4 +47,6 @@ public interface CargoService {
 	public boolean isThereEnoughMoney(Double totalCost, User user);
 
 	public List<Cargo> findByUser(User user);
+
+	public Double countMoneyAfterPayment(Double totalcost, User user);
 }
