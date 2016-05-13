@@ -217,7 +217,7 @@ public class RestrictionCheckerServiceTest {
 		user.setExperiencePoints((double) RankInterval.getRankIntverals()
 				.stream()
 				.filter(p -> p.getRank()
-						.equals(Rank.Legenda))
+						.equals(Rank.LEGENDA))
 				.findFirst()
 				.get()
 				.getMinimumXP() + 1);
@@ -231,7 +231,7 @@ public class RestrictionCheckerServiceTest {
 		RankInterval.getRankIntverals()
 				.stream()
 				.filter(p -> !p.getRank()
-						.equals(Rank.Legenda))
+						.equals(Rank.LEGENDA))
 				.forEach(e -> {
 					user.setExperiencePoints(e.getMaximumXP()
 							.doubleValue());

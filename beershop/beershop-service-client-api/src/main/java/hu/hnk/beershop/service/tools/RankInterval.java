@@ -51,12 +51,12 @@ public class RankInterval {
 
 	static {
 		rankIntverals = new ArrayList<>();
-		rankIntverals.add(new RankInterval(Rank.Amatuer, -1, 2500));
-		rankIntverals.add(new RankInterval(Rank.Sorfelelos, 2500, 5000));
-		rankIntverals.add(new RankInterval(Rank.Ivobajnok, 5000, 7500));
-		rankIntverals.add(new RankInterval(Rank.Sormester, 7500, 10000));
-		rankIntverals.add(new RankInterval(Rank.Sordoktor, 10000, 12500));
-		rankIntverals.add(new RankInterval(Rank.Legenda, 12500, 15000));
+		rankIntverals.add(new RankInterval(Rank.AMATUER, -1, 2500));
+		rankIntverals.add(new RankInterval(Rank.SORFELELOS, 2500, 5000));
+		rankIntverals.add(new RankInterval(Rank.IVOBAJNOK, 5000, 7500));
+		rankIntverals.add(new RankInterval(Rank.SORMESTER, 7500, 10000));
+		rankIntverals.add(new RankInterval(Rank.SORDOKTOR, 10000, 12500));
+		rankIntverals.add(new RankInterval(Rank.LEGENDA, 12500, 15000));
 	}
 
 	/**

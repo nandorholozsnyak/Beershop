@@ -131,7 +131,7 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	 */
 	@Override
 	public boolean checkIfUserCanBuyLegendBeer(User user) {
-		if (countRankFromXp(user).equals(Rank.Legenda)) {
+		if (countRankFromXp(user).equals(Rank.LEGENDA)) {
 			logger.info("User can buy legendary beers.");
 			return true;
 		}

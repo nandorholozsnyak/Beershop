@@ -43,12 +43,12 @@ public class BuyActionRestrictions {
 
 	static {
 		restirctedValues = new ArrayList<>();
-		restirctedValues.add(new BuyActionRestrictions(Rank.Amatuer, 3));
-		restirctedValues.add(new BuyActionRestrictions(Rank.Sorfelelos, 5));
-		restirctedValues.add(new BuyActionRestrictions(Rank.Ivobajnok, 7));
-		restirctedValues.add(new BuyActionRestrictions(Rank.Sormester, 10));
-		restirctedValues.add(new BuyActionRestrictions(Rank.Sordoktor, 15));
-		restirctedValues.add(new BuyActionRestrictions(Rank.Legenda, 30));
+		restirctedValues.add(new BuyActionRestrictions(Rank.AMATUER, 3));
+		restirctedValues.add(new BuyActionRestrictions(Rank.SORFELELOS, 5));
+		restirctedValues.add(new BuyActionRestrictions(Rank.IVOBAJNOK, 7));
+		restirctedValues.add(new BuyActionRestrictions(Rank.SORMESTER, 10));
+		restirctedValues.add(new BuyActionRestrictions(Rank.SORDOKTOR, 15));
+		restirctedValues.add(new BuyActionRestrictions(Rank.LEGENDA, 30));
 	}
 
 	/**

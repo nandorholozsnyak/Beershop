@@ -25,7 +25,7 @@ public class DailyRankBonus {
 		// Feláras lesz minden.
 		getDailyBonuses().add(DailyRankBonus.builder()
 				.day(DayOfWeek.TUESDAY)
-				.ranks(Arrays.asList(Rank.Amatuer))
+				.ranks(Arrays.asList(Rank.AMATUER))
 				.discounts(Arrays.asList(DiscountType.FiftyPercentage))
 				.build());
 
@@ -33,7 +33,7 @@ public class DailyRankBonus {
 		// szerdánként.
 		getDailyBonuses().add(DailyRankBonus.builder()
 				.day(DayOfWeek.WEDNESDAY)
-				.ranks(Arrays.asList(Rank.Sorfelelos, Rank.Sormester))
+				.ranks(Arrays.asList(Rank.SORFELELOS, Rank.SORMESTER))
 				.discounts(Arrays.asList(DiscountType.ExtraBonusPoints))
 				.build());
 
@@ -41,7 +41,7 @@ public class DailyRankBonus {
 		// meg.
 		getDailyBonuses().add(DailyRankBonus.builder()
 				.day(DayOfWeek.THURSDAY)
-				.ranks(Arrays.asList(Rank.Ivobajnok))
+				.ranks(Arrays.asList(Rank.IVOBAJNOK))
 				.discounts(Arrays.asList(DiscountType.TheCheapestForFree))
 				.build());
 

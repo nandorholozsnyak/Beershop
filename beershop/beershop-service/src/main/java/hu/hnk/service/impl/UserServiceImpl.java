@@ -215,7 +215,7 @@ public class UserServiceImpl implements UserService {
 		// }
 
 		if (user.getExperiencePoints() == null) {
-			return Rank.Amatuer;
+			return Rank.AMATUER;
 		}
 		return rankIntverals.stream()
 				.filter(p -> user.getExperiencePoints() > p.getMinimumXP()

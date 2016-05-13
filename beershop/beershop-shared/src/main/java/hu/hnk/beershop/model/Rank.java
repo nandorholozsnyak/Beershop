@@ -10,32 +10,32 @@ public enum Rank {
 	/**
 	 * Amatőr.
 	 */
-	Amatuer("Amatőr"),
+	AMATUER("Amatőr"),
 
 	/**
 	 * Sörfelelős.
 	 */
-	Sorfelelos("Sörfelelős"),
+	SORFELELOS("Sörfelelős"),
 
 	/**
 	 * Sörmester.
 	 */
-	Sormester("Sörmester"),
+	SORMESTER("Sörmester"),
 
 	/**
 	 * Ivobajnok.
 	 */
-	Ivobajnok("Ivóbajnok"),
+	IVOBAJNOK("Ivóbajnok"),
 
 	/**
 	 * Sördoktor.
 	 */
-	Sordoktor("Sördoktor"),
+	SORDOKTOR("Sördoktor"),
 
 	/**
 	 * Legenda.
 	 */
-	Legenda("Legenda");
+	LEGENDA("Legenda");
 
 	/**
 	 * A rang teljes magyar megfeleltetése.

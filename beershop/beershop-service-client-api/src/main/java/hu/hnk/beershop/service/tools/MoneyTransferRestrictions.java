@@ -32,11 +32,11 @@ public class MoneyTransferRestrictions {
 
 	static {
 		moneyRestrictions = new ArrayList<>();
-		moneyRestrictions.add(new MoneyTransferRestrictions(Rank.Amatuer, 3));
-		moneyRestrictions.add(new MoneyTransferRestrictions(Rank.Sorfelelos, 4));
-		moneyRestrictions.add(new MoneyTransferRestrictions(Rank.Ivobajnok, 4));
-		moneyRestrictions.add(new MoneyTransferRestrictions(Rank.Sormester, 5));
-		moneyRestrictions.add(new MoneyTransferRestrictions(Rank.Sordoktor, 8));
+		moneyRestrictions.add(new MoneyTransferRestrictions(Rank.AMATUER, 3));
+		moneyRestrictions.add(new MoneyTransferRestrictions(Rank.SORFELELOS, 4));
+		moneyRestrictions.add(new MoneyTransferRestrictions(Rank.IVOBAJNOK, 4));
+		moneyRestrictions.add(new MoneyTransferRestrictions(Rank.SORMESTER, 5));
+		moneyRestrictions.add(new MoneyTransferRestrictions(Rank.SORDOKTOR, 8));
 	}
 
 	/**
