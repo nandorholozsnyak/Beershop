@@ -22,9 +22,13 @@
 								<div class="inner1">
 									<h:form id="orders">
 										<p:growl id="orderMessage" />
-
+										<div class="text-center">
+											<p:outputLabel id="emptyOrders" style="font-size:large;"
+												value="Az Ön rendelési előzménye jelengleg üres!"
+												rendered="#{empty userOrderManager.userCargos}" />
+										</div>
 										<p:dataTable id="orderTable"
-											value="#{userOrderManager.userCargos}" var="orderItem"
+											value="#{userOrderManager.userCargos}" rendered="#{not empty userOrderManager.userCargos}" var="orderItem"
 											editable="true" editMode="cell">
 											<p:column headerText="Szállítási hely">
 												<p:outputLabel value="#{orderItem.address}" />

@@ -100,16 +100,16 @@ tr {
 									value="Bónusz pontok: #{sessionManagerBean.loggedInUser.points}">
 									<f:convertNumber pattern="#0.00" for="bonusPoints" />
 								</h:outputLabel>
-<!-- 								<h:outputText value="Tapasztalatpontjaid" /> -->
-								<p:progressBar id="experiencePoints"
-									value="#{sessionManagerBean.getUserExperiencePoints()}"
-									displayOnly="true"
-									labelTemplate="#{sessionManagerBean.loggedInUser.experiencePoints}" />
+								<h:outputText id="experiencePoints"
+									value="Rangod: #{sessionManagerBean.getUserRank()} (#{sessionManagerBean.loggedInUser.experiencePoints} XP)" />
+
+								<!-- 								<p:progressBar id="experiencePoints" -->
+								<!-- 									value="#{sessionManagerBean.getUserExperiencePoints()}" -->
+								<!-- 									labelTemplate="#{sessionManagerBean.loggedInUser.experiencePoints}" /> -->
 							</p:panelGrid></li>
 						<li><a
 							href="#{request.contextPath}/secured/cartManager.xhtml"><span>Kosaram</span></a></li>
-						<li><a
-							href="#{request.contextPath}/secured/orders.xhtml"><span>Rendelések</span></a></li>
+						<li><a href="#{request.contextPath}/secured/orders.xhtml"><span>Rendelések</span></a></li>
 						<li><a href="#{request.contextPath}/logout"><span>Kijelentkezés</span></a></li>
 					</ul>
 					</nav>

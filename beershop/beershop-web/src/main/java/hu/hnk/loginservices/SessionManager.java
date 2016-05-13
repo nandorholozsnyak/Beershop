@@ -13,9 +13,11 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
-
 
 /**
  * @author Nandi
@@ -29,6 +31,11 @@ public class SessionManager implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -7564722048228872937L;
+
+	/**
+	 * Az osztály loggere.
+	 */
+	public static final Logger logger = LoggerFactory.getLogger(SessionManager.class);
 
 	/**
 	 * A felhasználó szolgáltatás.
@@ -48,7 +55,8 @@ public class SessionManager implements Serializable {
 	public void init() {
 
 		try {
-			HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+			HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance()
+					.getExternalContext()
 					.getRequest();
 			if (getLoggedInUser() == null) {
 				setLoggedInUser(null);
@@ -58,12 +66,12 @@ public class SessionManager implements Serializable {
 					try {
 						setLoggedInUser(userService.findByUsername(userName));
 					} catch (Exception e) {
-						e.printStackTrace();
+						logger.error(e.getMessage(), e);
 					}
 				}
 			}
 		} catch (Exception e) {
-
+			logger.error(e.getMessage(), e);
 		}
 
 	}
@@ -88,15 +96,16 @@ public class SessionManager implements Serializable {
 	}
 
 	public String getUserRank() {
-		return userService.countRankFromXp(loggedInUser).toString();
+		return userService.countRankFromXp(loggedInUser)
+				.getRankName();
 	}
 
 	public Integer getUserExperiencePoints() {
 		return userService.countExperiencePointsInPercentage(loggedInUser.getExperiencePoints());
 	}
-	
+
 	public void moneyTransfer() {
-		
+
 	}
 
 }
