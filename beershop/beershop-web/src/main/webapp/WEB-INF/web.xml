@@ -15,12 +15,15 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+	<!-- Spring Session Invalidator -->
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
 	<context-param>
 		<param-name>primefaces.FONT_AWESOME</param-name>
 		<param-value>true</param-value>
 	</context-param>
-	
+
 	<!-- Loads Spring Security config file -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>

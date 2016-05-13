@@ -10,9 +10,25 @@
 		<link rel="stylesheet"
 			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 		<style>
-tr:first-child {
-	background: #eeeeee !important;
+/* tr:first-child { */
+/* 	background: #eeeeee !important; */
+/* 	border: 0 none !important; */
+/* } */
+#moneyPanel tr {
+	background: transparent !important;
+	color: navy !important;
+}
+
+#moneyPanel table {
+	margin-left: auto !important;
+	margin-right: auto !important;
 	border: 0 none !important;
+}
+
+#moneyTransferForm\3a moneyPanelGrid > tbody > tr > .ui-panelgrid-cell {
+	border: 0 none !important;
+	margin-top: 10px !important;
+	margin-bottom: 10px !important;
 }
 </style>
 		<h:outputScript name="js/copyblock.js" />
@@ -34,27 +50,29 @@ tr:first-child {
 									<div class="inner1">
 										<h:form id="moneyTransferForm">
 											<p:growl id="moneyMsg" />
-											<p:panelGrid id="moneyPanelGrid"
-												style="margin-left: auto !important;
+											<p:panel id="moneyPanel">
+												<p:panelGrid id="moneyPanelGrid"
+													style="margin-left: auto !important;
 	margin-right: auto !important;"
-												columns="1" layout="grid">
-												<p:selectOneMenu id="moneySelection"
-													value="#{moneyTransferManagerBean.money}"
-													style="width:300px">
-													<f:selectItem itemLabel="Válasszon egyet" itemValue="" />
-													<f:selectItems
-														value="#{moneyTransferManagerBean.moneyValues}" />
-												</p:selectOneMenu>
-												<h:outputText value="Ellenörző kód" />
-												<h:inputText id="pinCode" readonly="" disabled="true"
-													value="#{moneyTransferManagerBean.pin}"
-													onkeydown="return false;" onkeypress="return false;"
-													onkeyup="return false;" />
-												<h:inputText value="#{moneyTransferManagerBean.userPin}" />
-												<p:commandButton value="Feltöltés"
-													update="moneyMsg userMoney pinCode"
-													action="#{moneyTransferManagerBean.transferMoney}" />
-											</p:panelGrid>
+													columns="1" cellpadding="20" cellspacing="20">
+													<p:selectOneMenu id="moneySelection"
+														value="#{moneyTransferManagerBean.money}"
+														style="width:200px">
+														<f:selectItem itemLabel="Válasszon egyet" itemValue="" />
+														<f:selectItems
+															value="#{moneyTransferManagerBean.moneyValues}" />
+													</p:selectOneMenu>
+													<h:outputText value="Ellenörző kód" />
+													<h:inputText id="pinCode" readonly="" disabled="true"
+														value="#{moneyTransferManagerBean.pin}"
+														onkeydown="return false;" onkeypress="return false;"
+														onkeyup="return false;" />
+													<h:inputText value="#{moneyTransferManagerBean.userPin}" />
+													<p:commandButton value="Feltöltés"
+														update="moneyMsg userMoney pinCode"
+														action="#{moneyTransferManagerBean.transferMoney}" />
+												</p:panelGrid>
+											</p:panel>
 										</h:form>
 									</div>
 								</div>
