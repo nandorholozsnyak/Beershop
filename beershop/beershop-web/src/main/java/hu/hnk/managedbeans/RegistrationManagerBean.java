@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -46,8 +47,6 @@ public class RegistrationManagerBean implements Serializable {
 	 */
 	@EJB
 	private UserService userService;
-
-	private FacesMessage msg;
 
 	/**
 	 * A jelszavak titkosításához használt BCryptPasswordEncoder.
@@ -169,6 +168,11 @@ public class RegistrationManagerBean implements Serializable {
 		this.password = password;
 	}
 
+	@PostConstruct
+	public void init() {
+		dateOfBirth = new Date();
+	}
+
 	/**
 	 * Felhasználó mentése gomb eseménye.
 	 * 
@@ -178,32 +182,47 @@ public class RegistrationManagerBean implements Serializable {
 	public void saveUser(ActionEvent actionEvent) {
 		Boolean canRegister = isOlderThanEighteen && isEmailFree && isUsernameFree;
 		if (canRegister) {
-			User newUser = new User();
-			logger.info("Mentés gomb lenyomva.");
-			newUser = new User();
-			newUser.setPassword(encoder.encode(password));
-			newUser.setUsername(username);
-			newUser.setEmail(email);
-			newUser.setPoints((double) 0);
-			newUser.setDateOfBirth(dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-			newUser.setExperiencePoints((double) 0);
-			newUser.setMoney(0.0);
-			newUser.setCart(new Cart());
+			User newUser = createNewUser();
 			if (newUser != null) {
 				try {
 					userService.save(newUser);
-					msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sikeres regisztráció.", "");
+					FacesContext.getCurrentInstance()
+							.getExternalContext()
+							.getFlash()
+							.setKeepMessages(true);
+					FacesMessageTool.createInfoMessage("Sikeres regisztráció.");
 					FacesContext.getCurrentInstance()
 							.getExternalContext()
 							.redirect("index.xhtml");
+
+					FacesContext.getCurrentInstance()
+							.getPartialViewContext()
+							.getRenderIds()
+							.add("mainPageMsg");
 				} catch (Exception e) {
-					msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hiba regisztráció közben.", "Hiba!");
+					FacesMessageTool.createErrorMessage("Hiba regisztráció közben.");
+					logger.error(e.getMessage(), e);
 				}
 			}
 		} else {
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Regisztráció nem lehetséges.", "Hiba!");
+			FacesMessageTool.createWarnMessage("Regisztráció nem lehetséges.");
 		}
-		FacesMessageTool.publishMessage(msg);
+	}
+
+	private User createNewUser() {
+		User newUser;
+		newUser = new User();
+		newUser.setPassword(encoder.encode(password));
+		newUser.setUsername(username);
+		newUser.setEmail(email);
+		newUser.setPoints((double) 0);
+		newUser.setDateOfBirth(dateOfBirth.toInstant()
+				.atZone(ZoneId.systemDefault())
+				.toLocalDate());
+		newUser.setExperiencePoints((double) 0);
+		newUser.setMoney(0.0);
+		newUser.setCart(new Cart());
+		return newUser;
 	}
 
 	/**
@@ -212,9 +231,7 @@ public class RegistrationManagerBean implements Serializable {
 	public void usernameListener() {
 		if (userService.isUsernameAlreadyTaken(username)) {
 			logger.info("Felhasználónév már foglalt!");
-			FacesContext.getCurrentInstance()
-					.addMessage("registration:username", new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Ez a felhasználónév már foglalt!", "Ez a felhasználónév már foglalt!"));
+			FacesMessageTool.createWarnMessageToField("Ez a felhasználónév már foglalt!", "registration:username");
 			isUsernameFree = false;
 		} else {
 			isUsernameFree = true;
@@ -227,9 +244,7 @@ public class RegistrationManagerBean implements Serializable {
 	public void emailListener() {
 		if (userService.isEmailAlreadyTaken(email)) {
 			logger.info("E-mail cím már foglalt!");
-			FacesContext.getCurrentInstance()
-					.addMessage("registration:email", new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Ez az e-mail cím már foglalt!", "Ez az e-mail cím már foglalt!"));
+			FacesMessageTool.createWarnMessageToField("Ez az e-mail cím már foglalt!", "registration:email");
 			isEmailFree = false;
 		} else {
 			isEmailFree = true;
@@ -243,9 +258,8 @@ public class RegistrationManagerBean implements Serializable {
 	public void ageListener() {
 		if (!userService.isOlderThanEighteen(dateOfBirth)) {
 			logger.info("Csak 18 év fölött lehetséges a regisztráció.");
-			FacesContext.getCurrentInstance()
-					.addMessage("registration:dateOfBirth", new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Csak 18 fölött lehetséges a regisztráció.", "Csak 18 fölött lehetséges a regisztráció."));
+			FacesMessageTool.createWarnMessageToField("Csak 18 fölött lehetséges a regisztráció.",
+					"registration:dateOfBirth");
 			isOlderThanEighteen = false;
 		} else {
 			isOlderThanEighteen = true;
