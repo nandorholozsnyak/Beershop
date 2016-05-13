@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/baseNobeerTemplate.xhtml">
+
+	<ui:define name="content">
+		<div class="container">
+			<div class="inside">
+				<h:form>
+					<p:growl id="mainPageMsg" />
+				</h:form>
+				<h2>Házirend</h2>
+				<h3>A sörshop szabályai</h3>
+				<div class="box">
+					<div class="left-top-corner">
+						<div class="right-top-corner">
+							<div class="border-top"></div>
+						</div>
+					</div>
+					<div class="xcontent">
+						<div class="border-left">
+							<div class="border-right">
+								<div class="inner1">
+									<div class="img-box" style="font-size: small;">
+										<h4>Regisztráció</h4>
+										<p class="p0">
+											Regisztráció után a felhasználó tud söröket a kosarába
+											helyezni és ezek után meg is tudja azokat rendelni. <b>Regisztrálni
+												csak 18 év feletti személy képes.</b>
+										</p>
+										<h4>Rangok</h4>
+										<p class="p0">
+											Az egész sörshop-ra úgy kell tekinteni mint egy nagy jaték,
+											minden egyes vásárlás után tapasztalatpontokat lehet szerezni
+											ami alapján újabb szinteket,rangokat érhetünk el, <b>ezáltal
+												újabb kedvezmények illetve gyengébb szabályozások lépnek
+												életbe.</b> <br /> 6 darab rangot különböztetünk meg: <br />
+										<ul style="margin-left: 5%; font-weight: bold;">
+											<li>Amatőr</li>
+											<li>Sörfelelős</li>
+											<li>Sörmester</li>
+											<li>Ivóbajnok</li>
+											<li>Sördoktor</li>
+											<li>Legenda</li>
+										</ul>
+										</p>
+										<h4>Vásárlás menete</h4>
+										<p class="p0">
+											<b>A mi sörünk menüpont</b> alatt a felhasználó megtekintheti
+											a sörshop kínálatát. <br /> Söröket a plusz illetve minusz
+											jel segítségével tudunk a kosarunkba pakolni, ha egy sörből
+											többet szeretnénk kérni mint amennyi szerepel a raktárban
+											akkor hibaüzenetet kapunk, a kiválasztott termékeket a <b>Kosárba
+												helyezés</b> gomb lenyomásával tudjuk a kosarunkba pakolni. <br />
+											Miután termékeket helyeztünk a kosarunkba ezután a <b>Kosaram</b>
+											menüpont alatt tekinthetjük meg a kosárba pakolt termékeket
+											és itt menedzselhetjük őket, törölhetjük illetve
+											továbbugorhatunk a <b>Megrendel</b> gomb megnyomásával a
+											fizetési oldalra.
+										</p>
+										<h4>Fizetés</h4>
+										<p class="p0">Kétféleképpen lehet fizetni:
+										<ul style="margin-left: 5%; font-weight: bold;">
+											<li>Utalással</li>
+											<li>Bónusz pontok felhasználásával</li>
+										</ul>
+										A felhasználó dönthet róla hogy mivel szeretne fizetni, ekkor
+										a megfelelőt kell választani, meg kell adni továbbá a címet
+										ahova kézbesíteni fogjuk a megrendelt termékeket.<br /> A <b>Vásárlás</b>
+										gomb megnyomásával megtörténik a tranzakció ha a
+										felhasználónak van-e elég pénze feltöltve a számlájára.
+
+										</p>
+										<h4>Kedvezmények</h4>
+										<p class="p0"></p>
+										<h4>Szabályozások</h4>
+										<p class="p0"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="left-bot-corner">
+						<div class="right-bot-corner">
+							<div class="border-bot"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
