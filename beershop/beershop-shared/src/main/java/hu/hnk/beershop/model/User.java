@@ -1,7 +1,7 @@
 package hu.hnk.beershop.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -83,7 +83,7 @@ public class User extends BaseEntity implements Serializable {
 	 * A felhasználó születési dátuma.
 	 */
 	@Column(name = "dateOfBirth")
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
 
 	/**
 	 * A felhasználó tapasztalati pontja, amivel több kedvezményt illetve a
@@ -111,7 +111,7 @@ public class User extends BaseEntity implements Serializable {
 	 * 
 	 * @return a felhasználó születési dátuma.
 	 */
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
@@ -121,7 +121,7 @@ public class User extends BaseEntity implements Serializable {
 	 * @param dateOfBirth
 	 *            a beállítandó születési dátum.
 	 */
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

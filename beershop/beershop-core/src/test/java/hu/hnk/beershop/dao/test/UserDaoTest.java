@@ -1,5 +1,6 @@
 package hu.hnk.beershop.dao.test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -56,7 +57,7 @@ public class UserDaoTest {
 		user.setEmail("email@email.me");
 		user.setPassword("ASD");
 		user.setPoints((double) 150);
-		user.setDateOfBirth(new Date());
+		user.setDateOfBirth(LocalDate.of(1995, 10, 20));
 		userDao.save(user);
 
 		User namedUser = userDao.findByUsername("NameTest");
@@ -75,7 +76,7 @@ public class UserDaoTest {
 		user.setEmail("email@test.me");
 		user.setPassword("ASD");
 		user.setPoints((double) 150);
-		user.setDateOfBirth(new Date());
+		user.setDateOfBirth(LocalDate.of(1995, 10, 20));
 		userDao.save(user);
 
 		User emailedUser = userDao.findByEmail("email@test.me");
@@ -92,7 +93,7 @@ public class UserDaoTest {
 		user.setEmail("role@me.com");
 		user.setPassword("ASD");
 		user.setPoints((double) 150);
-		user.setDateOfBirth(new Date());
+		user.setDateOfBirth(LocalDate.of(1995, 10, 20));
 		List<Role> roles = new ArrayList<>();
 		Role userRole = new Role();
 		userRole.setName("ROLE_USER");

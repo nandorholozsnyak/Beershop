@@ -1,6 +1,8 @@
 package hu.hnk.managedbeans;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -183,7 +185,7 @@ public class RegistrationManagerBean implements Serializable {
 			newUser.setUsername(username);
 			newUser.setEmail(email);
 			newUser.setPoints((double) 0);
-			newUser.setDateOfBirth(dateOfBirth);
+			newUser.setDateOfBirth(dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 			newUser.setExperiencePoints((double) 0);
 			newUser.setMoney(0.0);
 			newUser.setCart(new Cart());

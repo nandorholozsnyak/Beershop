@@ -1,5 +1,7 @@
 package hu.hnk.service.dbinjector;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -23,6 +25,10 @@ import hu.hnk.interfaces.RoleDao;
 import hu.hnk.interfaces.StorageDao;
 import hu.hnk.interfaces.UserDao;
 
+/**
+ * @author Nandi
+ *
+ */
 @Startup
 @Singleton
 public class DatabaseInjector {
@@ -156,7 +162,7 @@ public class DatabaseInjector {
 					.experiencePoints(5000.0)
 					.money(5000.0)
 					.points(0.0)
-					.dateOfBirth(new Date(1995, 11, 20))
+					.dateOfBirth(LocalDate.of(1995, 10, 20))
 					.build();
 			try {
 				userDao.save(defUser);

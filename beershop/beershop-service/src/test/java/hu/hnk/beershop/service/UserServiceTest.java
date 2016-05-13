@@ -27,7 +27,6 @@ import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.impl.RestrictionCheckerServiceImpl;
 import hu.hnk.service.impl.UserServiceImpl;
 
-
 public class UserServiceTest {
 
 	private UserServiceImpl userService;
@@ -71,7 +70,6 @@ public class UserServiceTest {
 		user.setEmail("email@test.me");
 		user.setPassword("ASD");
 		user.setPoints((double) 150);
-		user.setDateOfBirth(new Date());
 		// Mockito.when(userDao.save(user)).thenReturn(user);
 		// userDao.save(user);
 		// Mockito.when(userDao.findUsername("EmailTest")).thenReturn("EmailTest");
@@ -88,7 +86,6 @@ public class UserServiceTest {
 		user.setEmail("email@test.me");
 		user.setPassword("ASD");
 		user.setPoints((double) 150);
-		user.setDateOfBirth(new Date());
 		// userDao.save(user);
 
 		Mockito.when(userDao.findUsername("EmailTest"))

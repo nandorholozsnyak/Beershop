@@ -1,5 +1,6 @@
 package hu.hnk.beershop.dao.test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -71,7 +72,7 @@ public class CartDaoTest {
 		user.setEmail("email@email.me");
 		user.setPassword("ASD");
 		user.setPoints((double) 150);
-		user.setDateOfBirth(new Date());
+		user.setDateOfBirth(LocalDate.of(1995,10,20));
 		user.setExperiencePoints((double) 100);
 		userDao.save(user);
 

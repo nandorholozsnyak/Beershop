@@ -1,6 +1,7 @@
 package hu.hnk.beershop.service;
 
 import java.sql.Date;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,7 +14,11 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.runners.MockitoJUnit44Runner;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
@@ -177,7 +182,7 @@ public class CargoServiceTest {
 				.toInstant(ZoneOffset.of("+2"))));
 		Assert.assertEquals("Csomag kiküldve", result);
 	}
-	
+
 	@Test
 	public void testCountdownTenMinutePackageHasNotSentYet() {
 		LocalDateTime orderDate = LocalDateTime.now();
