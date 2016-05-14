@@ -32,7 +32,6 @@ public interface CargoService {
 	 * @param items
 	 *            a szállításhoz kapcsolódó termékek listája.
 	 * @return az elmentett szállítás.
-	 * @throws RestrictionValidationException 
 	 * @throws DailyBuyActionLimitExceeded
 	 *             ha a felhasználó túllépi a napi megengedett keretet.
 	 * @throws CanNotBuyLegendaryBeerYetException
@@ -40,7 +39,7 @@ public interface CargoService {
 	 *             felhasználó még nem jogosult ezek vásárlására.
 	 */
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
-			throws RestrictionValidationException;
+			throws DailyBuyActionLimitExceeded, CanNotBuyLegendaryBeerYetException;
 
 	/**
 	 * Ellenőrzi hogy a paraméterként megadott felhasználónak rendelkezésére

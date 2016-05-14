@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
-import hu.hnk.beershop.exception.RestrictionValidationException;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
@@ -89,7 +88,7 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	@Override
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
-			throws RestrictionValidationException {
+			throws DailyBuyActionLimitExceeded, CanNotBuyLegendaryBeerYetException {
 
 		if (!restrictionCheckerService.checkIfUserCanBuyMoreBeer(cargo.getUser())) {
 			throw new DailyBuyActionLimitExceeded("Daily buy action limit exceeded.");
@@ -227,7 +226,7 @@ public class CargoServiceImpl implements CargoService {
 		logger.info("Money after payment:" + result + " for user " + user.getUsername());
 		return result < 0 ? null : result;
 	}
-	
+
 	@Override
 	@CoverageIgnore
 	public List<Cargo> findByUser(User user) {
@@ -242,6 +241,7 @@ public class CargoServiceImpl implements CargoService {
 				: String.valueOf((9 - ((int) tenMinute.getSeconds() / 60))) + " perc "
 						+ String.valueOf(59 - (tenMinute.getSeconds() % 60)) + " másodperc";
 	}
+
 	/**
 	 * Beállítja a szállításokat kezelő adathozzáférési objektumát.
 	 * 

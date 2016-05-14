@@ -53,6 +53,6 @@ public interface StorageService {
 	 *             adott sörből.
 	 */
 	public void checkStorageItemQuantityLimit(List<StorageItem> storage, Beer beer, Integer quantity)
-			throws StorageValidationException;
+			throws StorageItemQuantityExceeded, NegativeQuantityNumber;
 
 }

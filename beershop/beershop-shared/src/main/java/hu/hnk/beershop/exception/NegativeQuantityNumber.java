@@ -8,7 +8,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class NegativeQuantityNumber extends StorageValidationException {
+public class NegativeQuantityNumber extends Exception {
 
 	/**
 	 * 

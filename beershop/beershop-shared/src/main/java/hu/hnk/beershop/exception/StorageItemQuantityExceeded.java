@@ -7,7 +7,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class StorageItemQuantityExceeded extends StorageValidationException {
+public class StorageItemQuantityExceeded extends Exception {
 
 	/**
 	 * 
