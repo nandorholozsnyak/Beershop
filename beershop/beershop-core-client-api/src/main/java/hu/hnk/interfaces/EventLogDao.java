@@ -23,8 +23,12 @@ public interface EventLogDao extends BaseDao<EventLog> {
 	public List<EventLog> findByUser(User user);
 
 	/**
+	 * Visszaadja a paraméterként megadott felhasználónak a napi
+	 * eseménylistáját.
+	 * 
 	 * @param user
-	 * @return
+	 *            a felhasználó,akinek az eseményeit szeretnénk listázni.
+	 * @return a napi események listája.
 	 */
 	public List<EventLog> findByUserWhereDateIsToday(User user);
 

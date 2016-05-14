@@ -55,7 +55,7 @@ public class UserOrderManagerBean implements Serializable {
 	}
 
 	public String countdownTenMinute(Date orderDate) {
-		return cargoService.countdownTenMinute(orderDate);
+		return cargoService.countdownTenMinutes(orderDate);
 	}
 
 	public List<Cargo> getUserCargos() {

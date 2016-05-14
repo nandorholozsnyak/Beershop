@@ -20,7 +20,7 @@ public class EventLogFactoryTest {
 		User user = User.builder()
 				.username("EventLoggedUser")
 				.build();
-		EventLog event = EventLogFactory.createEventLog(EventLogType.Registration, user);
+		EventLog event = EventLogFactory.createEventLog(EventLogType.REGISTRATION, user);
 		Assert.assertEquals(user, event.getUser());
 		Assert.assertEquals(EventLogFactory.getUserRegistration(), event.getAction());
 	}
@@ -30,7 +30,7 @@ public class EventLogFactoryTest {
 		User user = User.builder()
 				.username("EventLoggedUser")
 				.build();
-		EventLog event = EventLogFactory.createEventLog(EventLogType.Buy, user);
+		EventLog event = EventLogFactory.createEventLog(EventLogType.BUY, user);
 		Assert.assertEquals(user, event.getUser());
 		Assert.assertEquals(EventLogFactory.getBuyAction(), event.getAction());
 	}
@@ -40,7 +40,7 @@ public class EventLogFactoryTest {
 		User user = User.builder()
 				.username("EventLoggedUser")
 				.build();
-		EventLog event = EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user);
+		EventLog event = EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, user);
 		Assert.assertEquals(user, event.getUser());
 		Assert.assertEquals(EventLogFactory.getMoneyTransfer(), event.getAction());
 	}

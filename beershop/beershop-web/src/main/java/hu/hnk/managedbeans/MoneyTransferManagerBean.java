@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -48,8 +47,12 @@ public class MoneyTransferManagerBean implements Serializable {
 	private String pin;
 	private String userPin;
 	private String money;
-	private FacesMessage msg;
 
+	/**
+	 * Inicializáló metódus, a managed bean létrejöttekor.
+	 * 
+	 * Meghívja a beállítandó pénz mennyiségeket létrehozo metódust.
+	 */
 	@PostConstruct
 	public void init() {
 		generateMoneyTransferFields();
@@ -70,6 +73,10 @@ public class MoneyTransferManagerBean implements Serializable {
 		logger.info("Pin code made.");
 	}
 
+	/**
+	 * Az egyenlegfeltöltést elvégző metódus, amely meghívja a szolgáltatások
+	 * megfelelő metódusait.
+	 */
 	public void transferMoney() {
 
 		try {
@@ -77,88 +84,110 @@ public class MoneyTransferManagerBean implements Serializable {
 			FacesMessageTool.createInfoMessage("A pénz feltöltése megtörtént.");
 			generateMoneyTransferFields();
 		} catch (NumberFormatException e) {
-			logger.error(e.getMessage());
+			logger.warn(e.getMessage(), e);
 			FacesMessageTool.createWarnMessage("Az ellenörző mezőbe csak számot írjon!");
 		} catch (InvalidPinCode e) {
-			logger.error(e.getMessage());
+			logger.warn(e.getMessage(), e);
 			FacesMessageTool.createWarnMessage("Az ellenörző pin kód nem egyezik meg.");
 		} catch (DailyMoneyTransferLimitExceeded e) {
-			logger.error(e.getMessage());
+			logger.warn(e.getMessage(), e);
 			FacesMessageTool.createErrorMessage("Túllépte a napi limitet.");
 		}
 
 	}
 
 	/**
-	 * @return the moneyValues
+	 * Visszaadja a megfelelő pénz - érték párokat.
+	 * 
+	 * @return pénz-érték párok.
 	 */
 	public Map<Integer, Integer> getMoneyValues() {
 		return moneyValues;
 	}
 
 	/**
+	 * Beállítja a megfelelő pénz - érték párokat.
+	 * 
 	 * @param moneyValues
-	 *            the moneyValues to set
+	 *            pénz - érték párok.
+	 * 
 	 */
 	public void setMoneyValues(Map<Integer, Integer> moneyValues) {
 		this.moneyValues = moneyValues;
 	}
 
 	/**
-	 * @return the sessionManager
+	 * Visszaadja a session-t kezelő objektumot.
+	 * 
+	 * @return a sessiont kezelő objektum.
 	 */
 	public SessionManager getSessionManager() {
 		return sessionManager;
 	}
 
 	/**
+	 * Beállítja a session-t kezelő objektumot.
+	 * 
 	 * @param sessionManager
-	 *            the sessionManager to set
+	 *            a session-t kezelő objetum.
+	 * 
 	 */
 	public void setSessionManager(SessionManager sessionManager) {
 		this.sessionManager = sessionManager;
 	}
 
 	/**
-	 * @return the pin
+	 * Visszaadja a PIN kódot.
+	 * 
+	 * @return a PIN kód.
 	 */
 	public String getPin() {
 		return pin;
 	}
 
 	/**
+	 * Beállítja a PIN kódot.
+	 * 
 	 * @param pin
-	 *            the pin to set
+	 *            a beállítandó PIN kód.
 	 */
 	public void setPin(String pin) {
 		this.pin = pin;
 	}
 
 	/**
-	 * @return the userPin
+	 * Visszaadja a felhasználó által begépelt PIN kódot.
+	 * 
+	 * @return a felhasználó által begépelt PIN kód.
 	 */
 	public String getUserPin() {
 		return userPin;
 	}
 
 	/**
+	 * Beállítja a felhasználó által begépelt PIN kódot.
+	 * 
 	 * @param userPin
-	 *            the userPin to set
+	 *            a felhasználó által begépelt PIN kód.
 	 */
 	public void setUserPin(String userPin) {
 		this.userPin = userPin;
 	}
 
 	/**
-	 * @return the money
+	 * Visszaadja a választott pénz mennyiséget.
+	 * 
+	 * @return a válaszott pénz mennyiség
 	 */
 	public String getMoney() {
 		return money;
 	}
 
 	/**
+	 * Beállítja a választandó pénz mennyiséget.
+	 * 
 	 * @param money
-	 *            the money to set
+	 *            a választott pénz mennyiség.
 	 */
 	public void setMoney(String money) {
 		this.money = money;

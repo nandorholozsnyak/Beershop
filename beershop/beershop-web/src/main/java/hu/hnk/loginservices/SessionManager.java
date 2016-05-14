@@ -20,6 +20,9 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
 
 /**
+ * A session-t kezelő bean, amely a felhasználó bejelentkezés utáni adatait
+ * tartja számon.
+ * 
  * @author Nandi
  *
  */
@@ -63,17 +66,21 @@ public class SessionManager implements Serializable {
 				Principal principal = req.getUserPrincipal();
 				if (principal != null) {
 					String userName = principal.getName();
-					try {
-						setLoggedInUser(userService.findByUsername(userName));
-					} catch (Exception e) {
-						logger.error(e.getMessage(), e);
-					}
+					setLoggedInUserAfterLogin(userName);
 				}
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
 
+	}
+
+	private void setLoggedInUserAfterLogin(String userName) {
+		try {
+			setLoggedInUser(userService.findByUsername(userName));
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
 	}
 
 	/**
@@ -95,17 +102,23 @@ public class SessionManager implements Serializable {
 		this.loggedInUser = loggedInUser;
 	}
 
+	/**
+	 * Visszaadja a bejelentkezett felhasználó rangját.
+	 * 
+	 * @return a bejelentkezett felhasználó rangja.
+	 */
 	public String getUserRank() {
 		return userService.countRankFromXp(loggedInUser)
 				.getRankName();
 	}
 
+	/**
+	 * Visszaadja a bejelentkezett felhasználó tapasztalat pontjait.
+	 * 
+	 * @return a bejelentkezett felhasználó tapasztalat pontjai.
+	 */
 	public Integer getUserExperiencePoints() {
 		return userService.countExperiencePointsInPercentage(loggedInUser.getExperiencePoints());
-	}
-
-	public void moneyTransfer() {
-
 	}
 
 }

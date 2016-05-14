@@ -39,20 +39,20 @@ public class DiscountServiceImpl implements DiscountService {
 
 	@Override
 	public void validateDiscount(DiscountType discountType, Cargo cargo, LocalDate today) {
-		if (discountType.equals(DiscountType.FreeShipping))
+		if (discountType.equals(DiscountType.FREESHIPPING))
 			validateFreeShippingDiscount(cargo, today);
-		if (discountType.equals(DiscountType.TheCheapestForFree))
+		if (discountType.equals(DiscountType.THECHEAPESTFORFREE))
 			validateTheCheapestForFreeDiscount(cargo, today);
-		if (discountType.equals(DiscountType.ExtraBonusPoints))
+		if (discountType.equals(DiscountType.EXTRABONUSPOINTS))
 			validateExtraBonusPointsDiscount(cargo, today);
-		if (discountType.equals(DiscountType.FiftyPercentage))
+		if (discountType.equals(DiscountType.FIFTYPERCENTAGE))
 			validateFiftyPercentageDiscount(cargo, today);
 
 	}
 
 	private void validateFreeShippingDiscount(Cargo cargo, LocalDate today) {
 
-		DiscountType actualDiscount = DiscountType.FreeShipping;
+		DiscountType actualDiscount = DiscountType.FREESHIPPING;
 
 		// Kikeressük az ingyenes szállításhoz tartozó kedvezményt információt.
 		Optional<DailyRankBonus> freeShippingBonus = findDiscountByType(actualDiscount);
@@ -75,7 +75,7 @@ public class DiscountServiceImpl implements DiscountService {
 
 	// Csak ha legalább két terméket tartalmaz a kosár.
 	private void validateTheCheapestForFreeDiscount(Cargo cargo, LocalDate today) {
-		DiscountType actualDiscount = DiscountType.TheCheapestForFree;
+		DiscountType actualDiscount = DiscountType.THECHEAPESTFORFREE;
 
 		// Kikeressük a "legolcsóbb termék ingyenes" kedvezményt.
 		Optional<DailyRankBonus> theCheapestForFree = findDiscountByType(actualDiscount);
@@ -112,7 +112,7 @@ public class DiscountServiceImpl implements DiscountService {
 	// A szállítás teljes árának az ötödét hozzáadja mint bónusz pont a
 	// felhasználónak.
 	private void validateExtraBonusPointsDiscount(Cargo cargo, LocalDate today) {
-		DiscountType actualDiscount = DiscountType.ExtraBonusPoints;
+		DiscountType actualDiscount = DiscountType.EXTRABONUSPOINTS;
 
 		// Kikeressük az extra bónusz pontos kedvezményt.
 		Optional<DailyRankBonus> extraBonusPoints = findDiscountByType(actualDiscount);
@@ -135,7 +135,7 @@ public class DiscountServiceImpl implements DiscountService {
 	}
 
 	private void validateFiftyPercentageDiscount(Cargo cargo, LocalDate today) {
-		DiscountType actualDiscount = DiscountType.FiftyPercentage;
+		DiscountType actualDiscount = DiscountType.FIFTYPERCENTAGE;
 
 		// Kikeressük az extra bónusz pontos kedvezményt.
 		Optional<DailyRankBonus> fiftyPercentage = findDiscountByType(actualDiscount);

@@ -12,5 +12,13 @@ import hu.hnk.beershop.model.User;
  *
  */
 public interface CargoDao extends BaseDao<Cargo> {
+
+	/**
+	 * Visszaadja a rendelések/szállítások listáját felhasználó szerint.
+	 * 
+	 * @param user
+	 *            a keresendő szállításokkal rendelkező felhasználó
+	 * @return a szállítások listája
+	 */
 	public List<Cargo> findByUser(User user);
 }

@@ -25,6 +25,9 @@ import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
 
 /**
+ * A sörshop áruházi oldalán lévő termékek megjelenítését és különböző
+ * lehetőségeit végző bean.
+ * 
  * @author Nandi
  *
  */
@@ -91,6 +94,12 @@ public class BeerShopManager implements Serializable {
 		}
 	}
 
+	/**
+	 * A kiválasztott sör darabszámának növelése a kosárba helyezés előtt.
+	 * 
+	 * @param beer
+	 *            a kiválasztott sör
+	 */
 	public void incrementBeer(Beer beer) {
 		Integer quantity = beersToCart.get(beer);
 		List<StorageItem> items = storageService.findAll();
@@ -99,7 +108,7 @@ public class BeerShopManager implements Serializable {
 			storageService.checkStorageItemQuantityLimit(items, beer, ++quantity);
 			beersToCart.put(beer, quantity);
 		} catch (StorageItemQuantityExceeded e) {
-			logger.warn(e.getMessage());
+			logger.error(e.getMessage(), e);
 
 			beersToCart.put(beer, items.stream()
 					.filter(p -> p.getBeer()
@@ -109,11 +118,16 @@ public class BeerShopManager implements Serializable {
 					.getQuantity());
 			FacesMessageTool.createInfoMessage("A raktár maximumát elérte.");
 		} catch (NegativeQuantityNumber e) {
-			logger.warn(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 
 	}
 
+	/**
+	 * A kiválasztott sör darabszámának csökkentése a kosárba helyezés előtt.
+	 * 
+	 * @param beer
+	 */
 	public void decreaseBeer(Beer beer) {
 
 		Integer quantity = beersToCart.get(beer);
@@ -122,7 +136,7 @@ public class BeerShopManager implements Serializable {
 			storageService.checkStorageItemQuantityLimit(storageService.findAll(), beer, --quantity);
 			beersToCart.put(beer, quantity);
 		} catch (StorageItemQuantityExceeded e) {
-			logger.warn(e.getMessage());
+			logger.error(e.getMessage(), e);
 			beersToCart.put(beer, items.stream()
 					.filter(p -> p.getBeer()
 							.equals(beer))
@@ -130,12 +144,15 @@ public class BeerShopManager implements Serializable {
 					.get()
 					.getQuantity());
 		} catch (NegativeQuantityNumber e) {
-			logger.warn(e.getMessage());
+			logger.error(e.getMessage(), e);
 			FacesMessageTool.createWarnMessage("A darabszám nem lehet negatív érték!");
 		}
 
 	}
 
+	/**
+	 * A kiválasztott termékek kosárba való helyezése.
+	 */
 	public void saveItemsToCart() {
 
 		cartService.saveItemsToCart(beersToCart, cartService.findByUser(sessionManager.getLoggedInUser()));
@@ -182,24 +199,41 @@ public class BeerShopManager implements Serializable {
 		this.selectedBeer = selectedBeer;
 	}
 
+	/**
+	 * Visszaadja a sörök kosárba helyezésekor a megfelelő választott
+	 * mennyiséget leíró objektumot.
+	 * 
+	 * @return a sörök darabszámmal meghatározott objektuma.
+	 */
 	public Map<Beer, Integer> getBeersInCart() {
 		return beersToCart;
 	}
 
+	/**
+	 * Beállítja a sörök darabszámmal létrejött állapotát.
+	 * 
+	 * @param beersInCart
+	 *            a sörök darabszámmal létrejött objektuma.
+	 */
 	public void setBeersInCart(Map<Beer, Integer> beersInCart) {
 		this.beersToCart = beersInCart;
 	}
 
 	/**
-	 * @return the sessionManager
+	 * Visszaadja a session-t kezelő objektumot.
+	 * 
+	 * @return a sessiont kezelő objektum.
 	 */
 	public SessionManager getSessionManager() {
 		return sessionManager;
 	}
 
 	/**
+	 * Beállítja a session-t kezelő objektumot.
+	 * 
 	 * @param sessionManager
-	 *            the sessionManager to set
+	 *            a session-t kezelő objetum.
+	 * 
 	 */
 	public void setSessionManager(SessionManager sessionManager) {
 		this.sessionManager = sessionManager;

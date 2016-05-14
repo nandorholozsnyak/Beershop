@@ -27,6 +27,11 @@ public class EventLogFactory {
 	 */
 	public static final Logger logger = LoggerFactory.getLogger(EventLogFactory.class);
 
+	// privát konstuktor, csak statikus metódusai vannak, nem kell
+	// példányosítani
+	private EventLogFactory() {
+	}
+
 	/**
 	 * Egy eseménykészítő <code>Factory</code> osztály metódusa, amely
 	 * eseményeket hoz létre.
@@ -43,11 +48,11 @@ public class EventLogFactory {
 	 */
 	public static EventLog createEventLog(EventLogType logType, User user) {
 		EventLog result = null;
-		if (logType.equals(EventLogType.Registration)) {
+		if (logType.equals(EventLogType.REGISTRATION)) {
 			result = createRegistrationEventLog(user);
-		} else if (logType.equals(EventLogType.MoneyTransfer)) {
+		} else if (logType.equals(EventLogType.MONEYTRANSFER)) {
 			result = createMoneyTransferEventLog(user);
-		} else if (logType.equals(EventLogType.Buy)) {
+		} else if (logType.equals(EventLogType.BUY)) {
 			result = createBuyEventLog(user);
 		}
 		return result;

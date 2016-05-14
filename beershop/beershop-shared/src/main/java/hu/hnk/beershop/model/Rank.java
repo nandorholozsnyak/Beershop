@@ -69,7 +69,9 @@ public enum Rank {
 	}
 
 	/**
-	 * @return
+	 * Visszaadja a rang nevét.
+	 * 
+	 * @return a rang neve
 	 */
 	public String getRankName() {
 		return rankName;

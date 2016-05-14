@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.BusyConversationException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -59,22 +57,12 @@ public class TransactionManagerBean implements Serializable {
 	@EJB
 	private CargoService cargoService;
 
-	private FacesMessage msg;
 
-	/**
-	 * A sessiont kezelő managed bean.
-	 */
 	@ManagedProperty(value = "#{sessionManagerBean}")
 	private SessionManager sessionManager;
 
-	/**
-	 * A vásárló címe, ahová a termékeket szállítjuk majd.
-	 */
 	private String address;
 
-	/**
-	 * Fizetési mód, utalással vagy bónuszpontokkal.
-	 */
 	private String payMode;
 
 	private Double totalCost;
@@ -86,7 +74,7 @@ public class TransactionManagerBean implements Serializable {
 	private List<CartItem> items;
 
 	/**
-	 * 
+	 * Inicializáló metódus, a managed bean létrejöttekor.
 	 */
 	@PostConstruct
 	public void init() {
@@ -215,14 +203,6 @@ public class TransactionManagerBean implements Serializable {
 
 	public void setCargoService(CargoService cargoService) {
 		this.cargoService = cargoService;
-	}
-
-	public FacesMessage getMsg() {
-		return msg;
-	}
-
-	public void setMsg(FacesMessage msg) {
-		this.msg = msg;
 	}
 
 	public Double getMoneyAfterPayment() {

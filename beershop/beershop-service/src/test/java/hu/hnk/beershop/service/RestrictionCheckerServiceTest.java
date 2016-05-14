@@ -59,7 +59,7 @@ public class RestrictionCheckerServiceTest {
 		List<EventLog> logs = new ArrayList<>();
 
 		for (int i = 0; i < 4; i++) {
-			logs.add(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user));
+			logs.add(EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, user));
 		}
 		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
@@ -68,7 +68,7 @@ public class RestrictionCheckerServiceTest {
 		logs = new ArrayList<>();
 
 		for (int i = 0; i < 3; i++) {
-			logs.add(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user));
+			logs.add(EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, user));
 		}
 		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
@@ -84,7 +84,7 @@ public class RestrictionCheckerServiceTest {
 		List<EventLog> logs = new ArrayList<>();
 
 		for (int i = 0; i < 5; i++) {
-			logs.add(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user));
+			logs.add(EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, user));
 		}
 		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
@@ -93,7 +93,7 @@ public class RestrictionCheckerServiceTest {
 		logs = new ArrayList<>();
 
 		for (int i = 0; i < 4; i++) {
-			logs.add(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user));
+			logs.add(EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, user));
 		}
 		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
@@ -109,7 +109,7 @@ public class RestrictionCheckerServiceTest {
 		List<EventLog> logs = new ArrayList<>();
 
 		for (int i = 0; i < 5; i++) {
-			logs.add(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user));
+			logs.add(EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, user));
 		}
 		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
@@ -118,7 +118,7 @@ public class RestrictionCheckerServiceTest {
 		logs = new ArrayList<>();
 
 		for (int i = 0; i < 4; i++) {
-			logs.add(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, user));
+			logs.add(EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, user));
 		}
 		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
@@ -150,7 +150,7 @@ public class RestrictionCheckerServiceTest {
 		List<EventLog> logs = new ArrayList<>();
 
 		for (int i = 0; i < 4; i++) {
-			logs.add(EventLogFactory.createEventLog(EventLogType.Buy, user));
+			logs.add(EventLogFactory.createEventLog(EventLogType.BUY, user));
 		}
 		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
@@ -159,7 +159,7 @@ public class RestrictionCheckerServiceTest {
 		logs = new ArrayList<>();
 
 		for (int i = 0; i < 3; i++) {
-			logs.add(EventLogFactory.createEventLog(EventLogType.Buy, user));
+			logs.add(EventLogFactory.createEventLog(EventLogType.BUY, user));
 		}
 		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
@@ -181,7 +181,7 @@ public class RestrictionCheckerServiceTest {
 			for (int j = 0; j < BuyActionRestrictions.getRestirctedValues()
 					.get(i)
 					.getRestrictedValue() - 1; j++) {
-				logs.add(EventLogFactory.createEventLog(EventLogType.Buy, user));
+				logs.add(EventLogFactory.createEventLog(EventLogType.BUY, user));
 			}
 			Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 					.thenReturn(logs);
@@ -203,7 +203,7 @@ public class RestrictionCheckerServiceTest {
 			for (int j = 0; j < BuyActionRestrictions.getRestirctedValues()
 					.get(i)
 					.getRestrictedValue() + 1; j++) {
-				logs.add(EventLogFactory.createEventLog(EventLogType.Buy, user));
+				logs.add(EventLogFactory.createEventLog(EventLogType.BUY, user));
 			}
 			Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 					.thenReturn(logs);

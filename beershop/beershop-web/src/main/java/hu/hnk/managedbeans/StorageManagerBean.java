@@ -5,10 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +14,11 @@ import org.slf4j.LoggerFactory;
 import hu.hnk.beershop.exception.NegativeQuantityNumber;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.StorageService;
+import hu.hnk.tool.FacesMessageTool;
 
 /**
+ * A raktárt kezelő bean.
+ * 
  * @author Nandi
  *
  */
@@ -43,36 +44,47 @@ public class StorageManagerBean implements Serializable {
 
 	private List<StorageItem> storage;
 
+	/**
+	 * Inicializáló metódus, a managed bean létrejöttekor.
+	 */
 	@PostConstruct
 	public void init() {
 		storage = storageService.findAll();
 	}
 
+	/**
+	 * Visszaadja a raktárban lévő termékek listáját.
+	 * 
+	 * @return a raktárban lévő termékek listája.
+	 */
 	public List<StorageItem> getStorage() {
 		return storage;
 	}
 
+	/**
+	 * Beállítja a raktárban lévő termékek listáját.
+	 * 
+	 * @param storage
+	 *            a raktárban lévő termékek listája.
+	 */
 	public void setStorage(List<StorageItem> storage) {
 		this.storage = storage;
 	}
 
+	/**
+	 * Elmenti az adminisztrátor által végzett módosításokat.
+	 */
 	public void saveChanges() {
-		FacesMessage msg;
-
 		try {
 			storageService.saveAllChanges(storage);
-			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Módosítások sikeresen mentve!",
-					"Módosítások sikeresen mentve!");
+			FacesMessageTool.createInfoMessage("Módosítások sikeresen mentve!");
 			logger.info("Storage database updated succesfully.");
 		} catch (NegativeQuantityNumber e) {
 			logger.warn(e.getMessage(), e);
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Negatív érték nem tárolható!",
-					"Negatív érték nem tárolható!");
+			FacesMessageTool.createWarnMessage("Negatív érték nem tárolható!");
 			storage = storageService.findAll();
 		}
 
-		FacesContext.getCurrentInstance()
-				.addMessage(null, msg);
 	}
 
 }

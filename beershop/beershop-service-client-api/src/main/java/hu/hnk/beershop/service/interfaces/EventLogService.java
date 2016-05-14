@@ -12,13 +12,13 @@ import hu.hnk.beershop.service.logfactory.EventLogType;
  * Az események listázásért illetve mentéséért felelős szolgáltatás. Az
  * eseményeknek különböző fajtáik vannak.
  * 
- * {@link EventLogType#Registration} - regisztrációs esemény amely egy új
+ * {@link EventLogType#REGISTRATION} - regisztrációs esemény amely egy új
  * felhasználó regisztrációja során mentődik el automatikusan.
  * 
- * {@link EventLogType#MoneyTransfer} - egy pénzfeltöltési esemény során
+ * {@link EventLogType#MONEYTRANSFER} - egy pénzfeltöltési esemény során
  * létrejövő felhasználó esemény.
  * 
- * {@link EventLogType#Buy} - egy vásárlás során létrejövő felhasználó esemény.
+ * {@link EventLogType#BUY} - egy vásárlás során létrejövő felhasználó esemény.
  * 
  * Az eseményeket szolgáltató <code>Factory</code> osztály az
  * <p>

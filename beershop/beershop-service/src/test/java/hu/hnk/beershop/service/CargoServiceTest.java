@@ -83,7 +83,7 @@ public class CargoServiceTest {
 		for (int i = 0; i < BuyActionRestrictions.getRestirctedValues()
 				.get(0)
 				.getRestrictedValue() + 1; i++) {
-			logs.add(EventLogFactory.createEventLog(EventLogType.Buy, user));
+			logs.add(EventLogFactory.createEventLog(EventLogType.BUY, user));
 		}
 		Mockito.when(eventLogDao.findByUserWhereDateIsToday(user))
 				.thenReturn(logs);
@@ -113,7 +113,7 @@ public class CargoServiceTest {
 		for (int i = 0; i < BuyActionRestrictions.getRestirctedValues()
 				.get(0)
 				.getRestrictedValue(); i++) {
-			logs.add(EventLogFactory.createEventLog(EventLogType.Buy, user));
+			logs.add(EventLogFactory.createEventLog(EventLogType.BUY, user));
 		}
 
 		Mockito.when(eventLogDao.findByUser(user))
@@ -153,7 +153,7 @@ public class CargoServiceTest {
 		for (int i = 0; i < BuyActionRestrictions.getRestirctedValues()
 				.get(0)
 				.getRestrictedValue(); i++) {
-			logs.add(EventLogFactory.createEventLog(EventLogType.Buy, user));
+			logs.add(EventLogFactory.createEventLog(EventLogType.BUY, user));
 		}
 
 		Mockito.when(eventLogDao.findByUser(user))
@@ -178,7 +178,7 @@ public class CargoServiceTest {
 	@Test
 	public void testCountdownTenMinutePackageAlreadySent() {
 		LocalDateTime orderDate = LocalDateTime.now();
-		String result = cargoServiceImpl.countdownTenMinute(Date.from(orderDate.minusMinutes(10)
+		String result = cargoServiceImpl.countdownTenMinutes(Date.from(orderDate.minusMinutes(10)
 				.toInstant(ZoneOffset.of("+2"))));
 		Assert.assertEquals("Csomag kiküldve", result);
 	}
@@ -186,7 +186,7 @@ public class CargoServiceTest {
 	@Test
 	public void testCountdownTenMinutePackageHasNotSentYet() {
 		LocalDateTime orderDate = LocalDateTime.now();
-		String result = cargoServiceImpl.countdownTenMinute(Date.from(orderDate.minusMinutes(9)
+		String result = cargoServiceImpl.countdownTenMinutes(Date.from(orderDate.minusMinutes(9)
 				.toInstant(ZoneOffset.of("+2"))));
 		Assert.assertEquals("0 perc 59 másodperc", result);
 	}

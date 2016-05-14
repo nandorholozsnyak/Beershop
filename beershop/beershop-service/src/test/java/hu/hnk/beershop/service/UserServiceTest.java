@@ -166,7 +166,7 @@ public class UserServiceTest {
 		loggedInUser.setMoney(0.0);
 		Mockito.when(userDao.save(loggedInUser))
 				.thenReturn(loggedInUser);
-		Mockito.when(eventLogService.save(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, loggedInUser)))
+		Mockito.when(eventLogService.save(EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, loggedInUser)))
 				.thenReturn(new EventLog());
 		userService.transferMoney(userPin, expectedPin, money, loggedInUser);
 	}

@@ -184,7 +184,7 @@ public class CargoServiceImpl implements CargoService {
 
 	private void createEventLogForBuyAction(Cargo cargo) {
 		try {
-			eventLogDao.save(EventLogFactory.createEventLog(EventLogType.Buy, cargo.getUser()));
+			eventLogDao.save(EventLogFactory.createEventLog(EventLogType.BUY, cargo.getUser()));
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -234,7 +234,7 @@ public class CargoServiceImpl implements CargoService {
 	}
 
 	@Override
-	public String countdownTenMinute(Date orderDate) {
+	public String countdownTenMinutes(Date orderDate) {
 		LocalDateTime dateTime = LocalDateTime.ofInstant(orderDate.toInstant(), ZoneId.systemDefault());
 		Duration tenMinute = Duration.between(dateTime, LocalDateTime.now());
 		return tenMinute.toMinutes() > 9 ? "Csomag kiküldve"

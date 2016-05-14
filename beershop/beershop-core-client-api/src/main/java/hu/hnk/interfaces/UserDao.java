@@ -66,5 +66,10 @@ public interface UserDao extends BaseDao<User> {
 	 */
 	public String findEmail(String email) throws EmailNotFound;
 
+	/**
+	 * Visszaadja az adatbázisban szereplő összes felhasználót.
+	 * 
+	 * @return az adatbázisban szereplő felhasználók listája.
+	 */
 	public List<User> findAll();
 }

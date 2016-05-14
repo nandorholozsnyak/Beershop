@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		eventLogService.save(EventLogFactory.createEventLog(EventLogType.Registration, userData));
+		eventLogService.save(EventLogFactory.createEventLog(EventLogType.REGISTRATION, userData));
 	}
 
 	/**
@@ -267,7 +267,7 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		eventLogService.save(EventLogFactory.createEventLog(EventLogType.MoneyTransfer, loggedInUser));
+		eventLogService.save(EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, loggedInUser));
 	}
 
 	/**

@@ -49,7 +49,7 @@ public class DiscountServiceTest {
 				.build();
 
 		// 2016 05 07 - szombati nap.
-		discountService.validateDiscount(DiscountType.FreeShipping, c, LocalDate.of(2016, 5, 7));
+		discountService.validateDiscount(DiscountType.FREESHIPPING, c, LocalDate.of(2016, 5, 7));
 		Assert.assertEquals(price * quantity, c.getTotalPrice(), 0.0);
 
 	}
@@ -86,7 +86,7 @@ public class DiscountServiceTest {
 				.build();
 
 		// 2016 05 05 - csütörtöki nap.
-		discountService.validateDiscount(DiscountType.TheCheapestForFree, c, LocalDate.of(2016, 5, 5));
+		discountService.validateDiscount(DiscountType.THECHEAPESTFORFREE, c, LocalDate.of(2016, 5, 5));
 		Assert.assertEquals((expensive * quantity) + BuyActionRestrictions.getShippingCost(), c.getTotalPrice(), 0.0);
 	}
 
@@ -113,7 +113,7 @@ public class DiscountServiceTest {
 				.build();
 
 		// 2016 05 05 - csütörtöki nap.
-		discountService.validateDiscount(DiscountType.TheCheapestForFree, c, LocalDate.of(2016, 5, 5));
+		discountService.validateDiscount(DiscountType.THECHEAPESTFORFREE, c, LocalDate.of(2016, 5, 5));
 		Assert.assertEquals((expensive * quantity) + BuyActionRestrictions.getShippingCost(), c.getTotalPrice(), 0.0);
 	}
 
@@ -142,7 +142,7 @@ public class DiscountServiceTest {
 				.build();
 
 		// 2016 05 04 - szerdai nap.
-		discountService.validateDiscount(DiscountType.ExtraBonusPoints, c, LocalDate.of(2016, 5, 4));
+		discountService.validateDiscount(DiscountType.EXTRABONUSPOINTS, c, LocalDate.of(2016, 5, 4));
 		Assert.assertEquals(userPoints + c.getTotalPrice() / 5, c.getUser()
 				.getPoints(), 0.0);
 	}
@@ -172,7 +172,7 @@ public class DiscountServiceTest {
 				.build();
 
 		// 2016 05 03 - keddi nap.
-		discountService.validateDiscount(DiscountType.FiftyPercentage, c, LocalDate.of(2016, 5, 3));
+		discountService.validateDiscount(DiscountType.FIFTYPERCENTAGE, c, LocalDate.of(2016, 5, 3));
 		Assert.assertEquals((expensive * quantity + BuyActionRestrictions.getShippingCost()) / 2, c.getTotalPrice(),
 				0.0);
 	}

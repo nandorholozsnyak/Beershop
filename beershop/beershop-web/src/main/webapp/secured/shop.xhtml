@@ -24,7 +24,11 @@ tr:first-child {
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
  	border-radius: 15px;
-    animation: blink .5s step-end infinite alternate;
+/*     animation: blink .5s step-end infinite alternate; */
+    animation-duration: 1s;
+    animation-name: blink;
+    animation-iteration-count: infinite;
+    animation-timing-function: steps(2, start);
 }
 </style>
 

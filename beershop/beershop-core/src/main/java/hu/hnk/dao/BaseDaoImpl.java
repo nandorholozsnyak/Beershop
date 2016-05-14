@@ -40,6 +40,9 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements BaseDao<E> {
 	@PersistenceContext(unitName = PersistenceUnitDeclaration.PERSISTENCE_UNIT)
 	protected EntityManager entityManager;
 
+	/**
+	 * A bázis adathozzáférési osztály által kezelt entitás osztálya.
+	 */
 	protected Class<E> entityClass;
 
 	/**

@@ -23,6 +23,8 @@ import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
 
 /**
+ * A kosarat kezelő bean amellyel a UI felületen tudunk dolgozni.
+ * 
  * @author Nandi
  *
  */
@@ -50,6 +52,9 @@ public class CartManagerBean implements Serializable {
 
 	private List<CartItem> items;
 
+	/**
+	 * Inicializáló metódus, a managed bean létrejöttekor.
+	 */
 	@PostConstruct
 	public void init() {
 		loadUserItems();
@@ -63,11 +68,22 @@ public class CartManagerBean implements Serializable {
 				.collect(Collectors.toList());
 	}
 
+	/**
+	 * Visszadja formázottan a teljes összeget, amelyet majd fizetni kell.
+	 * 
+	 * @return a fizetendő összeg.
+	 */
 	public String getTotalPrice() {
 		NumberFormat format = new DecimalFormat("#0.00");
 		return format.format(cartService.countTotalCost(items));
 	}
 
+	/**
+	 * A paraméterül kapott terméket törli a kosárból.
+	 * 
+	 * @param item
+	 *            a törlendő termék.
+	 */
 	public void deleteItemFromCart(CartItem item) {
 
 		try {
@@ -78,6 +94,11 @@ public class CartManagerBean implements Serializable {
 			FacesMessageTool.createWarnMessage("Módosításokat nem tudtuk menteni!");
 		}
 		loadUserItems();
+		refreshXhtmlComponents();
+
+	}
+
+	private void refreshXhtmlComponents() {
 		FacesContext.getCurrentInstance()
 				.getPartialViewContext()
 				.getRenderIds()
@@ -90,54 +111,71 @@ public class CartManagerBean implements Serializable {
 				.getPartialViewContext()
 				.getRenderIds()
 				.add("cart:emptyCart");
-
 	}
 
+	/**
+	 * Visszaadja formázottan a bónusz pontokat.
+	 * 
+	 * @return a bónusz pontok formázottan.
+	 */
 	public String countBonusPoints() {
 		NumberFormat format = new DecimalFormat("#0.00");
 		return format.format(cartService.countBonusPoints(items));
 	}
 
 	/**
-	 * @return the sessionManager
+	 * Visszaadja a session-t kezelő objektumot.
+	 * 
+	 * @return a sessiont kezelő objektum.
 	 */
 	public SessionManager getSessionManager() {
 		return sessionManager;
 	}
 
 	/**
+	 * Beállítja a session-t kezelő objektumot.
+	 * 
 	 * @param sessionManager
-	 *            the sessionManager to set
+	 *            a session-t kezelő objetum.
+	 * 
 	 */
 	public void setSessionManager(SessionManager sessionManager) {
 		this.sessionManager = sessionManager;
 	}
 
 	/**
-	 * @return the cartService
+	 * Visszaadja a kosarat kezelő szolgáltatást.
+	 * 
+	 * @return a kosarat kezelő szolgáltatás.
 	 */
 	public CartService getCartService() {
 		return cartService;
 	}
 
 	/**
+	 * Beállítja a kosarat kezelő szolgáltatást.
+	 * 
 	 * @param cartService
-	 *            the cartService to set
+	 *            a kosarat kezelő szolgáltatás.
 	 */
 	public void setCartService(CartService cartService) {
 		this.cartService = cartService;
 	}
 
 	/**
-	 * @return the items
+	 * Visszaadja a kosárban lévő termékek listáját.
+	 * 
+	 * @return a korásban lévő termékek listája.
 	 */
 	public List<CartItem> getItems() {
 		return items;
 	}
 
 	/**
+	 * Beállítja a kosárban lévő termékek listáját.
+	 * 
 	 * @param items
-	 *            the items to set
+	 *            a kosárba teendő termékek listája.
 	 */
 	public void setItems(List<CartItem> items) {
 		this.items = items;

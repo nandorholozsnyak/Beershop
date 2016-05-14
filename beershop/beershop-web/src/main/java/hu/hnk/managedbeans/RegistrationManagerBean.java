@@ -1,13 +1,12 @@
 package hu.hnk.managedbeans;
 
+import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -168,6 +167,9 @@ public class RegistrationManagerBean implements Serializable {
 		this.password = password;
 	}
 
+	/**
+	 * Inicializáló metódus, a managed bean létrejöttekor.
+	 */
 	@PostConstruct
 	public void init() {
 		dateOfBirth = new Date();
@@ -186,27 +188,33 @@ public class RegistrationManagerBean implements Serializable {
 			if (newUser != null) {
 				try {
 					userService.save(newUser);
-					FacesContext.getCurrentInstance()
-							.getExternalContext()
-							.getFlash()
-							.setKeepMessages(true);
-					FacesMessageTool.createInfoMessage("Sikeres regisztráció.");
-					FacesContext.getCurrentInstance()
-							.getExternalContext()
-							.redirect("index.xhtml");
 
-					FacesContext.getCurrentInstance()
-							.getPartialViewContext()
-							.getRenderIds()
-							.add("mainPageMsg");
+					announceUserAboutRegistrationStatus();
 				} catch (Exception e) {
 					FacesMessageTool.createErrorMessage("Hiba regisztráció közben.");
-					logger.error(e.getMessage(), e);
+					logger.warn(e.getMessage(), e);
 				}
 			}
 		} else {
 			FacesMessageTool.createWarnMessage("Regisztráció nem lehetséges.");
 		}
+	}
+
+	private void announceUserAboutRegistrationStatus() throws IOException {
+		FacesContext.getCurrentInstance()
+				.getExternalContext()
+				.getFlash()
+				.setKeepMessages(true);
+
+		FacesMessageTool.createInfoMessage("Sikeres regisztráció.");
+		FacesContext.getCurrentInstance()
+				.getExternalContext()
+				.redirect("index.xhtml");
+
+		FacesContext.getCurrentInstance()
+				.getPartialViewContext()
+				.getRenderIds()
+				.add("mainPageMsg");
 	}
 
 	private User createNewUser() {

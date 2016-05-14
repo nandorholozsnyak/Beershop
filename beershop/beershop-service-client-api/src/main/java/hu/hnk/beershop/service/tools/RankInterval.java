@@ -5,7 +5,6 @@ import java.util.List;
 
 import hu.hnk.beershop.model.Rank;
 
-
 /**
  * A rangok tapasztalatponthoz kötött információit leíró osztály.
  * 
@@ -60,7 +59,7 @@ public class RankInterval {
 	}
 
 	/**
-	 * Visszadja a rangot;
+	 * Visszadja a rangot.
 	 * 
 	 * @return a rang.
 	 */
