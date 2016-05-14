@@ -4,6 +4,7 @@ import java.util.List;
 
 import hu.hnk.beershop.exception.NegativeQuantityNumber;
 import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
+import hu.hnk.beershop.exception.StorageValidationException;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 
@@ -52,6 +53,6 @@ public interface StorageService {
 	 *             adott sörből.
 	 */
 	public void checkStorageItemQuantityLimit(List<StorageItem> storage, Beer beer, Integer quantity)
-			throws StorageItemQuantityExceeded, NegativeQuantityNumber;
+			throws StorageValidationException;
 
 }

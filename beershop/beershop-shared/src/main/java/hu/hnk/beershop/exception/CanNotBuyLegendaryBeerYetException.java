@@ -8,7 +8,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class CanNotBuyLegendaryBeerYetException extends Exception {
+public class CanNotBuyLegendaryBeerYetException extends RestrictionValidationException {
 
 	/**
 	 * 

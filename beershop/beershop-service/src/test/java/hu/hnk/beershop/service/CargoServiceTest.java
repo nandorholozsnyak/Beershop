@@ -22,6 +22,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
+import hu.hnk.beershop.exception.RestrictionValidationException;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
@@ -70,7 +71,7 @@ public class CargoServiceTest {
 
 	@Test(expected = DailyBuyActionLimitExceeded.class)
 	public void testSaveNewCargoShouldThorwDailyBuyActionLimitExceeded()
-			throws DailyBuyActionLimitExceeded, CanNotBuyLegendaryBeerYetException {
+			throws RestrictionValidationException {
 		User user = new User();
 		// Amatőr lesz a felhasználónk.
 		user.setExperiencePoints(1.0);
@@ -92,7 +93,7 @@ public class CargoServiceTest {
 
 	@Test(expected = CanNotBuyLegendaryBeerYetException.class)
 	public void testSaveNewCargoShouldThorwCanNotBuyLegendaryBeerYetException()
-			throws DailyBuyActionLimitExceeded, CanNotBuyLegendaryBeerYetException {
+			throws RestrictionValidationException {
 		User user = new User();
 		// Amatőr lesz a felhasználónk.
 		user.setExperiencePoints(1.0);

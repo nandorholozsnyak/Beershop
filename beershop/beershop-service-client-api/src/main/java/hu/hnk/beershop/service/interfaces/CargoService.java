@@ -5,6 +5,7 @@ import java.util.List;
 
 import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
+import hu.hnk.beershop.exception.RestrictionValidationException;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
@@ -31,6 +32,7 @@ public interface CargoService {
 	 * @param items
 	 *            a szállításhoz kapcsolódó termékek listája.
 	 * @return az elmentett szállítás.
+	 * @throws RestrictionValidationException 
 	 * @throws DailyBuyActionLimitExceeded
 	 *             ha a felhasználó túllépi a napi megengedett keretet.
 	 * @throws CanNotBuyLegendaryBeerYetException
@@ -38,7 +40,7 @@ public interface CargoService {
 	 *             felhasználó még nem jogosult ezek vásárlására.
 	 */
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
-			throws DailyBuyActionLimitExceeded, CanNotBuyLegendaryBeerYetException;
+			throws RestrictionValidationException;
 
 	/**
 	 * Ellenőrzi hogy a paraméterként megadott felhasználónak rendelkezésére

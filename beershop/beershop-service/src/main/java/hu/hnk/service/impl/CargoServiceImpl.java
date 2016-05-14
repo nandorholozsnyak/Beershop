@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
+import hu.hnk.beershop.exception.RestrictionValidationException;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
@@ -88,7 +89,7 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	@Override
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
-			throws DailyBuyActionLimitExceeded, CanNotBuyLegendaryBeerYetException {
+			throws RestrictionValidationException {
 
 		if (!restrictionCheckerService.checkIfUserCanBuyMoreBeer(cargo.getUser())) {
 			throw new DailyBuyActionLimitExceeded("Daily buy action limit exceeded.");

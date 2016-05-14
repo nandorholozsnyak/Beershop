@@ -8,7 +8,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class DailyBuyActionLimitExceeded extends Exception {
+public class DailyBuyActionLimitExceeded extends RestrictionValidationException {
 
 	/**
 	 * 
