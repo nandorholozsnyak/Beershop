@@ -1,4 +1,4 @@
-package hu.hnk.beershop.service.tools;
+package hu.hnk.beershop.service.restrictions;
 
 import java.util.ArrayList;
 import java.util.List;

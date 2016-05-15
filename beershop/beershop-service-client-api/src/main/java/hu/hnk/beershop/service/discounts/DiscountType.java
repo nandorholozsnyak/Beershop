@@ -1,4 +1,4 @@
-package hu.hnk.beershop.service.tools;
+package hu.hnk.beershop.service.discounts;
 
 /**
  * A kedvezmények típusát tartalmazó enumeráció.

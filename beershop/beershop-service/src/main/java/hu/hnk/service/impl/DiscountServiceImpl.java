@@ -15,11 +15,11 @@ import org.slf4j.LoggerFactory;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.Rank;
+import hu.hnk.beershop.service.discounts.DailyRankBonus;
+import hu.hnk.beershop.service.discounts.DiscountType;
 import hu.hnk.beershop.service.interfaces.DiscountService;
 import hu.hnk.beershop.service.interfaces.UserService;
-import hu.hnk.beershop.service.tools.BuyActionRestrictions;
-import hu.hnk.beershop.service.tools.DailyRankBonus;
-import hu.hnk.beershop.service.tools.DiscountType;
+import hu.hnk.beershop.service.restrictions.BuyActionRestrictions;
 
 @Stateless
 @Local(DiscountService.class)

@@ -21,7 +21,7 @@ import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.logfactory.EventLogType;
-import hu.hnk.beershop.service.tools.BuyActionRestrictions;
+import hu.hnk.beershop.service.restrictions.BuyActionRestrictions;
 import hu.hnk.interfaces.CargoDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.EventLogDao;
@@ -261,6 +261,37 @@ public class CargoServiceTest {
 	}
 	
 	@Test
+	public void testSaveNewCargoIfUserHasNotEnoughMoney() throws Exception {
+		User user = new User();
+		// Amatőr lesz a felhasználónk.
+		user.setExperiencePoints(0.0);
+		user.setMoney(0.0);
+		user.setPoints(0.0);
+		List<CartItem> items = new ArrayList<>();
+		Cargo cargo = new Cargo();
+		cargo.setUser(user);
+
+		// Sör elkészítése.
+		Beer beer = Beer.builder()
+				.alcoholLevel(5.0)
+				.capacity(0.5)
+				.discountAmount(0)
+				.price(100.0)
+				.build();
+
+		CartItem cartItem = new CartItem();
+		cartItem.setBeer(beer);
+		cartItem.setQuantity(1);
+		items.add(cartItem);
+		// Ára 100 Ft;
+		cargo.setItems(items);
+		cargo.setPaymentMode("money");
+		Assert.assertFalse(
+				cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, cargo.getPaymentMode()));
+
+	}
+
+	@Test
 	public void testSaveNewCargoIfUserHasEnoughPoints() throws Exception {
 		User user = new User();
 		// Amatőr lesz a felhasználónk.
@@ -287,6 +318,37 @@ public class CargoServiceTest {
 		cargo.setItems(items);
 		cargo.setPaymentMode("bonusPoint");
 		Assert.assertTrue(
+				cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, cargo.getPaymentMode()));
+
+	}
+
+	@Test
+	public void testSaveNewCargoIfUserHasNotEnoughPoints() throws Exception {
+		User user = new User();
+		// Amatőr lesz a felhasználónk.
+		user.setExperiencePoints(0.0);
+		user.setMoney(100.0);
+		user.setPoints(0.0);
+		List<CartItem> items = new ArrayList<>();
+		Cargo cargo = new Cargo();
+		cargo.setUser(user);
+
+		// Sör elkészítése.
+		Beer beer = Beer.builder()
+				.alcoholLevel(5.0)
+				.capacity(0.5)
+				.discountAmount(0)
+				.price(100.0)
+				.build();
+
+		CartItem cartItem = new CartItem();
+		cartItem.setBeer(beer);
+		cartItem.setQuantity(1);
+		items.add(cartItem);
+		// Ára 100 Ft;
+		cargo.setItems(items);
+		cargo.setPaymentMode("bonusPoint");
+		Assert.assertFalse(
 				cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, cargo.getPaymentMode()));
 
 	}

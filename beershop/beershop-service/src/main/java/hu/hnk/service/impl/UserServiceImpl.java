@@ -26,7 +26,7 @@ import hu.hnk.beershop.service.interfaces.EventLogService;
 import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
 import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.beershop.service.logfactory.EventLogType;
-import hu.hnk.beershop.service.tools.RankInterval;
+import hu.hnk.beershop.service.utils.RankInterval;
 import hu.hnk.interfaces.RoleDao;
 import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.cobertura.annotation.CoverageIgnore;

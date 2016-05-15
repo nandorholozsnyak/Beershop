@@ -20,7 +20,7 @@ import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.service.interfaces.CargoService;
 import hu.hnk.beershop.service.interfaces.CartService;
-import hu.hnk.beershop.service.tools.BuyActionRestrictions;
+import hu.hnk.beershop.service.restrictions.BuyActionRestrictions;
 import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
 

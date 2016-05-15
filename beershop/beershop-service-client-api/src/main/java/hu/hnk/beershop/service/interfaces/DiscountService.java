@@ -3,7 +3,7 @@ package hu.hnk.beershop.service.interfaces;
 import java.time.LocalDate;
 
 import hu.hnk.beershop.model.Cargo;
-import hu.hnk.beershop.service.tools.DiscountType;
+import hu.hnk.beershop.service.discounts.DiscountType;
 
 /**
  * @author Nandi

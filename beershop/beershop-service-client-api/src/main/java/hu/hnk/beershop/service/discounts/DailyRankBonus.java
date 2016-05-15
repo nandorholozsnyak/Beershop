@@ -1,4 +1,4 @@
-package hu.hnk.beershop.service.tools;
+package hu.hnk.beershop.service.discounts;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import hu.hnk.beershop.model.Rank;
-import hu.hnk.beershop.service.tools.DiscountType;
 import lombok.Builder;
 
 /**

@@ -12,8 +12,8 @@ import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
-import hu.hnk.beershop.service.tools.BuyActionRestrictions;
-import hu.hnk.beershop.service.tools.DiscountType;
+import hu.hnk.beershop.service.discounts.DiscountType;
+import hu.hnk.beershop.service.restrictions.BuyActionRestrictions;
 import hu.hnk.service.impl.DiscountServiceImpl;
 import hu.hnk.service.impl.UserServiceImpl;
 
