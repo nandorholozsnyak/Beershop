@@ -51,7 +51,7 @@ public interface CargoService {
 	 *            az ellenőrizendő felhaszánló.
 	 * @return igaz ha van elég pénze, hamis ha nem.
 	 */
-	public boolean isThereEnoughMoney(Double totalCost, User user);
+	public boolean isThereEnoughMoney(Double totalCost, User user, String paymentMode);
 
 	/**
 	 * Visszaadja a rendelések/szállítások listáját felhasználó szerint.
@@ -73,7 +73,7 @@ public interface CargoService {
 	 *         {@code User#getMoney()} különbsége, ahol a <code>user</code> a
 	 *         tranzakciót végrehajtó felhasználó.
 	 */
-	public Double countMoneyAfterPayment(Double totalcost, User user);
+	public Double countMoneyAfterPayment(Double totalcost, User user, String paymentMode);
 
 	/**
 	 * A szállítás elkészítését jelző metódus. Segítségével a felhasználó nyomon

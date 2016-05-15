@@ -1,28 +1,20 @@
 package hu.hnk.beershop.service;
 
 import java.sql.Date;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.time.zone.ZoneOffsetTransitionRule;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.runners.MockitoJUnit44Runner;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
-import hu.hnk.beershop.exception.RestrictionValidationException;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
@@ -71,7 +63,7 @@ public class CargoServiceTest {
 
 	@Test(expected = DailyBuyActionLimitExceeded.class)
 	public void testSaveNewCargoShouldThorwDailyBuyActionLimitExceeded()
-			throws RestrictionValidationException {
+			throws CanNotBuyLegendaryBeerYetException, DailyBuyActionLimitExceeded {
 		User user = new User();
 		// Amatőr lesz a felhasználónk.
 		user.setExperiencePoints(1.0);
@@ -93,7 +85,7 @@ public class CargoServiceTest {
 
 	@Test(expected = CanNotBuyLegendaryBeerYetException.class)
 	public void testSaveNewCargoShouldThorwCanNotBuyLegendaryBeerYetException()
-			throws RestrictionValidationException {
+			throws CanNotBuyLegendaryBeerYetException, DailyBuyActionLimitExceeded {
 		User user = new User();
 		// Amatőr lesz a felhasználónk.
 		user.setExperiencePoints(1.0);
@@ -148,6 +140,7 @@ public class CargoServiceTest {
 		items.add(cartItem);
 		// Ára 100 Ft;
 		cargo.setItems(items);
+		cargo.setPaymentMode("money");
 		cargo.setTotalPrice(100.0);
 		List<EventLog> logs = new ArrayList<>();
 		// az amatőr rendelési limitnél egyel nagyobbat adunk meg.
@@ -167,12 +160,134 @@ public class CargoServiceTest {
 		if (LocalDate.now()
 				.getDayOfWeek()
 				.equals(DayOfWeek.SATURDAY)) {
-			Assert.assertEquals(1000 - 100, cargo.getUser()
+			Assert.assertEquals(1000 - cargo.getCargoTotalPrice(), cargo.getUser()
 					.getMoney(), 0.0);
 		} else {
-			Assert.assertEquals(1000 - BuyActionRestrictions.getShippingCost() - 100, cargo.getUser()
-					.getMoney(), 0.0);
+			Assert.assertEquals(1000 - BuyActionRestrictions.getShippingCost() - cargo.getCargoTotalPrice(),
+					cargo.getUser()
+							.getMoney(),
+					0.0);
 		}
+
+	}
+
+	@Test
+	public void testSaveNewCargoPayWithBonusPoints() throws Exception {
+		User user = new User();
+		// Amatőr lesz a felhasználónk.
+		user.setExperiencePoints(0.0);
+		user.setMoney(1000.0);
+		user.setPoints(1000.0);
+		List<CartItem> items = new ArrayList<>();
+		Cargo cargo = new Cargo();
+		cargo.setUser(user);
+
+		// Sör elkészítése.
+		Beer beer = Beer.builder()
+				.alcoholLevel(5.0)
+				.capacity(0.5)
+				.discountAmount(0)
+				.price(100.0)
+				.build();
+
+		CartItem cartItem = new CartItem();
+		cartItem.setBeer(beer);
+		cartItem.setQuantity(1);
+		items.add(cartItem);
+		// Ára 100 Ft;
+		cargo.setItems(items);
+		cargo.setTotalPrice(100.0);
+		cargo.setPaymentMode("bonusPoint");
+		List<EventLog> logs = new ArrayList<>();
+		// az amatőr rendelési limitnél egyel nagyobbat adunk meg.
+		for (int i = 0; i < BuyActionRestrictions.getRestirctedValues()
+				.get(0)
+				.getRestrictedValue(); i++) {
+			logs.add(EventLogFactory.createEventLog(EventLogType.BUY, user));
+		}
+
+		Mockito.when(eventLogDao.findByUser(user))
+				.thenReturn(logs);
+
+		Mockito.when(cargoDao.save(cargo))
+				.thenReturn(cargo);
+
+		cargoServiceImpl.saveNewCargo(cargo, items);
+		if (LocalDate.now()
+				.getDayOfWeek()
+				.equals(DayOfWeek.SATURDAY)) {
+			Assert.assertEquals(1000 - 100, cargo.getUser()
+					.getPoints(), 0.0);
+		} else {
+			Assert.assertEquals(
+					1000 - BuyActionRestrictions.getShippingCost() - 100
+							+ bonusPointCalculator.calculate(cargo.getItems()),
+					cargo.getUser()
+							.getPoints(),
+					0.0);
+		}
+
+	}
+
+	@Test
+	public void testSaveNewCargoIfUserHasEnoughMoney() throws Exception {
+		User user = new User();
+		// Amatőr lesz a felhasználónk.
+		user.setExperiencePoints(0.0);
+		user.setMoney(1000.0);
+		user.setPoints(0.0);
+		List<CartItem> items = new ArrayList<>();
+		Cargo cargo = new Cargo();
+		cargo.setUser(user);
+
+		// Sör elkészítése.
+		Beer beer = Beer.builder()
+				.alcoholLevel(5.0)
+				.capacity(0.5)
+				.discountAmount(0)
+				.price(100.0)
+				.build();
+
+		CartItem cartItem = new CartItem();
+		cartItem.setBeer(beer);
+		cartItem.setQuantity(1);
+		items.add(cartItem);
+		// Ára 100 Ft;
+		cargo.setItems(items);
+		cargo.setPaymentMode("money");
+		Assert.assertTrue(
+				cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, cargo.getPaymentMode()));
+
+	}
+	
+	@Test
+	public void testSaveNewCargoIfUserHasEnoughPoints() throws Exception {
+		User user = new User();
+		// Amatőr lesz a felhasználónk.
+		user.setExperiencePoints(0.0);
+		user.setMoney(100.0);
+		user.setPoints(1000.0);
+		List<CartItem> items = new ArrayList<>();
+		Cargo cargo = new Cargo();
+		cargo.setUser(user);
+
+		// Sör elkészítése.
+		Beer beer = Beer.builder()
+				.alcoholLevel(5.0)
+				.capacity(0.5)
+				.discountAmount(0)
+				.price(100.0)
+				.build();
+
+		CartItem cartItem = new CartItem();
+		cartItem.setBeer(beer);
+		cartItem.setQuantity(1);
+		items.add(cartItem);
+		// Ára 100 Ft;
+		cargo.setItems(items);
+		cargo.setPaymentMode("bonusPoint");
+		Assert.assertTrue(
+				cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, cargo.getPaymentMode()));
 
 	}
 

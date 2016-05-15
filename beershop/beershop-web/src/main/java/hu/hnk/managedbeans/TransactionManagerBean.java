@@ -102,7 +102,7 @@ public class TransactionManagerBean implements Serializable {
 	 * @return
 	 */
 	public boolean isThereEnoughMoney() {
-		return cargoService.isThereEnoughMoney(totalCost, sessionManager.getLoggedInUser());
+		return cargoService.isThereEnoughMoney(totalCost, sessionManager.getLoggedInUser(),payMode);
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class TransactionManagerBean implements Serializable {
 	}
 
 	public Double countMoneyAfterPayment() {
-		return cargoService.countMoneyAfterPayment(totalCost, sessionManager.getLoggedInUser());
+		return cargoService.countMoneyAfterPayment(totalCost, sessionManager.getLoggedInUser(),payMode);
 	}
 
 	/**

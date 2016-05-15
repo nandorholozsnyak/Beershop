@@ -119,8 +119,10 @@ public class CargoServiceImpl implements CargoService {
 		deleteItemsFromUsersCart(cargo);
 
 		// Levonjuk a felhasználótol a megrendelés árát.
-		updateUsersMoneyAfterPayment(cargo);
-
+		if ("money".equals(cargo.getPaymentMode()))
+			updateUsersMoneyAfterPayment(cargo);
+		else if ("bonusPoint".equals(cargo.getPaymentMode()))
+			updateBonusPointsAfterPayment(cargo);
 		// Frissítjük a felhasználó tapasztalatpontjait.
 		updateUserExperiencePoints(cargo);
 
@@ -131,6 +133,18 @@ public class CargoServiceImpl implements CargoService {
 		createEventLogForBuyAction(cargo);
 
 		return savedCargo;
+
+	}
+
+	private void updateBonusPointsAfterPayment(Cargo cargo) {
+		cargo.getUser()
+				.setPoints(cargo.getUser()
+						.getPoints() - cargo.getTotalPrice());
+		try {
+			userDao.update(cargo.getUser());
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
 
 	}
 
@@ -216,13 +230,22 @@ public class CargoServiceImpl implements CargoService {
 	}
 
 	@Override
-	public boolean isThereEnoughMoney(Double totalcost, User user) {
-		return totalcost + BuyActionRestrictions.getShippingCost() <= user.getMoney() ? true : false;
+	public boolean isThereEnoughMoney(Double totalcost, User user, String paymentMode) {
+		if ("money".equals(paymentMode))
+			return totalcost + BuyActionRestrictions.getShippingCost() <= user.getMoney() ? true : false;
+		else if ("bonusPoint".equals(paymentMode))
+			return totalcost + BuyActionRestrictions.getShippingCost() <= user.getPoints() ? true : false;
+		else 
+			return false;
 	}
 
 	@Override
-	public Double countMoneyAfterPayment(Double totalcost, User user) {
-		Double result = user.getMoney() - totalcost - BuyActionRestrictions.getShippingCost();
+	public Double countMoneyAfterPayment(Double totalcost, User user,String paymentMode) {
+		Double result = 0.0;
+		if("money".equals(paymentMode)) 
+			result = user.getMoney() - totalcost - BuyActionRestrictions.getShippingCost();
+		else if("bonusPoint".equals(paymentMode))
+			result = user.getPoints() - totalcost - BuyActionRestrictions.getShippingCost();
 		logger.info("Money after payment:" + result + " for user " + user.getUsername());
 		return result < 0 ? null : result;
 	}

@@ -113,6 +113,17 @@ public class Cargo extends BaseEntity implements Serializable {
 		this.totalPrice = totalPrice;
 	}
 
+	public Double getCargoTotalPrice() {
+		return items.stream()
+				.filter(p -> p.getActive())
+				.mapToDouble(e -> e.getBeer()
+						.getPrice() * e.getQuantity()
+						* (100 - e.getBeer()
+								.getDiscountAmount())
+						/ 100)
+				.sum();
+	}
+
 	/**
 	 * Visszaadja a szállítás pontos címét.
 	 * 
