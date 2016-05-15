@@ -100,14 +100,14 @@ tr {
 						<li><p:panelGrid columns="1" layout="grid">
 								<h:outputText
 									value="Üdv #{sessionManagerBean.loggedInUser.username}" />
-								<h:outputLabel id="userMoney"
-									value="Egyenleged: #{sessionManagerBean.loggedInUser.money} HUF">
-									<f:convertNumber pattern="#0.00" for="userMoney" />
-								</h:outputLabel>
-								<h:outputLabel id="bonusPoints"
-									value="Bónusz pontok: #{sessionManagerBean.loggedInUser.points}">
-									<f:convertNumber pattern="#0.00" for="bonusPoints" />
-								</h:outputLabel>
+								<h:outputText id="userMoney"
+									value="Egyenleged: #{sessionManagerBean.getUserMoneyWithCurrency()}">
+									<f:convertNumber pattern="#0.00" type="currency" currencySymbol="HUF" currencyCode="HUF" />
+								</h:outputText>
+								<h:outputText id="bonusPoints"
+									value="Bónusz pontok: #{sessionManagerBean.getUserPointsFormatted()}">
+									<f:convertNumber minFractionDigits="2" type="number"  />
+								</h:outputText>
 								<h:outputText id="experiencePoints"
 									value="Rangod: #{sessionManagerBean.getUserRank()} (#{sessionManagerBean.loggedInUser.experiencePoints} XP)" />
 

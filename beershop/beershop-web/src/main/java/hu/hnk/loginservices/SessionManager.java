@@ -5,6 +5,8 @@ package hu.hnk.loginservices;
 
 import java.io.Serializable;
 import java.security.Principal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -119,6 +121,26 @@ public class SessionManager implements Serializable {
 	 */
 	public Integer getUserExperiencePoints() {
 		return userService.countExperiencePointsInPercentage(loggedInUser.getExperiencePoints());
+	}
+
+	/**
+	 * Visszaadja a felhasználó egyenlegét formázottan.
+	 * 
+	 * @return a felhasználó egyenlege formázottan.
+	 */
+	public String getUserMoneyWithCurrency() {
+		NumberFormat formatter = new DecimalFormat("#0.00");
+		return formatter.format(loggedInUser.getMoney()) + " Ft";
+	}
+
+	/**
+	 * Visszaadja a felhasználó bónusz pontjait formázottan.
+	 * 
+	 * @return a felhasználó egyenlege formázottan.
+	 */
+	public String getUserPointsFormatted() {
+		NumberFormat formatter = new DecimalFormat("#0.00");
+		return formatter.format(loggedInUser.getPoints());
 	}
 
 }
