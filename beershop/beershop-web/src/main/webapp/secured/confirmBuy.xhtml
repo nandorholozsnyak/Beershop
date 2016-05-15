@@ -15,10 +15,10 @@
 	color: navy !important;
 }
 
- #buyPanel table { 
- 	margin-left: auto !important; 
- 	margin-right: auto !important; 
- } 
+#buyPanel table {
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
 </style>
 	</ui:define>
 	<ui:define name="content">
@@ -57,12 +57,13 @@
 												<p:outputLabel id="cost"
 													value="#{transactionManagerBean.totalCost} + #{transactionManagerBean.shippingCost} = #{transactionManagerBean.totalCost +transactionManagerBean.shippingCost}" />
 
-												<p:outputLabel for="payMode" value="Fizetési mód:" />
-												<p:selectOneRadio id="payMode"
-													value="#{transactionManagerBean.payMode}">
-													<f:selectItem itemLabel="Utalás" itemValue="money" />
+												<p:outputLabel for="paymentMode" value="Fizetési mód:" />
+												<p:selectOneRadio id="paymentMode"
+													value="#{transactionManagerBean.paymentMode}">
+													<f:selectItem itemLabel="Utalás" itemValue="MONEY" />
 													<f:selectItem itemLabel="Bónusz pont"
-														itemValue="bonusPoint" />
+														itemValue="BONUSPOINT" />
+													<p:ajax event="change" update="paymentMode buyForm:enoughMoney buyForm:moneyAfterPayment" />
 												</p:selectOneRadio>
 
 												<p:outputLabel value="Rendelkezésére áll elég egyenleg: " />
@@ -70,7 +71,7 @@
 													value="#{transactionManagerBean.isThereEnoughMoney() == true?'Igen':'Nem'}" />
 
 												<p:outputLabel value="Fizetés utáni egyenlege: " />
-												<p:outputLabel
+												<p:outputLabel id="moneyAfterPayment"
 													value="#{transactionManagerBean.countMoneyAfterPayment() == null?'Nincs elég pénze':transactionManagerBean.countMoneyAfterPayment()}"></p:outputLabel>
 												<p:row>
 

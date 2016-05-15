@@ -21,6 +21,7 @@ import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.service.interfaces.CargoService;
 import hu.hnk.beershop.service.interfaces.CartService;
 import hu.hnk.beershop.service.restrictions.BuyActionRestrictions;
+import hu.hnk.beershop.service.utils.PaymentMode;
 import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
 
@@ -63,7 +64,7 @@ public class TransactionManagerBean implements Serializable {
 
 	private String address;
 
-	private String payMode;
+	private PaymentMode paymentMode;
 
 	private Double totalCost;
 
@@ -85,6 +86,7 @@ public class TransactionManagerBean implements Serializable {
 				.filter(p -> p.getActive())
 				.collect(Collectors.toList());
 		shippingCost = BuyActionRestrictions.getShippingCost();
+		paymentMode = PaymentMode.MONEY;
 
 	}
 
@@ -102,13 +104,14 @@ public class TransactionManagerBean implements Serializable {
 	 * @return
 	 */
 	public boolean isThereEnoughMoney() {
-		return cargoService.isThereEnoughMoney(totalCost, sessionManager.getLoggedInUser(),payMode);
+		return cargoService.isThereEnoughMoney(totalCost, sessionManager.getLoggedInUser(),paymentMode);
 	}
 
 	/**
 	 * 
 	 */
 	public void doTransaction() {
+		logger.info("PaymentMode: {}",paymentMode);
 		if (isThereEnoughMoney()) {
 			Cargo cargo = createNewCargo();
 			try {
@@ -137,12 +140,12 @@ public class TransactionManagerBean implements Serializable {
 		cargo.setOrderDate(new Date());
 		cargo.setUser(sessionManager.getLoggedInUser());
 		cargo.setTotalPrice(totalCost);
-		cargo.setPaymentMode(payMode);
+		cargo.setPaymentMode(paymentMode.getValue());
 		return cargo;
 	}
 
 	public Double countMoneyAfterPayment() {
-		return cargoService.countMoneyAfterPayment(totalCost, sessionManager.getLoggedInUser(),payMode);
+		return cargoService.countMoneyAfterPayment(totalCost, sessionManager.getLoggedInUser(),paymentMode);
 	}
 
 	/**
@@ -162,15 +165,15 @@ public class TransactionManagerBean implements Serializable {
 	/**
 	 * @return
 	 */
-	public String getPayMode() {
-		return payMode;
+	public PaymentMode getPayMode() {
+		return paymentMode;
 	}
 
 	/**
 	 * @param payMode
 	 */
-	public void setPayMode(String payMode) {
-		this.payMode = payMode;
+	public void setPayMode(PaymentMode payMode) {
+		this.paymentMode = payMode;
 	}
 
 	public CartService getCartService() {
@@ -220,5 +223,15 @@ public class TransactionManagerBean implements Serializable {
 	public void setShippingCost(Double shippingCost) {
 		this.shippingCost = shippingCost;
 	}
+
+	public PaymentMode getPaymentMode() {
+		return paymentMode;
+	}
+
+	public void setPaymentMode(PaymentMode paymentMode) {
+		this.paymentMode = paymentMode;
+	}
+	
+	
 
 }

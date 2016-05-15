@@ -28,8 +28,9 @@
 												rendered="#{empty userOrderManager.userCargos}" />
 										</div>
 										<p:dataTable id="orderTable"
-											value="#{userOrderManager.userCargos}" rendered="#{not empty userOrderManager.userCargos}" var="orderItem"
-											editable="true" editMode="cell">
+											value="#{userOrderManager.userCargos}"
+											rendered="#{not empty userOrderManager.userCargos}"
+											var="orderItem" editable="true" editMode="cell">
 											<p:column headerText="Szállítási hely">
 												<p:outputLabel value="#{orderItem.address}" />
 											</p:column>
@@ -42,6 +43,11 @@
 												<p:outputLabel id="orderDate" value="#{orderItem.orderDate}">
 													<f:convertDateTime dateStyle="full" locale="hu_HU"></f:convertDateTime>
 												</p:outputLabel>
+											</p:column>
+
+											<p:column headerText="Fizetett összeg">
+												<p:outputLabel id="totalPrice"
+													value="#{orderItem.totalPrice} #{orderItem.paymentMode == 'money'?'Ft':'pont'}" />
 											</p:column>
 										</p:dataTable>
 									</h:form>
