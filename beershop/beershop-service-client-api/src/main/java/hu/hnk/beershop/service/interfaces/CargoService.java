@@ -8,6 +8,7 @@ import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
+import hu.hnk.beershop.service.utils.PaymentMode;
 
 /**
  * A szálítással kapcsolatos szolgáltatásokat leíró interfész.
@@ -51,7 +52,7 @@ public interface CargoService {
 	 *            az ellenőrizendő felhaszánló.
 	 * @return igaz ha van elég pénze, hamis ha nem.
 	 */
-	public boolean isThereEnoughMoney(Double totalCost, User user, String paymentMode);
+	public boolean isThereEnoughMoney(Double totalCost, User user, PaymentMode paymentMode);
 
 	/**
 	 * Visszaadja a rendelések/szállítások listáját felhasználó szerint.
@@ -73,7 +74,7 @@ public interface CargoService {
 	 *         {@code User#getMoney()} különbsége, ahol a <code>user</code> a
 	 *         tranzakciót végrehajtó felhasználó.
 	 */
-	public Double countMoneyAfterPayment(Double totalcost, User user, String paymentMode);
+	public Double countMoneyAfterPayment(Double totalcost, User user, PaymentMode paymentMode);
 
 	/**
 	 * A szállítás elkészítését jelző metódus. Segítségével a felhasználó nyomon

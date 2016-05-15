@@ -2,7 +2,6 @@ package hu.hnk.beershop.service.interfaces;
 
 import hu.hnk.beershop.model.User;
 
-
 /**
  * A felhasználó tevékenységeket korlátozó interfész. Minden felhasználónak be
  * kell tartania bizonyos szabályokat, rangtól függően vásárolhat napi szinten
@@ -48,15 +47,5 @@ public interface RestrictionCheckerService {
 	 * @return igaz ha megvásárolhatja, hamis ha már nem
 	 */
 	public boolean checkIfUserCanBuyLegendBeer(User user);
-
-	/**
-	 * Ellenőrzi hogy a paraméterként megadott felhasználónak rendelkezésére áll
-	 * a megfelelő számú egyenleg a fizetéshez.
-	 * 
-	 * @param user
-	 *            az ellenőrizendő felhasználó.
-	 * @return igaz ha még utalhat, hamis ha már nem
-	 */
-	public boolean checkIfUserCanPayBeers(User user);
 
 }
