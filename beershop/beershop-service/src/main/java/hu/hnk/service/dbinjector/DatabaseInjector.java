@@ -24,6 +24,7 @@ import hu.hnk.interfaces.CartDao;
 import hu.hnk.interfaces.RoleDao;
 import hu.hnk.interfaces.StorageDao;
 import hu.hnk.interfaces.UserDao;
+import hu.hnk.service.cobertura.annotation.CoverageIgnore;
 
 /**
  * @author Nandi
@@ -31,10 +32,12 @@ import hu.hnk.interfaces.UserDao;
  */
 @Startup
 @Singleton
+@CoverageIgnore
 public class DatabaseInjector {
 	/**
 	 * Az osztály loggere.
 	 */
+	@CoverageIgnore
 	public static final Logger logger = LoggerFactory.getLogger(DatabaseInjector.class);
 
 	@EJB
@@ -51,11 +54,11 @@ public class DatabaseInjector {
 
 	@EJB
 	private StorageDao storageDao;
-
+	@CoverageIgnore
 	private String[] beerNames = { "Ultra sör", "Bivaly sör", "Habos sör", "Jópofa sör", "Bebarnult sör", "Lime sör",
 			"Meghabosodott sör", "Party hordó", "25L-es hordó", "Szerencse sör", "Csapos party hordó", "Barátság sör",
 			"Jéghegy sör", "Őszi sör", "Fehér-Barna sör", "Sárga sör" };
-
+	@CoverageIgnore
 	private String[] comments = { " világ egyik legerősebb söre.", "A világ főleg Európai országaiban kedvelt sör.",
 			"Egy igazán habos sör az unalmas hétköznapokra.", "Egy jó buliban mindig van szükség egy jó pofa sörre.",
 			"Az egyik legfinomabb barna sör amit inni fog.", "Egy igazán jól elkészített lime ízesítésű sör.",
@@ -67,17 +70,22 @@ public class DatabaseInjector {
 			"Hűsítő, októberi finomság.", "Kezdetben fehér aztán pedig barna sör is akár.",
 			"Sárga sör, az unalmas hétköznapokra." };
 
+	/**
+	 * Inicializáló metódus, feltölti az adatbázist a Singleton bean elindulásakor.
+	 */
 	@PostConstruct
+	@CoverageIgnore
 	public void init() {
 
 		logger.info("DatabaseInjector started...");
-
+		//Sörök generálása
 		generateBeers();
-
+		//Raktár feltöltése
 		fillStorage();
 
 		Role userRole;
 		Role adminRole;
+		// Default jogkörök.
 		createRoles();
 		userRole = roleDao.findByName("ROLE_USER");
 		adminRole = roleDao.findByName("ROLE_ADMIN");
@@ -86,7 +94,7 @@ public class DatabaseInjector {
 		createDefaultUser(userRole, adminRole);
 
 	}
-
+	@CoverageIgnore
 	private void fillStorage() {
 		if (storageDao.findAll()
 				.isEmpty()) {
@@ -99,12 +107,12 @@ public class DatabaseInjector {
 					item = storageDao.save(item);
 					logger.info("Storage Item saved:" + item);
 				} catch (Exception e) {
-					logger.error(e.getMessage());
+					logger.error(e.getMessage(), e);
 				}
 			}
 		}
 	}
-
+	@CoverageIgnore
 	private void generateBeers() {
 		if (beerDao.findAll()
 				.isEmpty()) {
@@ -119,14 +127,14 @@ public class DatabaseInjector {
 						.price(250.0)
 						.build();
 				try {
-					beer = beerDao.save(beer);
+					beerDao.save(beer);
 				} catch (Exception e) {
-					logger.error(e.getMessage());
+					logger.error(e.getMessage(), e);
 				}
 			}
 		}
 	}
-
+	@CoverageIgnore
 	private void createRoles() {
 		Role userRole;
 		Role adminRole;
@@ -142,12 +150,12 @@ public class DatabaseInjector {
 				roleDao.save(adminRole);
 				roleDao.save(userRole);
 			} catch (Exception e) {
-				logger.error(e.getMessage());
+				logger.error(e.getMessage(), e);
 			}
 
 		}
 	}
-
+	@CoverageIgnore
 	private void createDefaultUser(Role userRole, Role adminRole) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -172,7 +180,7 @@ public class DatabaseInjector {
 						.build());
 				foundUser.setCart(cart);
 			} catch (Exception e) {
-				logger.error(e.getMessage());
+				logger.error(e.getMessage(), e);
 			}
 		}
 	}

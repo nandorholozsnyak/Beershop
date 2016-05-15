@@ -27,6 +27,7 @@ import hu.hnk.beershop.service.interfaces.DiscountService;
 import hu.hnk.beershop.service.interfaces.RestrictionCheckerService;
 import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.beershop.service.restrictions.BuyActionRestrictions;
+import hu.hnk.beershop.service.utils.PaymentMode;
 import hu.hnk.interfaces.CargoDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.EventLogDao;
@@ -119,9 +120,11 @@ public class CargoServiceImpl implements CargoService {
 		deleteItemsFromUsersCart(cargo);
 
 		// Levonjuk a felhasználótol a megrendelés árát.
-		if ("money".equals(cargo.getPaymentMode()))
+		if (PaymentMode.MONEY.getValue()
+				.equals(cargo.getPaymentMode()))
 			updateUsersMoneyAfterPayment(cargo);
-		else if ("bonusPoint".equals(cargo.getPaymentMode()))
+		else if (PaymentMode.BONUSPOINT.getValue()
+				.equals(cargo.getPaymentMode()))
 			updateBonusPointsAfterPayment(cargo);
 		// Frissítjük a felhasználó tapasztalatpontjait.
 		updateUserExperiencePoints(cargo);
@@ -230,21 +233,21 @@ public class CargoServiceImpl implements CargoService {
 	}
 
 	@Override
-	public boolean isThereEnoughMoney(Double totalcost, User user, String paymentMode) {
-		if ("money".equals(paymentMode))
+	public boolean isThereEnoughMoney(Double totalcost, User user, PaymentMode paymentMode) {
+		if (paymentMode.equals(PaymentMode.MONEY))
 			return totalcost + BuyActionRestrictions.getShippingCost() <= user.getMoney() ? true : false;
-		else if ("bonusPoint".equals(paymentMode))
+		else if (paymentMode.equals(PaymentMode.BONUSPOINT))
 			return totalcost + BuyActionRestrictions.getShippingCost() <= user.getPoints() ? true : false;
-		else 
+		else
 			return false;
 	}
 
 	@Override
-	public Double countMoneyAfterPayment(Double totalcost, User user,String paymentMode) {
+	public Double countMoneyAfterPayment(Double totalcost, User user, PaymentMode paymentMode) {
 		Double result = 0.0;
-		if("money".equals(paymentMode)) 
+		if (paymentMode.equals(PaymentMode.MONEY))
 			result = user.getMoney() - totalcost - BuyActionRestrictions.getShippingCost();
-		else if("bonusPoint".equals(paymentMode))
+		else if (paymentMode.equals(PaymentMode.BONUSPOINT))
 			result = user.getPoints() - totalcost - BuyActionRestrictions.getShippingCost();
 		logger.info("Money after payment:" + result + " for user " + user.getUsername());
 		return result < 0 ? null : result;

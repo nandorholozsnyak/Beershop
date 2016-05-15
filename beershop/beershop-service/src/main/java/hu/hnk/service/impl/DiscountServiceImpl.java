@@ -21,6 +21,10 @@ import hu.hnk.beershop.service.interfaces.DiscountService;
 import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.beershop.service.restrictions.BuyActionRestrictions;
 
+/**
+ * @author Nandi
+ *
+ */
 @Stateless
 @Local(DiscountService.class)
 public class DiscountServiceImpl implements DiscountService {

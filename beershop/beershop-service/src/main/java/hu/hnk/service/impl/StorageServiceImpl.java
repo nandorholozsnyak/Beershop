@@ -19,6 +19,7 @@ import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.StorageService;
 import hu.hnk.interfaces.StorageDao;
+import hu.hnk.service.cobertura.annotation.CoverageIgnore;
 
 /**
  * @author Nandi
@@ -43,6 +44,7 @@ public class StorageServiceImpl implements StorageService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@CoverageIgnore
 	public List<StorageItem> findAll() {
 		return storageDao.findAll();
 	}

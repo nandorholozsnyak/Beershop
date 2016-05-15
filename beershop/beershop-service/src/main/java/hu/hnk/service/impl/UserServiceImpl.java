@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 			try {
 				role = roleDao.save(role);
 			} catch (Exception e) {
-				logger.error(e.getMessage());
+				logger.error(e.getMessage(), e);
 			}
 		}
 
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userData = userDao.save(user);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 		List<Role> userRoles = userData.getRoles();
 
@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userDao.update(userData);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 		eventLogService.save(EventLogFactory.createEventLog(EventLogType.REGISTRATION, userData));
 	}
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
 			user = userDao.findByUsername(username);
 		} catch (UsernameNotFound e) {
 			logger.warn("Username:" + username + " is not found in our database.");
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 		return user;
 	}
@@ -166,6 +166,7 @@ public class UserServiceImpl implements UserService {
 			userDao.findUsername(username);
 			return true;
 		} catch (UsernameNotFound e) {
+			logger.error(e.getMessage(), e);
 			return false;
 		}
 	}
@@ -185,7 +186,7 @@ public class UserServiceImpl implements UserService {
 			return true;
 		} catch (EmailNotFound e) {
 			logger.info("E-mail adress is not taken.");
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 			return false;
 		}
 	}
@@ -265,7 +266,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userDao.update(loggedInUser);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 		eventLogService.save(EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, loggedInUser));
 	}

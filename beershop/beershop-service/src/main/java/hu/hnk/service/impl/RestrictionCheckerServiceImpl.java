@@ -140,14 +140,6 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean checkIfUserCanPayBeers(User user) {
-		return false;
-	}
-
-	/**
 	 * Beállítja az eseményeket kezelő adathozzáférési objektumot.
 	 * 
 	 * @param eventLogDao

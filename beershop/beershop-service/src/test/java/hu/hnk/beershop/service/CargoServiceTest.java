@@ -22,6 +22,7 @@ import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.logfactory.EventLogType;
 import hu.hnk.beershop.service.restrictions.BuyActionRestrictions;
+import hu.hnk.beershop.service.utils.PaymentMode;
 import hu.hnk.interfaces.CargoDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.EventLogDao;
@@ -254,12 +255,12 @@ public class CargoServiceTest {
 		items.add(cartItem);
 		// Ára 100 Ft;
 		cargo.setItems(items);
-		cargo.setPaymentMode("money");
-		Assert.assertTrue(
-				cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, cargo.getPaymentMode()));
+		PaymentMode paymentMode = PaymentMode.MONEY;
+		cargo.setPaymentMode(paymentMode.getValue());
+		Assert.assertTrue(cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, paymentMode));
 
 	}
-	
+
 	@Test
 	public void testSaveNewCargoIfUserHasNotEnoughMoney() throws Exception {
 		User user = new User();
@@ -285,9 +286,9 @@ public class CargoServiceTest {
 		items.add(cartItem);
 		// Ára 100 Ft;
 		cargo.setItems(items);
-		cargo.setPaymentMode("money");
-		Assert.assertFalse(
-				cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, cargo.getPaymentMode()));
+		PaymentMode paymentMode = PaymentMode.MONEY;
+		cargo.setPaymentMode(paymentMode.getValue());
+		Assert.assertFalse(cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, paymentMode));
 
 	}
 
@@ -316,15 +317,16 @@ public class CargoServiceTest {
 		items.add(cartItem);
 		// Ára 100 Ft;
 		cargo.setItems(items);
-		cargo.setPaymentMode("bonusPoint");
-		Assert.assertTrue(
-				cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, cargo.getPaymentMode()));
+		PaymentMode paymentMode = PaymentMode.BONUSPOINT;
+		cargo.setPaymentMode(paymentMode.getValue());
+		Assert.assertTrue(cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, paymentMode));
 
 	}
 
 	@Test
 	public void testSaveNewCargoIfUserHasNotEnoughPoints() throws Exception {
 		User user = new User();
+
 		// Amatőr lesz a felhasználónk.
 		user.setExperiencePoints(0.0);
 		user.setMoney(100.0);
@@ -346,10 +348,11 @@ public class CargoServiceTest {
 		cartItem.setQuantity(1);
 		items.add(cartItem);
 		// Ára 100 Ft;
+		PaymentMode paymentMode = PaymentMode.BONUSPOINT;
+		cargo.setPaymentMode(paymentMode.getValue());
 		cargo.setItems(items);
-		cargo.setPaymentMode("bonusPoint");
-		Assert.assertFalse(
-				cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, cargo.getPaymentMode()));
+
+		Assert.assertFalse(cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, paymentMode));
 
 	}
 
