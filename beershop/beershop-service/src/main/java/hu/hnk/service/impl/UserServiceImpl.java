@@ -15,10 +15,10 @@ import javax.ejb.Stateless;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
-import hu.hnk.beershop.exception.EmailNotFound;
-import hu.hnk.beershop.exception.InvalidPinCode;
-import hu.hnk.beershop.exception.UsernameNotFound;
+import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceededException;
+import hu.hnk.beershop.exception.EmailNotFoundException;
+import hu.hnk.beershop.exception.InvalidPinCodeException;
+import hu.hnk.beershop.exception.UsernameNotFoundException;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
@@ -145,7 +145,7 @@ public class UserServiceImpl implements UserService {
 		User user = null;
 		try {
 			user = userDao.findByUsername(username);
-		} catch (UsernameNotFound e) {
+		} catch (UsernameNotFoundException e) {
 			logger.warn("Username:" + username + " is not found in our database.");
 			logger.error(e.getMessage(), e);
 		}
@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userDao.findUsername(username);
 			return true;
-		} catch (UsernameNotFound e) {
+		} catch (UsernameNotFoundException e) {
 			logger.error(e.getMessage(), e);
 			return false;
 		}
@@ -184,7 +184,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userDao.findEmail(email);
 			return true;
-		} catch (EmailNotFound e) {
+		} catch (EmailNotFoundException e) {
 			logger.info("E-mail adress is not taken.");
 			logger.error(e.getMessage(), e);
 			return false;
@@ -252,15 +252,15 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser)
-			throws InvalidPinCode, DailyMoneyTransferLimitExceeded {
+			throws InvalidPinCodeException, DailyMoneyTransferLimitExceededException {
 		if (restrictionCheckerService.checkIfUserCanTransferMoney(loggedInUser)) {
 			if (!userPin.equals(expectedPin)) {
 				logger.info("User entered invalid PIN code.");
-				throw new InvalidPinCode("PINs are not the same.");
+				throw new InvalidPinCodeException("PINs are not the same.");
 			}
 		} else {
 			logger.info("User reached the maximum money tranfer limit today.");
-			throw new DailyMoneyTransferLimitExceeded("Maximum limit exceeded.");
+			throw new DailyMoneyTransferLimitExceededException("Maximum limit exceeded.");
 		}
 		loggedInUser.setMoney(loggedInUser.getMoney() + money);
 		try {

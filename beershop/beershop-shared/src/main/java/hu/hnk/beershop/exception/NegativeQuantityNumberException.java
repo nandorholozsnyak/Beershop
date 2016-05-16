@@ -8,7 +8,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class NegativeQuantityNumber extends Exception {
+public class NegativeQuantityNumberException extends Exception {
 
 	/**
 	 * 
@@ -18,14 +18,14 @@ public class NegativeQuantityNumber extends Exception {
 	/**
 	 * Konstuktor, mely létrehoz egy NegativeQuantityNumber kivételt.
 	 */
-	public NegativeQuantityNumber() {
+	public NegativeQuantityNumberException() {
 	}
 
 	/**
 	 * Konstuktor, mely létrehoz egy NegativeQuantityNumber kivételt a megadott üzenettel.
 	 * @param message a részletes üzenet.
 	 */
-	public NegativeQuantityNumber(String message) {
+	public NegativeQuantityNumberException(String message) {
 		super(message);
 	}
 
@@ -33,7 +33,7 @@ public class NegativeQuantityNumber extends Exception {
 	 * Konstuktor, mely létrehoz egy NegativeQuantityNumber kivételt a megadott okozóval.
 	 * @param cause az okozó
 	 */
-	public NegativeQuantityNumber(Throwable cause) {
+	public NegativeQuantityNumberException(Throwable cause) {
 		super(cause);
 	}
 
@@ -42,7 +42,7 @@ public class NegativeQuantityNumber extends Exception {
 	 * @param message a részletes üzenet.
 	 * @param cause az okozó.
 	 */
-	public NegativeQuantityNumber(String message, Throwable cause) {
+	public NegativeQuantityNumberException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

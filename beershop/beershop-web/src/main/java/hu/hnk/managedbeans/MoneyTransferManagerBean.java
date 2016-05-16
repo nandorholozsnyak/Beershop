@@ -13,8 +13,8 @@ import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
-import hu.hnk.beershop.exception.InvalidPinCode;
+import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceededException;
+import hu.hnk.beershop.exception.InvalidPinCodeException;
 import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
@@ -37,15 +37,35 @@ public class MoneyTransferManagerBean implements Serializable {
 	 */
 	public static final Logger logger = LoggerFactory.getLogger(MoneyTransferManagerBean.class);
 
+	/**
+	 * A felhasználókat kezelő szolgáltatás.
+	 */
 	@EJB
 	private UserService userService;
 
+	/**
+	 * A munkamenetet kezelő szolgáltatás.
+	 */
 	@ManagedProperty(value = "#{sessionManagerBean}")
 	private SessionManager sessionManager;
 
+	/**
+	 * A pénzfeltöltési lehetőségek értékei.
+	 */
 	private Map<Integer, Integer> moneyValues;
+
+	/**
+	 * A rendszer által generált PIN kód.
+	 */
 	private String pin;
+	/**
+	 * A felhasználó által begépelt PIN kód.
+	 */
 	private String userPin;
+	/**
+	 * A választott pénzmennyiség, amelyet a
+	 * {@value MoneyTransferManagerBean#moneyValues}-ból választhat.
+	 */
 	private String money;
 
 	/**
@@ -59,6 +79,9 @@ public class MoneyTransferManagerBean implements Serializable {
 
 	}
 
+	/**
+	 * Pénzértékek illetve a PIN kód generálása.
+	 */
 	private void generateMoneyTransferFields() {
 		moneyValues = new LinkedHashMap<>();
 		getMoneyValues().put(1000, 1000);
@@ -86,10 +109,10 @@ public class MoneyTransferManagerBean implements Serializable {
 		} catch (NumberFormatException e) {
 			logger.warn(e.getMessage(), e);
 			FacesMessageTool.createWarnMessage("Az ellenörző mezőbe csak számot írjon!");
-		} catch (InvalidPinCode e) {
+		} catch (InvalidPinCodeException e) {
 			logger.warn(e.getMessage(), e);
 			FacesMessageTool.createWarnMessage("Az ellenörző pin kód nem egyezik meg.");
-		} catch (DailyMoneyTransferLimitExceeded e) {
+		} catch (DailyMoneyTransferLimitExceededException e) {
 			logger.warn(e.getMessage(), e);
 			FacesMessageTool.createErrorMessage("Túllépte a napi limitet.");
 		}
@@ -137,7 +160,7 @@ public class MoneyTransferManagerBean implements Serializable {
 	}
 
 	/**
-	 * Visszaadja a PIN kódot.
+	 * Visszaadja a rendszer által PIN kódot.
 	 * 
 	 * @return a PIN kód.
 	 */
@@ -146,7 +169,7 @@ public class MoneyTransferManagerBean implements Serializable {
 	}
 
 	/**
-	 * Beállítja a PIN kódot.
+	 * Beállítja a rendszer által generált PIN kódot.
 	 * 
 	 * @param pin
 	 *            a beállítandó PIN kód.

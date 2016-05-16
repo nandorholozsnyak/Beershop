@@ -113,6 +113,13 @@ public class Cargo extends BaseEntity implements Serializable {
 		this.totalPrice = totalPrice;
 	}
 
+	/**
+	 * Visszaadja a teljes kiszámított vásárlás értéke,a szállítási költség
+	 * nélkül.
+	 * 
+	 * @return a teljes kiszámított vásárlás értéke, a szállítási költség
+	 *         nélkül.
+	 */
 	public Double getCargoTotalPrice() {
 		return items.stream()
 				.filter(p -> p.getActive())

@@ -2,8 +2,8 @@ package hu.hnk.interfaces;
 
 import java.util.List;
 
-import hu.hnk.beershop.exception.EmailNotFound;
-import hu.hnk.beershop.exception.UsernameNotFound;
+import hu.hnk.beershop.exception.EmailNotFoundException;
+import hu.hnk.beershop.exception.UsernameNotFoundException;
 import hu.hnk.beershop.model.User;
 
 /**
@@ -20,10 +20,10 @@ public interface UserDao extends BaseDao<User> {
 	 * @param username
 	 *            a keresendő felhasználó felhasználóneve.
 	 * @return a megtalált felhasználó
-	 * @throws UsernameNotFound
+	 * @throws UsernameNotFoundException
 	 *             ha a keresett felhasználónévvel nem található felhasználó.
 	 */
-	public User findByUsername(String username) throws UsernameNotFound;
+	public User findByUsername(String username) throws UsernameNotFoundException;
 
 	/**
 	 * Felhasználó keresése e-mail cím alapján.
@@ -31,10 +31,10 @@ public interface UserDao extends BaseDao<User> {
 	 * @param email
 	 *            a keresendő felhasználó e-mail címe.
 	 * @return a megtalált felhasználó
-	 * @throws EmailNotFound
+	 * @throws EmailNotFoundException
 	 *             ha a keresett e-mail címmel felhasználó nem található.
 	 */
-	public User findByEmail(String email) throws EmailNotFound;
+	public User findByEmail(String email) throws EmailNotFoundException;
 
 	/**
 	 * Egy adott felhasználó törlése.
@@ -50,10 +50,10 @@ public interface UserDao extends BaseDao<User> {
 	 * @param username
 	 *            a keresendő felhasználónév.
 	 * @return a kapott felhasználónév.
-	 * @throws UsernameNotFound
+	 * @throws UsernameNotFoundException
 	 *             ha a keresett felhasználónévvel nem létezik felhasználó.
 	 */
-	public String findUsername(String username) throws UsernameNotFound;
+	public String findUsername(String username) throws UsernameNotFoundException;
 
 	/**
 	 * Felhasználó keresése e-mail cím alapján.
@@ -61,10 +61,10 @@ public interface UserDao extends BaseDao<User> {
 	 * @param email
 	 *            a keresendő e-mail cím.
 	 * @return a kapott e-mail cím.
-	 * @throws EmailNotFound
+	 * @throws EmailNotFoundException
 	 *             ha a keresett e-mail címmel nem létezik felhasználó.
 	 */
-	public String findEmail(String email) throws EmailNotFound;
+	public String findEmail(String email) throws EmailNotFoundException;
 
 	/**
 	 * Visszaadja az adatbázisban szereplő összes felhasználót.

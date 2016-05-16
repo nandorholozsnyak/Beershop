@@ -13,8 +13,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
-import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
+import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetExceptionException;
+import hu.hnk.beershop.exception.DailyBuyActionLimitExceededException;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
@@ -62,9 +62,9 @@ public class CargoServiceTest {
 		cargoServiceImpl.setDiscountService(discountService);
 	}
 
-	@Test(expected = DailyBuyActionLimitExceeded.class)
+	@Test(expected = DailyBuyActionLimitExceededException.class)
 	public void testSaveNewCargoShouldThorwDailyBuyActionLimitExceeded()
-			throws CanNotBuyLegendaryBeerYetException, DailyBuyActionLimitExceeded {
+			throws CanNotBuyLegendaryBeerYetExceptionException, DailyBuyActionLimitExceededException {
 		User user = new User();
 		// Amatőr lesz a felhasználónk.
 		user.setExperiencePoints(1.0);
@@ -84,9 +84,9 @@ public class CargoServiceTest {
 		cargoServiceImpl.saveNewCargo(cargo, items);
 	}
 
-	@Test(expected = CanNotBuyLegendaryBeerYetException.class)
+	@Test(expected = CanNotBuyLegendaryBeerYetExceptionException.class)
 	public void testSaveNewCargoShouldThorwCanNotBuyLegendaryBeerYetException()
-			throws CanNotBuyLegendaryBeerYetException, DailyBuyActionLimitExceeded {
+			throws CanNotBuyLegendaryBeerYetExceptionException, DailyBuyActionLimitExceededException {
 		User user = new User();
 		// Amatőr lesz a felhasználónk.
 		user.setExperiencePoints(1.0);

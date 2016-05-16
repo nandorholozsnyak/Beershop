@@ -17,7 +17,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import hu.hnk.beershop.exception.UsernameNotFound;
+import hu.hnk.beershop.exception.UsernameNotFoundException;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.Cart;
 import hu.hnk.beershop.model.CartItem;

@@ -8,7 +8,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class UsernameNotFound extends Exception {
+public class UsernameNotFoundException extends Exception {
 
 	/**
 	 * 
@@ -18,14 +18,14 @@ public class UsernameNotFound extends Exception {
 	/**
 	 * Konstuktor, mely létrehoz egy UsernameNotFound kivételt null értékkel.
 	 */
-	public UsernameNotFound() {
+	public UsernameNotFoundException() {
 	}
 
 	/**
 	 * Konstuktor, mely létrehoz egy UsernameNotFound kivételt a megadott üzenettel.
 	 * @param message a részletes üzenet.
 	 */
-	public UsernameNotFound(String message) {
+	public UsernameNotFoundException(String message) {
 		super(message);
 	}
 
@@ -33,7 +33,7 @@ public class UsernameNotFound extends Exception {
 	 * Konstuktor, mely létrehoz egy UsernameNotFound kivételt a megadott okozóval.
 	 * @param cause az okozó.
 	 */
-	public UsernameNotFound(Throwable cause) {
+	public UsernameNotFoundException(Throwable cause) {
 		super(cause);
 	}
 
@@ -42,7 +42,7 @@ public class UsernameNotFound extends Exception {
 	 * @param message a részletes üzenet.
 	 * @param cause az okozó.
 	 */
-	public UsernameNotFound(String message, Throwable cause) {
+	public UsernameNotFoundException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

@@ -8,7 +8,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class DailyMoneyTransferLimitExceeded extends Exception {
+public class DailyMoneyTransferLimitExceededException extends Exception {
 
 	/**
 	 * 
@@ -18,7 +18,7 @@ public class DailyMoneyTransferLimitExceeded extends Exception {
 	/**
 	 * Konstuktor, mely létrehoz egy DailyMoneyTransferLimitExceeded kivételt.
 	 */
-	public DailyMoneyTransferLimitExceeded() {
+	public DailyMoneyTransferLimitExceededException() {
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class DailyMoneyTransferLimitExceeded extends Exception {
 	 * @param message
 	 *            a részletes üzenet.
 	 */
-	public DailyMoneyTransferLimitExceeded(String message) {
+	public DailyMoneyTransferLimitExceededException(String message) {
 		super(message);
 	}
 
@@ -39,7 +39,7 @@ public class DailyMoneyTransferLimitExceeded extends Exception {
 	 * @param cause
 	 *            az okozó
 	 */
-	public DailyMoneyTransferLimitExceeded(Throwable cause) {
+	public DailyMoneyTransferLimitExceededException(Throwable cause) {
 		super(cause);
 	}
 
@@ -52,7 +52,7 @@ public class DailyMoneyTransferLimitExceeded extends Exception {
 	 * @param cause
 	 *            az okozó.
 	 */
-	public DailyMoneyTransferLimitExceeded(String message, Throwable cause) {
+	public DailyMoneyTransferLimitExceededException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

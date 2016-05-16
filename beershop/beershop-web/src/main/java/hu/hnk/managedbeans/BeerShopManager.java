@@ -14,8 +14,8 @@ import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.hnk.beershop.exception.NegativeQuantityNumber;
-import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
+import hu.hnk.beershop.exception.NegativeQuantityNumberException;
+import hu.hnk.beershop.exception.StorageItemQuantityExceededException;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.BeerService;
@@ -63,6 +63,9 @@ public class BeerShopManager implements Serializable {
 	@EJB
 	private CartService cartService;
 
+	/**
+	 * A munkamenetet kezelő szolgáltatás.
+	 */
 	@ManagedProperty(value = "#{sessionManagerBean}")
 	private SessionManager sessionManager;
 
@@ -76,6 +79,9 @@ public class BeerShopManager implements Serializable {
 	 */
 	private Beer selectedBeer;
 
+	/**
+	 * A kosárba helyezendő sör - darabszám párokat tartalamzó objektum.
+	 */
 	private Map<Beer, Integer> beersToCart;
 
 	/**
@@ -87,6 +93,9 @@ public class BeerShopManager implements Serializable {
 		resetCart();
 	}
 
+	/**
+	 * A kosárba helyezendő objektum ürítése.
+	 */
 	private void resetCart() {
 		beersToCart = new HashMap<>();
 		for (Beer b : beersInShop) {
@@ -95,7 +104,7 @@ public class BeerShopManager implements Serializable {
 	}
 
 	/**
-	 * A kiválasztott sör darabszámának növelése a kosárba helyezés előtt.
+	 * A paraméterül kapott darabszámának növelése a kosárba helyezés előtt.
 	 * 
 	 * @param beer
 	 *            a kiválasztott sör
@@ -107,7 +116,7 @@ public class BeerShopManager implements Serializable {
 		try {
 			storageService.checkStorageItemQuantityLimit(items, beer, ++quantity);
 			beersToCart.put(beer, quantity);
-		} catch (StorageItemQuantityExceeded e) {
+		} catch (StorageItemQuantityExceededException e) {
 			logger.error(e.getMessage(), e);
 
 			beersToCart.put(beer, items.stream()
@@ -117,16 +126,18 @@ public class BeerShopManager implements Serializable {
 					.get()
 					.getQuantity());
 			FacesMessageTool.createInfoMessage("A raktár maximumát elérte.");
-		} catch (NegativeQuantityNumber e) {
+		} catch (NegativeQuantityNumberException e) {
 			logger.error(e.getMessage(), e);
 		}
 
 	}
 
 	/**
-	 * A kiválasztott sör darabszámának csökkentése a kosárba helyezés előtt.
+	 * A paraméterül kapott sör darabszámának csökkentése a kosárba helyezés
+	 * előtt.
 	 * 
 	 * @param beer
+	 *            a kiválasztott sör
 	 */
 	public void decreaseBeer(Beer beer) {
 
@@ -135,7 +146,7 @@ public class BeerShopManager implements Serializable {
 		try {
 			storageService.checkStorageItemQuantityLimit(storageService.findAll(), beer, --quantity);
 			beersToCart.put(beer, quantity);
-		} catch (StorageItemQuantityExceeded e) {
+		} catch (StorageItemQuantityExceededException e) {
 			logger.error(e.getMessage(), e);
 			beersToCart.put(beer, items.stream()
 					.filter(p -> p.getBeer()
@@ -143,7 +154,7 @@ public class BeerShopManager implements Serializable {
 					.findFirst()
 					.get()
 					.getQuantity());
-		} catch (NegativeQuantityNumber e) {
+		} catch (NegativeQuantityNumberException e) {
 			logger.error(e.getMessage(), e);
 			FacesMessageTool.createWarnMessage("A darabszám nem lehet negatív érték!");
 		}

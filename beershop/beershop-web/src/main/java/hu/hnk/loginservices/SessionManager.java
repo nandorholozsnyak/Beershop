@@ -77,6 +77,12 @@ public class SessionManager implements Serializable {
 
 	}
 
+	/**
+	 * Belejentkezett felhasználó beállítása sikeres bejelentkezés után.
+	 * 
+	 * @param userName
+	 *            a bejelentkezett felhasználó felhasználóneve.
+	 */
 	private void setLoggedInUserAfterLogin(String userName) {
 		try {
 			setLoggedInUser(userService.findByUsername(userName));

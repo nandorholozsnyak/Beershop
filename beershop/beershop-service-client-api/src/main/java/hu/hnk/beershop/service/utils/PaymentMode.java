@@ -24,8 +24,17 @@ public enum PaymentMode {
 	 */
 	BONUSPOINT("bonusPoint");
 
+	/**
+	 * A vásárlási mód leírása, értéke.
+	 */
 	private String value;
 
+	/**
+	 * A fizetési mód enumeráció privát konstuktora.
+	 * 
+	 * @param value
+	 *            a fizetési mód leírása, értéke.
+	 */
 	private PaymentMode(String value) {
 		this.value = value;
 	}

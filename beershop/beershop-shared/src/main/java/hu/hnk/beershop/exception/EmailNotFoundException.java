@@ -8,7 +8,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class EmailNotFound extends Exception {
+public class EmailNotFoundException extends Exception {
 
 	/**
 	 * 
@@ -18,14 +18,14 @@ public class EmailNotFound extends Exception {
 	/**
 	 * Konstuktor, mely létrehoz egy EmailNotFound kivételt.
 	 */
-	public EmailNotFound() {
+	public EmailNotFoundException() {
 	}
 
 	/**
 	 * Konstuktor, mely létrehoz egy EmailNotFound kivételt a megadott üzenettel.
 	 * @param message a részletes üzenet.
 	 */
-	public EmailNotFound(String message) {
+	public EmailNotFoundException(String message) {
 		super(message);
 	}
 
@@ -33,7 +33,7 @@ public class EmailNotFound extends Exception {
 	 * Konstuktor, mely létrehoz egy EmailNotFound kivételt a megadott okozóval.
 	 * @param cause az okozó
 	 */
-	public EmailNotFound(Throwable cause) {
+	public EmailNotFoundException(Throwable cause) {
 		super(cause);
 	}
 
@@ -42,7 +42,7 @@ public class EmailNotFound extends Exception {
 	 * @param message a részletes üzenet.
 	 * @param cause az okozó.
 	 */
-	public EmailNotFound(String message, Throwable cause) {
+	public EmailNotFoundException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

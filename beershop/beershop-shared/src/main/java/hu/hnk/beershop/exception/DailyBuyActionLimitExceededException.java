@@ -8,7 +8,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class DailyBuyActionLimitExceeded extends Exception {
+public class DailyBuyActionLimitExceededException extends Exception {
 
 	/**
 	 * 
@@ -18,7 +18,7 @@ public class DailyBuyActionLimitExceeded extends Exception {
 	/**
 	 * Konstuktor, mely létrehoz egy DailyBuyActionLimitExceeded kivételt.
 	 */
-	public DailyBuyActionLimitExceeded() {
+	public DailyBuyActionLimitExceededException() {
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class DailyBuyActionLimitExceeded extends Exception {
 	 * @param message
 	 *            a részletes üzenet.
 	 */
-	public DailyBuyActionLimitExceeded(String message) {
+	public DailyBuyActionLimitExceededException(String message) {
 		super(message);
 	}
 
@@ -39,7 +39,7 @@ public class DailyBuyActionLimitExceeded extends Exception {
 	 * @param cause
 	 *            az okozó
 	 */
-	public DailyBuyActionLimitExceeded(Throwable cause) {
+	public DailyBuyActionLimitExceededException(Throwable cause) {
 		super(cause);
 	}
 
@@ -52,7 +52,7 @@ public class DailyBuyActionLimitExceeded extends Exception {
 	 * @param cause
 	 *            az okozó.
 	 */
-	public DailyBuyActionLimitExceeded(String message, Throwable cause) {
+	public DailyBuyActionLimitExceededException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

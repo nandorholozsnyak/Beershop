@@ -11,10 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
-import hu.hnk.beershop.exception.EmailNotFound;
-import hu.hnk.beershop.exception.InvalidPinCode;
-import hu.hnk.beershop.exception.UsernameNotFound;
+import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceededException;
+import hu.hnk.beershop.exception.EmailNotFoundException;
+import hu.hnk.beershop.exception.InvalidPinCodeException;
+import hu.hnk.beershop.exception.UsernameNotFoundException;
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
@@ -64,7 +64,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testIfUsernameAlreadyExistsReturnTrue() throws UsernameNotFound {
+	public void testIfUsernameAlreadyExistsReturnTrue() throws UsernameNotFoundException {
 		User user = new User();
 		user.setUsername("EmailTest");
 		user.setEmail("email@test.me");
@@ -79,7 +79,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testIfUsernameAlreadyExistsReturnFalse() throws UsernameNotFound {
+	public void testIfUsernameAlreadyExistsReturnFalse() throws UsernameNotFoundException {
 
 		User user = new User();
 		user.setUsername("EmailTest");
@@ -91,12 +91,12 @@ public class UserServiceTest {
 		Mockito.when(userDao.findUsername("EmailTest"))
 				.thenReturn("EmailTest");
 		Mockito.when(userService.isUsernameAlreadyTaken("EmailTest"))
-				.thenThrow(UsernameNotFound.class);
+				.thenThrow(UsernameNotFoundException.class);
 		Assert.assertEquals(false, userService.isUsernameAlreadyTaken("EmailTest"));
 	}
 
 	@Test
-	public void testIfEmailAlreadyExistsReturnTrue() throws EmailNotFound {
+	public void testIfEmailAlreadyExistsReturnTrue() throws EmailNotFoundException {
 		User user = new User();
 		user.setEmail("email@test.co");
 		/// userDao.save(user);
@@ -106,7 +106,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testIfEmailAlreadyExistsReturnFalse() throws EmailNotFound {
+	public void testIfEmailAlreadyExistsReturnFalse() throws EmailNotFoundException {
 
 		User user = new User();
 		user.setEmail("email@test.co");
@@ -114,12 +114,12 @@ public class UserServiceTest {
 		Mockito.when(userDao.findEmail("email@test.co"))
 				.thenReturn("email@test.co");
 		Mockito.when(userService.isEmailAlreadyTaken("email@test.co"))
-				.thenThrow(EmailNotFound.class);
+				.thenThrow(EmailNotFoundException.class);
 		Assert.assertEquals(false, userService.isEmailAlreadyTaken("email@test.co"));
 	}
 
-	@Test(expected = InvalidPinCode.class)
-	public void testTransferMoneyShouldThrowInvalidPinCode() throws InvalidPinCode, DailyMoneyTransferLimitExceeded {
+	@Test(expected = InvalidPinCodeException.class)
+	public void testTransferMoneyShouldThrowInvalidPinCode() throws InvalidPinCodeException, DailyMoneyTransferLimitExceededException {
 		String userPin = "0000";
 		String expectedPin = "9999";
 		Integer money = 1000;
@@ -130,9 +130,9 @@ public class UserServiceTest {
 		userService.transferMoney(userPin, expectedPin, money, loggedInUser);
 	}
 
-	@Test(expected = DailyMoneyTransferLimitExceeded.class)
+	@Test(expected = DailyMoneyTransferLimitExceededException.class)
 	public void testTransferMoneyShouldThrowMaximumMoneyTransferLimitExceeded()
-			throws InvalidPinCode, DailyMoneyTransferLimitExceeded {
+			throws InvalidPinCodeException, DailyMoneyTransferLimitExceededException {
 		String userPin = "9999";
 		String expectedPin = "9999";
 		Integer money = 1000;

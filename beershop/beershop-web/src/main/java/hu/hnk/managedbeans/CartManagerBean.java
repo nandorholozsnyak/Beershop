@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -42,14 +41,21 @@ public class CartManagerBean implements Serializable {
 	 */
 	public static final Logger logger = LoggerFactory.getLogger(CartManagerBean.class);
 
+	/**
+	 * A munkamenetet kezelő szolgáltatás.
+	 */
 	@ManagedProperty(value = "#{sessionManagerBean}")
 	private SessionManager sessionManager;
 
-	FacesMessage msg;
-
+	/**
+	 * A kosarat kezelő szolgáltatás.
+	 */
 	@EJB
 	private CartService cartService;
 
+	/**
+	 * A felhasználó kosarában lévő termékek listája.
+	 */
 	private List<CartItem> items;
 
 	/**
@@ -60,6 +66,9 @@ public class CartManagerBean implements Serializable {
 		loadUserItems();
 	}
 
+	/**
+	 * A felhasználó kosarának tartalmát betöltő metódus.
+	 */
 	private void loadUserItems() {
 		items = cartService.findByUser(sessionManager.getLoggedInUser())
 				.getItems()
@@ -98,6 +107,9 @@ public class CartManagerBean implements Serializable {
 
 	}
 
+	/**
+	 * Törlés utáni XHTML komponensek frissítésének metódusa.
+	 */
 	private void refreshXhtmlComponents() {
 		FacesContext.getCurrentInstance()
 				.getPartialViewContext()

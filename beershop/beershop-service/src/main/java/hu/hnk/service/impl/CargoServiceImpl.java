@@ -16,8 +16,8 @@ import javax.ejb.Stateless;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
-import hu.hnk.beershop.exception.DailyBuyActionLimitExceeded;
+import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetExceptionException;
+import hu.hnk.beershop.exception.DailyBuyActionLimitExceededException;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.User;
@@ -78,9 +78,15 @@ public class CargoServiceImpl implements CargoService {
 	@EJB
 	private RestrictionCheckerService restrictionCheckerService;
 
+	/**
+	 * Beállítja a bónusz pont kalkulátort.
+	 */
 	@EJB
 	private BonusPointCalculator calculator;
 
+	/**
+	 * Beállítja a kedvezményeket kezelő szolgáltatást.
+	 */
 	@EJB
 	private DiscountService discountService;
 
@@ -89,15 +95,15 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	@Override
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
-			throws DailyBuyActionLimitExceeded, CanNotBuyLegendaryBeerYetException {
+			throws DailyBuyActionLimitExceededException, CanNotBuyLegendaryBeerYetExceptionException {
 
 		if (!restrictionCheckerService.checkIfUserCanBuyMoreBeer(cargo.getUser())) {
-			throw new DailyBuyActionLimitExceeded("Daily buy action limit exceeded.");
+			throw new DailyBuyActionLimitExceededException("Daily buy action limit exceeded.");
 		}
 
 		if (!legendaryItems(items).isEmpty()
 				&& !restrictionCheckerService.checkIfUserCanBuyLegendBeer(cargo.getUser())) {
-			throw new CanNotBuyLegendaryBeerYetException("User is not legendary yet.");
+			throw new CanNotBuyLegendaryBeerYetExceptionException("User is not legendary yet.");
 		}
 
 		// Elkészítünk egy már a mentett szállítást reprezentáló objektumot.
@@ -139,6 +145,13 @@ public class CargoServiceImpl implements CargoService {
 
 	}
 
+	/**
+	 * Bónusz pontok frissítése a szállítás mentése után, ha bónusz pontokkal
+	 * fizetett.
+	 * 
+	 * @param cargo
+	 *            a készítésben lévő szállítás.
+	 */
 	private void updateBonusPointsAfterPayment(Cargo cargo) {
 		cargo.getUser()
 				.setPoints(cargo.getUser()
@@ -151,6 +164,15 @@ public class CargoServiceImpl implements CargoService {
 
 	}
 
+	/**
+	 * A szállítás elkészítése után való bónusz pontok elkönyvelése a
+	 * felhasználó számára.
+	 * 
+	 * @param cargo
+	 *            a készítésben lévő szállítás.
+	 * @param savedCargo
+	 *            a már mentett szállítás.
+	 */
 	private void updateUserBonusPoints(Cargo cargo, Cargo savedCargo) {
 		cargo.getUser()
 				.setPoints(cargo.getUser()
@@ -162,6 +184,12 @@ public class CargoServiceImpl implements CargoService {
 		}
 	}
 
+	/**
+	 * A felhasználó tapasztalat pontjainak frissítése a szállítás mentése után.
+	 * 
+	 * @param cargo
+	 *            a készítésben lévő szállítás.
+	 */
 	private void updateUserExperiencePoints(Cargo cargo) {
 		cargo.getUser()
 				.setExperiencePoints(cargo.getUser()
@@ -173,6 +201,13 @@ public class CargoServiceImpl implements CargoService {
 		}
 	}
 
+	/**
+	 * Visszaadja a legendás termékek listáját.
+	 * 
+	 * @param items
+	 *            a felhasználó kosarában levő termékek listája.
+	 * @return a felhasználó kosarában szereplő legendás termékek listája.
+	 */
 	private List<CartItem> legendaryItems(List<CartItem> items) {
 		return items.stream()
 				.filter(p -> p.getBeer()
@@ -180,6 +215,15 @@ public class CargoServiceImpl implements CargoService {
 				.collect(Collectors.toList());
 	}
 
+	/**
+	 * Új szállítása mentése.
+	 * 
+	 * @param cargo
+	 *            a készítésben lévő szállítás.
+	 * @param items
+	 *            a szállításhoz hozzácsatolandó termékek listája.
+	 * @return a mentett szállítás termékekkel együtt.
+	 */
 	private Cargo saveCargo(Cargo cargo, List<CartItem> items) {
 		Cargo savedCargo = null;
 		try {
@@ -199,6 +243,12 @@ public class CargoServiceImpl implements CargoService {
 		return savedCargo;
 	}
 
+	/**
+	 * Egy vásárlási esemény létrehozása.
+	 * 
+	 * @param cargo
+	 *            a készítésben lévő szállítás.
+	 */
 	private void createEventLogForBuyAction(Cargo cargo) {
 		try {
 			eventLogDao.save(EventLogFactory.createEventLog(EventLogType.BUY, cargo.getUser()));
@@ -208,6 +258,13 @@ public class CargoServiceImpl implements CargoService {
 
 	}
 
+	/**
+	 * A felhasználó pénzegyenlegének frissítése a készpénzes/átutalásos fizetés
+	 * esetén.
+	 * 
+	 * @param cargo
+	 *            a készítésben lévő szállítás.
+	 */
 	private void updateUsersMoneyAfterPayment(Cargo cargo) {
 		cargo.getUser()
 				.setMoney(cargo.getUser()
@@ -219,6 +276,12 @@ public class CargoServiceImpl implements CargoService {
 		}
 	}
 
+	/**
+	 * A szállítás mentése után töröljük a felhasználó kosarából a termékeket.
+	 * 
+	 * @param cargo
+	 *            a készítésben lévő szállítás.
+	 */
 	private void deleteItemsFromUsersCart(Cargo cargo) {
 		cargo.getItems()
 				.stream()
@@ -232,6 +295,9 @@ public class CargoServiceImpl implements CargoService {
 				});
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isThereEnoughMoney(Double totalcost, User user, PaymentMode paymentMode) {
 		if (paymentMode.equals(PaymentMode.MONEY))
@@ -242,6 +308,9 @@ public class CargoServiceImpl implements CargoService {
 			return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Double countMoneyAfterPayment(Double totalcost, User user, PaymentMode paymentMode) {
 		Double result = 0.0;
@@ -253,12 +322,18 @@ public class CargoServiceImpl implements CargoService {
 		return result < 0 ? null : result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@CoverageIgnore
 	public List<Cargo> findByUser(User user) {
 		return cargoDao.findByUser(user);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String countdownTenMinutes(Date orderDate) {
 		LocalDateTime dateTime = LocalDateTime.ofInstant(orderDate.toInstant(), ZoneId.systemDefault());
@@ -319,10 +394,22 @@ public class CargoServiceImpl implements CargoService {
 		this.restrictionCheckerService = restrictionCheckerService;
 	}
 
+	/**
+	 * Beállítja a bónusz pont kalkulátort.
+	 * 
+	 * @param calculator
+	 *            a bónusz pont kalkulátor.
+	 */
 	public void setCalculator(BonusPointCalculator calculator) {
 		this.calculator = calculator;
 	}
 
+	/**
+	 * Beállítja a kedvezményeket kezelő szolgáltatást.
+	 * 
+	 * @param discountService
+	 *            a kedvezményeket kezelő szolgáltatás.
+	 */
 	public void setDiscountService(DiscountService discountService) {
 		this.discountService = discountService;
 	}

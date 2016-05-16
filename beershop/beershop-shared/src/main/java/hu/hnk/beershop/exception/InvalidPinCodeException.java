@@ -8,7 +8,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class InvalidPinCode extends Exception {
+public class InvalidPinCodeException extends Exception {
 
 	/**
 	 * 
@@ -18,14 +18,14 @@ public class InvalidPinCode extends Exception {
 	/**
 	 * Konstuktor, mely létrehoz egy InvalidPinCode kivételt.
 	 */
-	public InvalidPinCode() {
+	public InvalidPinCodeException() {
 	}
 
 	/**
 	 * Konstuktor, mely létrehoz egy InvalidPinCode kivételt a megadott üzenettel.
 	 * @param message a részletes üzenet.
 	 */
-	public InvalidPinCode(String message) {
+	public InvalidPinCodeException(String message) {
 		super(message);
 	}
 
@@ -33,7 +33,7 @@ public class InvalidPinCode extends Exception {
 	 * Konstuktor, mely létrehoz egy InvalidPinCode kivételt a megadott okozóval.
 	 * @param cause az okozó
 	 */
-	public InvalidPinCode(Throwable cause) {
+	public InvalidPinCodeException(Throwable cause) {
 		super(cause);
 	}
 
@@ -42,7 +42,7 @@ public class InvalidPinCode extends Exception {
 	 * @param message a részletes üzenet.
 	 * @param cause az okozó.
 	 */
-	public InvalidPinCode(String message, Throwable cause) {
+	public InvalidPinCodeException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

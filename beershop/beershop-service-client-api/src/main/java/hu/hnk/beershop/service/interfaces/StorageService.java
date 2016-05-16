@@ -2,8 +2,8 @@ package hu.hnk.beershop.service.interfaces;
 
 import java.util.List;
 
-import hu.hnk.beershop.exception.NegativeQuantityNumber;
-import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
+import hu.hnk.beershop.exception.NegativeQuantityNumberException;
+import hu.hnk.beershop.exception.StorageItemQuantityExceededException;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 
@@ -28,10 +28,10 @@ public interface StorageService {
 	 * 
 	 * @param storage
 	 *            a raktárban szereplő elemek listája.
-	 * @throws NegativeQuantityNumber
+	 * @throws NegativeQuantityNumberException
 	 *             ha valamelyik elem darabszáma negatív.
 	 */
-	public void saveAllChanges(List<StorageItem> storage) throws NegativeQuantityNumber;
+	public void saveAllChanges(List<StorageItem> storage) throws NegativeQuantityNumberException;
 
 	/**
 	 * Ellenőrzi egy termék raktárbeli előrhetőségét.
@@ -44,14 +44,14 @@ public interface StorageService {
 	 *            az ellenőrizendő sör, azaz a raktárban levő hivatkozása.
 	 * @param quantity
 	 *            az ellenőrizendő mennyiség.
-	 * @throws StorageItemQuantityExceeded
+	 * @throws StorageItemQuantityExceededException
 	 *             akkor dobjuk ha a termékből többet szeretnének kérni mint
 	 *             amennyi rendelkezésre áll a raktárban.
-	 * @throws NegativeQuantityNumber
+	 * @throws NegativeQuantityNumberException
 	 *             akkor dobjuk ha negatív számú terméket szeretnének kérni az
 	 *             adott sörből.
 	 */
 	public void checkStorageItemQuantityLimit(List<StorageItem> storage, Beer beer, Integer quantity)
-			throws StorageItemQuantityExceeded, NegativeQuantityNumber;
+			throws StorageItemQuantityExceededException, NegativeQuantityNumberException;
 
 }

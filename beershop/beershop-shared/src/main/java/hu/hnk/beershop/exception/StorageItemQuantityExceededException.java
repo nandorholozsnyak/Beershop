@@ -7,7 +7,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class StorageItemQuantityExceeded extends Exception {
+public class StorageItemQuantityExceededException extends Exception {
 
 	/**
 	 * 
@@ -17,7 +17,7 @@ public class StorageItemQuantityExceeded extends Exception {
 	/**
 	 * Konstuktor, mely létrehoz egy StorageQuantityExceeded kivételt.
 	 */
-	public StorageItemQuantityExceeded() {
+	public StorageItemQuantityExceededException() {
 	}
 
 	/**
@@ -27,7 +27,7 @@ public class StorageItemQuantityExceeded extends Exception {
 	 * @param message
 	 *            a részletes üzenet.
 	 */
-	public StorageItemQuantityExceeded(String message) {
+	public StorageItemQuantityExceededException(String message) {
 		super(message);
 	}
 
@@ -38,7 +38,7 @@ public class StorageItemQuantityExceeded extends Exception {
 	 * @param cause
 	 *            az okozó
 	 */
-	public StorageItemQuantityExceeded(Throwable cause) {
+	public StorageItemQuantityExceededException(Throwable cause) {
 		super(cause);
 	}
 
@@ -51,7 +51,7 @@ public class StorageItemQuantityExceeded extends Exception {
 	 * @param cause
 	 *            az okozó.
 	 */
-	public StorageItemQuantityExceeded(String message, Throwable cause) {
+	public StorageItemQuantityExceededException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

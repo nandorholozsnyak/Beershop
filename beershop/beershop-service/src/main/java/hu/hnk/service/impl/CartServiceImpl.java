@@ -62,8 +62,11 @@ public class CartServiceImpl implements CartService {
 	@EJB
 	private StorageDao storageDao;
 
+	/**
+	 * Beállítja a bónusz pont kalkulátort.
+	 */
 	@EJB
-	BonusPointCalculator calculator;
+	private BonusPointCalculator calculator;
 
 	/**
 	 * {@inheritDoc}
@@ -317,6 +320,12 @@ public class CartServiceImpl implements CartService {
 		this.storageDao = storageDao;
 	}
 
+	/**
+	 * Beállítja a bónusz pont kalkulátort.
+	 * 
+	 * @param calculator
+	 *            a bónusz pont kalkulátor.
+	 */
 	public void setCalculator(BonusPointCalculator calculator) {
 		this.calculator = calculator;
 	}

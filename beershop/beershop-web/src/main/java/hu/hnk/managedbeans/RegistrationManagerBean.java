@@ -100,68 +100,86 @@ public class RegistrationManagerBean implements Serializable {
 	}
 
 	/**
+	 * Beállítja a felhasználó születési dátumát.
+	 * 
 	 * @param dateOfBirth
-	 *            the dateOfBirth to set
+	 *            a felhasználó születési dátuma.
 	 */
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
 	/**
-	 * @return the rePassword
+	 * Visszaadja a másodjára beírt jelszót.
+	 * 
+	 * @return a másodjára beírt jelszó.
 	 */
 	public String getRePassword() {
 		return rePassword;
 	}
 
 	/**
+	 * Beállítja a másodjára beírt jelszót.
+	 * 
 	 * @param rePassword
-	 *            the rePassword to set
+	 *            a másodjára beírásra kerülendő jelszó.
 	 */
 	public void setRePassword(String rePassword) {
 		this.rePassword = rePassword;
 	}
 
 	/**
-	 * @return the email
+	 * Visszaadja a felhasználó által beírt e-mailt.
+	 * 
+	 * @return a felhasználó által beírt e-mail.
 	 */
 	public String getEmail() {
 		return email;
 	}
 
 	/**
+	 * Beállítja a felhasználó által beírt e-mailt.
+	 * 
 	 * @param email
-	 *            the email to set
+	 *            a felhasználó által begépelendő e-mail.
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	/**
-	 * @return the username
+	 * Visszaadja a felhasználó által begépelt választott felhasználónevet.
+	 * 
+	 * @return a felhasználó által begépelt felhasználónév.
 	 */
 	public String getUsername() {
 		return username;
 	}
 
 	/**
+	 * Beállítja a felhasználó által begépelendő felhasználónevet.
+	 * 
 	 * @param username
-	 *            the username to set
+	 *            a felhasználó által begépelendő felhasználónév.
 	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
 	/**
-	 * @return the password
+	 * Visszaadja az elsőnek beírt jelszót.
+	 * 
+	 * @return az elsőnek beírt jelszó.
 	 */
 	public String getPassword() {
 		return password;
 	}
 
 	/**
+	 * Beállítja az elsőnek begépelendő jelszót.
+	 * 
 	 * @param password
-	 *            the password to set
+	 *            az elsőnek begépelendő jelszó.
 	 */
 	public void setPassword(String password) {
 		this.password = password;
@@ -200,6 +218,16 @@ public class RegistrationManagerBean implements Serializable {
 		}
 	}
 
+	/**
+	 * A felhasználó értesítése a sikeres regisztráció után.
+	 * 
+	 * A sikeres regisztráció után elnavigálunk az index lapra amelyen egy
+	 * felugró ablakban közöljük a felhasználót a sikeres regisztráció
+	 * státuszáról.
+	 * 
+	 * @throws IOException
+	 *             ha nem található az átnavigálása oldal.
+	 */
 	private void announceUserAboutRegistrationStatus() throws IOException {
 		FacesContext.getCurrentInstance()
 				.getExternalContext()
@@ -217,17 +245,23 @@ public class RegistrationManagerBean implements Serializable {
 				.add("mainPageMsg");
 	}
 
+	/**
+	 * Új felhasználó entitás létrehozása a felhasználó által begépelt
+	 * adatokkal.
+	 * 
+	 * @return az újonnan létrehozott felhasználó entitása.
+	 */
 	private User createNewUser() {
 		User newUser;
 		newUser = new User();
 		newUser.setPassword(encoder.encode(password));
 		newUser.setUsername(username);
 		newUser.setEmail(email);
-		newUser.setPoints((double) 0);
+		newUser.setPoints(0.0);
 		newUser.setDateOfBirth(dateOfBirth.toInstant()
 				.atZone(ZoneId.systemDefault())
 				.toLocalDate());
-		newUser.setExperiencePoints((double) 0);
+		newUser.setExperiencePoints(0.0);
 		newUser.setMoney(0.0);
 		newUser.setCart(new Cart());
 		return newUser;

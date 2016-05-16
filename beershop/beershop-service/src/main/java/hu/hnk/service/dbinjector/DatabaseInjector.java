@@ -1,9 +1,7 @@
 package hu.hnk.service.dbinjector;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -40,24 +38,46 @@ public class DatabaseInjector {
 	@CoverageIgnore
 	public static final Logger logger = LoggerFactory.getLogger(DatabaseInjector.class);
 
+	/**
+	 * A felhasználókat kezelő adathozzáférési objektum.
+	 */
 	@EJB
 	private UserDao userDao;
 
+	/**
+	 * A söröket kezelő adathozzáférési objektum.
+	 */
 	@EJB
 	private BeerDao beerDao;
 
+	/**
+	 * A jogköröket kezelő adathozzáférési objektum.
+	 */
 	@EJB
 	private RoleDao roleDao;
 
+	/**
+	 * A kosarat kezelő adathozzáférési objektum.
+	 */
 	@EJB
 	private CartDao cartDao;
 
+	/**
+	 * A raktárt kezelő adathozzáférési objektum.
+	 */
 	@EJB
 	private StorageDao storageDao;
+
+	/**
+	 * Az adatbázisba mentendő sörök nevei.
+	 */
 	@CoverageIgnore
 	private String[] beerNames = { "Ultra sör", "Bivaly sör", "Habos sör", "Jópofa sör", "Bebarnult sör", "Lime sör",
 			"Meghabosodott sör", "Party hordó", "25L-es hordó", "Szerencse sör", "Csapos party hordó", "Barátság sör",
 			"Jéghegy sör", "Őszi sör", "Fehér-Barna sör", "Sárga sör" };
+	/**
+	 * Az adatbázisba mentendő sörök leírása.
+	 */
 	@CoverageIgnore
 	private String[] comments = { " világ egyik legerősebb söre.", "A világ főleg Európai országaiban kedvelt sör.",
 			"Egy igazán habos sör az unalmas hétköznapokra.", "Egy jó buliban mindig van szükség egy jó pofa sörre.",
@@ -71,16 +91,17 @@ public class DatabaseInjector {
 			"Sárga sör, az unalmas hétköznapokra." };
 
 	/**
-	 * Inicializáló metódus, feltölti az adatbázist a Singleton bean elindulásakor.
+	 * Inicializáló metódus, feltölti az adatbázist a Singleton bean
+	 * elindulásakor.
 	 */
 	@PostConstruct
 	@CoverageIgnore
 	public void init() {
 
 		logger.info("DatabaseInjector started...");
-		//Sörök generálása
+		// Sörök generálása
 		generateBeers();
-		//Raktár feltöltése
+		// Raktár feltöltése
 		fillStorage();
 
 		Role userRole;
@@ -94,6 +115,10 @@ public class DatabaseInjector {
 		createDefaultUser(userRole, adminRole);
 
 	}
+
+	/**
+	 * A raktárt feltöltő metódus.
+	 */
 	@CoverageIgnore
 	private void fillStorage() {
 		if (storageDao.findAll()
@@ -112,6 +137,10 @@ public class DatabaseInjector {
 			}
 		}
 	}
+
+	/**
+	 * A söröket generáló metódus.
+	 */
 	@CoverageIgnore
 	private void generateBeers() {
 		if (beerDao.findAll()
@@ -134,6 +163,10 @@ public class DatabaseInjector {
 			}
 		}
 	}
+
+	/**
+	 * A jogköröket létrehozó metódus.
+	 */
 	@CoverageIgnore
 	private void createRoles() {
 		Role userRole;
@@ -155,6 +188,17 @@ public class DatabaseInjector {
 
 		}
 	}
+
+	/**
+	 * Az alapértelmezett felhasználót létrehozó metódus, melynek két
+	 * paramétereként meg kell adnunk az alapértelmezett felhaszlóni illetve
+	 * adminisztrátori jogkört leíró <code>Role</code> entitást.
+	 * 
+	 * @param userRole
+	 *            alapértelmezett felhasználó jogkör.
+	 * @param adminRole
+	 *            alapértelmezett adminisztrátori jogkör.
+	 */
 	@CoverageIgnore
 	private void createDefaultUser(Role userRole, Role adminRole) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -184,4 +228,55 @@ public class DatabaseInjector {
 			}
 		}
 	}
+
+	/**
+	 * Beállítja a felhasználókat kezelő adathozzáféréi objektumot.
+	 * 
+	 * @param userDao
+	 *            a felhasználókat kezelő adathozzáférési objektum.
+	 */
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	/**
+	 * Beállítja a söröket kezelő adathozzáféréi objektumot.
+	 * 
+	 * @param beerDao
+	 *            a söröket kezelő adathozzáférési objektum.
+	 */
+	public void setBeerDao(BeerDao beerDao) {
+		this.beerDao = beerDao;
+	}
+
+	/**
+	 * Beállítja a jogköröket kezelő adathozzáféréi objektumot.
+	 * 
+	 * @param roleDao
+	 *            a jogköröket kezelő adathozzáférési objektum.
+	 */
+	public void setRoleDao(RoleDao roleDao) {
+		this.roleDao = roleDao;
+	}
+
+	/**
+	 * Beállítja a kosarat kezelő adathozzáféréi objektumot.
+	 * 
+	 * @param cartDao
+	 *            a kosarat kezelő adathozzáférési objektum.
+	 */
+	public void setCartDao(CartDao cartDao) {
+		this.cartDao = cartDao;
+	}
+
+	/**
+	 * Beállítja a felhasználókat kezelő adathozzáféréi objektumot.
+	 * 
+	 * @param storageDao
+	 *            a raktárt kezelő adathozzáférési objektum.
+	 */
+	public void setStorageDao(StorageDao storageDao) {
+		this.storageDao = storageDao;
+	}
+
 }

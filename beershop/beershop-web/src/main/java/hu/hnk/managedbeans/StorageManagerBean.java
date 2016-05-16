@@ -11,7 +11,7 @@ import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.hnk.beershop.exception.NegativeQuantityNumber;
+import hu.hnk.beershop.exception.NegativeQuantityNumberException;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.StorageService;
 import hu.hnk.tool.FacesMessageTool;
@@ -32,16 +32,19 @@ public class StorageManagerBean implements Serializable {
 	public static final Logger logger = LoggerFactory.getLogger(StorageManagerBean.class);
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * A raktárt kezelő szolgáltatás.
 	 */
 	@EJB
 	private StorageService storageService;
 
 	/**
-	 * 
+	 * A raktárban található termékek listája.
 	 */
-	private static final long serialVersionUID = 1L;
-
 	private List<StorageItem> storage;
 
 	/**
@@ -79,7 +82,7 @@ public class StorageManagerBean implements Serializable {
 			storageService.saveAllChanges(storage);
 			FacesMessageTool.createInfoMessage("Módosítások sikeresen mentve!");
 			logger.info("Storage database updated succesfully.");
-		} catch (NegativeQuantityNumber e) {
+		} catch (NegativeQuantityNumberException e) {
 			logger.warn(e.getMessage(), e);
 			FacesMessageTool.createWarnMessage("Negatív érték nem tárolható!");
 			storage = storageService.findAll();

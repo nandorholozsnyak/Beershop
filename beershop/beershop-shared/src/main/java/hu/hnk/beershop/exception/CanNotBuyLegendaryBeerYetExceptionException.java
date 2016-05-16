@@ -8,7 +8,7 @@ package hu.hnk.beershop.exception;
  * @author Nandi
  *
  */
-public class CanNotBuyLegendaryBeerYetException extends Exception {
+public class CanNotBuyLegendaryBeerYetExceptionException extends Exception {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class CanNotBuyLegendaryBeerYetException extends Exception {
 	 * Konstuktor, mely létrehoz egy CanNotBuyLegendaryBeerYetException
 	 * kivételt.
 	 */
-	public CanNotBuyLegendaryBeerYetException() {
+	public CanNotBuyLegendaryBeerYetExceptionException() {
 	}
 
 	/**
@@ -29,7 +29,7 @@ public class CanNotBuyLegendaryBeerYetException extends Exception {
 	 * @param message
 	 *            a részletes üzenet.
 	 */
-	public CanNotBuyLegendaryBeerYetException(String message) {
+	public CanNotBuyLegendaryBeerYetExceptionException(String message) {
 		super(message);
 	}
 
@@ -40,7 +40,7 @@ public class CanNotBuyLegendaryBeerYetException extends Exception {
 	 * @param cause
 	 *            az okozó
 	 */
-	public CanNotBuyLegendaryBeerYetException(Throwable cause) {
+	public CanNotBuyLegendaryBeerYetExceptionException(Throwable cause) {
 		super(cause);
 	}
 
@@ -53,7 +53,7 @@ public class CanNotBuyLegendaryBeerYetException extends Exception {
 	 * @param cause
 	 *            az okozó.
 	 */
-	public CanNotBuyLegendaryBeerYetException(String message, Throwable cause) {
+	public CanNotBuyLegendaryBeerYetExceptionException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

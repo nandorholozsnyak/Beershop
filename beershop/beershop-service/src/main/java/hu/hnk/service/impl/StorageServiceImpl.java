@@ -13,8 +13,8 @@ import javax.ejb.Stateless;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.hnk.beershop.exception.NegativeQuantityNumber;
-import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
+import hu.hnk.beershop.exception.NegativeQuantityNumberException;
+import hu.hnk.beershop.exception.StorageItemQuantityExceededException;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.beershop.service.interfaces.StorageService;
@@ -53,7 +53,7 @@ public class StorageServiceImpl implements StorageService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void saveAllChanges(List<StorageItem> storage) throws NegativeQuantityNumber {
+	public void saveAllChanges(List<StorageItem> storage) throws NegativeQuantityNumberException {
 		if (storage.stream()
 				.filter(p -> p.getQuantity() < 0)
 				.collect(Collectors.toList())
@@ -65,7 +65,7 @@ public class StorageServiceImpl implements StorageService {
 						.isEmpty()) {
 			storageDao.saveAllChanges(storage);
 		} else {
-			throw new NegativeQuantityNumber("Negative number can't be stored in the storage table!");
+			throw new NegativeQuantityNumberException("Negative number can't be stored in the storage table!");
 		}
 		logger.info("Items saved to the storage.");
 
@@ -76,7 +76,7 @@ public class StorageServiceImpl implements StorageService {
 	 */
 	@Override
 	public void checkStorageItemQuantityLimit(List<StorageItem> storage, Beer beer, Integer quantity)
-			throws StorageItemQuantityExceeded, NegativeQuantityNumber {
+			throws StorageItemQuantityExceededException, NegativeQuantityNumberException {
 		logger.info("Trying to modify item quantity.");
 		List<StorageItem> exceededList = storage.stream()
 				.filter(p -> p.getBeer()
@@ -85,11 +85,11 @@ public class StorageServiceImpl implements StorageService {
 				.collect(Collectors.toList());
 
 		if (!exceededList.isEmpty()) {
-			throw new StorageItemQuantityExceeded("The asked quantity is bigger than the storage quantity given.");
+			throw new StorageItemQuantityExceededException("The asked quantity is bigger than the storage quantity given.");
 		}
 
 		if (quantity < 0) {
-			throw new NegativeQuantityNumber("Can not take negative quantity to cart.");
+			throw new NegativeQuantityNumberException("Can not take negative quantity to cart.");
 		}
 
 	}

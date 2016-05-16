@@ -2,8 +2,8 @@ package hu.hnk.beershop.service.interfaces;
 
 import java.util.Date;
 
-import hu.hnk.beershop.exception.InvalidPinCode;
-import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceeded;
+import hu.hnk.beershop.exception.InvalidPinCodeException;
+import hu.hnk.beershop.exception.DailyMoneyTransferLimitExceededException;
 import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
 
@@ -90,8 +90,8 @@ public interface UserService {
 	 * ezt kell megadnia, <code>userPin</code>, illetve egy pénzmennyiséget.
 	 * 
 	 * Kétféle kivétellel jelezhetjük a tranzakció sikertelenségét. Az egyik az
-	 * {@link InvalidPinCode} ha a felhasználó nem az elvárt PIN kódot adta meg,
-	 * illetve a {@link DailyMoneyTransferLimitExceeded} kivétellel ha a
+	 * {@link InvalidPinCodeException} ha a felhasználó nem az elvárt PIN kódot adta meg,
+	 * illetve a {@link DailyMoneyTransferLimitExceededException} kivétellel ha a
 	 * felhasználó túllépte a napi korlátot.
 	 * 
 	 * @param userPin
@@ -102,12 +102,12 @@ public interface UserService {
 	 *            a feltöltendő összeg.
 	 * @param loggedInUser
 	 *            a bejelentkezett felhasználó.
-	 * @throws InvalidPinCode
+	 * @throws InvalidPinCodeException
 	 *             akkor dobjuk ha a felhasználó rossz PIN kódot adott meg.
-	 * @throws DailyMoneyTransferLimitExceeded
+	 * @throws DailyMoneyTransferLimitExceededException
 	 *             akkor dobjuk ha a felhasználó túllépte a megadott napi
 	 *             limitet.
 	 */
 	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser)
-			throws InvalidPinCode, DailyMoneyTransferLimitExceeded;
+			throws InvalidPinCodeException, DailyMoneyTransferLimitExceededException;
 }

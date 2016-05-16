@@ -18,8 +18,17 @@ import hu.hnk.beershop.service.logfactory.EventLogType;
  */
 public class EventLogFactory {
 
+	/**
+	 * A sikeres pénzfeltöltési esemény akciójaként használatos konstans.
+	 */
 	private static final String MONEY_TRANSFER = "Money transfer.";
+	/**
+	 * A sikeres regisztráció esemény akciójaként használatos konstans.
+	 */
 	private static final String USER_REGISTRATION = "User registration.";
+	/**
+	 * A sikeres vásárlás esemény akciójaként használatos konstans.
+	 */
 	private static final String BUY_ACTION = "Buy action.";
 
 	/**
@@ -29,6 +38,9 @@ public class EventLogFactory {
 
 	// privát konstuktor, csak statikus metódusai vannak, nem kell
 	// példányosítani
+	/**
+	 * Privát konstuktor.
+	 */
 	private EventLogFactory() {
 	}
 
@@ -58,6 +70,13 @@ public class EventLogFactory {
 		return result;
 	}
 
+	/**
+	 * A paraméterül kapott felhasználóhoz létrehoz egy regisztrációs eseményt.
+	 * 
+	 * @param user
+	 *            az eseményhez kapcsolódó felhasználó.
+	 * @return a létrehozott esemény.
+	 */
 	private static EventLog createRegistrationEventLog(User user) {
 		EventLog event = createSingleEventLogForUser(user);
 		event.setAction(USER_REGISTRATION);
@@ -65,6 +84,13 @@ public class EventLogFactory {
 		return event;
 	}
 
+	/**
+	 * A paraméterül kapott felhasználóhoz létrehoz egy pénzfeltöltési eseményt.
+	 * 
+	 * @param user
+	 *            az eseményhez kapcsolódó felhasználó.
+	 * @return a létrehozott esemény.
+	 */
 	private static EventLog createMoneyTransferEventLog(User user) {
 		EventLog event = createSingleEventLogForUser(user);
 		event.setAction(MONEY_TRANSFER);
@@ -72,6 +98,13 @@ public class EventLogFactory {
 		return event;
 	}
 
+	/**
+	 * A paraméterül kapott felhasználóhoz létrehoz egy vásárlási eseményt.
+	 * 
+	 * @param user
+	 *            az eseményhez kapcsolódó felhasználó.
+	 * @return a létrehozott esemény.
+	 */
 	private static EventLog createBuyEventLog(User user) {
 		EventLog event = createSingleEventLogForUser(user);
 		event.setAction(BUY_ACTION);
@@ -79,6 +112,13 @@ public class EventLogFactory {
 		return event;
 	}
 
+	/**
+	 * A paraméterül kapott felhasználóhoz létrehoz eseményt.
+	 * 
+	 * @param user
+	 *            az eseményhez kapcsolódó felhasználó.
+	 * @return a létrehozott esemény.
+	 */
 	private static EventLog createSingleEventLogForUser(User user) {
 		EventLog event = new EventLog();
 		event.setDate(LocalDateTime.now());
@@ -96,14 +136,18 @@ public class EventLogFactory {
 	}
 
 	/**
-	 * @return
+	 * Visszaadja a sikeres regszitrációt leíró esemény akcióját.
+	 * 
+	 * @return regisztrációt leíró esemény akciója.
 	 */
 	public static String getUserRegistration() {
 		return USER_REGISTRATION;
 	}
 
 	/**
-	 * @return
+	 * Visszaadja a sikeres vásárlást leíró esemény akcióját.
+	 * 
+	 * @return vásárlást leíró esemény akciója.
 	 */
 	public static String getBuyAction() {
 		return BUY_ACTION;

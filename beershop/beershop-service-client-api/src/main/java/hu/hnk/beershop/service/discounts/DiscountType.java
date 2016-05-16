@@ -43,8 +43,17 @@ public enum DiscountType {
 	 */
 	THECHEAPESTFORFREE("A legolcsóbb ingyen");
 
+	/**
+	 * A kedvezmény rövid leírása.
+	 */
 	private String value;
 
+	/**
+	 * A kedvezmény típus privát konstuktora.
+	 * 
+	 * @param value
+	 *            a kedvezmény rövid leírása, értéke.
+	 */
 	private DiscountType(String value) {
 		this.value = value;
 	}

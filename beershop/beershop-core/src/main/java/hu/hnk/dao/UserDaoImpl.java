@@ -11,8 +11,8 @@ import javax.persistence.TypedQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.hnk.beershop.exception.EmailNotFound;
-import hu.hnk.beershop.exception.UsernameNotFound;
+import hu.hnk.beershop.exception.EmailNotFoundException;
+import hu.hnk.beershop.exception.UsernameNotFoundException;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.UserDao;
 
@@ -44,7 +44,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public User findByUsername(String username) throws UsernameNotFound {
+	public User findByUsername(String username) throws UsernameNotFoundException {
 		logger.info("Finding user by username:" + username);
 		TypedQuery<User> query = entityManager.createNamedQuery("User.findByUsername", User.class);
 		query.setParameter("name", username);
@@ -53,7 +53,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 			user = query.getSingleResult();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
-			throw new UsernameNotFound("There is no user with this username.");
+			throw new UsernameNotFoundException("There is no user with this username.");
 		}
 		return user;
 	}
@@ -62,7 +62,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public User findByEmail(String email) throws EmailNotFound {
+	public User findByEmail(String email) throws EmailNotFoundException {
 		logger.info("Finding user by email:" + email);
 		TypedQuery<User> query = entityManager.createNamedQuery("User.findByEmail", User.class);
 		query.setParameter("email", email);
@@ -71,7 +71,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 			user = query.getSingleResult();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
-			throw new EmailNotFound("There is no user with this e-mail.");
+			throw new EmailNotFoundException("There is no user with this e-mail.");
 		}
 		return user;
 	}
@@ -89,7 +89,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String findUsername(String username) throws UsernameNotFound {
+	public String findUsername(String username) throws UsernameNotFoundException {
 		logger.info("Finding username:" + username);
 		TypedQuery<String> query = entityManager.createNamedQuery("User.findUsername", String.class);
 		query.setParameter("name", username);
@@ -99,7 +99,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 			return user;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
-			throw new UsernameNotFound("There is no user with this username.");
+			throw new UsernameNotFoundException("There is no user with this username.");
 		}
 	}
 
@@ -107,7 +107,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String findEmail(String email) throws EmailNotFound {
+	public String findEmail(String email) throws EmailNotFoundException {
 		logger.info("Finding email:" + email);
 		TypedQuery<String> query = entityManager.createNamedQuery("User.findEmail", String.class);
 		query.setParameter("email", email);
@@ -117,7 +117,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 			return user;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
-			throw new EmailNotFound("There is no user with this email.");
+			throw new EmailNotFoundException("There is no user with this email.");
 		}
 	}
 

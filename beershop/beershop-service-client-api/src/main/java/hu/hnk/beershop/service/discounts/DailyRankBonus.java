@@ -19,10 +19,24 @@ import lombok.Builder;
 @Builder
 public class DailyRankBonus {
 
+	/**
+	 * A kedvezményhez tartozó rangok listája.
+	 */
 	private List<Rank> ranks;
+
+	/**
+	 * A kedvezmény napja.
+	 */
 	private DayOfWeek day;
+
+	/**
+	 * A kedvezmények listája.
+	 */
 	private List<DiscountType> discounts;
 
+	/**
+	 * Az előre legyártott kedvezmények naphoz rendelt listája.
+	 */
 	private static final List<DailyRankBonus> DAILY_BONUSES;
 
 	static {

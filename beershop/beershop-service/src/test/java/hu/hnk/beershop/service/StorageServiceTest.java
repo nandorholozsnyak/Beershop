@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import hu.hnk.beershop.exception.NegativeQuantityNumber;
-import hu.hnk.beershop.exception.StorageItemQuantityExceeded;
+import hu.hnk.beershop.exception.NegativeQuantityNumberException;
+import hu.hnk.beershop.exception.StorageItemQuantityExceededException;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.interfaces.StorageDao;
@@ -30,9 +30,9 @@ public class StorageServiceTest {
 	}
 
 	// List<StorageItem> storage, Beer beer, Integer quantity
-	@Test(expected = StorageItemQuantityExceeded.class)
+	@Test(expected = StorageItemQuantityExceededException.class)
 	public void testTheckStorageItemQuantityLimitShouldThrowStorageItemQuantityExceeded()
-			throws StorageItemQuantityExceeded, NegativeQuantityNumber {
+			throws StorageItemQuantityExceededException, NegativeQuantityNumberException {
 		Beer beer = new Beer();
 		beer.setName("Teszt sör");
 		StorageItem item = new StorageItem();
@@ -44,9 +44,9 @@ public class StorageServiceTest {
 		storageService.checkStorageItemQuantityLimit(items, beer, 2);
 	}
 
-	@Test(expected = NegativeQuantityNumber.class)
+	@Test(expected = NegativeQuantityNumberException.class)
 	public void testTheckStorageItemQuantityLimitShouldThrowNegativeQuantityNumber()
-			throws StorageItemQuantityExceeded, NegativeQuantityNumber {
+			throws StorageItemQuantityExceededException, NegativeQuantityNumberException {
 		Beer beer = new Beer();
 		beer.setName("Teszt sör");
 		StorageItem item = new StorageItem();
@@ -58,8 +58,8 @@ public class StorageServiceTest {
 		storageService.checkStorageItemQuantityLimit(items, beer, -1);
 	}
 
-	@Test(expected = NegativeQuantityNumber.class)
-	public void testSaveAllChangesShouldThrowNegativeQuantityNumber() throws NegativeQuantityNumber {
+	@Test(expected = NegativeQuantityNumberException.class)
+	public void testSaveAllChangesShouldThrowNegativeQuantityNumber() throws NegativeQuantityNumberException {
 		Beer beer = new Beer();
 		beer.setName("Teszt sör");
 		StorageItem item = new StorageItem();
@@ -72,7 +72,7 @@ public class StorageServiceTest {
 	}
 
 	@Test
-	public void testSaveAllChangesShouldThrowNothing() throws NegativeQuantityNumber {
+	public void testSaveAllChangesShouldThrowNothing() throws NegativeQuantityNumberException {
 		Beer beer = new Beer();
 		beer.setName("Teszt sör");
 		beer.setDiscountAmount(0);

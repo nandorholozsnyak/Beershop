@@ -1,9 +1,6 @@
 package hu.hnk.managedbeans;
 
 import java.io.Serializable;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -39,37 +36,94 @@ public class UserOrderManagerBean implements Serializable {
 	public static final Logger logger = LoggerFactory.getLogger(UserOrderManagerBean.class);
 
 	/**
-	 * A sessiont kezelő managed bean.
+	 * A munkamenetet kezelő szolgáltatás.
 	 */
 	@ManagedProperty(value = "#{sessionManagerBean}")
 	private SessionManager sessionManager;
 
+	/**
+	 * A szállításokat kezelő szolgáltatás.
+	 */
 	@EJB
 	private CargoService cargoService;
 
+	/**
+	 * A felhasználó által leadott rendelések listája.
+	 */
 	private List<Cargo> userCargos;
 
+	/**
+	 * Inicializáló metódus, a szolgáltatás létrejöttekor fut le.
+	 */
 	@PostConstruct
 	public void init() {
 		userCargos = cargoService.findByUser(sessionManager.getLoggedInUser());
 	}
 
+	/**
+	 * Visszaadja a szállítás várható elkészülésének idejét.
+	 * 
+	 * @param orderDate
+	 *            a szállítás leadásának időpontja.
+	 * @return a szállítás várható elkészülésének ideje.
+	 */
 	public String countdownTenMinute(Date orderDate) {
 		return cargoService.countdownTenMinutes(orderDate);
 	}
 
+	/**
+	 * Visszaadja a leadott rendelések listáját.
+	 * 
+	 * @return a leadott rendelések listája.
+	 */
 	public List<Cargo> getUserCargos() {
 		return userCargos;
 	}
 
+	/**
+	 * Beállítja a leadott rendelések listáját.
+	 * 
+	 * @param userCargos
+	 *            a leadott rendelések listája.
+	 */
 	public void setUserCargos(List<Cargo> userCargos) {
 		this.userCargos = userCargos;
 	}
 
+	/**
+	 * Visszaadja a munkamenetet kezelő szolgáltatást.
+	 * 
+	 * @return a munkamenetet kezelő szolgáltatás.
+	 */
+	public SessionManager getSessionManager() {
+		return sessionManager;
+	}
+
+	/**
+	 * Beállítja a munkamenetet kezelő szolgáltatást.
+	 * 
+	 * @param sessionManager
+	 *            a munkamenetet kezelő szolgáltatás
+	 */
 	public void setSessionManager(SessionManager sessionManager) {
 		this.sessionManager = sessionManager;
 	}
 
+	/**
+	 * Visszaadja a szállításokat kezelő szolgáltatást.
+	 * 
+	 * @return a szállításokat kezelő szolgáltatás.
+	 */
+	public CargoService getCargoService() {
+		return cargoService;
+	}
+
+	/**
+	 * Beállítja a szállításokat kezelő szolgáltatást.
+	 * 
+	 * @param cargoService
+	 *            a szállításokat kezelő szolgáltatás.
+	 */
 	public void setCargoService(CargoService cargoService) {
 		this.cargoService = cargoService;
 	}
