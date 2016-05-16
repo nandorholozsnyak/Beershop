@@ -39,14 +39,14 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	@EJB
 	private EventLogDao eventLogDao;
 
-	private List<MoneyTransferRestrictions> moneyRestrictions = MoneyTransferRestrictions.getMoneyRestrictions();
-	private List<BuyActionRestrictions> boyActionRestrictions = BuyActionRestrictions.getRestirctedValues();
-
 	/**
-	 * Amatőr felhasználó csak napi 3-szor töltheti fel a kártyáját. Sörfelelős
-	 * napi 4-szor töltheti fel a kártyáját. Ivóbajnok napi 5-ször töltheti fel
-	 * a kártyáját és kap minden feltöltés után bónusz 5%-ot.
+	 * A pénzefeltöltéssel kapcsolatos korlátozásokat tartalmazó lista.
 	 */
+	private List<MoneyTransferRestrictions> moneyRestrictions = MoneyTransferRestrictions.getMoneyRestrictions();
+	/**
+	 * A vásárlással kapcsolatos korlátozásokat tartalmazó lista.
+	 */
+	private List<BuyActionRestrictions> buyActionRestrictions = BuyActionRestrictions.getRestirctedValues();
 
 	/**
 	 * {@inheritDoc}
@@ -55,7 +55,7 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	public boolean checkIfUserCanTransferMoney(User user) {
 
 		List<EventLog> userEvents = getTodayMoneyTransferEventLogs(user);
-		if (userEvents == null || userEvents.size() == 0) {
+		if (userEvents == null || userEvents.isEmpty()) {
 			return true;
 		}
 		// if (userEvents.stream()
@@ -79,6 +79,14 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 
 	}
 
+	/**
+	 * Visszaadja a paraméterül adott <code>user</code> mai napi
+	 * pénzfeltöltéssel kapcsolatos eseményeit.
+	 * 
+	 * @param user
+	 *            a lekérdezendő eseményekkel kapcsolatos felhasználó.
+	 * @return az események listája.
+	 */
 	private List<EventLog> getTodayMoneyTransferEventLogs(User user) {
 		if (eventLogDao.findByUserWhereDateIsToday(user) == null) {
 			return null;
@@ -103,7 +111,7 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 			return true;
 		}
 
-		for (BuyActionRestrictions bar : boyActionRestrictions) {
+		for (BuyActionRestrictions bar : buyActionRestrictions) {
 			if (bar.getRank()
 					.equals(countRankFromXp(user)) && userEvents.size() > bar.getRestrictedValue()) {
 				return false;
@@ -112,6 +120,14 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 		return true;
 	}
 
+	/**
+	 * Visszaadja a paraméterül adott <code>user</code> mai napi vásárlással
+	 * kapcsolatos eseményeit.
+	 * 
+	 * @param user
+	 *            a lekérdezendő eseményekkel kapcsolatos felhasználó.
+	 * @return az események listája.
+	 */
 	private List<EventLog> getTodayBuyActionEventLogs(User user) {
 		if (eventLogDao.findByUserWhereDateIsToday(user) == null) {
 			return null;

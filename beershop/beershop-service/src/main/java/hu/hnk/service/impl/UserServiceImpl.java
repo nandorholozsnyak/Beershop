@@ -65,13 +65,19 @@ public class UserServiceImpl implements UserService {
 	@EJB
 	private EventLogService eventLogService;
 
+	/**
+	 * A korlátozásokat kezelő szolgáltatás.
+	 */
 	@EJB
 	private RestrictionCheckerService restrictionCheckerService;
 
+	/**
+	 * A rangok tapasztalatpontal összekapcsolt objektumot listája.
+	 */
 	private List<RankInterval> rankIntverals = RankInterval.getRankIntverals();
 
 	/**
-	 * A felhasználó mentése.
+	 * A paraméterül kapott felhasználó mentése.
 	 * 
 	 * @param user
 	 *            A mentendő felhasználó.
@@ -272,7 +278,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * Beállítja a felhasználókat kezelő adathozzáférési osztályt.
+	 * 
 	 * @param userDao
+	 *            a felhasználókat kezelő adathozzáférési osztály.
 	 */
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;

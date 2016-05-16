@@ -22,6 +22,12 @@ import hu.hnk.beershop.service.interfaces.UserService;
 import hu.hnk.beershop.service.restrictions.BuyActionRestrictions;
 
 /**
+ * A kedvezményeket validáló szolgáltatás.
+ * 
+ * A {@link DiscountType} kedvezményeket validáló osztály leírása. Többféle
+ * kedvezménytípust képes validálni, mindig egy aktuálisan készülőben lévő
+ * szállításra érvényesíti ezeket.
+ * 
  * @author Nandi
  *
  */
@@ -29,6 +35,9 @@ import hu.hnk.beershop.service.restrictions.BuyActionRestrictions;
 @Local(DiscountService.class)
 public class DiscountServiceImpl implements DiscountService {
 
+	/**
+	 * Sikeres kedvezmény aktiválásnak loggolási konstansa.
+	 */
 	private static final String DISCOUNT_SUCCESFULLY_COMPLETED = "Discount succesfully completed.";
 
 	/**
@@ -36,11 +45,20 @@ public class DiscountServiceImpl implements DiscountService {
 	 */
 	public static final Logger logger = LoggerFactory.getLogger(DiscountServiceImpl.class);
 
+	/**
+	 * A felhasználókat kezelő szolgáltatás.
+	 */
 	@EJB
 	private UserService userService;
 
+	/**
+	 * A kedvezmények listája.
+	 */
 	private List<DailyRankBonus> discountList = DailyRankBonus.getDailyBonuses();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void validateDiscount(DiscountType discountType, Cargo cargo, LocalDate today) {
 		if (discountType.equals(DiscountType.FREESHIPPING))
@@ -54,6 +72,14 @@ public class DiscountServiceImpl implements DiscountService {
 
 	}
 
+	/**
+	 * Az ingyenes szállítás validálása.
+	 * 
+	 * @param cargo
+	 *            a készülőben lévő szállítás.
+	 * @param today
+	 *            a mai nap.
+	 */
 	private void validateFreeShippingDiscount(Cargo cargo, LocalDate today) {
 
 		DiscountType actualDiscount = DiscountType.FREESHIPPING;
@@ -77,6 +103,14 @@ public class DiscountServiceImpl implements DiscountService {
 		}
 	}
 
+	/**
+	 * A legolcsóbb termék ingyenességének validálása.
+	 * 
+	 * @param cargo
+	 *            a készülőben lévő szállítás.
+	 * @param today
+	 *            a mai nap.
+	 */
 	// Csak ha legalább két terméket tartalmaz a kosár.
 	private void validateTheCheapestForFreeDiscount(Cargo cargo, LocalDate today) {
 		DiscountType actualDiscount = DiscountType.THECHEAPESTFORFREE;
@@ -115,6 +149,14 @@ public class DiscountServiceImpl implements DiscountService {
 
 	// A szállítás teljes árának az ötödét hozzáadja mint bónusz pont a
 	// felhasználónak.
+	/**
+	 * Az extra bónusz pontok validálása.
+	 * 
+	 * @param cargo
+	 *            a készülőben lévő szállítás.
+	 * @param today
+	 *            a mai nap.
+	 */
 	private void validateExtraBonusPointsDiscount(Cargo cargo, LocalDate today) {
 		DiscountType actualDiscount = DiscountType.EXTRABONUSPOINTS;
 
@@ -138,6 +180,14 @@ public class DiscountServiceImpl implements DiscountService {
 		}
 	}
 
+	/**
+	 * Az 50%-os kedvezmény validálása.
+	 * 
+	 * @param cargo
+	 *            a készülőben lévő szállítás.
+	 * @param today
+	 *            a mai nap.
+	 */
 	private void validateFiftyPercentageDiscount(Cargo cargo, LocalDate today) {
 		DiscountType actualDiscount = DiscountType.FIFTYPERCENTAGE;
 
@@ -159,6 +209,13 @@ public class DiscountServiceImpl implements DiscountService {
 		}
 	}
 
+	/**
+	 * Visszaadja a kedvezményt típus alapján a kedvezmények listájából.
+	 * 
+	 * @param actualDiscount
+	 *            az aktuálisan megkeresendő kedvezmény.
+	 * @return a kedvezményhez megtalált napi bónusz.
+	 */
 	private Optional<DailyRankBonus> findDiscountByType(DiscountType actualDiscount) {
 		return discountList.stream()
 				.filter(e -> e.getDiscounts()
@@ -169,11 +226,30 @@ public class DiscountServiceImpl implements DiscountService {
 
 	}
 
+	/**
+	 * Megvizsgálja hogy a paraméterként kapott napi bónusz aktiválható-e vagy
+	 * sem.
+	 * 
+	 * @param discount
+	 *            a napi bónusz.
+	 * @param today
+	 *            a mai nap.
+	 * @return <code>true</code> ha a mai napon aktiválható, <code>false</code>
+	 *         ha nem.
+	 */
 	private boolean isTodayDiscountDay(DailyRankBonus discount, LocalDate today) {
 		return today.getDayOfWeek()
 				.equals(discount.getDay());
 	}
 
+	/**
+	 * Debug log készítése.
+	 * 
+	 * @param today
+	 *            a mai nap.
+	 * @param bonus
+	 *            a napi bónusz.
+	 */
 	private void debugLog(LocalDate today, Optional<DailyRankBonus> bonus) {
 		DiscountType discount = bonus.get()
 				.getDiscounts()
@@ -184,6 +260,12 @@ public class DiscountServiceImpl implements DiscountService {
 		logger.debug("Is this day " + discount.toString() + " discount day:" + isTodayDiscountDay(bonus.get(), today));
 	}
 
+	/**
+	 * Beállítja a felhasználókat kezelő szolgáltatást.
+	 * 
+	 * @param userService
+	 *            a felhasználókat kezelő szolgáltatás.
+	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
