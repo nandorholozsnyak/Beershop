@@ -38,15 +38,9 @@ import lombok.Builder;
 public class User extends BaseEntity implements Serializable {
 
 	/**
-	 * serial Version.
+	 * A szerializáció során használt egyedi azonosító.
 	 */
 	private static final long serialVersionUID = 8256608378786882228L;
-
-	/**
-	 * A felhasználó osztály konstuktora.
-	 */
-	public User() {
-	}
 
 	/**
 	 * A felhasználó felhasználóneve.
@@ -105,6 +99,12 @@ public class User extends BaseEntity implements Serializable {
 	@Column(name = "money")
 	@ColumnDefault(value = "0.0")
 	private Double money;
+
+	/**
+	 * A felhasználó osztály konstuktora.
+	 */
+	public User() {
+	}
 
 	/**
 	 * Visszaadja a felhasználó születési dátumát.

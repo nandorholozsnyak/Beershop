@@ -48,11 +48,14 @@ public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
 		try {
 			return role.getSingleResult();
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 			return null;
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Role> findAll() {
 		TypedQuery<Role> query = entityManager.createQuery("SELECT r FROM Role r", Role.class);

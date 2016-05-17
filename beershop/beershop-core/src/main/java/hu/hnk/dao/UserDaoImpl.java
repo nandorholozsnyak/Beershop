@@ -29,16 +29,16 @@ import hu.hnk.interfaces.UserDao;
 public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
 	/**
+	 * Az osztály Logger-e.
+	 */
+	public static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+
+	/**
 	 * Az osztály konstuktora.
 	 */
 	public UserDaoImpl() {
 		super(User.class);
 	}
-
-	/**
-	 * Az osztály Logger-e.
-	 */
-	public static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
 	/**
 	 * {@inheritDoc}
@@ -52,7 +52,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		try {
 			user = query.getSingleResult();
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 			throw new UsernameNotFoundException("There is no user with this username.");
 		}
 		return user;
@@ -70,7 +70,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		try {
 			user = query.getSingleResult();
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 			throw new EmailNotFoundException("There is no user with this e-mail.");
 		}
 		return user;
@@ -98,7 +98,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 			user = query.getSingleResult();
 			return user;
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 			throw new UsernameNotFoundException("There is no user with this username.");
 		}
 	}
@@ -116,11 +116,14 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 			user = query.getSingleResult();
 			return user;
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 			throw new EmailNotFoundException("There is no user with this email.");
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<User> findAll() {
 		TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u", User.class);

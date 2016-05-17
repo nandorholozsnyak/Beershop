@@ -15,6 +15,10 @@ import lombok.Builder;
 /**
  * Egy eseménynek a logját leíró entitást.
  * 
+ * Az esemény az eseményhez társított felhasználót ({@value EventLog#user}), az
+ * eseményhez kapcsolt akciót ({@value EventLog#action}) illetve az esemény
+ * időpontját ({@value EventLog#date}) tárolják.
+ * 
  * @author Nandi
  *
  */
@@ -26,16 +30,9 @@ import lombok.Builder;
 public class EventLog extends BaseEntity implements Serializable {
 
 	/**
-	 * serial Version.
+	 * A szerializáció során használt egyedi azonosító.
 	 */
 	private static final long serialVersionUID = -2757899869474041195L;
-
-	/**
-	 * A felhasználói eseményeket rögzítő osztály konstuktora.
-	 */
-	public EventLog() {
-
-	}
 
 	/**
 	 * Az eseménynek az akciója, azaz mi történt, egy esetleges vásárlás vagy
@@ -54,6 +51,13 @@ public class EventLog extends BaseEntity implements Serializable {
 	 * Az esemény dátuma.
 	 */
 	private LocalDateTime date;
+
+	/**
+	 * A felhasználói eseményeket rögzítő osztály konstuktora.
+	 */
+	public EventLog() {
+
+	}
 
 	/**
 	 * Visszaadja az esemény akció mezőjének értékét.

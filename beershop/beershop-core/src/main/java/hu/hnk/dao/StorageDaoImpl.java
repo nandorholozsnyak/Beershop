@@ -28,16 +28,16 @@ import hu.hnk.interfaces.StorageDao;
 public class StorageDaoImpl extends BaseDaoImpl<StorageItem> implements StorageDao {
 
 	/**
+	 * Az osztály loggere.
+	 */
+	public static final Logger logger = LoggerFactory.getLogger(StorageDaoImpl.class);
+
+	/**
 	 * Az osztály konstuktora.
 	 */
 	public StorageDaoImpl() {
 		super(StorageItem.class);
 	}
-
-	/**
-	 * Az osztály loggere.
-	 */
-	public static final Logger logger = LoggerFactory.getLogger(StorageDaoImpl.class);
 
 	/**
 	 * {@inheritDoc}
@@ -60,7 +60,7 @@ public class StorageDaoImpl extends BaseDaoImpl<StorageItem> implements StorageD
 					try {
 						update(entity);
 					} catch (Exception e) {
-						logger.error(e.getMessage());
+						logger.error(e.getMessage(), e);
 					}
 				});
 	}

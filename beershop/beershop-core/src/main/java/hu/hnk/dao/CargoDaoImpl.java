@@ -34,6 +34,9 @@ public class CargoDaoImpl extends BaseDaoImpl<Cargo> implements CargoDao {
 		super(Cargo.class);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Cargo> findByUser(User user) {
 		TypedQuery<Cargo> cargos = entityManager.createQuery("SELECT c FROM Cargo c where c.user = :user", Cargo.class);

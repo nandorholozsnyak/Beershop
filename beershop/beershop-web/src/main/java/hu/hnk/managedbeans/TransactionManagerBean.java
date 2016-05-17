@@ -80,7 +80,7 @@ public class TransactionManagerBean implements Serializable {
 	private Double totalCost;
 
 	/**
-	 * A szállítási költség
+	 * A szállítási költség.
 	 */
 	private Double shippingCost;
 
@@ -135,9 +135,8 @@ public class TransactionManagerBean implements Serializable {
 	/**
 	 * A tranzakciót előkészítő metódus.
 	 * 
-	 * A megadott adatokból létrehozza az új
-	 * szállítás entitást amit utána továbbküld a szállításokat kezelő
-	 * szolgáltatásnak.
+	 * A megadott adatokból létrehozza az új szállítás entitást amit utána
+	 * továbbküld a szállításokat kezelő szolgáltatásnak.
 	 */
 	public void doTransaction() {
 		logger.info("PaymentMode: {}", paymentMode);
@@ -162,8 +161,10 @@ public class TransactionManagerBean implements Serializable {
 
 		}
 	}
+
 	/**
 	 * A megadott adatok alapján létrehoz egy új szállítás entitást.
+	 * 
 	 * @return a megadott adatok alapján létrehozott új entitás.
 	 */
 	private Cargo createNewCargo() {
@@ -175,9 +176,11 @@ public class TransactionManagerBean implements Serializable {
 		cargo.setPaymentMode(paymentMode.getValue());
 		return cargo;
 	}
-	
+
 	/**
-	 * Visszaadja a felhasznlói felületre a vásárlás utáni összeget, amivel a még a felhasználó fog rendelkezni. 
+	 * Visszaadja a felhasznlói felületre a vásárlás utáni összeget, amivel a
+	 * még a felhasználó fog rendelkezni.
+	 * 
 	 * @return a vásárlás utáni egyenleg státusza.
 	 */
 	public Double countMoneyAfterPayment() {
@@ -186,6 +189,7 @@ public class TransactionManagerBean implements Serializable {
 
 	/**
 	 * Visszaadja a felhasználó által megadott szállítási címet.
+	 * 
 	 * @return a felhasználó által megadott szállítási cím.
 	 */
 	public String getAddress() {
@@ -194,7 +198,9 @@ public class TransactionManagerBean implements Serializable {
 
 	/**
 	 * Beállítja a felhasználó által begépelt szállítási címet.
-	 * @param addres a felhasználó által begépelt szállítási cím.
+	 * 
+	 * @param addres
+	 *            a felhasználó által begépelt szállítási cím.
 	 */
 	public void setAddress(String addres) {
 		this.address = addres;
@@ -202,22 +208,26 @@ public class TransactionManagerBean implements Serializable {
 
 	/**
 	 * Visszaadja a fizetés típusát.
+	 * 
 	 * @return a fizetés típusa.
 	 */
-	public PaymentMode getPayMode() {
+	public PaymentMode getPaymentMode() {
 		return paymentMode;
 	}
 
 	/**
 	 * Visszaadja a fizetés típusát.
-	 * @param payMode a fizetés típusa.
+	 * 
+	 * @param paymentMode
+	 *            a fizetés típusa.
 	 */
-	public void setPayMode(PaymentMode payMode) {
-		this.paymentMode = payMode;
+	public void setPaymentMode(PaymentMode paymentMode) {
+		this.paymentMode = paymentMode;
 	}
 
 	/**
 	 * Visszaadja a kosarat kezelő szolgáltatást.
+	 * 
 	 * @return a kosarat kezelő szolgáltatás.
 	 */
 	public CartService getCartService() {
@@ -226,23 +236,28 @@ public class TransactionManagerBean implements Serializable {
 
 	/**
 	 * Beállítja a kosarat kezelő szolgáltatást.
-	 * @param cartService a kosarat kezelő szolgáltatás.
+	 * 
+	 * @param cartService
+	 *            a kosarat kezelő szolgáltatás.
 	 */
 	public void setCartService(CartService cartService) {
 		this.cartService = cartService;
 	}
-	
+
 	/**
 	 * Visszaadja a munkamenetet kezelő szolgáltatást.
+	 * 
 	 * @return a munkamenetet kezelő szolgáltatás.
 	 */
 	public SessionManager getSessionManager() {
 		return sessionManager;
 	}
-	
+
 	/**
 	 * Beállítja a munkamenetet kezelő szolgáltatást.
-	 * @param sessionManager a munkamenetet kezelő szolgáltatás
+	 * 
+	 * @param sessionManager
+	 *            a munkamenetet kezelő szolgáltatás
 	 */
 	public void setSessionManager(SessionManager sessionManager) {
 		this.sessionManager = sessionManager;
@@ -250,15 +265,18 @@ public class TransactionManagerBean implements Serializable {
 
 	/**
 	 * Visszaadja a fizetendő összeget.
+	 * 
 	 * @return a fizetendő összeg.
 	 */
 	public Double getTotalCost() {
 		return totalCost;
 	}
-	
+
 	/**
 	 * Beállítja a fizetendő összeget.
-	 * @param totalCost a fizetendő összeg.
+	 * 
+	 * @param totalCost
+	 *            a fizetendő összeg.
 	 */
 	public void setTotalCost(Double totalCost) {
 		this.totalCost = totalCost;
@@ -266,6 +284,7 @@ public class TransactionManagerBean implements Serializable {
 
 	/**
 	 * Visszaadja a szállításokat kezelő szolgáltatást.
+	 * 
 	 * @return a szállításokat kezelő szolgáltatás.
 	 */
 	public CargoService getCargoService() {
@@ -274,7 +293,9 @@ public class TransactionManagerBean implements Serializable {
 
 	/**
 	 * Beállítja a szállításokat kezelő szolgáltatást.
-	 * @param cargoService a szállításokat kezelő szolgáltatás.
+	 * 
+	 * @param cargoService
+	 *            a szállításokat kezelő szolgáltatás.
 	 */
 	public void setCargoService(CargoService cargoService) {
 		this.cargoService = cargoService;
@@ -282,6 +303,7 @@ public class TransactionManagerBean implements Serializable {
 
 	/**
 	 * Visszaadja a felhasználó számára a fizetési utáni egyenlegét.
+	 * 
 	 * @return a fizetés utáni felhasználói egyenleg.
 	 */
 	public Double getMoneyAfterPayment() {
@@ -290,7 +312,9 @@ public class TransactionManagerBean implements Serializable {
 
 	/**
 	 * Beállítja a fizetés utáni egyenleget.
-	 * @param moneyAfterPayment a fizetés utáni egyenleg.
+	 * 
+	 * @param moneyAfterPayment
+	 *            a fizetés utáni egyenleg.
 	 */
 	public void setMoneyAfterPayment(Double moneyAfterPayment) {
 		this.moneyAfterPayment = moneyAfterPayment;
@@ -298,6 +322,7 @@ public class TransactionManagerBean implements Serializable {
 
 	/**
 	 * Visszaadja a szállítási költséget.
+	 * 
 	 * @return szállítási költség.
 	 */
 	public Double getShippingCost() {
@@ -306,11 +331,12 @@ public class TransactionManagerBean implements Serializable {
 
 	/**
 	 * Beállítja a szállítási költséget.
-	 * @param shippingCost a szállítási költség.
+	 * 
+	 * @param shippingCost
+	 *            a szállítási költség.
 	 */
 	public void setShippingCost(Double shippingCost) {
 		this.shippingCost = shippingCost;
 	}
-
 
 }

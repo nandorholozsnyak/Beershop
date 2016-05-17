@@ -14,6 +14,12 @@ import lombok.ToString;
 /**
  * A sör osztály ami tartalmazza a sör adatait.
  * 
+ * Egy sör rendelkezik egy névvel ({@value Beer#name}), alkoholszinttel (
+ * {@value Beer#alcoholLevel}, árral ({@value Beer#price}), leírással (
+ * {@value Beer#comment}), űrtartalommal {@value Beer#capacity}, kedvezménnyel (
+ * {@value Beer#discountAmount}) illetve egy logikai tulajdonsággal amivel azt
+ * rögzíthetjük hogy a sör "legendás"-e vagy sem {@value Beer#legendary}.
+ * 
  * @author Nandi
  *
  */
@@ -27,16 +33,9 @@ import lombok.ToString;
 public class Beer extends BaseEntity implements Serializable {
 
 	/**
-	 * serial Version.
+	 * A szerializáció során használt egyedi azonosító.
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
-
-	/**
-	 * Sör osztály konstuktora.
-	 */
-	public Beer() {
-
-	}
 
 	/**
 	 * A sör neve.
@@ -79,6 +78,13 @@ public class Beer extends BaseEntity implements Serializable {
 	 */
 	@Column(name = "legendary")
 	private boolean legendary;
+
+	/**
+	 * Sör osztály konstuktora.
+	 */
+	public Beer() {
+
+	}
 
 	/**
 	 * Visszaadja a sör nevét.

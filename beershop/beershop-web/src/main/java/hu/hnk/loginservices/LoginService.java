@@ -8,6 +8,8 @@ import java.util.Set;
 
 import javax.ejb.EJB;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +20,6 @@ import org.springframework.stereotype.Service;
 import hu.hnk.beershop.model.Role;
 import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
-
 
 /**
  * @author Nandi
@@ -32,7 +33,12 @@ public class LoginService implements Serializable, UserDetailsService {
 	 * 
 	 */
 	private static final long serialVersionUID = 2856400278569714670L;
-	
+
+	/**
+	 * Az osztály loggere.
+	 */
+	public static final Logger logger = LoggerFactory.getLogger(LoginService.class);
+
 	/**
 	 * A felhasználó szolgáltatások kezelője.
 	 */
@@ -43,7 +49,7 @@ public class LoginService implements Serializable, UserDetailsService {
 	 * A bejelentkező felhasználó megadott felhasználóneve.
 	 */
 	private String username;
-	
+
 	/**
 	 * A bejelentkező felhasználó megadott jelszava.
 	 */
@@ -78,10 +84,12 @@ public class LoginService implements Serializable, UserDetailsService {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	/**
 	 * Felhsználó betöltése felhasználónév alapján.
-	 * @param username a betöltendő felhasználó felhasználóneve.
+	 * 
+	 * @param username
+	 *            a betöltendő felhasználó felhasználóneve.
 	 * @return a betöltött felhasználó.
 	 */
 	@Override
@@ -93,41 +101,33 @@ public class LoginService implements Serializable, UserDetailsService {
 			if (user == null) {
 				throw new UsernameNotFoundException(username);
 			}
-			 List<GrantedAuthority> authorities =
-			 buildUserAuthority(user.getRoles());
-//			Collection<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-//			auth.add(new GrantedAuthority() {
-//				
-//				@Override
-//				public String getAuthority() {
-//					return "ROLE_USER";
-//				}
-//			});
+			List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
 			return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true,
 					true, true, true, authorities);
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.error(e.getMessage(), e);
 			throw new UsernameNotFoundException(e.getMessage());
 		}
 
 	}
-	
+
 	/**
 	 * A felhasználó jogköreit betöltő metódus.
-	 * @param userRoles a felhasználó jogkörei.
+	 * 
+	 * @param userRoles
+	 *            a felhasználó jogkörei.
 	 * @return a betöltött jogkörök.
 	 */
 	private List<GrantedAuthority> buildUserAuthority(List<Role> userRoles) {
 
-		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
+		Set<GrantedAuthority> setAuths = new HashSet<>();
 
 		for (Role userRole : userRoles) {
 			setAuths.add(new SimpleGrantedAuthority(userRole.getName()));
 		}
 
-		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
+		return new ArrayList<>(setAuths);
 
-		return Result;
 	}
 
 }

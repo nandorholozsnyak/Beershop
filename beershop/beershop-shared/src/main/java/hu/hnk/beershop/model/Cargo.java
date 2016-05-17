@@ -17,6 +17,13 @@ import lombok.Builder;
 /**
  * Egy rendelés adatait tartalmazó osztály.
  * 
+ * A leadott rendelés tartalmazza a szállítandó termékek listáját:
+ * {@value Cargo#items}, a szállítási hely címét: {@value Cargo#address}, a
+ * felhasználót aki leadta a rendelést: {@value Cargo#user}, a rendelés dátumát:
+ * {@value Cargo#orderDate}, a fizetendő összeget: {@value Cargo#totalPrice}
+ * illetve a fizetés módját {@value Cargo#paymentMode}.
+ * 
+ * 
  * @author Nandi
  *
  */
@@ -27,15 +34,9 @@ import lombok.Builder;
 public class Cargo extends BaseEntity implements Serializable {
 
 	/**
-	 * serial Version.
+	 * A szerializáció során használt egyedi azonosító.
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
-
-	/**
-	 * A szállítás osztály konstuktora.
-	 */
-	public Cargo() {
-	}
 
 	/**
 	 * A rendelt sörök listája.
@@ -73,6 +74,12 @@ public class Cargo extends BaseEntity implements Serializable {
 	@NotNull
 	@Column(name = "paymentMode")
 	private String paymentMode;
+
+	/**
+	 * A szállítás osztály konstuktora.
+	 */
+	public Cargo() {
+	}
 
 	/**
 	 * Visszaadja a szállítás dátumát.

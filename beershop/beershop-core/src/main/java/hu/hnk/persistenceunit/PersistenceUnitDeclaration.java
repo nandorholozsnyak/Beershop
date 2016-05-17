@@ -10,33 +10,40 @@ package hu.hnk.persistenceunit;
 public class PersistenceUnitDeclaration {
 
 	/**
+	 * Privát konstuktor.
+	 */
+	private PersistenceUnitDeclaration() {
+
+	}
+
+	/**
 	 * A MySQL-es beállításra vonatkozó konstans.
 	 */
-	public final static String MYSQL = "BeerShopUnit";
+	public static final String MYSQL = "BeerShopUnit";
 
 	/**
 	 * Az Apache Derby-s beállításra vonatkozó konstans.
 	 */
-	public final static String DERBY = "BeerShopUnitDerby";
+	public static final String DERBY = "BeerShopUnitDerby";
 
 	/**
 	 * 
 	 */
-	public final static String ORACLE = "BeerShopUnitOra";
+	public static final String ORACLE = "BeerShopUnitOra";
 
 	/**
 	 * 
 	 */
-	public final static String H2 = "BeerShopUnitH2";
+	public static final String H2 = "BeerShopUnitH2";
 
 	/**
 	 * 
 	 */
-	public final static String HSQLDB = "BeerShopUnitHSQLDB";
+	public static final String HSQLDB = "BeerShopUnitHSQLDB";
 
 	/**
 	 * Az aktuálisan használandó perzisztens egység neve.
 	 */
-	public final static String PERSISTENCE_UNIT = H2;
+	public static final String PERSISTENCE_UNIT = H2;
 
 }

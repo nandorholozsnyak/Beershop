@@ -12,6 +12,8 @@ import lombok.Builder;
 /**
  * A jogkör leírását tartalmazó osztály.
  * 
+ * A jogkörnek van egy neve {@value Role#name}.
+ * 
  * @author Nandi
  *
  */
@@ -22,9 +24,15 @@ import lombok.Builder;
 public class Role extends BaseEntity implements Serializable {
 
 	/**
-	 * 
+	 * A szerializáció során használt egyedi azonosító.
 	 */
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * A jogkör neve.
+	 */
+	@Column(name = "name")
+	private String name;
 
 	/**
 	 * A jogkör osztály konstuktora.
@@ -32,12 +40,6 @@ public class Role extends BaseEntity implements Serializable {
 	public Role() {
 
 	}
-
-	/**
-	 * A jogkör neve.
-	 */
-	@Column(name = "name")
-	private String name;
 
 	/**
 	 * Visszaadja a jogkör nevét.

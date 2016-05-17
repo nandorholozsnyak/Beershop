@@ -11,7 +11,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 /**
- * Egy kosár adatait tartalmazó osztály.
+ * A kosárba tett termékek adatait leíró osztály.
+ * 
+ * A kosárba tett termékek jellemzői: a termék mint sör {@value CartItem#beer},
+ * a darabszáma az aktuális termékből {@value CartItem#quantity}, a termék
+ * aktivitása a kosáron belül {@value CartItem#active} (ha <code>true</code>
+ * akkor a felhasználó látja a kosarában, egyébként nem), a termék kosárhoz
+ * adásának időpontja {@value CartItem#addedToCart}, a termék kosárból való
+ * törlésének / megvásárlásának időpontja {@value CartItem#removedFromCart}.
  * 
  * @author Nandi
  *
@@ -22,16 +29,9 @@ import lombok.Builder;
 public class CartItem extends BaseEntity implements Serializable {
 
 	/**
-	 * serial Version.
+	 * A szerializáció során használt egyedi azonosító.
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
-
-	/**
-	 * A kosártermékek osztály kontruktora.
-	 */
-	public CartItem() {
-
-	}
 
 	/**
 	 * A rendelt sör.
@@ -62,6 +62,13 @@ public class CartItem extends BaseEntity implements Serializable {
 	 */
 	@Column(name = "removedFromCart")
 	private LocalDateTime removedFromCart;
+
+	/**
+	 * A kosártermékek osztály kontruktora.
+	 */
+	public CartItem() {
+
+	}
 
 	/**
 	 * Visszadja a termék hivatkozását egy sörre.

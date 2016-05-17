@@ -288,14 +288,20 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * Beállítja az eseményeket kezelő szolgáltatást.
+	 * 
 	 * @param eventLogService
+	 *            az eseményeket kezelő szolgáltatás.
 	 */
 	public void setEventLogService(EventLogService eventLogService) {
 		this.eventLogService = eventLogService;
 	}
 
 	/**
+	 * Beállítja a korlátozásokat kezelő szolgáltatást.
+	 * 
 	 * @param restrictionCheckerService
+	 *            a korlátozásokat kezelő szolgáltatás.
 	 */
 	public void setRestrictionCheckerService(RestrictionCheckerService restrictionCheckerService) {
 		this.restrictionCheckerService = restrictionCheckerService;

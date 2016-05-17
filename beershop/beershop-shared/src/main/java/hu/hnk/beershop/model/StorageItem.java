@@ -17,6 +17,9 @@ import lombok.ToString;
  * A sör raktár, amelyben található egy sör illetve egy egész szám attribútum
  * ami a sör mennyiségét hivatott mutatni.
  * 
+ * Az áru a hozzákapcsolt sört ({@value StorageItem#beer}) illetve a raktárban
+ * még elérhető darabszámát tárolja ({@value StorageItem#quantity}).
+ * 
  * @author Nandi
  *
  */
@@ -29,16 +32,9 @@ import lombok.ToString;
 public class StorageItem extends BaseEntity implements Serializable {
 
 	/**
-	 * 
+	 * A szerializáció során használt egyedi azonosító.
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
-
-	/**
-	 * A raktárban lévő tárgy osztály konstuktora.
-	 */
-	public StorageItem() {
-
-	}
 
 	/**
 	 * A raktárban számontartott sörre való hivatkozás.
@@ -50,6 +46,13 @@ public class StorageItem extends BaseEntity implements Serializable {
 	 * A sör aktuális darabszáma a raktárban.
 	 */
 	private Integer quantity;
+
+	/**
+	 * A raktárban lévő tárgy osztály konstuktora.
+	 */
+	public StorageItem() {
+
+	}
 
 	/**
 	 * Visszaadja a sörre való hivatkozást.

@@ -200,11 +200,9 @@ public class DiscountServiceImpl implements DiscountService {
 					.getRanks();
 			logger.info("Allowed ranks for the Extra Bonus Points discount:" + allowedRanks);
 			debugLog(today, fiftyPercentage);
-			if (isTodayDiscountDay(fiftyPercentage.get(), today)) {
-				if (allowedRanks.contains(userService.countRankFromXp(cargo.getUser()))) {
-					cargo.setTotalPrice(cargo.getTotalPrice() * 0.5);
-					logger.info(DISCOUNT_SUCCESFULLY_COMPLETED);
-				}
+			if (isTodayDiscountDay(fiftyPercentage.get(), today) && allowedRanks.contains(userService.countRankFromXp(cargo.getUser()))) {
+				cargo.setTotalPrice(cargo.getTotalPrice() * 0.5);
+				logger.info(DISCOUNT_SUCCESFULLY_COMPLETED);
 			}
 		}
 	}

@@ -15,6 +15,11 @@ import lombok.ToString;
 /**
  * Egy kosár adatait tartalmazó osztály.
  * 
+ * Egy felhasználóhoz kötött kosár mely tartalmazza a kosárba tett termékek
+ * listáját, {@value Cart#items} illetve a kosárhoz kötött felhasználót,
+ * {@value Cart#user}. Egy újonnan létrehozott vendég mindig kap egy kosarat a
+ * sikeres regisztráció után.
+ * 
  * @author Nandi
  *
  */
@@ -25,15 +30,9 @@ import lombok.ToString;
 public class Cart extends BaseEntity implements Serializable {
 
 	/**
-	 * serial Version.
+	 * A szerializáció során használt egyedi azonosító.
 	 */
 	private static final long serialVersionUID = -4761818681252091051L;
-
-	/**
-	 * A kosár osztály konstuktora.
-	 */
-	public Cart() {
-	}
 
 	/**
 	 * A rendelt sörök listája darabszámokkal együtt.
@@ -46,6 +45,12 @@ public class Cart extends BaseEntity implements Serializable {
 	 */
 	@OneToOne
 	private User user;
+
+	/**
+	 * A kosár osztály konstuktora.
+	 */
+	public Cart() {
+	}
 
 	/**
 	 * Visszaadja a kosár tulajdonosát.
