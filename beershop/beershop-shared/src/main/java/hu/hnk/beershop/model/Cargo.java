@@ -79,6 +79,7 @@ public class Cargo extends BaseEntity implements Serializable {
 	 * A szállítás osztály konstuktora.
 	 */
 	public Cargo() {
+		// Üres szállítás objektum példányosítása.
 	}
 
 	/**

@@ -83,7 +83,7 @@ public class Beer extends BaseEntity implements Serializable {
 	 * Sör osztály konstuktora.
 	 */
 	public Beer() {
-
+		// Üres sor objektum példányosítása.
 	}
 
 	/**

@@ -51,7 +51,7 @@ public class StorageItem extends BaseEntity implements Serializable {
 	 * A raktárban lévő tárgy osztály konstuktora.
 	 */
 	public StorageItem() {
-
+		// Üres raktár áru objektum példányosítása.
 	}
 
 	/**

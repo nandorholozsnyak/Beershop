@@ -56,7 +56,7 @@ public class EventLog extends BaseEntity implements Serializable {
 	 * A felhasználói eseményeket rögzítő osztály konstuktora.
 	 */
 	public EventLog() {
-
+		// Üres esemény objektum példányosítása.
 	}
 
 	/**

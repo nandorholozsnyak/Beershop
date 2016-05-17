@@ -10,13 +10,6 @@ package hu.hnk.persistenceunit;
 public class PersistenceUnitDeclaration {
 
 	/**
-	 * Privát konstuktor.
-	 */
-	private PersistenceUnitDeclaration() {
-
-	}
-
-	/**
 	 * A MySQL-es beállításra vonatkozó konstans.
 	 */
 	public static final String MYSQL = "BeerShopUnit";
@@ -45,5 +38,12 @@ public class PersistenceUnitDeclaration {
 	 * Az aktuálisan használandó perzisztens egység neve.
 	 */
 	public static final String PERSISTENCE_UNIT = H2;
+
+	/**
+	 * Privát konstuktor.
+	 */
+	private PersistenceUnitDeclaration() {
+
+	}
 
 }

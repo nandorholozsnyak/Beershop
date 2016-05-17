@@ -38,7 +38,7 @@ public class Role extends BaseEntity implements Serializable {
 	 * A jogkör osztály konstuktora.
 	 */
 	public Role() {
-
+		// Üres jogkör objektum példányosítása.
 	}
 
 	/**

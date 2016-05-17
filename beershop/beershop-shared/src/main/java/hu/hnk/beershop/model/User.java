@@ -104,6 +104,7 @@ public class User extends BaseEntity implements Serializable {
 	 * A felhasználó osztály konstuktora.
 	 */
 	public User() {
+		// Üres felhasználó objektum példányosítása.
 	}
 
 	/**

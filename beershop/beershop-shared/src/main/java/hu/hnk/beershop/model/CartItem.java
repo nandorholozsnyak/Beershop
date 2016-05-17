@@ -67,7 +67,7 @@ public class CartItem extends BaseEntity implements Serializable {
 	 * A kosártermékek osztály kontruktora.
 	 */
 	public CartItem() {
-
+		// Üres kosár áru objektum példányosítása.
 	}
 
 	/**

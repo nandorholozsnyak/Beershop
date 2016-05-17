@@ -4,7 +4,6 @@ import java.util.List;
 
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
-import hu.hnk.beershop.service.logfactory.EventLogType;
 
 /**
  * Az eseményeket kezelő szolgáltatás.

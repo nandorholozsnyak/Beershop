@@ -28,7 +28,7 @@ public class MoneyTransferRestrictions {
 	/**
 	 * A szabályokat tartalmazó statikus lista.
 	 */
-	static List<MoneyTransferRestrictions> moneyRestrictions;
+	private static List<MoneyTransferRestrictions> moneyRestrictions;
 
 	static {
 		moneyRestrictions = new ArrayList<>();
