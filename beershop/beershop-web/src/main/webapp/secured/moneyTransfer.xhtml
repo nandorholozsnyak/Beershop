@@ -67,8 +67,8 @@
 														value="#{moneyTransferManagerBean.pin}"
 														onkeydown="return false;" onkeypress="return false;"
 														onkeyup="return false;" />
-													<h:inputText value="#{moneyTransferManagerBean.userPin}" />
-													<p:commandButton value="Feltöltés"
+													<h:inputText id="userPin" value="#{moneyTransferManagerBean.userPin}" />
+													<p:commandButton id="transferMoney" value="Feltöltés"
 														update="moneyMsg userMoney pinCode"
 														action="#{moneyTransferManagerBean.transferMoney}" />
 												</p:panelGrid>

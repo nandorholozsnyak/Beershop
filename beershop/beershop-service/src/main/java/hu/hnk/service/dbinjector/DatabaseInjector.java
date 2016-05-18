@@ -2,6 +2,7 @@ package hu.hnk.service.dbinjector;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -32,11 +33,17 @@ import hu.hnk.service.cobertura.annotation.CoverageIgnore;
 @Singleton
 @CoverageIgnore
 public class DatabaseInjector {
+
 	/**
 	 * Az osztály loggere.
 	 */
 	@CoverageIgnore
 	public static final Logger logger = LoggerFactory.getLogger(DatabaseInjector.class);
+
+	/**
+	 * Az alapértelmezett felhasználó felhasználóneve és jelszava egyben.
+	 */
+	private static final String DEFAULT_USER = "admin";
 
 	/**
 	 * A felhasználókat kezelő adathozzáférési objektum.
@@ -75,11 +82,33 @@ public class DatabaseInjector {
 	private String[] beerNames = { "Ultra sör", "Bivaly sör", "Habos sör", "Jópofa sör", "Bebarnult sör", "Lime sör",
 			"Meghabosodott sör", "Party hordó", "25L-es hordó", "Szerencse sör", "Csapos party hordó", "Barátság sör",
 			"Jéghegy sör", "Őszi sör", "Fehér-Barna sör", "Sárga sör" };
+
+	/**
+	 * A legendás termékek azonosítójának listája.
+	 */
+	private List<Integer> legendaryItemIds = Arrays.asList(7, 10);
+	
+	/**
+	 * A termékek alkoholtartalmának tömbje. 
+	 */
+	private Double[] alcoholLevels = { 11.6, 6.5, 5.7, 6.4, 7.2, 2.2, 5.6, 4.9, 4.5, 3.6, 5.5, 3.6, 4.9, 4.5, 7.6,
+			2.4 };
+	
+	/**
+	 * A termékek űrtartalmának tömbje.
+	 */
+	private Double[] capacity = { 0.5, 0.5, 0.5, 0.33, 0.5, 0.5, 0.5, 50.0, 25.0, 0.5, 50.0, 0.5, 0.5, 0.5, 0.5, 0.33 };
+	
+	/**
+	 * A termékek árának tömbje.
+	 */
+	private Double[] prices = { 400.0, 250.0, 299.0, 320.0, 399.0, 235.0, 259.0, 15999.0, 8000.0, 310.0, 19000.0, 459.0,
+			259.0, 359.0, 320.0, 240.0 };
 	/**
 	 * Az adatbázisba mentendő sörök leírása.
 	 */
 	@CoverageIgnore
-	private String[] comments = { " világ egyik legerősebb söre.", "A világ főleg Európai országaiban kedvelt sör.",
+	private String[] comments = { "A világ egyik legerősebb söre.", "A világ főleg Európai országaiban kedvelt sör.",
 			"Egy igazán habos sör az unalmas hétköznapokra.", "Egy jó buliban mindig van szükség egy jó pofa sörre.",
 			"Az egyik legfinomabb barna sör amit inni fog.", "Egy igazán jól elkészített lime ízesítésű sör.",
 			"Egy igazán habosra készített söröcske.",
@@ -150,10 +179,11 @@ public class DatabaseInjector {
 				beer = Beer.builder()
 						.name(beerNames[i])
 						.comment(comments[i])
-						.alcoholLevel(11.6)
+						.alcoholLevel(alcoholLevels[i])
 						.discountAmount(0)
-						.capacity(0.5)
-						.price(250.0)
+						.capacity(capacity[i])
+						.price(prices[i])
+						.legendary(legendaryItemIds.contains(i))
 						.build();
 				try {
 					beerDao.save(beer);
@@ -207,18 +237,18 @@ public class DatabaseInjector {
 				.isEmpty()) {
 
 			User defUser = User.builder()
-					.username("admin")
-					.password(encoder.encode("admin"))
+					.username(DEFAULT_USER)
+					.password(encoder.encode(DEFAULT_USER))
 					.roles(Arrays.asList(userRole, adminRole))
 					.email("admin@admin.com")
 					.experiencePoints(5000.0)
 					.money(5000.0)
-					.points(0.0)
+					.points(2500.0)
 					.dateOfBirth(LocalDate.of(1995, 10, 20))
 					.build();
 			try {
 				userDao.save(defUser);
-				User foundUser = userDao.findByUsername("admin");
+				User foundUser = userDao.findByUsername(DEFAULT_USER);
 				Cart cart = cartDao.save(Cart.builder()
 						.user(foundUser)
 						.build());

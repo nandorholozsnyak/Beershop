@@ -202,24 +202,6 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public Rank countRankFromXp(User user) {
-		// if (user.getExperiencePoints() > -1 && user.getExperiencePoints() <=
-		// 2500) {
-		// userRank = Rank.Amatuer;
-		// } else if (user.getExperiencePoints() > 2500 &&
-		// user.getExperiencePoints() <= 5000) {
-		// userRank = Rank.Sorfelelos;
-		// } else if (user.getExperiencePoints() > 5000 &&
-		// user.getExperiencePoints() <= 7500) {
-		// userRank = Rank.Ivobajnok;
-		// } else if (user.getExperiencePoints() > 7500 &&
-		// user.getExperiencePoints() <= 10000) {
-		// userRank = Rank.Sormester;
-		// } else if (user.getExperiencePoints() > 10000 &&
-		// user.getExperiencePoints() <= 12500) {
-		// userRank = Rank.Sordoktor;
-		// } else if (user.getExperiencePoints() > 12500) {
-		// userRank = Rank.Legenda;
-		// }
 
 		if (user.getExperiencePoints() == null) {
 			return Rank.AMATUER;

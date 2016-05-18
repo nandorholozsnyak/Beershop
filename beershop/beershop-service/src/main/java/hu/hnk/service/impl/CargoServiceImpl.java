@@ -114,6 +114,7 @@ public class CargoServiceImpl implements CargoService {
 
 		savedCargo = saveCargo(cargo, items);
 		// a kedvezményeket élesítjük
+		logger.info("Date:" + LocalDate.now());
 		Arrays.asList(DiscountType.values())
 				.stream()
 				.forEach(p -> discountService.validateDiscount(p, savedCargo, LocalDate.now()));
