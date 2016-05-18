@@ -15,20 +15,22 @@ tr:first-child {
 	background: #eeeeee !important;
 	border: 0 none !important;
 }
-@keyframes blink { 
-   50% {
-   	border: 0.15em solid #BBA50F;
-     } 
+
+@
+keyframes blink { 50% {
+	border: 0.15em solid #BBA50F;
+}
+
 }
 .legendaryBeer {
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
- 	border-radius: 15px;
-/*     animation: blink .5s step-end infinite alternate; */
-    animation-duration: 1s;
-    animation-name: blink;
-    animation-iteration-count: infinite;
-    animation-timing-function: steps(2, start);
+	border-radius: 15px;
+	/*     animation: blink .5s step-end infinite alternate; */
+	animation-duration: 1s;
+	animation-name: blink;
+	animation-iteration-count: infinite;
+	animation-timing-function: steps(2, start);
 }
 </style>
 
@@ -91,7 +93,8 @@ tr:first-child {
 												<f:facet name="footer">
 													<p:commandButton update="form:shopMsg"
 														value="Kosárba helyezés"
-														actionListener="#{beerShopManager.saveItemsToCart}" />
+														actionListener="#{beerShopManager.saveItemsToCart}">
+													</p:commandButton>
 												</f:facet>
 											</p:dataGrid>
 

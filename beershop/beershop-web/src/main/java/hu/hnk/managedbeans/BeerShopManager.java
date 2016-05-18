@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,6 +111,14 @@ public class BeerShopManager implements Serializable {
 		beersToCart = new HashMap<>();
 		for (Beer b : beersInShop) {
 			beersToCart.put(b, 0);
+		}
+
+		// UI frissítése
+		for (int i = 0; i < beersInShop.size(); i++) {
+			FacesContext.getCurrentInstance()
+					.getPartialViewContext()
+					.getRenderIds()
+					.add("form:beers:" + i + ":beerQuantity");
 		}
 	}
 
