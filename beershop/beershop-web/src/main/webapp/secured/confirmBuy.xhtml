@@ -42,58 +42,75 @@
 											<h:panelGrid
 												style="margin-left: auto !important;
 	margin-right: auto !important;"
-												id="buyPanelGrid" columns="2" cellpadding="10"
-												cellspacing="10">
-
-												<p:outputLabel for="address" value="Szállítási cím:" />
-												<p:inputText id="address"
-													requiredMessage="A szállítási cím megadása kötelező!"
-													value="#{transactionManagerBean.address}" required="true"
-													label="Szállítási cím">
-												</p:inputText>
-
-												<p:outputLabel for="cost"
-													value="Teljes összeg (+ szállítási díj):" />
-												<p:outputLabel id="cost"
-													value="#{transactionManagerBean.totalCost} + #{transactionManagerBean.shippingCost} = #{transactionManagerBean.totalCost +transactionManagerBean.shippingCost}" />
-
-												<p:outputLabel for="paymentMode" value="Fizetési mód:" />
-												<p:selectOneRadio id="paymentMode"
-													value="#{transactionManagerBean.paymentMode}">
-													<f:selectItem itemLabel="Utalás" itemValue="MONEY" />
-													<f:selectItem itemLabel="Bónusz pont"
-														itemValue="BONUSPOINT" />
-													<p:ajax event="change"
-														update="paymentMode buyForm:enoughMoney buyForm:moneyAfterPayment" />
-												</p:selectOneRadio>
-												
+												id="buyPanelGrid" cellspacing="50">
 												<p:row>
-
+													<p:column>
+														<p:outputLabel for="address" value="Szállítási cím:" />
+													</p:column>
+													<p:column>
+														<p:inputText id="address"
+															requiredMessage="A szállítási cím megadása kötelező!"
+															value="#{transactionManagerBean.address}" required="true"
+															label="Szállítási cím">
+														</p:inputText>
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:outputLabel for="cost"
+															value="Teljes összeg (+ szállítási díj):" />
+													</p:column>
+													<p:column>
+														<p:outputLabel id="cost"
+															value="#{transactionManagerBean.totalCost} + #{transactionManagerBean.shippingCost} = #{transactionManagerBean.totalCost +transactionManagerBean.shippingCost}" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel for="paymentMode" value="Fizetési mód:" />
+														<p:selectOneRadio id="paymentMode"
+															value="#{transactionManagerBean.paymentMode}">
+															<f:selectItem itemLabel="Utalás" itemValue="MONEY" />
+															<f:selectItem itemLabel="Bónusz pont"
+																itemValue="BONUSPOINT" />
+															<p:ajax event="change"
+																update="paymentMode buyForm:enoughMoney buyForm:moneyAfterPayment" />
+														</p:selectOneRadio>
+													</p:column>
+												</p:row>
+												<p:row>
 													<p:column colspan="2">
 														<p:dataList value="#{transactionManagerBean.discounts}"
 															var="discount" type="ordered"
 															emptyMessage="Nincs elérhető kedvezmény.">
 															<f:facet name="header">
-            											Kedvezmények
-        											</f:facet>
-
+            													Kedvezmények
+        													</f:facet>
         											#{discount.value}
-
-												</p:dataList>
-
+														</p:dataList>
 													</p:column>
 												</p:row>
-												<br />
-												<p:outputLabel value="Rendelkezésére áll elég egyenleg: " />
-												<p:outputLabel id="enoughMoney"
-													value="#{transactionManagerBean.isThereEnoughMoney() == true?'Igen':'Nem'}" />
-
-												<p:outputLabel value="Fizetés utáni egyenlege: " />
-												<p:outputLabel id="moneyAfterPayment"
-													value="#{transactionManagerBean.countMoneyAfterPayment() == null?'Nincs elég pénze':transactionManagerBean.countMoneyAfterPayment()}"></p:outputLabel>
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Rendelkezésére áll elég egyenleg: " />
+													</p:column>
+													<p:column>
+														<p:outputLabel id="enoughMoney"
+															value="#{transactionManagerBean.isThereEnoughMoney() == true?'Igen':'Nem'}" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Fizetés utáni egyenlege: " />
+													</p:column>
+													<p:column>
+														<p:outputLabel id="moneyAfterPayment"
+															value="#{transactionManagerBean.countMoneyAfterPayment() == null?'Nincs elég pénze':transactionManagerBean.countMoneyAfterPayment()}"></p:outputLabel>
+													</p:column>
+												</p:row>
 												<p:row>
 
-													<p:column colspan="1">
+													<p:column colspan="2">
 														<p:commandButton style="margin:auto !important;"
 															id="actionButton" value="Vásárlás" validateClient="true"
 															action="#{transactionManagerBean.doTransaction}"
