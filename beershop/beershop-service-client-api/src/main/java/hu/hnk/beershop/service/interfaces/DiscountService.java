@@ -1,8 +1,10 @@
 package hu.hnk.beershop.service.interfaces;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import hu.hnk.beershop.model.Cargo;
+import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.discounts.DiscountType;
 
 /**
@@ -27,4 +29,12 @@ public interface DiscountService {
 	 *            a mai nap
 	 */
 	public void validateDiscount(DiscountType discountType, Cargo cargo, LocalDate today);
+
+	/**
+	 * Visszaadja a mai napi kedvezményeket.
+	 * 
+	 * @param today
+	 * @return
+	 */
+	public List<DiscountType> getAvailableDailyRankBonusesForUser(User user,LocalDate today);
 }

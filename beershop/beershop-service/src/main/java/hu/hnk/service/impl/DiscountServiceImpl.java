@@ -1,7 +1,9 @@
 package hu.hnk.service.impl;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -15,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
 import hu.hnk.beershop.model.Rank;
+import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.discounts.DailyRankBonus;
 import hu.hnk.beershop.service.discounts.DiscountType;
 import hu.hnk.beershop.service.interfaces.DiscountService;
@@ -55,6 +58,24 @@ public class DiscountServiceImpl implements DiscountService {
 	 * A kedvezmények listája.
 	 */
 	private List<DailyRankBonus> discountList = DailyRankBonus.getDailyBonuses();
+
+	@Override
+	public List<DiscountType> getAvailableDailyRankBonusesForUser(User user, LocalDate today) {
+		List<DiscountType> result;
+		try {
+			result = discountList.stream()
+					.filter(p -> p.getDay()
+							.equals(today.getDayOfWeek())
+							&& p.getRanks()
+									.contains(userService.countRankFromXp(user)))
+					.map(DailyRankBonus::getDiscounts)
+					.findFirst()
+					.get();
+		} catch (NoSuchElementException e) {
+			result = Collections.EMPTY_LIST;
+		}
+		return result;
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -200,7 +221,8 @@ public class DiscountServiceImpl implements DiscountService {
 					.getRanks();
 			logger.info("Allowed ranks for the Extra Bonus Points discount:" + allowedRanks);
 			debugLog(today, fiftyPercentage);
-			if (isTodayDiscountDay(fiftyPercentage.get(), today) && allowedRanks.contains(userService.countRankFromXp(cargo.getUser()))) {
+			if (isTodayDiscountDay(fiftyPercentage.get(), today)
+					&& allowedRanks.contains(userService.countRankFromXp(cargo.getUser()))) {
 				cargo.setTotalPrice(cargo.getTotalPrice() * 0.5);
 				logger.info(DISCOUNT_SUCCESFULLY_COMPLETED);
 			}

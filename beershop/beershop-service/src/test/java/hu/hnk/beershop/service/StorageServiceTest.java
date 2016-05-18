@@ -15,7 +15,6 @@ import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.interfaces.StorageDao;
 import hu.hnk.service.impl.StorageServiceImpl;
 
-
 public class StorageServiceTest {
 
 	private StorageServiceImpl storageService;
@@ -40,7 +39,9 @@ public class StorageServiceTest {
 		item.setQuantity(1);
 		List<StorageItem> items = new ArrayList<>();
 		items.add(item);
-		Mockito.doNothing().when(storageDao).saveAllChanges(items);
+		Mockito.doNothing()
+				.when(storageDao)
+				.saveAllChanges(items);
 		storageService.checkStorageItemQuantityLimit(items, beer, 2);
 	}
 
@@ -54,7 +55,9 @@ public class StorageServiceTest {
 		item.setQuantity(1);
 		List<StorageItem> items = new ArrayList<>();
 		items.add(item);
-		Mockito.doNothing().when(storageDao).saveAllChanges(items);
+		Mockito.doNothing()
+				.when(storageDao)
+				.saveAllChanges(items);
 		storageService.checkStorageItemQuantityLimit(items, beer, -1);
 	}
 
@@ -67,7 +70,9 @@ public class StorageServiceTest {
 		item.setQuantity(-1);
 		List<StorageItem> items = new ArrayList<>();
 		items.add(item);
-		Mockito.doNothing().when(storageDao).saveAllChanges(items);
+		Mockito.doNothing()
+				.when(storageDao)
+				.saveAllChanges(items);
 		storageService.saveAllChanges(items);
 	}
 
@@ -76,12 +81,14 @@ public class StorageServiceTest {
 		Beer beer = new Beer();
 		beer.setName("Teszt sör");
 		beer.setDiscountAmount(0);
+		beer.setPrice(100.0);
 		StorageItem item = new StorageItem();
 		item.setBeer(beer);
+
 		item.setQuantity(1);
 		List<StorageItem> items = new ArrayList<>();
 		items.add(item);
-		//Mockito.doNothing().when(storageDao).saveAllChanges(items);
+		// Mockito.doNothing().when(storageDao).saveAllChanges(items);
 		storageService.saveAllChanges(items);
 	}
 

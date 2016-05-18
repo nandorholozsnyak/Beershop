@@ -254,18 +254,21 @@ public class CargoServiceImpl implements CargoService {
 	 *            a készítésben lévő szállítás.
 	 */
 	private void deleteItemsFromUsersCart(Cargo cargo) throws Exception {
-		try {
-			cargo.getItems()
-					.stream()
-					.forEach(p -> {
-						try {
-							cartItemDao.deleteItemLogically(p);
-						} catch (Exception e) {
-							throwWrapped(e);
-						}
-					});
-		} catch (Exception e) {
-			throw new Exception(e);
+		// try {
+		// cargo.getItems()
+		// .stream()
+		// .forEach(p -> {
+		// try {
+		// cartItemDao.deleteItemLogically(p);
+		// } catch (Exception e) {
+		// throwWrapped(e);
+		// }
+		// });
+		// } catch (Exception e) {
+		// throw new Exception(e);
+		// }
+		for (CartItem item : cargo.getItems()) {
+			cartItemDao.deleteItemLogically(item);
 		}
 	}
 
@@ -386,18 +389,6 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	public void setDiscountService(DiscountService discountService) {
 		this.discountService = discountService;
-	}
-
-	class WrappedException extends RuntimeException {
-		Throwable cause;
-
-		WrappedException(Throwable cause) {
-			this.cause = cause;
-		}
-	}
-
-	static WrappedException throwWrapped(Throwable t) {
-		throw CargoServiceImpl.throwWrapped(t);
 	}
 
 }

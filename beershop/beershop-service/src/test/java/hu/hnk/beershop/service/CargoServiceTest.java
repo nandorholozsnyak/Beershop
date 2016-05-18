@@ -30,6 +30,7 @@ import hu.hnk.beershop.service.utils.PaymentMode;
 import hu.hnk.interfaces.CargoDao;
 import hu.hnk.interfaces.CartItemDao;
 import hu.hnk.interfaces.EventLogDao;
+import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.impl.CargoServiceImpl;
 import hu.hnk.service.impl.DiscountServiceImpl;
@@ -40,10 +41,10 @@ import hu.hnk.service.tools.BonusPointCalculator;
 @PrepareForTest({ LocalDate.class })
 @RunWith(PowerMockRunner.class)
 public class CargoServiceTest {
-
+	private UserDao userDao;
 	private CargoServiceImpl cargoServiceImpl;
 	private EventLogDao eventLogDao;
-	private RestrictionCheckerServiceImpl res;
+	private RestrictionCheckerServiceImpl restrictionChecker;
 	private CartItemDao cartItemDao;
 	private CargoDao cargoDao;
 	private BonusPointCalculator bonusPointCalculator;
@@ -53,8 +54,9 @@ public class CargoServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
+		// Mock Halmaz
 		cargoServiceImpl = Mockito.spy(new CargoServiceImpl());
-		res = Mockito.spy(new RestrictionCheckerServiceImpl());
+		restrictionChecker = Mockito.spy(new RestrictionCheckerServiceImpl());
 		discountService = Mockito.spy(new DiscountServiceImpl());
 		bonusPointCalculator = Mockito.spy(new BonusPointCalculator());
 		userService = Mockito.spy(new UserServiceImpl());
@@ -62,12 +64,15 @@ public class CargoServiceTest {
 		eventLogDao = Mockito.spy(EventLogDao.class);
 		cartItemDao = Mockito.mock(CartItemDao.class);
 		cargoDao = Mockito.mock(CargoDao.class);
-		cargoServiceImpl.setRestrictionCheckerService(res);
-		res.setEventLogDao(eventLogDao);
+		userDao = Mockito.mock(UserDao.class);
+		restrictionChecker.setEventLogDao(eventLogDao);
+		cargoServiceImpl.setRestrictionCheckerService(restrictionChecker);
 		cargoServiceImpl.setCargoDao(cargoDao);
 		cargoServiceImpl.setCalculator(bonusPointCalculator);
 		cargoServiceImpl.setDiscountService(discountService);
-
+		cargoServiceImpl.setCartItemDao(cartItemDao);
+		cargoServiceImpl.setUserDao(userDao);
+		cargoServiceImpl.setEventLogDao(eventLogDao);
 		// létrehozunk egy amatőr felhasználót, 1000 Ft-al a számlán, 1000
 		// bónuszponttal
 		user = new User();

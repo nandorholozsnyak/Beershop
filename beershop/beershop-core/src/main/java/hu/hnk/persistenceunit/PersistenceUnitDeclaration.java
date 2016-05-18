@@ -20,24 +20,19 @@ public class PersistenceUnitDeclaration {
 	public static final String DERBY = "BeerShopUnitDerby";
 
 	/**
-	 * 
+	 * Az egyetemi Oracle-s szerverre vonatkozó konstans.
 	 */
 	public static final String ORACLE = "BeerShopUnitOra";
 
 	/**
-	 * 
+	 * A lokális H2 in-memory DB-re vonatkozó konstans.
 	 */
 	public static final String H2 = "BeerShopUnitH2";
 
 	/**
-	 * 
-	 */
-	public static final String HSQLDB = "BeerShopUnitHSQLDB";
-
-	/**
 	 * Az aktuálisan használandó perzisztens egység neve.
 	 */
-	public static final String PERSISTENCE_UNIT = MYSQL;
+	public static final String PERSISTENCE_UNIT = H2;
 
 	/**
 	 * Privát konstuktor.

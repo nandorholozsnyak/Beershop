@@ -26,18 +26,22 @@ import hu.hnk.interfaces.UserDao;
 import hu.hnk.service.cobertura.annotation.CoverageIgnore;
 
 /**
+ * Az adatbázis feltöltésére szolgáló osztály.
+ * 
+ * Az alkalmazás indulásakor a szolgáltatás elindul és ellenőrzi hogy a sörök, a
+ * raktár illetve a felhasználó tábla üres-e, ha igen akkor felölti az
+ * alapértelmezett adatokkal.
+ * 
  * @author Nandi
  *
  */
 @Startup
 @Singleton
-@CoverageIgnore
 public class DatabaseInjector {
 
 	/**
 	 * Az osztály loggere.
 	 */
-	@CoverageIgnore
 	public static final Logger logger = LoggerFactory.getLogger(DatabaseInjector.class);
 
 	/**
@@ -78,7 +82,6 @@ public class DatabaseInjector {
 	/**
 	 * Az adatbázisba mentendő sörök nevei.
 	 */
-	@CoverageIgnore
 	private String[] beerNames = { "Ultra sör", "Bivaly sör", "Habos sör", "Jópofa sör", "Bebarnult sör", "Lime sör",
 			"Meghabosodott sör", "Party hordó", "25L-es hordó", "Szerencse sör", "Csapos party hordó", "Barátság sör",
 			"Jéghegy sör", "Őszi sör", "Fehér-Barna sör", "Sárga sör" };
@@ -107,7 +110,6 @@ public class DatabaseInjector {
 	/**
 	 * Az adatbázisba mentendő sörök leírása.
 	 */
-	@CoverageIgnore
 	private String[] comments = { "A világ egyik legerősebb söre.", "A világ főleg Európai országaiban kedvelt sör.",
 			"Egy igazán habos sör az unalmas hétköznapokra.", "Egy jó buliban mindig van szükség egy jó pofa sörre.",
 			"Az egyik legfinomabb barna sör amit inni fog.", "Egy igazán jól elkészített lime ízesítésű sör.",
@@ -141,13 +143,20 @@ public class DatabaseInjector {
 
 		Role userRole;
 		Role adminRole;
-		// Default jogkörök.
-		createRoles();
-		userRole = roleDao.findByName("ROLE_USER");
-		adminRole = roleDao.findByName("ROLE_ADMIN");
 
-		// Default user létrehozása, ha kell
-		createDefaultUser(userRole, adminRole);
+		try {
+			// Default jogkörök.
+			createRoles();
+			userRole = roleDao.findByName("ROLE_USER");
+			adminRole = roleDao.findByName("ROLE_ADMIN");
+			// Default user létrehozása, ha kell
+			createDefaultUser(userRole, adminRole);
+		} catch (Exception e) {
+			logger.warn("Could not default user with default roles.");
+			logger.error(e.getMessage(), e);
+		}
+		
+		logger.info("DatabaseInjector finished.");
 
 	}
 
@@ -155,6 +164,7 @@ public class DatabaseInjector {
 	 * A raktárt feltöltő metódus.
 	 * 
 	 * @throws Exception
+	 *             adatbázishiba esetén.
 	 */
 	@CoverageIgnore
 	private void fillStorage() throws Exception {
@@ -179,6 +189,7 @@ public class DatabaseInjector {
 	 * A söröket generáló metódus.
 	 * 
 	 * @throws Exception
+	 *             adatbázishiba esetén.
 	 */
 	@CoverageIgnore
 	private void generateBeers() throws Exception {
@@ -195,20 +206,20 @@ public class DatabaseInjector {
 						.price(prices[i])
 						.legendary(legendaryItemIds.contains(i))
 						.build();
-				try {
-					beerDao.save(beer);
-				} catch (Exception e) {
-					logger.error(e.getMessage(), e);
-				}
+				beerDao.save(beer);
+
 			}
 		}
 	}
 
 	/**
 	 * A jogköröket létrehozó metódus.
+	 * 
+	 * @throws Exception
+	 *             adatbázishiba esetén.
 	 */
 	@CoverageIgnore
-	private void createRoles() {
+	private void createRoles() throws Exception {
 		Role userRole;
 		Role adminRole;
 		if (roleDao.findAll()
@@ -219,12 +230,8 @@ public class DatabaseInjector {
 			adminRole = Role.builder()
 					.name("ROLE_ADMIN")
 					.build();
-			try {
-				roleDao.save(adminRole);
-				roleDao.save(userRole);
-			} catch (Exception e) {
-				logger.error(e.getMessage(), e);
-			}
+			roleDao.save(adminRole);
+			roleDao.save(userRole);
 
 		}
 	}
@@ -238,9 +245,11 @@ public class DatabaseInjector {
 	 *            alapértelmezett felhasználó jogkör.
 	 * @param adminRole
 	 *            alapértelmezett adminisztrátori jogkör.
+	 * @throws Exception
+	 *             adatbázishiba esetén.
 	 */
 	@CoverageIgnore
-	private void createDefaultUser(Role userRole, Role adminRole) {
+	private void createDefaultUser(Role userRole, Role adminRole) throws Exception {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 		if (userDao.findAll()
@@ -256,16 +265,14 @@ public class DatabaseInjector {
 					.points(2500.0)
 					.dateOfBirth(LocalDate.of(1995, 10, 20))
 					.build();
-			try {
-				userDao.save(defUser);
-				User foundUser = userDao.findByUsername(DEFAULT_USER);
-				Cart cart = cartDao.save(Cart.builder()
-						.user(foundUser)
-						.build());
-				foundUser.setCart(cart);
-			} catch (Exception e) {
-				logger.error(e.getMessage(), e);
-			}
+
+			userDao.save(defUser);
+			User foundUser = userDao.findByUsername(DEFAULT_USER);
+			Cart cart = cartDao.save(Cart.builder()
+					.user(foundUser)
+					.build());
+			foundUser.setCart(cart);
+
 		}
 	}
 

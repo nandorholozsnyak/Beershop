@@ -63,9 +63,27 @@
 													<f:selectItem itemLabel="Utalás" itemValue="MONEY" />
 													<f:selectItem itemLabel="Bónusz pont"
 														itemValue="BONUSPOINT" />
-													<p:ajax event="change" update="paymentMode buyForm:enoughMoney buyForm:moneyAfterPayment" />
+													<p:ajax event="change"
+														update="paymentMode buyForm:enoughMoney buyForm:moneyAfterPayment" />
 												</p:selectOneRadio>
+												
+												<p:row>
 
+													<p:column colspan="2">
+														<p:dataList value="#{transactionManagerBean.discounts}"
+															var="discount" type="ordered"
+															emptyMessage="Nincs elérhető kedvezmény.">
+															<f:facet name="header">
+            											Kedvezmények
+        											</f:facet>
+
+        											#{discount.value}
+
+												</p:dataList>
+
+													</p:column>
+												</p:row>
+												<br />
 												<p:outputLabel value="Rendelkezésére áll elég egyenleg: " />
 												<p:outputLabel id="enoughMoney"
 													value="#{transactionManagerBean.isThereEnoughMoney() == true?'Igen':'Nem'}" />

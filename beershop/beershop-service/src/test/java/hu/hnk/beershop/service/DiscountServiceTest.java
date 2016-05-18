@@ -177,4 +177,21 @@ public class DiscountServiceTest {
 				0.0);
 	}
 
+	@Test
+	public void testGetAvailableDailyRankBonusesForUser() {
+		User user = User.builder()
+				.experiencePoints(1.0)
+				.build();
+
+		Assert.assertEquals(Arrays.asList(DiscountType.FIFTYPERCENTAGE),
+				discountService.getAvailableDailyRankBonusesForUser(user, LocalDate.of(2016, 05, 17)));
+		user.setExperiencePoints(2501.0);
+		Assert.assertEquals(Arrays.asList(DiscountType.EXTRABONUSPOINTS),
+				discountService.getAvailableDailyRankBonusesForUser(user, LocalDate.of(2016, 05, 18)));
+		user.setExperiencePoints(5501.0);
+		Assert.assertEquals(Arrays.asList(DiscountType.THECHEAPESTFORFREE),
+				discountService.getAvailableDailyRankBonusesForUser(user, LocalDate.of(2016, 05, 19)));
+
+	}
+
 }

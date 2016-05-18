@@ -1,6 +1,7 @@
 package hu.hnk.managedbeans;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,8 +19,10 @@ import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetExceptionException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceededException;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
+import hu.hnk.beershop.service.discounts.DiscountType;
 import hu.hnk.beershop.service.interfaces.CargoService;
 import hu.hnk.beershop.service.interfaces.CartService;
+import hu.hnk.beershop.service.interfaces.DiscountService;
 import hu.hnk.beershop.service.restrictions.BuyActionRestrictions;
 import hu.hnk.beershop.service.utils.PaymentMode;
 import hu.hnk.loginservices.SessionManager;
@@ -57,6 +60,12 @@ public class TransactionManagerBean implements Serializable {
 	 */
 	@EJB
 	private CargoService cargoService;
+	
+	/**
+	 * A kedvezményeket kezelő szolgáltatás.
+	 */
+	@EJB
+	private DiscountService discountService;
 
 	/**
 	 * A munkamenetet kezelő szolgáltatás.
@@ -93,7 +102,12 @@ public class TransactionManagerBean implements Serializable {
 	 * A felhasználó kosárban, illetve most a szállítandó termékek listája.
 	 */
 	private List<CartItem> items;
-
+	
+	/**
+	 * Az aktuális kedvezmények listája.
+	 */
+	private List<DiscountType> discounts;
+	
 	/**
 	 * Inicializáló metódus, a managed bean létrejöttekor.
 	 */
@@ -110,6 +124,7 @@ public class TransactionManagerBean implements Serializable {
 			logger.warn("Could not load user items for transaction.");
 			logger.error(e.getMessage(), e);
 		}
+		discounts = discountService.getAvailableDailyRankBonusesForUser(sessionManager.getLoggedInUser(), LocalDate.now());
 		shippingCost = BuyActionRestrictions.getShippingCost();
 		paymentMode = PaymentMode.MONEY;
 
@@ -122,7 +137,6 @@ public class TransactionManagerBean implements Serializable {
 	 */
 	public Double countTotalCost() {
 		List<CartItem> userCartItems;
-		Double totalCost = -1.0;
 		try {
 			userCartItems = cartService.findByUser(sessionManager.getLoggedInUser())
 					.getItems();
@@ -352,6 +366,14 @@ public class TransactionManagerBean implements Serializable {
 	 */
 	public void setShippingCost(Double shippingCost) {
 		this.shippingCost = shippingCost;
+	}
+
+	public List<DiscountType> getDiscounts() {
+		return discounts;
+	}
+
+	public void setDiscounts(List<DiscountType> discounts) {
+		this.discounts = discounts;
 	}
 
 }
