@@ -20,6 +20,7 @@ public interface UserService {
 	 * 
 	 * @param user
 	 *            a mentendő felhasználó.
+	 * @throws Exception
 	 */
 	public void save(User user) throws Exception;
 
@@ -90,9 +91,9 @@ public interface UserService {
 	 * ezt kell megadnia, <code>userPin</code>, illetve egy pénzmennyiséget.
 	 * 
 	 * Kétféle kivétellel jelezhetjük a tranzakció sikertelenségét. Az egyik az
-	 * {@link InvalidPinCodeException} ha a felhasználó nem az elvárt PIN kódot adta meg,
-	 * illetve a {@link DailyMoneyTransferLimitExceededException} kivétellel ha a
-	 * felhasználó túllépte a napi korlátot.
+	 * {@link InvalidPinCodeException} ha a felhasználó nem az elvárt PIN kódot
+	 * adta meg, illetve a {@link DailyMoneyTransferLimitExceededException}
+	 * kivétellel ha a felhasználó túllépte a napi korlátot.
 	 * 
 	 * @param userPin
 	 *            a felhasználó által begépelt PIN kód.
@@ -107,7 +108,7 @@ public interface UserService {
 	 * @throws DailyMoneyTransferLimitExceededException
 	 *             akkor dobjuk ha a felhasználó túllépte a megadott napi
 	 *             limitet.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser)
 			throws InvalidPinCodeException, DailyMoneyTransferLimitExceededException, Exception;

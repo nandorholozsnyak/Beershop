@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Holi60k/Beershop.svg?branch=master)](https://travis-ci.org/Holi60k/Beershop)
+﻿[![Build Status](https://travis-ci.org/Holi60k/Beershop.svg?branch=master)](https://travis-ci.org/Holi60k/Beershop)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/7d87cbfeb50f4dfdb2589ad9c9f9d31a)](https://www.codacy.com)
 
 
@@ -70,3 +70,36 @@ Jópofa sör: templateben van.
 Lime sör: templateben van.
 
 
+Credits:
+ArtifactId	License
+h2	MPL 2.0, and EPL 1.0
+HikariCP	The Apache Software License, Version 2.0
+servlet-api	-
+junit	Eclipse Public License 1.0
+mysql-connector-java	The GNU General Public License, Version 2
+hibernate-core	GNU Lesser General Public License
+hibernate-entitymanager	GNU Lesser General Public License
+hibernate-java8	GNU Lesser General Public License
+hibernate-validator	Apache License, Version 2.0
+jboss-logging	Apache License, version 2.0
+mockito-all	The MIT License
+primefaces	The Apache Software License, Version 2.0
+primefaces-extensions	Apache 2
+bootstrap	-
+lombok	The MIT License
+slf4j-api	MIT License
+spring-security-config	The Apache Software License, Version 2.0
+spring-security-core	The Apache Software License, Version 2.0
+spring-security-taglibs	The Apache Software License, Version 2.0
+spring-security-web	The Apache Software License, Version 2.0
+spring-binding	The Apache Software License, Version 2.0
+spring-faces	The Apache Software License, Version 2.0
+spring-webflow	The Apache Software License, Version 2.0
+logback-classic	Eclipse Public License - v 1.0, GNU Lesser General Public License
+logback-core	Eclipse Public License - v 1.0, GNU Lesser General Public License
+javaee-api	The Apache Software License, Version 2.0
+openejb-core	Apache License, Version 2.0
+openejb-junit	Apache License, Version 2.0
+powermock-api-mockito	The Apache Software License, Version 2.0
+powermock-core	The Apache Software License, Version 2.0
+powermock-module-junit4	The Apache Software License, Version 2.0

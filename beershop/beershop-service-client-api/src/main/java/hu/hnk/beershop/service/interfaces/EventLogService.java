@@ -4,30 +4,24 @@ import java.util.List;
 
 import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
+import hu.hnk.beershop.service.logfactory.EventLogType;
 
 /**
  * Az eseményeket kezelő szolgáltatás.
  * 
  * Az események listázásért illetve mentéséért felelős szolgáltatás. Az
  * eseményeknek különböző fajtáik vannak.
+ * <ul>
+ * <li>{@link EventLogType#REGISTRATION} - regisztrációs esemény amely egy új
+ * felhasználó regisztrációja során mentődik el automatikusan.</li>
  * 
- * {@link EventLogType#REGISTRATION} - regisztrációs esemény amely egy új
- * felhasználó regisztrációja során mentődik el automatikusan.
+ * <li>{@link EventLogType#MONEYTRANSFER} - egy pénzfeltöltési esemény során
+ * létrejövő felhasználó esemény.</li>
  * 
- * {@link EventLogType#MONEYTRANSFER} - egy pénzfeltöltési esemény során
- * létrejövő felhasználó esemény.
- * 
- * {@link EventLogType#BUY} - egy vásárlás során létrejövő felhasználó esemény.
- * 
- * Az eseményeket szolgáltató <code>Factory</code> osztály az
- * <p>
- * EventLogFactory
- * </p>
- * osztály amely a
- * <p>
- * service
- * </p>
- * modulban található.
+ * <li>{@link EventLogType#BUY} - egy vásárlás során létrejövő felhasználó
+ * esemény.</li>
+ * </ul>
+ *
  * 
  * @author Nandi
  *

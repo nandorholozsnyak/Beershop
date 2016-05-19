@@ -4,16 +4,17 @@ package hu.hnk.beershop.service.logfactory;
  * Az események típusait tartalmazó enumeráció.
  * 
  * Három darab eseményt tudunk megkülönböztetni.
+ * <ul>
+ * <li>Egy regisztrációs eseményt, {@link EventLogType#REGISTRATION} , ami akkor
+ * jön létre amikor a felhasználó beregisztrál a shop-ba.</li>
  * 
- * Egy regisztrációs eseményt, {@code EventLogType#REGISTRATION} , ami akkor jön
- * létre amikor a felhasználó beregisztrál a shop-ba.
- * 
- * Az egyenlegfeltöltés során egy {@code EventLogType#MONEYTRANSFER} típusú
+ * <li>Az egyenlegfeltöltés során egy {@link EventLogType#MONEYTRANSFER} típusú
  * esemény jön létre, ennek a segítségével tudjuk validálni hogy a felhasználó
- * melyik napokon hányszor töltötte fel a számláját.
+ * melyik napokon hányszor töltötte fel a számláját.</li>
  * 
- * A harmadik eseményt jelző típus a vásárlást jelzi, {@code EventLogType#BUY},
- * a napi korlátozásokat tudjuk vele ellenőrizni.
+ * <li>A harmadik eseményt jelző típus a vásárlást jelzi,
+ * {@link EventLogType#BUY}, a napi korlátozásokat tudjuk vele ellenőrizni.</li>
+ * </ul>
  * 
  * @author Nandi
  *

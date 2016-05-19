@@ -4,12 +4,13 @@ package hu.hnk.beershop.service.utils;
  * A fizetési módok enumrációja.
  * 
  * Kétféle fizetési mód lehetséges:
+ * <ul>
+ * <li>{@link PaymentMode#MONEY} - készpénzel/egyenlegre feltötött pénzel való
+ * fizetés.</li>
  * 
- * {@code PaymentMode#MONEY} - készpénzel/egyenlegre feltötött pénzel való
- * fizetés.
- * 
- * {@code PaymentMode#BONUSPOINT} - bónusz ponttal, amit a vásárlások után
- * tudunk szerezni.
+ * <li>{@link PaymentMode#BONUSPOINT} - bónusz ponttal, amit a vásárlások után
+ * tudunk szerezni.</li>
+ * </ul>
  * 
  * @author Nandi
  *

@@ -8,14 +8,16 @@ package hu.hnk.beershop.service.discounts;
  * a UI felületen megjeleníteni ha szükséges.
  * 
  * A kedvezmények típusai:
+ * <ul>
+ * <li>{@link DiscountType#FIFTYPERCENTAGE} - 50% kedvezmény a vásárlás során.
+ * </li>
+ * <li>{@link DiscountType#EXTRABONUSPOINTS} - extra bónusz pont.</li>
+ * <li>{@link DiscountType#FREESHIPPING} - ingyenes szállítás.</li>
+ * <li>{@link DiscountType#EXTRAMONEYTRANSFER} - extra/bónusz egyenlegfeltöltési
+ * lehetőség.</li>
  * 
- * {@code DiscountType#FIFTYPERCENTAGE} - 50% kedvezmény a vásárlás során.
- * {@code DiscountType#EXTRABONUSPOINTS} - extra bónusz pont.
- * {@code DiscountType#FREESHIPPING} - ingyenes szállítás.
- * {@code DiscountType#EXTRAMONEYTRANSFER} - extra/bónusz egyenlegfeltöltési
- * lehetőség.
- * 
- * {@code DiscountType#THECHEAPESTFORFREE} - a legolcsóbb ingyen.
+ * <li>{@link DiscountType#THECHEAPESTFORFREE} - a legolcsóbb ingyen.</li>
+ * </ul>
  * 
  * @author Nandi
  *
