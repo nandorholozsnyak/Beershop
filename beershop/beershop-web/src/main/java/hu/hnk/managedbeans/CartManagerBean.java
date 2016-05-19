@@ -70,11 +70,16 @@ public class CartManagerBean implements Serializable {
 	 * A felhasználó kosarának tartalmát betöltő metódus.
 	 */
 	private void loadUserItems() {
-		items = cartService.findByUser(sessionManager.getLoggedInUser())
-				.getItems()
-				.stream()
-				.filter(p -> p.getActive() == true)
-				.collect(Collectors.toList());
+		try {
+			items = cartService.findByUser(sessionManager.getLoggedInUser())
+					.getItems()
+					.stream()
+					.filter(p -> p.getActive())
+					.collect(Collectors.toList());
+		} catch (Exception e) {
+			logger.warn("Could not load user items.");
+			logger.error(e.getMessage(), e);
+		}
 	}
 
 	/**

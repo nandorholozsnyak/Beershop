@@ -44,7 +44,7 @@ public class BeerDaoImpl extends BaseDaoImpl<Beer> implements BeerDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Beer> findAll() {
+	public List<Beer> findAll() throws Exception {
 		logger.info("Getting all beers from database.");
 		TypedQuery<Beer> query = entityManager.createNamedQuery("Beer.findAll", Beer.class);
 		return query.getResultList();

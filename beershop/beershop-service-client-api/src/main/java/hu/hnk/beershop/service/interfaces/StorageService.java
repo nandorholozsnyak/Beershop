@@ -20,7 +20,7 @@ public interface StorageService {
 	 * 
 	 * @return a raktár információi.
 	 */
-	public List<StorageItem> findAll();
+	public List<StorageItem> findAll() throws Exception;
 
 	/**
 	 * Meghívja a raktár adathozzáférési objektumának a mentését, amely a
@@ -30,8 +30,9 @@ public interface StorageService {
 	 *            a raktárban szereplő elemek listája.
 	 * @throws NegativeQuantityNumberException
 	 *             ha valamelyik elem darabszáma negatív.
+	 * @throws Exception 
 	 */
-	public void saveAllChanges(List<StorageItem> storage) throws NegativeQuantityNumberException;
+	public void saveAllChanges(List<StorageItem> storage) throws NegativeQuantityNumberException, Exception;
 
 	/**
 	 * Ellenőrzi egy termék raktárbeli előrhetőségét.
@@ -50,8 +51,9 @@ public interface StorageService {
 	 * @throws NegativeQuantityNumberException
 	 *             akkor dobjuk ha negatív számú terméket szeretnének kérni az
 	 *             adott sörből.
+	 * @throws Exception 
 	 */
 	public void checkStorageItemQuantityLimit(List<StorageItem> storage, Beer beer, Integer quantity)
-			throws StorageItemQuantityExceededException, NegativeQuantityNumberException;
+			throws StorageItemQuantityExceededException, NegativeQuantityNumberException, Exception;
 
 }

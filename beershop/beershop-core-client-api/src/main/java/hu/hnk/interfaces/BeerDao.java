@@ -15,5 +15,5 @@ public interface BeerDao extends BaseDao<Beer> {
 	 * 
 	 * @return a sörök listája
 	 */
-	public List<Beer> findAll();
+	public List<Beer> findAll() throws Exception;
 }

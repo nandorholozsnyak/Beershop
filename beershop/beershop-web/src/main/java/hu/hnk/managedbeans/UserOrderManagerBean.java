@@ -57,7 +57,12 @@ public class UserOrderManagerBean implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
-		userCargos = cargoService.findByUser(sessionManager.getLoggedInUser());
+		try {
+			userCargos = cargoService.findByUser(sessionManager.getLoggedInUser());
+		} catch (Exception e) {
+			logger.warn("Could not load user orders.");
+			logger.error(e.getMessage(), e);
+		}
 	}
 
 	/**

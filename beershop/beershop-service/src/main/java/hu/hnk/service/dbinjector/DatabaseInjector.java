@@ -87,18 +87,18 @@ public class DatabaseInjector {
 	 * A legendás termékek azonosítójának listája.
 	 */
 	private List<Integer> legendaryItemIds = Arrays.asList(7, 10);
-	
+
 	/**
-	 * A termékek alkoholtartalmának tömbje. 
+	 * A termékek alkoholtartalmának tömbje.
 	 */
 	private Double[] alcoholLevels = { 11.6, 6.5, 5.7, 6.4, 7.2, 2.2, 5.6, 4.9, 4.5, 3.6, 5.5, 3.6, 4.9, 4.5, 7.6,
 			2.4 };
-	
+
 	/**
 	 * A termékek űrtartalmának tömbje.
 	 */
 	private Double[] capacity = { 0.5, 0.5, 0.5, 0.33, 0.5, 0.5, 0.5, 50.0, 25.0, 0.5, 50.0, 0.5, 0.5, 0.5, 0.5, 0.33 };
-	
+
 	/**
 	 * A termékek árának tömbje.
 	 */
@@ -128,10 +128,16 @@ public class DatabaseInjector {
 	public void init() {
 
 		logger.info("DatabaseInjector started...");
-		// Sörök generálása
-		generateBeers();
-		// Raktár feltöltése
-		fillStorage();
+		try {
+			// Sörök generálása
+			generateBeers();
+			// Raktár feltöltése
+			fillStorage();
+
+		} catch (Exception e) {
+			logger.warn("Could not generate beers and fill the storage.");
+			logger.error(e.getMessage(), e);
+		}
 
 		Role userRole;
 		Role adminRole;
@@ -147,9 +153,11 @@ public class DatabaseInjector {
 
 	/**
 	 * A raktárt feltöltő metódus.
+	 * 
+	 * @throws Exception
 	 */
 	@CoverageIgnore
-	private void fillStorage() {
+	private void fillStorage() throws Exception {
 		if (storageDao.findAll()
 				.isEmpty()) {
 			for (Beer b : beerDao.findAll()) {
@@ -169,9 +177,11 @@ public class DatabaseInjector {
 
 	/**
 	 * A söröket generáló metódus.
+	 * 
+	 * @throws Exception
 	 */
 	@CoverageIgnore
-	private void generateBeers() {
+	private void generateBeers() throws Exception {
 		if (beerDao.findAll()
 				.isEmpty()) {
 			Beer beer;

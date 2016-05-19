@@ -95,7 +95,7 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	@Override
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
-			throws DailyBuyActionLimitExceededException, CanNotBuyLegendaryBeerYetExceptionException {
+			throws DailyBuyActionLimitExceededException, CanNotBuyLegendaryBeerYetExceptionException, Exception {
 
 		if (!restrictionCheckerService.checkIfUserCanBuyMoreBeer(cargo.getUser())) {
 			throw new DailyBuyActionLimitExceededException("Daily buy action limit exceeded.");
@@ -118,11 +118,8 @@ public class CargoServiceImpl implements CargoService {
 		Arrays.asList(DiscountType.values())
 				.stream()
 				.forEach(p -> discountService.validateDiscount(p, savedCargo, LocalDate.now()));
-		try {
-			cargoDao.update(savedCargo);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
+
+		cargoDao.update(savedCargo);
 		// Miután mentettük a szállítást utána töröljük a felhasználó kosarából.
 		deleteItemsFromUsersCart(cargo);
 
@@ -153,16 +150,12 @@ public class CargoServiceImpl implements CargoService {
 	 * @param cargo
 	 *            a készítésben lévő szállítás.
 	 */
-	private void updateBonusPointsAfterPayment(Cargo cargo) {
+	private void updateBonusPointsAfterPayment(Cargo cargo) throws Exception {
 		cargo.getUser()
 				.setPoints(cargo.getUser()
 						.getPoints() - cargo.getTotalPrice());
-		try {
-			userDao.update(cargo.getUser());
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
 
+		userDao.update(cargo.getUser());
 	}
 
 	/**
@@ -174,15 +167,12 @@ public class CargoServiceImpl implements CargoService {
 	 * @param savedCargo
 	 *            a már mentett szállítás.
 	 */
-	private void updateUserBonusPoints(Cargo cargo, Cargo savedCargo) {
+	private void updateUserBonusPoints(Cargo cargo, Cargo savedCargo) throws Exception {
 		cargo.getUser()
 				.setPoints(cargo.getUser()
 						.getPoints() + calculator.calculate(savedCargo.getItems()));
-		try {
-			userDao.update(cargo.getUser());
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
+		userDao.update(cargo.getUser());
+
 	}
 
 	/**
@@ -191,15 +181,12 @@ public class CargoServiceImpl implements CargoService {
 	 * @param cargo
 	 *            a készítésben lévő szállítás.
 	 */
-	private void updateUserExperiencePoints(Cargo cargo) {
+	private void updateUserExperiencePoints(Cargo cargo) throws Exception {
 		cargo.getUser()
 				.setExperiencePoints(cargo.getUser()
 						.getExperiencePoints() + (cargo.getTotalPrice() / 10));
-		try {
-			userDao.update(cargo.getUser());
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
+		userDao.update(cargo.getUser());
+
 	}
 
 	/**
@@ -225,21 +212,11 @@ public class CargoServiceImpl implements CargoService {
 	 *            a szállításhoz hozzácsatolandó termékek listája.
 	 * @return a mentett szállítás termékekkel együtt.
 	 */
-	private Cargo saveCargo(Cargo cargo, List<CartItem> items) {
-		Cargo savedCargo = null;
-		try {
-			savedCargo = cargoDao.save(cargo);
-		} catch (Exception e) {
-			logger.warn("Error while trying to save new cargo.");
-			logger.error(e.getMessage(), e);
-		}
+	private Cargo saveCargo(Cargo cargo, List<CartItem> items) throws Exception {
+		Cargo savedCargo;
+		savedCargo = cargoDao.save(cargo);
 		savedCargo.setItems(items);
-		try {
-			cargoDao.update(savedCargo);
-		} catch (Exception e) {
-			logger.warn("Error while trying to update new cargo.");
-			logger.error(e.getMessage(), e);
-		}
+		cargoDao.update(savedCargo);
 		logger.info("Cargo saved.");
 		return savedCargo;
 	}
@@ -250,12 +227,9 @@ public class CargoServiceImpl implements CargoService {
 	 * @param cargo
 	 *            a készítésben lévő szállítás.
 	 */
-	private void createEventLogForBuyAction(Cargo cargo) {
-		try {
-			eventLogDao.save(EventLogFactory.createEventLog(EventLogType.BUY, cargo.getUser()));
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
+	private void createEventLogForBuyAction(Cargo cargo) throws Exception {
+
+		eventLogDao.save(EventLogFactory.createEventLog(EventLogType.BUY, cargo.getUser()));
 
 	}
 
@@ -266,15 +240,11 @@ public class CargoServiceImpl implements CargoService {
 	 * @param cargo
 	 *            a készítésben lévő szállítás.
 	 */
-	private void updateUsersMoneyAfterPayment(Cargo cargo) {
+	private void updateUsersMoneyAfterPayment(Cargo cargo) throws Exception {
 		cargo.getUser()
 				.setMoney(cargo.getUser()
 						.getMoney() - cargo.getTotalPrice());
-		try {
-			userDao.update(cargo.getUser());
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
+		userDao.update(cargo.getUser());
 	}
 
 	/**
@@ -283,17 +253,20 @@ public class CargoServiceImpl implements CargoService {
 	 * @param cargo
 	 *            a készítésben lévő szállítás.
 	 */
-	private void deleteItemsFromUsersCart(Cargo cargo) {
-		cargo.getItems()
-				.stream()
-				.forEach(p -> {
-					try {
-						cartItemDao.deleteItemLogically(p);
-					} catch (Exception e) {
-						logger.warn("Exception while trying to remove items from user's cart.");
-						logger.error(e.getMessage(), e);
-					}
-				});
+	private void deleteItemsFromUsersCart(Cargo cargo) throws Exception {
+		try {
+			cargo.getItems()
+					.stream()
+					.forEach(p -> {
+						try {
+							cartItemDao.deleteItemLogically(p);
+						} catch (Exception e) {
+							throwWrapped(e);
+						}
+					});
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
 	}
 
 	/**
@@ -413,6 +386,18 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	public void setDiscountService(DiscountService discountService) {
 		this.discountService = discountService;
+	}
+
+	class WrappedException extends RuntimeException {
+		Throwable cause;
+
+		WrappedException(Throwable cause) {
+			this.cause = cause;
+		}
+	}
+
+	static WrappedException throwWrapped(Throwable t) {
+		throw CargoServiceImpl.throwWrapped(t);
 	}
 
 }

@@ -37,7 +37,7 @@ public class PersistenceUnitDeclaration {
 	/**
 	 * Az aktuálisan használandó perzisztens egység neve.
 	 */
-	public static final String PERSISTENCE_UNIT = H2;
+	public static final String PERSISTENCE_UNIT = MYSQL;
 
 	/**
 	 * Privát konstuktor.

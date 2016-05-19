@@ -54,7 +54,17 @@ public class StorageServiceImpl implements StorageService {
 	 */
 	@Override
 	public void saveAllChanges(List<StorageItem> storage) throws NegativeQuantityNumberException {
-		if (storage.stream()
+		if (isNothingLessThanZero(storage)) {
+			storageDao.saveAllChanges(storage);
+		} else {
+			throw new NegativeQuantityNumberException("Negative number can't be stored in the storage table!");
+		}
+		logger.info("Items saved to the storage.");
+
+	}
+
+	private boolean isNothingLessThanZero(List<StorageItem> storage) {
+		return storage.stream()
 				.filter(p -> p.getQuantity() < 0)
 				.collect(Collectors.toList())
 				.isEmpty()
@@ -62,13 +72,12 @@ public class StorageServiceImpl implements StorageService {
 						.filter(p -> p.getBeer()
 								.getDiscountAmount() < 0)
 						.collect(Collectors.toList())
-						.isEmpty()) {
-			storageDao.saveAllChanges(storage);
-		} else {
-			throw new NegativeQuantityNumberException("Negative number can't be stored in the storage table!");
-		}
-		logger.info("Items saved to the storage.");
-
+						.isEmpty()
+				&& storage.stream()
+						.filter(p -> p.getBeer()
+								.getPrice() < 0)
+						.collect(Collectors.toList())
+						.isEmpty();
 	}
 
 	/**
@@ -85,7 +94,8 @@ public class StorageServiceImpl implements StorageService {
 				.collect(Collectors.toList());
 
 		if (!exceededList.isEmpty()) {
-			throw new StorageItemQuantityExceededException("The asked quantity is bigger than the storage quantity given.");
+			throw new StorageItemQuantityExceededException(
+					"The asked quantity is bigger than the storage quantity given.");
 		}
 
 		if (quantity < 0) {

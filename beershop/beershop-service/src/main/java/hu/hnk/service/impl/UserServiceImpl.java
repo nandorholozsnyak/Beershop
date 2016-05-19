@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	@CoverageIgnore
-	public void save(User user) {
+	public void save(User user) throws Exception {
 		Role role = roleDao.findByName("ROLE_USER");
 
 		if (role == null) {
@@ -237,10 +237,10 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * {@inheritDoc}
+	 * 
 	 */
 	@Override
-	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser)
-			throws InvalidPinCodeException, DailyMoneyTransferLimitExceededException {
+	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser) throws Exception {
 		if (restrictionCheckerService.checkIfUserCanTransferMoney(loggedInUser)) {
 			if (!userPin.equals(expectedPin)) {
 				logger.info("User entered invalid PIN code.");
@@ -251,11 +251,7 @@ public class UserServiceImpl implements UserService {
 			throw new DailyMoneyTransferLimitExceededException("Maximum limit exceeded.");
 		}
 		loggedInUser.setMoney(loggedInUser.getMoney() + money);
-		try {
-			userDao.update(loggedInUser);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
+		userDao.update(loggedInUser);
 		eventLogService.save(EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, loggedInUser));
 	}
 

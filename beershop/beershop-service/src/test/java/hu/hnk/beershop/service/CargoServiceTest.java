@@ -97,8 +97,7 @@ public class CargoServiceTest {
 	}
 
 	@Test(expected = CanNotBuyLegendaryBeerYetExceptionException.class)
-	public void testSaveNewCargoShouldThorwCanNotBuyLegendaryBeerYetException()
-			throws CanNotBuyLegendaryBeerYetExceptionException, DailyBuyActionLimitExceededException {
+	public void testSaveNewCargoShouldThorwCanNotBuyLegendaryBeerYetException() throws Exception {
 
 		List<CartItem> items = new ArrayList<>();
 		Cargo cargo = new Cargo();
@@ -369,39 +368,4 @@ public class CargoServiceTest {
 				.toInstant(ZoneOffset.of("+2"))));
 		Assert.assertEquals("0 perc 59 másodperc", result);
 	}
-
-	@Test
-	public void testSaveCargoShouldThrowExpcetion() throws Exception {
-		User user = new User();
-
-		// Amatőr lesz a felhasználónk.
-		user.setExperiencePoints(0.0);
-		user.setMoney(100.0);
-		user.setPoints(0.0);
-		List<CartItem> items = new ArrayList<>();
-		Cargo cargo = new Cargo();
-		cargo.setUser(user);
-
-		// Sör elkészítése.
-		Beer beer = Beer.builder()
-				.alcoholLevel(5.0)
-				.capacity(0.5)
-				.discountAmount(0)
-				.price(100.0)
-				.build();
-
-		CartItem cartItem = new CartItem();
-		cartItem.setBeer(beer);
-		cartItem.setQuantity(1);
-		items.add(cartItem);
-		// Ára 100 Ft;
-		PaymentMode paymentMode = PaymentMode.BONUSPOINT;
-		cargo.setPaymentMode(paymentMode.getValue());
-		cargo.setItems(items);
-		cargo.setTotalPrice(cargo.getCargoTotalPrice());
-		Mockito.when(cargoDao.save(cargo))
-				.thenThrow(Exception.class);
-		cargoServiceImpl.saveNewCargo(cargo, items);
-	}
-
 }

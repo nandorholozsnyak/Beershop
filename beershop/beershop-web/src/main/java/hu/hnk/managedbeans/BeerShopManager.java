@@ -46,6 +46,11 @@ public class BeerShopManager implements Serializable {
 	public static final Logger logger = LoggerFactory.getLogger(BeerShopManager.class);
 
 	/**
+	 * Loggolási konstans, ha adatbázis hiba van.
+	 */
+	private static final String COULD_NOT_LOAD_BEERS = "Could not load beers.";
+
+	/**
 	 * A söröket kezelő szolgáltatás.
 	 */
 	@EJB
@@ -89,7 +94,12 @@ public class BeerShopManager implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
-		setBeersInShop(beerService.findAll());
+		try {
+			setBeersInShop(beerService.findAll());
+		} catch (Exception e) {
+			logger.warn(COULD_NOT_LOAD_BEERS);
+			logger.error(e.getMessage(), e);
+		}
 		resetCart();
 	}
 
@@ -111,7 +121,13 @@ public class BeerShopManager implements Serializable {
 	 */
 	public void incrementBeer(Beer beer) {
 		Integer quantity = beersToCart.get(beer);
-		List<StorageItem> items = storageService.findAll();
+		List<StorageItem> items = null;
+		try {
+			items = storageService.findAll();
+		} catch (Exception e) {
+			logger.warn(COULD_NOT_LOAD_BEERS);
+			logger.error(e.getMessage(), e);
+		}
 
 		try {
 			storageService.checkStorageItemQuantityLimit(items, beer, ++quantity);
@@ -128,6 +144,10 @@ public class BeerShopManager implements Serializable {
 			FacesMessageTool.createInfoMessage("A raktár maximumát elérte.");
 		} catch (NegativeQuantityNumberException e) {
 			logger.error(e.getMessage(), e);
+		} catch (Exception e) {
+			FacesMessageTool.createErrorMessage("Adatbázishiba történt.");
+			logger.warn(COULD_NOT_LOAD_BEERS);
+			logger.error(e.getMessage(), e);
 		}
 
 	}
@@ -142,7 +162,13 @@ public class BeerShopManager implements Serializable {
 	public void decreaseBeer(Beer beer) {
 
 		Integer quantity = beersToCart.get(beer);
-		List<StorageItem> items = storageService.findAll();
+		List<StorageItem> items = null;
+		try {
+			items = storageService.findAll();
+		} catch (Exception e) {
+			logger.warn("Could not load beers.");
+			logger.error(e.getMessage(), e);
+		}
 		try {
 			storageService.checkStorageItemQuantityLimit(storageService.findAll(), beer, --quantity);
 			beersToCart.put(beer, quantity);
@@ -157,6 +183,10 @@ public class BeerShopManager implements Serializable {
 		} catch (NegativeQuantityNumberException e) {
 			logger.error(e.getMessage(), e);
 			FacesMessageTool.createWarnMessage("A darabszám nem lehet negatív érték!");
+		} catch (Exception e) {
+			FacesMessageTool.createErrorMessage("Adatbázishiba történt.");
+			logger.warn(COULD_NOT_LOAD_BEERS);
+			logger.error(e.getMessage(), e);
 		}
 
 	}
@@ -166,10 +196,16 @@ public class BeerShopManager implements Serializable {
 	 */
 	public void saveItemsToCart() {
 
-		cartService.saveItemsToCart(beersToCart, cartService.findByUser(sessionManager.getLoggedInUser()));
+		try {
+			cartService.saveItemsToCart(beersToCart, cartService.findByUser(sessionManager.getLoggedInUser()));
+			FacesMessageTool.createInfoMessage("Termékek a kosárba helyezve.");
+			resetCart();
+		} catch (Exception e) {
+			FacesMessageTool.createErrorMessage("Adatbázishiba történt.");
+			logger.warn(COULD_NOT_LOAD_BEERS);
+			logger.error(e.getMessage(), e);
+		}
 
-		FacesMessageTool.createInfoMessage("Termékek a kosárba helyezve.");
-		resetCart();
 	}
 
 	/**

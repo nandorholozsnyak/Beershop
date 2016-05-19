@@ -21,7 +21,7 @@ public interface UserService {
 	 * @param user
 	 *            a mentendő felhasználó.
 	 */
-	public void save(User user);
+	public void save(User user) throws Exception;
 
 	/**
 	 * Ellenőrzi hogy a megadott dátum már "idősebb" mint 18 év.
@@ -107,7 +107,8 @@ public interface UserService {
 	 * @throws DailyMoneyTransferLimitExceededException
 	 *             akkor dobjuk ha a felhasználó túllépte a megadott napi
 	 *             limitet.
+	 * @throws Exception 
 	 */
 	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser)
-			throws InvalidPinCodeException, DailyMoneyTransferLimitExceededException;
+			throws InvalidPinCodeException, DailyMoneyTransferLimitExceededException, Exception;
 }

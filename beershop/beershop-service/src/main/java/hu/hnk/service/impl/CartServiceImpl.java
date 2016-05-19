@@ -93,9 +93,11 @@ public class CartServiceImpl implements CartService {
 
 	/**
 	 * {@inheritDoc}
+	 * 
+	 * @throws Exception
 	 */
 	@Override
-	public void saveItemsToCart(Map<Beer, Integer> beersToCart, Cart cart) {
+	public void saveItemsToCart(Map<Beer, Integer> beersToCart, Cart cart) throws Exception {
 		logger.info("Trying save items to user's cart.");
 		List<CartItem> cartItems = cart.getItems();
 		List<StorageItem> storageItems = storageDao.findAll();
@@ -132,7 +134,7 @@ public class CartServiceImpl implements CartService {
 	 *            a kiválasztott sör.
 	 */
 	private void addBeerToCartItemList(Map<Beer, Integer> beersToCart, List<CartItem> cartItems,
-			List<StorageItem> storageItems, Beer beer) {
+			List<StorageItem> storageItems, Beer beer) throws Exception {
 
 		StorageItem beerInStorage = null;
 
@@ -166,32 +168,21 @@ public class CartServiceImpl implements CartService {
 					item.setBeer(beer);
 					item.setQuantity(beersToCart.get(beer));
 					item.setActive(true);
-					try {
-						cartItemDao.save(item);
-					} catch (Exception e) {
-						logger.error(e.getMessage(), e);
-					}
+					cartItemDao.save(item);
 					cartItems.add(item);
 					logger.info("New item added to user's cart list.");
 				} else {
 					cartItems.remove(foundItem);
 					foundItem.setQuantity(foundItem.getQuantity() + beersToCart.get(beer));
 					foundItem.setAddedToCart(LocalDateTime.now());
-					try {
-						cartItemDao.update(foundItem);
-					} catch (Exception e) {
-						logger.error(e.getMessage(), e);
-					}
+					cartItemDao.update(foundItem);
 					cartItems.add(foundItem);
 					logger.info("Found item updated in user's cart.");
 				}
 
 				beerInStorage.setQuantity(beerInStorage.getQuantity() - beersToCart.get(beer));
-				try {
-					storageDao.save(beerInStorage);
-				} catch (Exception e) {
-					logger.error(e.getMessage(), e);
-				}
+
+				storageDao.save(beerInStorage);
 
 			}
 		}
@@ -209,7 +200,7 @@ public class CartServiceImpl implements CartService {
 	 * @throws NoSuchElementException
 	 *             ha nem szerepel a termék a felhasználó kosarában.
 	 */
-	private CartItem findBeerInUsersCart(List<CartItem> cartItems, Beer beer) throws NoSuchElementException {
+	private CartItem findBeerInUsersCart(List<CartItem> cartItems, Beer beer) {
 		return cartItems.stream()
 				.filter(p -> p.getBeer()
 						.equals(beer) && p.getActive())
@@ -228,7 +219,7 @@ public class CartServiceImpl implements CartService {
 	 * @throws NoSuchElementException
 	 *             ha a termék nem szerepel a raktárban.
 	 */
-	private StorageItem findBeerInStorage(List<StorageItem> storageItems, Beer beer) throws NoSuchElementException {
+	private StorageItem findBeerInStorage(List<StorageItem> storageItems, Beer beer) {
 		return storageItems.stream()
 				.filter(e -> e.getBeer()
 						.equals(beer))
@@ -256,15 +247,10 @@ public class CartServiceImpl implements CartService {
 	 */
 	@Override
 	public void deletItemFromCart(CartItem item) throws Exception {
-		try {
-			logger.info("Trying to delete item from cart.");
-			StorageItem stItem = storageDao.findByBeer(item.getBeer());
-			stItem.setQuantity(stItem.getQuantity() + item.getQuantity());
-			cartItemDao.deleteItemLogically(item);
-		} catch (Exception e) {
-			logger.warn("Error while trying to delete item from user's cart.", e);
-			throw new Exception("We were not able to delete the item from the user's cart.");
-		}
+		logger.info("Trying to delete item from cart.");
+		StorageItem stItem = storageDao.findByBeer(item.getBeer());
+		stItem.setQuantity(stItem.getQuantity() + item.getQuantity());
+		cartItemDao.deleteItemLogically(item);
 	}
 
 	/**

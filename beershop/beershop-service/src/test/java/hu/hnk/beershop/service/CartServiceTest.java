@@ -35,9 +35,9 @@ public class CartServiceTest {
 	private StorageDao storageDao;
 
 	private CartItemDao cartItemDao;
-	
+
 	private BonusPointCalculator calculator;
-	
+
 	@Before
 	public void bootContainer() throws Exception {
 		cartService = Mockito.spy(new CartServiceImpl());
@@ -57,10 +57,10 @@ public class CartServiceTest {
 		User user = new User();
 		user.setMoney(2500.0);
 		user.setPoints(500.0);
-		Assert.assertEquals(1500.0, cartService.countMoneyAfterPayment(user, (double) 1000, "money"),0.0);
-		Assert.assertEquals(400.0, cartService.countMoneyAfterPayment(user, (double) 100, "bonusPoint"),0.0);
+		Assert.assertEquals(1500.0, cartService.countMoneyAfterPayment(user, (double) 1000, "money"), 0.0);
+		Assert.assertEquals(400.0, cartService.countMoneyAfterPayment(user, (double) 100, "bonusPoint"), 0.0);
 		// Lehetetlen eset.
-		Assert.assertEquals(0.0, cartService.countMoneyAfterPayment(user, (double) 100, "invalid"),0.0);
+		Assert.assertEquals(0.0, cartService.countMoneyAfterPayment(user, (double) 100, "invalid"), 0.0);
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class CartServiceTest {
 		cartItem.setQuantity(5);
 		// (5*200) / 100 + 10 + 0.5 + 0
 		cartItems.add(cartItem);
-		Assert.assertEquals(20.5, cartService.countBonusPoints(cartItems),0.0);
+		Assert.assertEquals(20.5, cartService.countBonusPoints(cartItems), 0.0);
 	}
 
 	@Test
@@ -100,7 +100,7 @@ public class CartServiceTest {
 		cartItem2.setQuantity(10);
 		cartItems.add(cartItem2);
 
-		Assert.assertEquals(3500.0, cartService.countTotalCost(cartItems),0.0);
+		Assert.assertEquals(3500.0, cartService.countTotalCost(cartItems), 0.0);
 	}
 
 	@Test
@@ -142,7 +142,7 @@ public class CartServiceTest {
 	}
 
 	@Test
-	public void testSaveItemsToCartEmptyCart() {
+	public void testSaveItemsToCartEmptyCart() throws Exception {
 		// Létrehozunk egy kosarat.
 		Cart cart = new Cart();
 		// Most egy teljesen üres kosárral kezdünk.
@@ -194,7 +194,7 @@ public class CartServiceTest {
 	}
 
 	@Test
-	public void testSaveItemsToCartWithOneItemInIt() {
+	public void testSaveItemsToCartWithOneItemInIt() throws Exception {
 		// Létrehozunk egy kosarat.
 		Cart cart = new Cart();
 
@@ -254,7 +254,7 @@ public class CartServiceTest {
 	// Olyan sört szeretnénk kérni ami nem is létezik a raktárban.
 	// Lehetetlen eset.
 	@Test
-	public void testSaveItemsToCartWithUnmanagedBeer() {
+	public void testSaveItemsToCartWithUnmanagedBeer() throws Exception {
 		// Létrehozunk egy kosarat.
 		Cart cart = new Cart();
 

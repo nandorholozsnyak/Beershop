@@ -100,11 +100,16 @@ public class TransactionManagerBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		totalCost = countTotalCost();
-		items = cartService.findByUser(sessionManager.getLoggedInUser())
-				.getItems()
-				.stream()
-				.filter(p -> p.getActive())
-				.collect(Collectors.toList());
+		try {
+			items = cartService.findByUser(sessionManager.getLoggedInUser())
+					.getItems()
+					.stream()
+					.filter(p -> p.getActive())
+					.collect(Collectors.toList());
+		} catch (Exception e) {
+			logger.warn("Could not load user items for transaction.");
+			logger.error(e.getMessage(), e);
+		}
 		shippingCost = BuyActionRestrictions.getShippingCost();
 		paymentMode = PaymentMode.MONEY;
 
@@ -116,10 +121,20 @@ public class TransactionManagerBean implements Serializable {
 	 * @return a vásárlás összege, szállítási díj nélkül.
 	 */
 	public Double countTotalCost() {
-		Double totalCost = cartService.countTotalCost(cartService.findByUser(sessionManager.getLoggedInUser())
-				.getItems());
-		logger.info("Total cost:" + totalCost);
+		List<CartItem> userCartItems;
+		Double totalCost = -1.0;
+		try {
+			userCartItems = cartService.findByUser(sessionManager.getLoggedInUser())
+					.getItems();
+			totalCost = cartService.countTotalCost(userCartItems);
+			logger.info("Total cost:" + totalCost);
+
+		} catch (Exception e) {
+			logger.warn("Could not load user items to count total cost.");
+			logger.error(e.getMessage(), e);
+		}
 		return totalCost;
+
 	}
 
 	/**

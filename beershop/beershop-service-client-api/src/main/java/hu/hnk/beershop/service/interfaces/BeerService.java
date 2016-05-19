@@ -15,7 +15,8 @@ public interface BeerService {
 	 * Az összes sör lekérdezése.
 	 * 
 	 * @return a sörök listája
+	 * @throws Exception 
 	 */
-	public List<Beer> findAll();
+	public List<Beer> findAll() throws Exception;
 
 }

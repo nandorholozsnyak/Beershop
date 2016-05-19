@@ -33,7 +33,7 @@ public class BeerServiceImpl implements BeerService {
 	 */
 	@Override
 	@CoverageIgnore
-	public List<Beer> findAll() {
+	public List<Beer> findAll() throws Exception {
 		return beerDao.findAll();
 	}
 

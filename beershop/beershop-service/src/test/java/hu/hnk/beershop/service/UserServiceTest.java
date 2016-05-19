@@ -119,7 +119,7 @@ public class UserServiceTest {
 	}
 
 	@Test(expected = InvalidPinCodeException.class)
-	public void testTransferMoneyShouldThrowInvalidPinCode() throws InvalidPinCodeException, DailyMoneyTransferLimitExceededException {
+	public void testTransferMoneyShouldThrowInvalidPinCode() throws Exception {
 		String userPin = "0000";
 		String expectedPin = "9999";
 		Integer money = 1000;
@@ -132,7 +132,7 @@ public class UserServiceTest {
 
 	@Test(expected = DailyMoneyTransferLimitExceededException.class)
 	public void testTransferMoneyShouldThrowMaximumMoneyTransferLimitExceeded()
-			throws InvalidPinCodeException, DailyMoneyTransferLimitExceededException {
+			throws Exception {
 		String userPin = "9999";
 		String expectedPin = "9999";
 		Integer money = 1000;

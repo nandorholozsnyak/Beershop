@@ -39,7 +39,7 @@ public interface CargoService {
 	 *             felhasználó még nem jogosult ezek vásárlására.
 	 */
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
-			throws DailyBuyActionLimitExceededException, CanNotBuyLegendaryBeerYetExceptionException;
+			throws DailyBuyActionLimitExceededException, CanNotBuyLegendaryBeerYetExceptionException, Exception;
 
 	/**
 	 * Ellenőrzi hogy a paraméterként megadott felhasználónak rendelkezésére
@@ -63,7 +63,7 @@ public interface CargoService {
 	 *            a keresendő szállításokkal rendelkező felhasználó
 	 * @return a szállítások listája
 	 */
-	public List<Cargo> findByUser(User user);
+	public List<Cargo> findByUser(User user) throws Exception;
 
 	/**
 	 * Kiszámolja a felhasználónak a fizetés utáni megmaradandó egyenlegét.

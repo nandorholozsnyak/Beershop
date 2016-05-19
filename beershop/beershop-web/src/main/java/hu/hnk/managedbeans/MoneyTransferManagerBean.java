@@ -115,6 +115,10 @@ public class MoneyTransferManagerBean implements Serializable {
 		} catch (DailyMoneyTransferLimitExceededException e) {
 			logger.warn(e.getMessage(), e);
 			FacesMessageTool.createErrorMessage("Túllépte a napi limitet.");
+		} catch (Exception e) {
+			FacesMessageTool.createErrorMessage("Adatbázishiba történt.");
+			logger.warn("Could not transfer money.");
+			logger.error(e.getMessage(),e);
 		}
 
 	}

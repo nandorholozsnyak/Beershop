@@ -52,7 +52,12 @@ public class StorageManagerBean implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
-		storage = storageService.findAll();
+		try {
+			storage = storageService.findAll();
+		} catch (Exception e) {
+			logger.warn("Could not load storage items.");
+			logger.error(e.getMessage(), e);
+		}
 	}
 
 	/**
@@ -85,7 +90,9 @@ public class StorageManagerBean implements Serializable {
 		} catch (NegativeQuantityNumberException e) {
 			logger.warn(e.getMessage(), e);
 			FacesMessageTool.createWarnMessage("Negatív érték nem tárolható!");
-			storage = storageService.findAll();
+		} catch (Exception e) {
+			logger.warn("Could not save storage items.");
+			logger.error(e.getMessage(), e);
 		}
 
 	}
