@@ -304,7 +304,7 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	@Override
 	@CoverageIgnore
-	public List<Cargo> findByUser(User user) {
+	public List<Cargo> findByUser(User user) throws Exception {
 		return cargoDao.findByUser(user);
 	}
 

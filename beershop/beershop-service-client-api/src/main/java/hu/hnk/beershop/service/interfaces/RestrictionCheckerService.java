@@ -25,8 +25,9 @@ public interface RestrictionCheckerService {
 	 * @param user
 	 *            az ellenőrizendő felhasználó.
 	 * @return igaz ha még utalhat, hamis ha már nem
+	 * @throws Exception
 	 */
-	public boolean checkIfUserCanTransferMoney(User user);
+	public boolean checkIfUserCanTransferMoney(User user) throws Exception;
 
 	/**
 	 * Ellenőrzi hogy a paraméterként megadott felhasználó vásárolhat-e még
@@ -35,8 +36,9 @@ public interface RestrictionCheckerService {
 	 * @param user
 	 *            az ellenőrizendő felhasználó.
 	 * @return igaz ha még vásárolhat, hamis ha már nem
+	 * @throws Exception
 	 */
-	public boolean checkIfUserCanBuyMoreBeer(User user);
+	public boolean checkIfUserCanBuyMoreBeer(User user) throws Exception;
 
 	/**
 	 * Ellenőrzi hogy a paraméterként megadott felhasználó megvásárolhatja-e már
@@ -45,7 +47,8 @@ public interface RestrictionCheckerService {
 	 * @param user
 	 *            az ellenőrizendő felhasználó.
 	 * @return igaz ha megvásárolhatja, hamis ha már nem
+	 * @throws Exception
 	 */
-	public boolean checkIfUserCanBuyLegendBeer(User user);
+	public boolean checkIfUserCanBuyLegendBeer(User user) throws Exception;
 
 }

@@ -50,9 +50,11 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 
 	/**
 	 * {@inheritDoc}
+	 * 
+	 * @throws Exception
 	 */
 	@Override
-	public boolean checkIfUserCanTransferMoney(User user) {
+	public boolean checkIfUserCanTransferMoney(User user) throws Exception {
 
 		List<EventLog> userEvents = getTodayMoneyTransferEventLogs(user);
 		if (userEvents == null || userEvents.isEmpty()) {
@@ -86,8 +88,9 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	 * @param user
 	 *            a lekérdezendő eseményekkel kapcsolatos felhasználó.
 	 * @return az események listája.
+	 * @throws Exception
 	 */
-	private List<EventLog> getTodayMoneyTransferEventLogs(User user) {
+	private List<EventLog> getTodayMoneyTransferEventLogs(User user) throws Exception {
 		if (eventLogDao.findByUserWhereDateIsToday(user) == null) {
 			return null;
 		}
@@ -105,7 +108,7 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean checkIfUserCanBuyMoreBeer(User user) {
+	public boolean checkIfUserCanBuyMoreBeer(User user) throws Exception {
 		List<EventLog> userEvents = getTodayBuyActionEventLogs(user);
 		if (userEvents == null || userEvents.size() == 0) {
 			return true;
@@ -127,8 +130,9 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	 * @param user
 	 *            a lekérdezendő eseményekkel kapcsolatos felhasználó.
 	 * @return az események listája.
+	 * @throws Exception
 	 */
-	private List<EventLog> getTodayBuyActionEventLogs(User user) {
+	private List<EventLog> getTodayBuyActionEventLogs(User user) throws Exception {
 		if (eventLogDao.findByUserWhereDateIsToday(user) == null) {
 			return null;
 		}

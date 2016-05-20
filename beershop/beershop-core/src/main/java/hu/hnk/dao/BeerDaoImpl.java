@@ -1,6 +1,3 @@
-/**
- * 
- */
 package hu.hnk.dao;
 
 import java.util.List;
@@ -19,6 +16,9 @@ import hu.hnk.interfaces.BeerDao;
 
 /**
  * A söröket kezelő adathozzáférési osztály implementációja.
+ * 
+ * A {@link Beer} entitás kezelésére jött létre, ezzel tudjuk menedzselni az
+ * adatbázisban található objektumaninkat.
  * 
  * @author Nandi
  *

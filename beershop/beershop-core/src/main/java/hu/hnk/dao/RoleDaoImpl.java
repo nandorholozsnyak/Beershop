@@ -17,6 +17,8 @@ import hu.hnk.interfaces.RoleDao;
 /**
  * A jogköröket kezelő adathozzáférési osztály megvalósítása.
  * 
+ * A {@link Role} entitást kezelhetjük vele.
+ * 
  * @author Nandi
  *
  */
@@ -41,7 +43,7 @@ public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Role findByName(String name) {
+	public Role findByName(String name) throws Exception {
 		logger.info("Finding role by name:" + name);
 		TypedQuery<Role> role = entityManager.createNamedQuery("Role.findByName", Role.class);
 		role.setParameter("name", name);
@@ -57,7 +59,7 @@ public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Role> findAll() {
+	public List<Role> findAll() throws Exception {
 		TypedQuery<Role> query = entityManager.createQuery("SELECT r FROM Role r", Role.class);
 		return query.getResultList();
 	}

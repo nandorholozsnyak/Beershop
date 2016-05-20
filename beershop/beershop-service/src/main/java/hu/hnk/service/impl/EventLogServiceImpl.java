@@ -36,10 +36,11 @@ public class EventLogServiceImpl implements EventLogService {
 
 	/**
 	 * {@inheritDoc}
+	 * 
 	 */
 	@Override
 	@CoverageIgnore
-	public List<EventLog> findByUser(User user) {
+	public List<EventLog> findByUser(User user) throws Exception {
 		return eventLogDao.findByUser(user);
 	}
 

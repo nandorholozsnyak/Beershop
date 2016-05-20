@@ -33,8 +33,11 @@ public interface DiscountService {
 	/**
 	 * Visszaadja a mai napi kedvezményeket.
 	 * 
+	 * @param user
+	 *            a vizsgálandó felhasználó.
 	 * @param today
-	 * @return
+	 *            a mai nap.
+	 * @return az elérhető kedvezmények listája.
 	 */
-	public List<DiscountType> getAvailableDailyRankBonusesForUser(User user,LocalDate today);
+	public List<DiscountType> getAvailableDailyRankBonusesForUser(User user, LocalDate today);
 }

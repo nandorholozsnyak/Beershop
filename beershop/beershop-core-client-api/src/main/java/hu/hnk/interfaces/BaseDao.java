@@ -1,11 +1,22 @@
 package hu.hnk.interfaces;
 
+import hu.hnk.beershop.model.BaseEntity;
 
 /**
  * A bázis adahozzáférési osztály interfésze.
  * 
+ * Megvalósítja az alapvető adatbázis hozzáférési műveleteket:
+ * <ul>
+ * <li>{@link BaseDao#save(Object)} - egy új entitás mentése az adatbázisba</li>
+ * <li>{@link BaseDao#update(Object)} - már egy meglévő entitás frissítése</li>
+ * <li>{@link BaseDao#delete(Long)} - egy meglévő entitás törlés, paramétere az
+ * entitás azonosítója {@link BaseDao#find(Long)} - entitás keresése az
+ * azonosítója alapján.</li>
+ * </ul>
+ * 
  * @author Nandi
  * @param <T>
+ *            a kezelendő entitás osztálya
  */
 public interface BaseDao<T> {
 

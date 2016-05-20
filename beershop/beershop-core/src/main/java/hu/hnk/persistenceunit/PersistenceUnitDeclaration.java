@@ -2,7 +2,8 @@ package hu.hnk.persistenceunit;
 
 /**
  * A persistence.xml fájlhoz tartozó Java deklarációs fájl, amiben állítható a
- * PersistenceContext számára használandó perzisztens egység hivatkozása.
+ * <code>PersistenceContext</code> számára használandó perzisztens egység
+ * hivatkozása.
  * 
  * @author Nandi
  *

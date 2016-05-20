@@ -19,6 +19,10 @@ import hu.hnk.beershop.model.StorageItem;
 import hu.hnk.interfaces.StorageDao;
 
 /**
+ * A raktárban található árukat kezelő adathozzáférési osztály implementációja.
+ * 
+ * A szóban forgó osztály a {@link StorageItem} entitásokat kezeli.
+ * 
  * @author Nandi
  *
  */
@@ -53,16 +57,11 @@ public class StorageDaoImpl extends BaseDaoImpl<StorageItem> implements StorageD
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void saveAllChanges(List<StorageItem> storage) {
+	public void saveAllChanges(List<StorageItem> storage) throws Exception {
 		logger.info("Saving all storage item changes.");
-		storage.stream()
-				.forEach(entity -> {
-					try {
-						update(entity);
-					} catch (Exception e) {
-						logger.error(e.getMessage(), e);
-					}
-				});
+		for (StorageItem item : storage) {
+			update(item);
+		}
 	}
 
 	/**

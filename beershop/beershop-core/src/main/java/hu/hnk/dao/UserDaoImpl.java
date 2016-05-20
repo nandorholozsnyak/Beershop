@@ -17,8 +17,9 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.UserDao;
 
 /**
- * A felhasználókat kezelő adathozzáférési osztály implementációja. Enterprise
- * Java Bean
+ * A felhasználókat kezelő adathozzáférési osztály implementációja.
+ * 
+ * {@link User} entitás típusokat kezeli.
  * 
  * @author Nandi
  *

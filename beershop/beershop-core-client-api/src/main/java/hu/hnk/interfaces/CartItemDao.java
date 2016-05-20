@@ -2,8 +2,11 @@ package hu.hnk.interfaces;
 
 import hu.hnk.beershop.model.CartItem;
 
-
 /**
+ * A kosárban / szállításban lévő termékeket kezelő adathozzáférési osztály.
+ * 
+ * Megvalósítja a {@link CartItem} entitást kezelő műveleteket.
+ * 
  * @author Nandi
  *
  */

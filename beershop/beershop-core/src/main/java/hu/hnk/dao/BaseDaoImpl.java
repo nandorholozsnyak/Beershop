@@ -16,11 +16,16 @@ import hu.hnk.persistenceunit.PersistenceUnitDeclaration;
  * írjuk le, kihasználva az öröklődést, ezzel gyorsítva a fejlesztés menetét,
  * minden egyes DAO megírásakor csak ezt az osztályt kell kiterjeszteni és
  * azonnal használhatóvá válik a négy darab művelet.
- * {@link BaseDaoImpl#save(BaseEntity)} - egy új entitás mentése az adatbázisba
- * {@link BaseDaoImpl#update(BaseEntity)} - már egy meglévő entitás frissítése
- * {@link BaseDaoImpl#delete(Long)} - egy meglévő entitás törlés, paramétere az
- * entitás azonosítója {@link BaseDaoImpl#find(Long)} - entitás keresése az
- * azonosítója alapján.
+ * <ul>
+ * <li>{@link BaseDaoImpl#save(BaseEntity)} - egy új entitás mentése az
+ * adatbázisba</li>
+ * <li>{@link BaseDaoImpl#update(BaseEntity)} - már egy meglévő entitás
+ * frissítése</li>
+ * <li>{@link BaseDaoImpl#delete(Long)} - egy meglévő entitás törlés, paramétere
+ * az entitás azonosítója {@link BaseDaoImpl#find(Long)} - entitás keresése az
+ * azonosítója alapján.</li>
+ * </ul>
+ * 
  * 
  * @author Nandi
  * @param <E>

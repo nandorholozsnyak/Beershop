@@ -6,7 +6,9 @@ import hu.hnk.beershop.model.EventLog;
 import hu.hnk.beershop.model.User;
 
 /**
- * Az eseményeket kezelő adathozzáférési osztály interfésze.
+ * Az eseményeket kezelő adathozzáférési osztály implementációja.
+ * 
+ * Segítségével az {@link EventLog} entitás kezelhető.
  * 
  * @author Nandi
  *
@@ -19,8 +21,9 @@ public interface EventLogDao extends BaseDao<EventLog> {
 	 * @param user
 	 *            a keresendő események felhasználója.
 	 * @return a keresett felhasználó eseménylistája.
+	 * @throws Exception
 	 */
-	public List<EventLog> findByUser(User user);
+	public List<EventLog> findByUser(User user) throws Exception;
 
 	/**
 	 * Visszaadja a paraméterként megadott felhasználónak a napi
@@ -29,7 +32,8 @@ public interface EventLogDao extends BaseDao<EventLog> {
 	 * @param user
 	 *            a felhasználó,akinek az eseményeit szeretnénk listázni.
 	 * @return a napi események listája.
+	 * @throws Exception
 	 */
-	public List<EventLog> findByUserWhereDateIsToday(User user);
+	public List<EventLog> findByUserWhereDateIsToday(User user) throws Exception;
 
 }

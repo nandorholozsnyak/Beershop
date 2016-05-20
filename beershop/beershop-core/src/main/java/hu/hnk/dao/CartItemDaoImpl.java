@@ -14,6 +14,10 @@ import hu.hnk.beershop.model.CartItem;
 import hu.hnk.interfaces.CartItemDao;
 
 /**
+ * A kosárban / szállításban lévő termékeket kezelő adathozzáférési osztály.
+ * 
+ * Megvalósítja a {@link CartItem} entitást kezelő műveleteket.
+ * 
  * @author Nandi
  *
  */

@@ -20,6 +20,8 @@ import hu.hnk.interfaces.EventLogDao;
 /**
  * Az eseményeket kezelő adathozzáférési osztály implementációja.
  * 
+ * Segítségével az {@link EventLog} entitás kezelhető.
+ * 
  * @author Nandi
  *
  */
@@ -44,7 +46,7 @@ public class EventLogDaoImpl extends BaseDaoImpl<EventLog> implements EventLogDa
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<EventLog> findByUser(User user) {
+	public List<EventLog> findByUser(User user) throws Exception {
 		logger.info("Gettin all event logs for:" + user.getUsername());
 		TypedQuery<EventLog> query = entityManager.createNamedQuery("EventLog.findByUser", EventLog.class);
 		query.setParameter("user", user);
@@ -55,7 +57,7 @@ public class EventLogDaoImpl extends BaseDaoImpl<EventLog> implements EventLogDa
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<EventLog> findByUserWhereDateIsToday(User user) {
+	public List<EventLog> findByUserWhereDateIsToday(User user) throws Exception {
 		logger.info("Gettin today's event logs for:" + user.getUsername());
 		TypedQuery<EventLog> query = entityManager.createNamedQuery("EventLog.findByUserWhereDateIsToday",
 				EventLog.class);

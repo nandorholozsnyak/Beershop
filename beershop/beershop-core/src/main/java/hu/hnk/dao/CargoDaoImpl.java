@@ -17,7 +17,9 @@ import hu.hnk.interfaces.CargoDao;
 
 /**
  * 
- * A kosarakat kezelő adathozzáférési osztály implementációja.
+ * A szállításokat kezelő adathozzáférési osztály implementációja.
+ * 
+ * Segítségével a {@link Cargo} entitást tudjuk manipulálni.
  * 
  * @author Nandi
  *
@@ -38,7 +40,7 @@ public class CargoDaoImpl extends BaseDaoImpl<Cargo> implements CargoDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Cargo> findByUser(User user) {
+	public List<Cargo> findByUser(User user) throws Exception {
 		TypedQuery<Cargo> cargos = entityManager.createQuery("SELECT c FROM Cargo c where c.user = :user", Cargo.class);
 		cargos.setParameter("user", user);
 		return cargos.getResultList();

@@ -36,7 +36,7 @@ public class RestrictionCheckerServiceTest {
 	}
 
 	@Test
-	public void testCheckIfUserCanTransferMoneyIfEventLogIsEmptyOrNull() {
+	public void testCheckIfUserCanTransferMoneyIfEventLogIsEmptyOrNull() throws Exception {
 		User user = new User();
 		user.setExperiencePoints(0.0);
 		List<EventLog> logs = new ArrayList<>();
@@ -52,7 +52,7 @@ public class RestrictionCheckerServiceTest {
 	}
 
 	@Test
-	public void testCheckIfUserCanTransferMoneyIfUserIsAmatuer() {
+	public void testCheckIfUserCanTransferMoneyIfUserIsAmatuer() throws Exception {
 
 		User user = new User();
 		user.setExperiencePoints(1.0);
@@ -77,7 +77,7 @@ public class RestrictionCheckerServiceTest {
 	}
 
 	@Test
-	public void testCheckIfUserCanTransferMoneyIfUserIsSorfelelos() {
+	public void testCheckIfUserCanTransferMoneyIfUserIsSorfelelos() throws Exception {
 
 		User user = new User();
 		user.setExperiencePoints(2501.0);
@@ -102,7 +102,7 @@ public class RestrictionCheckerServiceTest {
 	}
 
 	@Test
-	public void testCheckIfUserCanTransferMoneyIfUserIsIvobajnok() {
+	public void testCheckIfUserCanTransferMoneyIfUserIsIvobajnok() throws Exception {
 
 		User user = new User();
 		user.setExperiencePoints(5001.0);
@@ -127,7 +127,7 @@ public class RestrictionCheckerServiceTest {
 	}
 
 	@Test
-	public void testCheckIfUserCanBuyMoreBeerIfEventLogIsEmpty() {
+	public void testCheckIfUserCanBuyMoreBeerIfEventLogIsEmpty() throws Exception {
 		User user = new User();
 		user.setExperiencePoints(0.0);
 		List<EventLog> logs = new ArrayList<>();
@@ -144,7 +144,7 @@ public class RestrictionCheckerServiceTest {
 	}
 
 	@Test
-	public void testCheckIfUserCanBuyMoreBeerIfUserIsAmatuer() {
+	public void testCheckIfUserCanBuyMoreBeerIfUserIsAmatuer() throws Exception {
 		User user = new User();
 		user.setExperiencePoints(1.0);
 		List<EventLog> logs = new ArrayList<>();
@@ -168,7 +168,7 @@ public class RestrictionCheckerServiceTest {
 	}
 
 	@Test
-	public void testCheckIfUserCanBuyMoreBeerForAllRank() {
+	public void testCheckIfUserCanBuyMoreBeerForAllRank() throws Exception {
 		User user = new User();
 		user.setExperiencePoints(0.0);
 		List<EventLog> logs = new ArrayList<>();
@@ -190,7 +190,7 @@ public class RestrictionCheckerServiceTest {
 	}
 
 	@Test
-	public void testCheckIfUserCanNotBuyMoreBeerForAllRank() {
+	public void testCheckIfUserCanNotBuyMoreBeerForAllRank() throws Exception {
 		User user = new User();
 		user.setExperiencePoints(0.0);
 		List<EventLog> logs = new ArrayList<>();

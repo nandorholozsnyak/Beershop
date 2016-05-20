@@ -21,7 +21,7 @@ public interface CartService {
 	 * @param cart
 	 *            a mentendő kosár.
 	 * @return a mentett kosár.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public Cart save(Cart cart) throws Exception;
 
@@ -31,6 +31,7 @@ public interface CartService {
 	 * @param user
 	 *            a keresett felhasználó.
 	 * @return a keresett kosár.
+	 * @throws Exception
 	 */
 	public Cart findByUser(User user) throws Exception;
 
@@ -51,7 +52,7 @@ public interface CartService {
 	 *            a mentendő sörök darabszámmal.
 	 * @param cart
 	 *            a felhasználó kosara.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void saveItemsToCart(Map<Beer, Integer> beersToCart, Cart cart) throws Exception;
 

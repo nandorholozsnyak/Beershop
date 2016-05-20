@@ -7,7 +7,9 @@ import hu.hnk.beershop.exception.UsernameNotFoundException;
 import hu.hnk.beershop.model.User;
 
 /**
- * A felhasználókat kezelő adathozzáférési osztály interfésze.
+ * A felhasználókat kezelő adathozzáférési osztály implementációja.
+ * 
+ * {@link User} entitás típusokat kezeli.
  * 
  * @author Nandi
  *

@@ -87,7 +87,7 @@ public class CartServiceImpl implements CartService {
 	 */
 	@Override
 	@CoverageIgnore
-	public Cart findByUser(User user) {
+	public Cart findByUser(User user) throws Exception {
 		return cartDao.findByUser(user);
 	}
 
@@ -132,6 +132,7 @@ public class CartServiceImpl implements CartService {
 	 *            a raktárban szereplő termékek listája.
 	 * @param beer
 	 *            a kiválasztott sör.
+	 * @throws Exception
 	 */
 	private void addBeerToCartItemList(Map<Beer, Integer> beersToCart, List<CartItem> cartItems,
 			List<StorageItem> storageItems, Beer beer) throws Exception {

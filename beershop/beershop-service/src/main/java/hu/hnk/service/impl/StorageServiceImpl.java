@@ -45,7 +45,7 @@ public class StorageServiceImpl implements StorageService {
 	 */
 	@Override
 	@CoverageIgnore
-	public List<StorageItem> findAll() {
+	public List<StorageItem> findAll() throws Exception {
 		return storageDao.findAll();
 	}
 
@@ -53,7 +53,7 @@ public class StorageServiceImpl implements StorageService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void saveAllChanges(List<StorageItem> storage) throws NegativeQuantityNumberException {
+	public void saveAllChanges(List<StorageItem> storage) throws Exception {
 		if (isNothingLessThanZero(storage)) {
 			storageDao.saveAllChanges(storage);
 		} else {

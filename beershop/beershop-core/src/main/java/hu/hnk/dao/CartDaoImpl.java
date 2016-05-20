@@ -21,6 +21,8 @@ import hu.hnk.interfaces.CartDao;
 /**
  * A kosarakat kezelő adathozzáférési osztály implementációja.
  * 
+ * Az adatbázis hozzáférési osztály kezeli a {@link Cart} entitást.
+ * 
  * @author Nandi
  *
  */
@@ -45,7 +47,7 @@ public class CartDaoImpl extends BaseDaoImpl<Cart> implements CartDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Cart> findAll() {
+	public List<Cart> findAll() throws Exception {
 		logger.info("Asking all cart items.");
 		Query q = entityManager.createQuery("SELECT c FROM Cart c");
 		return q.getResultList();
@@ -55,7 +57,7 @@ public class CartDaoImpl extends BaseDaoImpl<Cart> implements CartDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Cart findByUser(User user) {
+	public Cart findByUser(User user) throws Exception {
 		logger.info("Asking all cart items for user:" + user.getUsername());
 		Query q = entityManager.createQuery("SELECT c FROM Cart c WHERE user = :user");
 		q.setParameter("user", user);
