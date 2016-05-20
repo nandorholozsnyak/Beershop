@@ -15,7 +15,7 @@ import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetExceptionException;
+import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceededException;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
@@ -178,7 +178,7 @@ public class TransactionManagerBean implements Serializable {
 			} catch (DailyBuyActionLimitExceededException e) {
 				logger.error(e.getMessage(), e);
 				FacesMessageTool.createErrorMessage("Sajnálom de túllépte a napi vásárlási limitet.");
-			} catch (CanNotBuyLegendaryBeerYetExceptionException e) {
+			} catch (CanNotBuyLegendaryBeerYetException e) {
 				logger.error(e.getMessage(), e);
 				FacesMessageTool.createErrorMessage("Nem vásárolhat még legendás terméket.");
 			} catch (Exception e) {

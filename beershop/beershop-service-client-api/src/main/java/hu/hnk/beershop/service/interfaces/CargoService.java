@@ -3,7 +3,7 @@ package hu.hnk.beershop.service.interfaces;
 import java.util.Date;
 import java.util.List;
 
-import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetExceptionException;
+import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceededException;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
@@ -11,7 +11,7 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.utils.PaymentMode;
 
 /**
- * A szálítással kapcsolatos szolgáltatásokat leíró interfész.
+ * A szállítással kapcsolatos szolgáltatásokat leíró interfész.
  * 
  * @author Nandi
  *
@@ -34,14 +34,14 @@ public interface CargoService {
 	 * @return az elmentett szállítás.
 	 * @throws DailyBuyActionLimitExceededException
 	 *             ha a felhasználó túllépi a napi megengedett keretet.
-	 * @throws CanNotBuyLegendaryBeerYetExceptionException
+	 * @throws CanNotBuyLegendaryBeerYetException
 	 *             ha szerepel a termékek listájában legendás termék, de a
 	 *             felhasználó még nem jogosult ezek vásárlására.
 	 * @throws Exception
 	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
-			throws DailyBuyActionLimitExceededException, CanNotBuyLegendaryBeerYetExceptionException, Exception;
+			throws DailyBuyActionLimitExceededException, CanNotBuyLegendaryBeerYetException, Exception;
 
 	/**
 	 * Ellenőrzi hogy a paraméterként megadott felhasználónak rendelkezésére

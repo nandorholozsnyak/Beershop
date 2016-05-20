@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
-
 /**
  * Az authentikációs szolgáltatás.
  * 
@@ -42,14 +41,16 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
 
 		User currentUser = (User) authentication.getPrincipal();
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(auth.getAuthorities());
 
 		Authentication newAuth = new UsernamePasswordAuthenticationToken(currentUser, auth.getCredentials(),
 				authorities);
-		SecurityContextHolder.getContext().setAuthentication(newAuth);
+		SecurityContextHolder.getContext()
+				.setAuthentication(newAuth);
 		setDefaultTargetUrl("/public/index.xhtml");
-		
+
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
 }

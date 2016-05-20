@@ -1,17 +1,23 @@
 package hu.hnk.beershop.service.interfaces;
 
+import hu.hnk.beershop.model.Rank;
 import hu.hnk.beershop.model.User;
+import hu.hnk.beershop.service.restrictions.BuyActionRestrictions;
+import hu.hnk.beershop.service.restrictions.MoneyTransferRestrictions;
 
 /**
- * A felhasználó tevékenységeket korlátozó interfész. Minden felhasználónak be
- * kell tartania bizonyos szabályokat, rangtól függően vásárolhat napi szinten
- * kezdetben csak napi 3 vásárlást bonyolíthat le, a következő szinten már napi
- * 5 darabot, ettől nagyobb szinteken már napi 20-at. Az egyenlegfeltöltés is
- * hasonló rendszer szerint működik. A legendés söröket csak az
- * <p>
- * Expert
- * </p>
- * rangú felhasználók rakhatják a kosarukba illetve vásárolhatják utána meg.
+ * A felhasználó tevékenységeket korlátozó interfész.
+ * 
+ * Minden felhasználónak be kell tartania bizonyos szabályokat, rangtól függően
+ * vásárolhat napi szinten, ezeket a korlátozásokat a
+ * {@link BuyActionRestrictions} osztály írja le.
+ * 
+ * A pénzfeltöltéssel kapcsolatban ugyan ilyen szabályok élnek amiket a
+ * {@link MoneyTransferRestrictions} osztály definiál.
+ * 
+ * Létezik egy bizonyos típusa a söröknek amelyeket csak <b>Legendás</b> néven
+ * hívunk, ezeket csak a {@link Rank#LEGENDA} ranggal rendelkező felhasználó
+ * vásárolhatja meg.
  * 
  * @author Nandi
  *

@@ -3,8 +3,10 @@
  */
 package hu.hnk.beershop.exception;
 
-
 /**
+ * A {@code DailyMoneyTransferLimitExceededException} kivétel a napi
+ * pénzfeltöltési limit túllépése esetén dobódhat.
+ * 
  * @author Nandi
  *
  */
@@ -16,14 +18,16 @@ public class DailyMoneyTransferLimitExceededException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Konstuktor, mely létrehoz egy DailyMoneyTransferLimitExceeded kivételt.
+	 * Konstuktor, mely létrehoz egy
+	 * <code>DailyMoneyTransferLimitExceededException</code> kivételt.
 	 */
 	public DailyMoneyTransferLimitExceededException() {
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy DailyMoneyTransferLimitExceeded kivételt
-	 * a megadott üzenettel.
+	 * Konstuktor, mely létrehoz egy
+	 * <code>DailyMoneyTransferLimitExceededException</code> kivételt a megadott
+	 * üzenettel.
 	 * 
 	 * @param message
 	 *            a részletes üzenet.
@@ -33,8 +37,9 @@ public class DailyMoneyTransferLimitExceededException extends Exception {
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy DailyMoneyTransferLimitExceeded kivételt
-	 * a megadott okozóval.
+	 * Konstuktor, mely létrehoz egy
+	 * <code>DailyMoneyTransferLimitExceededException</code> kivételt a megadott
+	 * okozóval.
 	 * 
 	 * @param cause
 	 *            az okozó
@@ -44,8 +49,9 @@ public class DailyMoneyTransferLimitExceededException extends Exception {
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy DailyMoneyTransferLimitExceeded kivételt
-	 * a megadott üzenettel és okozóval.
+	 * Konstuktor, mely létrehoz egy
+	 * <code>DailyMoneyTransferLimitExceededException</code> kivételt a megadott
+	 * üzenettel és okozóval.
 	 * 
 	 * @param message
 	 *            a részletes üzenet.

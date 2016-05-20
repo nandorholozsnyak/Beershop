@@ -17,7 +17,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetExceptionException;
+import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceededException;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.Cargo;
@@ -101,7 +101,7 @@ public class CargoServiceTest {
 		cargoServiceImpl.saveNewCargo(cargo, items);
 	}
 
-	@Test(expected = CanNotBuyLegendaryBeerYetExceptionException.class)
+	@Test(expected = CanNotBuyLegendaryBeerYetException.class)
 	public void testSaveNewCargoShouldThorwCanNotBuyLegendaryBeerYetException() throws Exception {
 
 		List<CartItem> items = new ArrayList<>();

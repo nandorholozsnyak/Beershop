@@ -73,15 +73,15 @@ public interface UserService {
 	 */
 	public Rank countRankFromXp(User user);
 
-	/**
-	 * A felhasználó tapasztalatpontjának százalékos megjelenítéséhez való
-	 * segédfüggvény.
-	 * 
-	 * @param experiencePoints
-	 *            a tapasztalatpont.
-	 * @return a kiszámolt százalék.
-	 */
-	public Integer countExperiencePointsInPercentage(Double experiencePoints);
+//	/**
+//	 * A felhasználó tapasztalatpontjának százalékos megjelenítéséhez való
+//	 * segédfüggvény.
+//	 * 
+//	 * @param experiencePoints
+//	 *            a tapasztalatpont.
+//	 * @return a kiszámolt százalék.
+//	 */
+//	public Integer countExperiencePointsInPercentage(Double experiencePoints);
 
 	/**
 	 * Felhasználó számára való pénzfeltöltési lehetőséget is biztosít az

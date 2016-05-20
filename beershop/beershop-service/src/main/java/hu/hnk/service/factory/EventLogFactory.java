@@ -12,6 +12,8 @@ import hu.hnk.beershop.service.logfactory.EventLogType;
 /**
  * Az eseményeket létrehozó Factory osztály.
  * 
+ * Egy factory osztály amely az események létrehozására jött létre, csak előre
+ * definiált eseményeket tudunk létrehozni lásd: {@link EventLogType}
  * 
  * @author Nandi
  *

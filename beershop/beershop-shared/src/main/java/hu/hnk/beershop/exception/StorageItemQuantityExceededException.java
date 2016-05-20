@@ -4,6 +4,10 @@
 package hu.hnk.beershop.exception;
 
 /**
+ * A {@code StorageItemQuantityExceededException} kivétel akkor dobódhat ha egy
+ * termékből a maximálisan raktárból elérhető mennyiségénél többet szeretnénk a
+ * kosárba helyezni.
+ * 
  * @author Nandi
  *
  */
@@ -15,13 +19,15 @@ public class StorageItemQuantityExceededException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Konstuktor, mely létrehoz egy StorageQuantityExceeded kivételt.
+	 * Konstuktor, mely létrehoz egy
+	 * <code>StorageItemQuantityExceededException</code> kivételt.
 	 */
 	public StorageItemQuantityExceededException() {
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy StorageQuantityExceeded kivételt a megadott
+	 * Konstuktor, mely létrehoz egy
+	 * <code>StorageItemQuantityExceededException</code> kivételt a megadott
 	 * üzenettel.
 	 * 
 	 * @param message
@@ -32,7 +38,8 @@ public class StorageItemQuantityExceededException extends Exception {
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy StorageQuantityExceeded kivételt a megadott
+	 * Konstuktor, mely létrehoz egy
+	 * <code>StorageItemQuantityExceededException</code> kivételt a megadott
 	 * okozóval.
 	 * 
 	 * @param cause
@@ -43,7 +50,8 @@ public class StorageItemQuantityExceededException extends Exception {
 	}
 
 	/**
-	 * Konstuktor, mely létrehoz egy StorageQuantityExceeded kivételt a megadott
+	 * Konstuktor, mely létrehoz egy
+	 * <code>StorageItemQuantityExceededException</code> kivételt a megadott
 	 * üzenettel és okozóval.
 	 * 
 	 * @param message

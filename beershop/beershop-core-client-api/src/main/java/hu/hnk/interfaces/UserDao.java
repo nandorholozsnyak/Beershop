@@ -17,7 +17,7 @@ import hu.hnk.beershop.model.User;
 public interface UserDao extends BaseDao<User> {
 
 	/**
-	 * Felhasználó keresése felhasználónév alapján.
+	 * Felhasználó keresése felhasználónév (<code>user</code>) alapján.
 	 * 
 	 * @param username
 	 *            a keresendő felhasználó felhasználóneve.
@@ -28,7 +28,7 @@ public interface UserDao extends BaseDao<User> {
 	public User findByUsername(String username) throws UsernameNotFoundException;
 
 	/**
-	 * Felhasználó keresése e-mail cím alapján.
+	 * Felhasználó keresése e-mail (<code>email</code>) cím alapján.
 	 * 
 	 * @param email
 	 *            a keresendő felhasználó e-mail címe.

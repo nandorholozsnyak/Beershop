@@ -16,7 +16,7 @@ import javax.ejb.Stateless;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetExceptionException;
+import hu.hnk.beershop.exception.CanNotBuyLegendaryBeerYetException;
 import hu.hnk.beershop.exception.DailyBuyActionLimitExceededException;
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.CartItem;
@@ -37,6 +37,19 @@ import hu.hnk.service.factory.EventLogFactory;
 import hu.hnk.service.tools.BonusPointCalculator;
 
 /**
+ * A szállításokat kezelő szolgáltatás.
+ * 
+ * Segítségével készíthetünk fel egy új szállítást mentésre illetve az ehhez
+ * kapcsolódó plusz tevékenység mint például a felhasználó adatainak frissítése
+ * és az esemény megfelelő mentése (
+ * {@link CargoServiceImpl#saveCargo(Cargo, List)}), ahol meg kell adni a
+ * készülendő szállítást illetve a hozzátartozó termékeket hogy ezeket
+ * kombinálhassa.
+ * 
+ * További metódusok segítségével pedig a felhasználót tudjuk tájékoztatni
+ * bizonyos szállításbeli dolgokról, rendelkezik-e elegendő pénzzel/ponttal
+ * illetve hogy mennyi lesz a vásárlás utáni egyenlege.
+ * 
  * @author Nandi
  *
  */
@@ -95,7 +108,7 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	@Override
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
-			throws DailyBuyActionLimitExceededException, CanNotBuyLegendaryBeerYetExceptionException, Exception {
+			throws DailyBuyActionLimitExceededException, CanNotBuyLegendaryBeerYetException, Exception {
 
 		if (!restrictionCheckerService.checkIfUserCanBuyMoreBeer(cargo.getUser())) {
 			throw new DailyBuyActionLimitExceededException("Daily buy action limit exceeded.");
@@ -103,7 +116,7 @@ public class CargoServiceImpl implements CargoService {
 
 		if (!legendaryItems(items).isEmpty()
 				&& !restrictionCheckerService.checkIfUserCanBuyLegendBeer(cargo.getUser())) {
-			throw new CanNotBuyLegendaryBeerYetExceptionException("User is not legendary yet.");
+			throw new CanNotBuyLegendaryBeerYetException("User is not legendary yet.");
 		}
 
 		// Elkészítünk egy már a mentett szállítást reprezentáló objektumot.
@@ -149,6 +162,8 @@ public class CargoServiceImpl implements CargoService {
 	 * 
 	 * @param cargo
 	 *            a készítésben lévő szállítás.
+	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private void updateBonusPointsAfterPayment(Cargo cargo) throws Exception {
 		cargo.getUser()
@@ -166,6 +181,8 @@ public class CargoServiceImpl implements CargoService {
 	 *            a készítésben lévő szállítás.
 	 * @param savedCargo
 	 *            a már mentett szállítás.
+	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private void updateUserBonusPoints(Cargo cargo, Cargo savedCargo) throws Exception {
 		cargo.getUser()
@@ -180,6 +197,8 @@ public class CargoServiceImpl implements CargoService {
 	 * 
 	 * @param cargo
 	 *            a készítésben lévő szállítás.
+	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private void updateUserExperiencePoints(Cargo cargo) throws Exception {
 		cargo.getUser()
@@ -211,6 +230,8 @@ public class CargoServiceImpl implements CargoService {
 	 * @param items
 	 *            a szállításhoz hozzácsatolandó termékek listája.
 	 * @return a mentett szállítás termékekkel együtt.
+	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private Cargo saveCargo(Cargo cargo, List<CartItem> items) throws Exception {
 		Cargo savedCargo;
@@ -226,6 +247,8 @@ public class CargoServiceImpl implements CargoService {
 	 * 
 	 * @param cargo
 	 *            a készítésben lévő szállítás.
+	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private void createEventLogForBuyAction(Cargo cargo) throws Exception {
 
@@ -239,6 +262,8 @@ public class CargoServiceImpl implements CargoService {
 	 * 
 	 * @param cargo
 	 *            a készítésben lévő szállítás.
+	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private void updateUsersMoneyAfterPayment(Cargo cargo) throws Exception {
 		cargo.getUser()
@@ -252,21 +277,10 @@ public class CargoServiceImpl implements CargoService {
 	 * 
 	 * @param cargo
 	 *            a készítésben lévő szállítás.
+	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private void deleteItemsFromUsersCart(Cargo cargo) throws Exception {
-		// try {
-		// cargo.getItems()
-		// .stream()
-		// .forEach(p -> {
-		// try {
-		// cartItemDao.deleteItemLogically(p);
-		// } catch (Exception e) {
-		// throwWrapped(e);
-		// }
-		// });
-		// } catch (Exception e) {
-		// throw new Exception(e);
-		// }
 		for (CartItem item : cargo.getItems()) {
 			cartItemDao.deleteItemLogically(item);
 		}

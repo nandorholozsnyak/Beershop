@@ -120,14 +120,15 @@ public class SessionManager implements Serializable {
 				.getRankName();
 	}
 
-	/**
-	 * Visszaadja a bejelentkezett felhasználó tapasztalat pontjait.
-	 * 
-	 * @return a bejelentkezett felhasználó tapasztalat pontjai.
-	 */
-	public Integer getUserExperiencePoints() {
-		return userService.countExperiencePointsInPercentage(loggedInUser.getExperiencePoints());
-	}
+	// /**
+	// * Visszaadja a bejelentkezett felhasználó tapasztalat pontjait.
+	// *
+	// * @return a bejelentkezett felhasználó tapasztalat pontjai.
+	// */
+	// public Integer getUserExperiencePoints() {
+	// return
+	// userService.countExperiencePointsInPercentage(loggedInUser.getExperiencePoints());
+	// }
 
 	/**
 	 * Visszaadja a felhasználó egyenlegét formázottan.

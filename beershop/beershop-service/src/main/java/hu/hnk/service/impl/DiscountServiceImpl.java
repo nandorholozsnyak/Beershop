@@ -72,7 +72,8 @@ public class DiscountServiceImpl implements DiscountService {
 					.findFirst()
 					.get();
 		} catch (NoSuchElementException e) {
-			result = Collections.EMPTY_LIST;
+			result = Collections.emptyList();
+			logger.warn("Returning EMPTY_LIST for getAvaiableDailyRankBonusesForUser()",e);
 		}
 		return result;
 	}

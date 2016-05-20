@@ -14,8 +14,15 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.EventLogService;
 import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.service.cobertura.annotation.CoverageIgnore;
+import hu.hnk.service.factory.EventLogFactory;
 
 /**
+ * Az eseményeket kezelő szolgáltatás.
+ * 
+ * A szolgáltatás segítséget nyújt egy már előre elkészített esemény mentésére
+ * (amit a {@link EventLogFactory} osztállyal készíthetünk el), illetve az egyes
+ * felhasználókhoz tartozó eseményeket tudjuk lekérdezni.
+ * 
  * @author Nandi
  *
  */

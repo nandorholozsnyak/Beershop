@@ -21,6 +21,19 @@ import hu.hnk.interfaces.EventLogDao;
 import hu.hnk.service.factory.EventLogFactory;
 
 /**
+ * A felhasználó tevékenységeket korlátozó interfész.
+ * 
+ * Minden felhasználónak be kell tartania bizonyos szabályokat, rangtól függően
+ * vásárolhat napi szinten, ezeket a korlátozásokat a
+ * {@link BuyActionRestrictions} osztály írja le.
+ * 
+ * A pénzfeltöltéssel kapcsolatban ugyan ilyen szabályok élnek amiket a
+ * {@link MoneyTransferRestrictions} osztály definiál.
+ * 
+ * Létezik egy bizonyos típusa a söröknek amelyeket csak <b>Legendás</b> néven
+ * hívunk, ezeket csak a {@link Rank#LEGENDA} ranggal rendelkező felhasználó
+ * vásárolhatja meg.
+ * 
  * @author Nandi
  *
  */

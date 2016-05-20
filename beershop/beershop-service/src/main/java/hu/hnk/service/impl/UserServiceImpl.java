@@ -33,7 +33,9 @@ import hu.hnk.service.cobertura.annotation.CoverageIgnore;
 import hu.hnk.service.factory.EventLogFactory;
 
 /**
- * A felhasználói szolgálatásokkal foglalkozó osztály. Enterprise Java Bean.
+ * A felhasználói szolgálatásokkal foglalkozó osztály.
+ * 
+ * 
  * 
  * @author Nandi
  * 
@@ -215,25 +217,25 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Integer countExperiencePointsInPercentage(Double experiencePoints) {
-
-		Integer result = 0;
-
-		if (experiencePoints > -1 && experiencePoints <= 2500) {
-			result = (int) ((experiencePoints / 2500) * 100);
-		} else if (experiencePoints > 2500 && experiencePoints <= 5000) {
-			experiencePoints -= 2500;
-			result = (int) ((experiencePoints / 2500) * 100);
-		} else if (experiencePoints > 5000) {
-			result = 100;
-		}
-
-		return result;
-	}
+//	/**
+//	 * {@inheritDoc}
+//	 */
+//	@Override
+//	public Integer countExperiencePointsInPercentage(Double experiencePoints) {
+//
+//		Integer result = 0;
+//
+//		if (experiencePoints > -1 && experiencePoints <= 2500) {
+//			result = (int) ((experiencePoints / 2500) * 100);
+//		} else if (experiencePoints > 2500 && experiencePoints <= 5000) {
+//			experiencePoints -= 2500;
+//			result = (int) ((experiencePoints / 2500) * 100);
+//		} else if (experiencePoints > 5000) {
+//			result = 100;
+//		}
+//
+//		return result;
+//	}
 
 	/**
 	 * {@inheritDoc}

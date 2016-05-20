@@ -22,6 +22,10 @@ import hu.hnk.interfaces.StorageDao;
 import hu.hnk.service.cobertura.annotation.CoverageIgnore;
 
 /**
+ * A raktárak kezelő szolgáltatás.
+ * 
+ * Segítségével a raktárban lévő árut módosíthatjuk.
+ * 
  * @author Nandi
  *
  */
@@ -63,6 +67,15 @@ public class StorageServiceImpl implements StorageService {
 
 	}
 
+	/**
+	 * Ellenőrzi hogy a paraméterül kapott <code>storage</code> listabeli elemek
+	 * bizonyos paraméterei nem-e kisebbek mint nulla.
+	 * 
+	 * @param storage
+	 *            az ellenőrizendő lista
+	 * @return <code>true</code> ha nincs 0-nál kisebb ellenőrizett érték,
+	 *         egyébként <code>false</code>
+	 */
 	private boolean isNothingLessThanZero(List<StorageItem> storage) {
 		return storage.stream()
 				.filter(p -> p.getQuantity() < 0)
