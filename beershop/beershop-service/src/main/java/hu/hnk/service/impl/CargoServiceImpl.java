@@ -127,10 +127,10 @@ public class CargoServiceImpl implements CargoService {
 
 		savedCargo = saveCargo(cargo, items);
 		// a kedvezményeket élesítjük
-		logger.info("Date:" + LocalDate.now());
+		logger.info("Date:" + getNow());
 		Arrays.asList(DiscountType.values())
 				.stream()
-				.forEach(p -> discountService.validateDiscount(p, savedCargo, LocalDate.now()));
+				.forEach(p -> discountService.validateDiscount(p, savedCargo, getNow()));
 
 		cargoDao.update(savedCargo);
 		// Miután mentettük a szállítást utána töröljük a felhasználó kosarából.
@@ -154,6 +154,15 @@ public class CargoServiceImpl implements CargoService {
 
 		return savedCargo;
 
+	}
+
+	/**
+	 * Visszaadja az aktuális napot.
+	 * 
+	 * @return az aktuális nap.
+	 */
+	private LocalDate getNow() {
+		return LocalDate.now();
 	}
 
 	/**
@@ -291,7 +300,7 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	@Override
 	public boolean isThereEnoughMoney(Double totalcost, User user, PaymentMode paymentMode) {
-		if(paymentMode == null) {
+		if (paymentMode == null) {
 			return false;
 		}
 		if (paymentMode.equals(PaymentMode.MONEY))
@@ -299,7 +308,7 @@ public class CargoServiceImpl implements CargoService {
 		else if (paymentMode.equals(PaymentMode.BONUSPOINT))
 			return totalcost + BuyActionRestrictions.getShippingCost() <= user.getPoints() ? true : false;
 		return false;
-		
+
 	}
 
 	/**
@@ -312,7 +321,8 @@ public class CargoServiceImpl implements CargoService {
 			result = user.getMoney() - totalcost - BuyActionRestrictions.getShippingCost();
 		else if (paymentMode.equals(PaymentMode.BONUSPOINT))
 			result = user.getPoints() - totalcost - BuyActionRestrictions.getShippingCost();
-		logger.info("Money after payment:" + result + " for user " + user.getUsername());
+		logger.info(
+				"Money after payment:" + (result < 0 ? "less then zero" : result) + " for user " + user.getUsername());
 		return result < 0 ? null : result;
 	}
 

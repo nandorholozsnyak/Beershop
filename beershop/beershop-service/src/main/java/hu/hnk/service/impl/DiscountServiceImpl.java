@@ -276,10 +276,10 @@ public class DiscountServiceImpl implements DiscountService {
 		DiscountType discount = bonus.get()
 				.getDiscounts()
 				.get(0);
-		logger.debug(discount.toString() + "day:" + bonus.get()
+		logger.debug("{} day: {} ", discount.toString(), bonus.get()
 				.getDay());
-		logger.debug("Today:" + today.getDayOfWeek());
-		logger.debug("Is this day " + discount.toString() + " discount day:" + isTodayDiscountDay(bonus.get(), today));
+		logger.debug("Today: {}", today.getDayOfWeek());
+		logger.debug("Is this day {} discount day: {}", discount.toString(), isTodayDiscountDay(bonus.get(), today));
 	}
 
 	/**

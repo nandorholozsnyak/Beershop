@@ -39,7 +39,7 @@ import hu.hnk.service.impl.UserServiceImpl;
 import hu.hnk.service.tools.BonusPointCalculator;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ LocalDate.class })
+@PrepareForTest({ CargoServiceImpl.class })
 public class CargoServiceTest {
 	private UserDao userDao;
 	private CargoServiceImpl cargoServiceImpl;
@@ -57,13 +57,13 @@ public class CargoServiceTest {
 	@Before
 	public void setUp() throws Exception {
 		// Mock Halmaz
-		cargoServiceImpl = Mockito.spy(new CargoServiceImpl());
+		cargoServiceImpl = PowerMockito.spy(new CargoServiceImpl());
 		restrictionChecker = Mockito.spy(new RestrictionCheckerServiceImpl());
 		discountService = Mockito.spy(new DiscountServiceImpl());
 		bonusPointCalculator = Mockito.spy(new BonusPointCalculator());
 		userService = Mockito.spy(new UserServiceImpl());
 		discountService.setUserService(userService);
-		eventLogDao = Mockito.spy(EventLogDao.class);
+		eventLogDao = Mockito.mock(EventLogDao.class);
 		cartItemDao = Mockito.mock(CartItemDao.class);
 		cargoDao = Mockito.mock(CargoDao.class);
 		userDao = Mockito.mock(UserDao.class);
@@ -169,14 +169,15 @@ public class CargoServiceTest {
 
 		Mockito.when(cargoDao.save(cargo))
 				.thenReturn(cargo);
-
-		cargoServiceImpl.saveNewCargo(cargo, items);
-
-		// szombati napra mockolunk
+		// pénteki napra mockolunk
+		// LocalDate.now() statikus metódus mockolása.
 		LocalDate date = LocalDate.of(2016, Month.MAY, 20);
 		PowerMockito.mockStatic(LocalDate.class);
 		Mockito.when(LocalDate.now())
 				.thenReturn(date);
+
+		cargoServiceImpl.saveNewCargo(cargo, items);
+
 		Assert.assertEquals(1000 - BuyActionRestrictions.getShippingCost() - cargo.getCargoTotalPrice(), cargo.getUser()
 				.getMoney(), 0.0);
 
@@ -236,6 +237,16 @@ public class CargoServiceTest {
 
 		Mockito.when(cargoDao.save(cargo))
 				.thenReturn(cargo);
+
+		// pénteki napra mockolunk
+		LocalDate date = LocalDate.of(2016, Month.MAY, 20);
+		// PowerMockito.mockStatic(LocalDate.class);
+		// Mockito.when(LocalDate.now())
+		// .thenReturn(date);
+		// Privát változó mockolása
+		PowerMockito.when(cargoServiceImpl, PowerMockito.method(CargoServiceImpl.class, "getNow"))
+				.withNoArguments()
+				.thenReturn(date);
 
 		cargoServiceImpl.saveNewCargo(cargo, items);
 
