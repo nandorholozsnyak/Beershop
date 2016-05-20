@@ -10,7 +10,6 @@ import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.ToString;
 
 /**
  * Egy kosár adatait tartalmazó osztály.
@@ -26,7 +25,6 @@ import lombok.ToString;
 @Entity
 @Builder
 @AllArgsConstructor
-@ToString
 public class Cart extends BaseEntity implements Serializable {
 
 	/**

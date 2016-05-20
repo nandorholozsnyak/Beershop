@@ -60,7 +60,7 @@ public class TransactionManagerBean implements Serializable {
 	 */
 	@EJB
 	private CargoService cargoService;
-	
+
 	/**
 	 * A kedvezményeket kezelő szolgáltatás.
 	 */
@@ -102,12 +102,12 @@ public class TransactionManagerBean implements Serializable {
 	 * A felhasználó kosárban, illetve most a szállítandó termékek listája.
 	 */
 	private List<CartItem> items;
-	
+
 	/**
 	 * Az aktuális kedvezmények listája.
 	 */
 	private List<DiscountType> discounts;
-	
+
 	/**
 	 * Inicializáló metódus, a managed bean létrejöttekor.
 	 */
@@ -124,7 +124,8 @@ public class TransactionManagerBean implements Serializable {
 			logger.warn("Could not load user items for transaction.");
 			logger.error(e.getMessage(), e);
 		}
-		discounts = discountService.getAvailableDailyRankBonusesForUser(sessionManager.getLoggedInUser(), LocalDate.now());
+		discounts = discountService.getAvailableDailyRankBonusesForUser(sessionManager.getLoggedInUser(),
+				LocalDate.now());
 		shippingCost = BuyActionRestrictions.getShippingCost();
 		paymentMode = PaymentMode.MONEY;
 
@@ -368,10 +369,21 @@ public class TransactionManagerBean implements Serializable {
 		this.shippingCost = shippingCost;
 	}
 
+	/**
+	 * Visszaadja az elérhető kedvezmények listáját.
+	 * 
+	 * @return az elérhető kedvezmények listája.
+	 */
 	public List<DiscountType> getDiscounts() {
 		return discounts;
 	}
 
+	/**
+	 * Beállítja az elérhető kedvemények listáját.
+	 * 
+	 * @param discounts
+	 *            beállítandó kedvezmények listája.
+	 */
 	public void setDiscounts(List<DiscountType> discounts) {
 		this.discounts = discounts;
 	}

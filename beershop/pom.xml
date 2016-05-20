@@ -275,11 +275,6 @@
 	<reporting>
 		<plugins>
 			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.6.201602180812</version>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.10.3</version>
@@ -330,56 +325,11 @@
 						</execution>
 					</executions>
 				</plugin>
-				<!-- <plugin> -->
-				<!-- <groupId>org.codehaus.mojo</groupId> -->
-				<!-- <artifactId>license-maven-plugin</artifactId> -->
-				<!-- <version>1.8</version> -->
-				<!-- <executions> -->
-				<!-- <execution> -->
-				<!-- <id>download-licenses</id> -->
-				<!-- <goals> -->
-				<!-- <goal>download-licenses</goal> -->
-				<!-- </goals> -->
-				<!-- </execution> -->
-				<!-- </executions> -->
-				<!-- </plugin> -->
-				<!-- <plugin> -->
-				<!-- <groupId>org.apache.maven.plugins</groupId> -->
-				<!-- <artifactId>maven-javadoc-plugin</artifactId> -->
-				<!-- <version>2.10.3</version> -->
-				<!-- <configuration> -->
-				<!-- <show>private</show> -->
-				<!-- </configuration> -->
-				<!-- </plugin> -->
-				<!-- <plugin> -->
-				<!-- <groupId>org.apache.maven.plugins</groupId> -->
-				<!-- <artifactId>maven-jxr-plugin</artifactId> -->
-				<!-- <version>2.5</version> -->
-				<!-- </plugin> -->
-				<!-- <plugin> -->
-				<!-- <groupId>org.apache.maven.plugins</groupId> -->
-				<!-- <artifactId>maven-surefire-plugin</artifactId> -->
-				<!-- <version>2.19.1</version> -->
-				<!-- </plugin> -->
-
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>cobertura-maven-plugin</artifactId>
 					<version>2.7</version>
 				</plugin>
-				<!-- <plugin> -->
-				<!-- <groupId>org.apache.maven.plugins</groupId> -->
-				<!-- <artifactId>maven-checkstyle-plugin</artifactId> -->
-				<!-- <version>2.17</version> -->
-				<!-- <configuration> -->
-				<!-- <configLocation>checkstyle.xml</configLocation> -->
-				<!-- </configuration> -->
-				<!-- </plugin> -->
-				<!-- <plugin> -->
-				<!-- <groupId>org.jacoco</groupId> -->
-				<!-- <artifactId>jacoco-maven-plugin</artifactId> -->
-				<!-- <version>0.7.6.201602180812</version> -->
-				<!-- </plugin> -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -389,33 +339,36 @@
 						<target>1.8</target>
 					</configuration>
 				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>1.4.1</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>enforce</goal>
-							</goals>
-							<configuration>
-								<rules>
-									<requireJavaVersion>
-										<version>[1.8,)</version>
-									</requireJavaVersion>
-									<requireProperty>
-										<property>
-											java.vendor
-										</property>
-										<regex>.*Oracle.*</regex>
-									</requireProperty>
-								</rules>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
 			</plugins>
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.4.1</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireJavaVersion>
+									<version>[1.8,)</version>
+								</requireJavaVersion>
+								<requireProperty>
+									<property>
+										java.vendor
+									</property>
+									<regex>.*Oracle.*</regex>
+								</requireProperty>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 	<distributionManagement>
 		<site>
