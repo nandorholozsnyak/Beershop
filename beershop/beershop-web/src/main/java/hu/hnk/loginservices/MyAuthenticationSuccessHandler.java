@@ -44,9 +44,9 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
 
 		User currentUser = (User) authentication.getPrincipal();
 
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(auth.getAuthorities());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		List<GrantedAuthority> authorities = new ArrayList<>(auth.getAuthorities());
 
 		Authentication newAuth = new UsernamePasswordAuthenticationToken(currentUser, auth.getCredentials(),
 				authorities);

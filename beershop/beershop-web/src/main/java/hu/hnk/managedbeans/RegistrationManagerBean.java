@@ -190,6 +190,7 @@ public class RegistrationManagerBean implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
+		logger.info("registrationManagerBean init");
 		dateOfBirth = new Date();
 	}
 

@@ -64,7 +64,7 @@ public class SessionManager implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
-
+		logger.info("Requesting user info from request and principal.");
 		try {
 			HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance()
 					.getExternalContext()

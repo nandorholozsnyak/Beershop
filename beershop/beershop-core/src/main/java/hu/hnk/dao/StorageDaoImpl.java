@@ -69,7 +69,7 @@ public class StorageDaoImpl extends BaseDaoImpl<StorageItem> implements StorageD
 	 */
 	@Override
 	public StorageItem findByBeer(Beer beer) {
-		logger.info("Finding storage item by beer:" + beer.getName());
+		logger.info("Finding storage item by beer: {}", beer.getName());
 		return entityManager.createNamedQuery("StorageItem.findByBeer", StorageItem.class)
 				.setParameter("beer", beer)
 				.getSingleResult();

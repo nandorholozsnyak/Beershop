@@ -113,6 +113,7 @@ public class TransactionManagerBean implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
+		logger.info("transactionManagerBean init");
 		totalCost = countTotalCost();
 		try {
 			items = cartService.findByUser(sessionManager.getLoggedInUser())

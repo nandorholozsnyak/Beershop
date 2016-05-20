@@ -58,7 +58,7 @@ public class CartDaoImpl extends BaseDaoImpl<Cart> implements CartDao {
 	 */
 	@Override
 	public Cart findByUser(User user) throws Exception {
-		logger.info("Asking all cart items for user:" + user.getUsername());
+		logger.info("Asking all cart items for user: {}", user.getUsername());
 		Query q = entityManager.createQuery("SELECT c FROM Cart c WHERE user = :user");
 		q.setParameter("user", user);
 		return (Cart) q.getSingleResult();

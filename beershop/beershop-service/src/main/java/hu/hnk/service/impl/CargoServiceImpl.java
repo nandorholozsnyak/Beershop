@@ -109,7 +109,7 @@ public class CargoServiceImpl implements CargoService {
 	@Override
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
 			throws DailyBuyActionLimitExceededException, CanNotBuyLegendaryBeerYetException, Exception {
-
+		logger.info("Preparing new cargo...");
 		if (!restrictionCheckerService.checkIfUserCanBuyMoreBeer(cargo.getUser())) {
 			throw new DailyBuyActionLimitExceededException("Daily buy action limit exceeded.");
 		}
@@ -175,6 +175,8 @@ public class CargoServiceImpl implements CargoService {
 	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private void updateBonusPointsAfterPayment(Cargo cargo) throws Exception {
+		logger.info("Update bonus points after payment with bonus points for {}", cargo.getUser()
+				.getUsername());
 		cargo.getUser()
 				.setPoints(cargo.getUser()
 						.getPoints() - cargo.getTotalPrice());
@@ -194,6 +196,8 @@ public class CargoServiceImpl implements CargoService {
 	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private void updateUserBonusPoints(Cargo cargo, Cargo savedCargo) throws Exception {
+		logger.info("Update bonus points after payment for {}", cargo.getUser()
+				.getUsername());
 		cargo.getUser()
 				.setPoints(cargo.getUser()
 						.getPoints() + calculator.calculate(savedCargo.getItems()));
@@ -210,6 +214,8 @@ public class CargoServiceImpl implements CargoService {
 	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private void updateUserExperiencePoints(Cargo cargo) throws Exception {
+		logger.info("Update experience points after payment for {}", cargo.getUser()
+				.getUsername());
 		cargo.getUser()
 				.setExperiencePoints(cargo.getUser()
 						.getExperiencePoints() + (cargo.getTotalPrice() / 10));
@@ -260,9 +266,7 @@ public class CargoServiceImpl implements CargoService {
 	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private void createEventLogForBuyAction(Cargo cargo) throws Exception {
-
 		eventLogDao.save(EventLogFactory.createEventLog(EventLogType.BUY, cargo.getUser()));
-
 	}
 
 	/**
@@ -275,6 +279,8 @@ public class CargoServiceImpl implements CargoService {
 	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private void updateUsersMoneyAfterPayment(Cargo cargo) throws Exception {
+		logger.info("Update money after payment with money for {}", cargo.getUser()
+				.getUsername());
 		cargo.getUser()
 				.setMoney(cargo.getUser()
 						.getMoney() - cargo.getTotalPrice());
@@ -301,12 +307,16 @@ public class CargoServiceImpl implements CargoService {
 	@Override
 	public boolean isThereEnoughMoney(Double totalcost, User user, PaymentMode paymentMode) {
 		if (paymentMode == null) {
+			logger.warn("Invalid payment!");
 			return false;
 		}
-		if (paymentMode.equals(PaymentMode.MONEY))
+		if (paymentMode.equals(PaymentMode.MONEY)) {
+			logger.info("Paying with MONEY");
 			return totalcost + BuyActionRestrictions.getShippingCost() <= user.getMoney() ? true : false;
-		else if (paymentMode.equals(PaymentMode.BONUSPOINT))
+		} else if (paymentMode.equals(PaymentMode.BONUSPOINT)) {
+			logger.info("Paying with BONUS POINT");
 			return totalcost + BuyActionRestrictions.getShippingCost() <= user.getPoints() ? true : false;
+		}
 		return false;
 
 	}

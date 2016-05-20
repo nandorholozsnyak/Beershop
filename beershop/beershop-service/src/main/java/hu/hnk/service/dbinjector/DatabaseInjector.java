@@ -155,7 +155,7 @@ public class DatabaseInjector {
 			logger.warn("Could not default user with default roles.");
 			logger.error(e.getMessage(), e);
 		}
-		
+
 		logger.info("DatabaseInjector finished.");
 
 	}
@@ -171,17 +171,16 @@ public class DatabaseInjector {
 		if (storageDao.findAll()
 				.isEmpty()) {
 			for (Beer b : beerDao.findAll()) {
-				try {
-					StorageItem item = StorageItem.builder()
-							.beer(b)
-							.quantity(20)
-							.build();
-					item = storageDao.save(item);
-					logger.info("Storage Item saved:" + item);
-				} catch (Exception e) {
-					logger.error(e.getMessage(), e);
-				}
+
+				StorageItem item = StorageItem.builder()
+						.beer(b)
+						.quantity(20)
+						.build();
+				item = storageDao.save(item);
+				logger.info("Storage Item saved:{}", item);
+
 			}
+			logger.info("Storage filled.");
 		}
 	}
 
@@ -207,7 +206,7 @@ public class DatabaseInjector {
 						.legendary(legendaryItemIds.contains(i))
 						.build();
 				beerDao.save(beer);
-
+				logger.info("Beers were generated and saved to db.");
 			}
 		}
 	}
@@ -232,6 +231,7 @@ public class DatabaseInjector {
 					.build();
 			roleDao.save(adminRole);
 			roleDao.save(userRole);
+			logger.info("Default roles created.");
 
 		}
 	}
@@ -272,7 +272,7 @@ public class DatabaseInjector {
 					.user(foundUser)
 					.build());
 			foundUser.setCart(cart);
-
+			logger.info("Default user created with name and password:{}", DEFAULT_USER);
 		}
 	}
 

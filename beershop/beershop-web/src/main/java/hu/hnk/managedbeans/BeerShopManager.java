@@ -95,6 +95,7 @@ public class BeerShopManager implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
+		logger.info("beerShopManager init");
 		try {
 			setBeersInShop(beerService.findAll());
 		} catch (Exception e) {

@@ -11,6 +11,9 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.TypedQuery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import hu.hnk.beershop.model.Cargo;
 import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.CargoDao;
@@ -30,6 +33,11 @@ import hu.hnk.interfaces.CargoDao;
 public class CargoDaoImpl extends BaseDaoImpl<Cargo> implements CargoDao {
 
 	/**
+	 * Az osztály loggere.
+	 */
+	public static final Logger logger = LoggerFactory.getLogger(CargoDaoImpl.class);
+
+	/**
 	 * Az osztály konstuktora.
 	 */
 	public CargoDaoImpl() {
@@ -41,6 +49,7 @@ public class CargoDaoImpl extends BaseDaoImpl<Cargo> implements CargoDao {
 	 */
 	@Override
 	public List<Cargo> findByUser(User user) throws Exception {
+		logger.info("Getting cargos for user {}", user.getUsername());
 		TypedQuery<Cargo> cargos = entityManager.createQuery("SELECT c FROM Cargo c where c.user = :user", Cargo.class);
 		cargos.setParameter("user", user);
 		return cargos.getResultList();

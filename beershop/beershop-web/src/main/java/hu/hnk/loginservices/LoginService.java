@@ -101,6 +101,7 @@ public class LoginService implements Serializable, UserDetailsService {
 		User user;
 
 		try {
+			logger.info("Loading userDetails for {}", username);
 			user = userService.findByUsername(username);
 			if (user == null) {
 				throw new UsernameNotFoundException(username);

@@ -46,7 +46,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	 */
 	@Override
 	public User findByUsername(String username) throws UsernameNotFoundException {
-		logger.info("Finding user by username:" + username);
+		logger.info("Finding user by username: {}", username);
 		TypedQuery<User> query = entityManager.createNamedQuery("User.findByUsername", User.class);
 		query.setParameter("name", username);
 		User user;
@@ -64,7 +64,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	 */
 	@Override
 	public User findByEmail(String email) throws EmailNotFoundException {
-		logger.info("Finding user by email:" + email);
+		logger.info("Finding user by email: {}", email);
 		TypedQuery<User> query = entityManager.createNamedQuery("User.findByEmail", User.class);
 		query.setParameter("email", email);
 		User user;
@@ -82,7 +82,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	 */
 	@Override
 	public void remove(User user) {
-		logger.info("Removing user:" + user.getUsername());
+		logger.info("Removing user: {}", user.getUsername());
 		entityManager.remove(entityManager.contains(user) ? user : entityManager.merge(user));
 	}
 
@@ -91,7 +91,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	 */
 	@Override
 	public String findUsername(String username) throws UsernameNotFoundException {
-		logger.info("Finding username:" + username);
+		logger.info("Finding username: {}", username);
 		TypedQuery<String> query = entityManager.createNamedQuery("User.findUsername", String.class);
 		query.setParameter("name", username);
 		String user;
@@ -109,7 +109,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	 */
 	@Override
 	public String findEmail(String email) throws EmailNotFoundException {
-		logger.info("Finding email:" + email);
+		logger.info("Finding email:{}", email);
 		TypedQuery<String> query = entityManager.createNamedQuery("User.findEmail", String.class);
 		query.setParameter("email", email);
 		String user;

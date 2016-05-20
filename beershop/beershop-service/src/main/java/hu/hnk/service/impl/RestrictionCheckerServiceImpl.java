@@ -1,6 +1,7 @@
 package hu.hnk.service.impl;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,7 +65,6 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @throws Exception
 	 */
 	@Override
 	public boolean checkIfUserCanTransferMoney(User user) throws Exception {
@@ -73,16 +73,6 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 		if (userEvents == null || userEvents.isEmpty()) {
 			return true;
 		}
-		// if (userEvents.stream()
-		// .count() > 3 && countRankFromXp(user).equals(Rank.Amatuer)) {
-		// return false;
-		// } else if (userEvents.stream()
-		// .count() > 4 && countRankFromXp(user).equals(Rank.Sorfelelos)) {
-		// return false;
-		// } else if (userEvents.stream()
-		// .count() > 5 && countRankFromXp(user).equals(Rank.Ivobajnok)) {
-		// return false;
-		// }
 
 		for (MoneyTransferRestrictions mr : moneyRestrictions) {
 			if (mr.getRank()
@@ -102,10 +92,11 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	 *            a lekérdezendő eseményekkel kapcsolatos felhasználó.
 	 * @return az események listája.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private List<EventLog> getTodayMoneyTransferEventLogs(User user) throws Exception {
 		if (eventLogDao.findByUserWhereDateIsToday(user) == null) {
-			return null;
+			return Collections.emptyList();
 		}
 		return eventLogDao.findByUserWhereDateIsToday(user)
 				.stream()
@@ -123,7 +114,7 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	@Override
 	public boolean checkIfUserCanBuyMoreBeer(User user) throws Exception {
 		List<EventLog> userEvents = getTodayBuyActionEventLogs(user);
-		if (userEvents == null || userEvents.size() == 0) {
+		if (userEvents == null || userEvents.isEmpty()) {
 			return true;
 		}
 
@@ -144,10 +135,11 @@ public class RestrictionCheckerServiceImpl extends UserServiceImpl implements Re
 	 *            a lekérdezendő eseményekkel kapcsolatos felhasználó.
 	 * @return az események listája.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private List<EventLog> getTodayBuyActionEventLogs(User user) throws Exception {
 		if (eventLogDao.findByUserWhereDateIsToday(user) == null) {
-			return null;
+			return Collections.emptyList();
 		}
 		return eventLogDao.findByUserWhereDateIsToday(user)
 				.stream()

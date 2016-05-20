@@ -47,7 +47,7 @@ public class EventLogDaoImpl extends BaseDaoImpl<EventLog> implements EventLogDa
 	 */
 	@Override
 	public List<EventLog> findByUser(User user) throws Exception {
-		logger.info("Gettin all event logs for:" + user.getUsername());
+		logger.info("Gettin all event logs for: {}", user.getUsername());
 		TypedQuery<EventLog> query = entityManager.createNamedQuery("EventLog.findByUser", EventLog.class);
 		query.setParameter("user", user);
 		return query.getResultList();
@@ -58,7 +58,7 @@ public class EventLogDaoImpl extends BaseDaoImpl<EventLog> implements EventLogDa
 	 */
 	@Override
 	public List<EventLog> findByUserWhereDateIsToday(User user) throws Exception {
-		logger.info("Gettin today's event logs for:" + user.getUsername());
+		logger.info("Gettin today's event logs for:{}", user.getUsername());
 		TypedQuery<EventLog> query = entityManager.createNamedQuery("EventLog.findByUserWhereDateIsToday",
 				EventLog.class);
 		query.setParameter("user", user);

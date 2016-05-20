@@ -70,6 +70,7 @@ public class CartManagerBean implements Serializable {
 	 * A felhasználó kosarának tartalmát betöltő metódus.
 	 */
 	private void loadUserItems() {
+		logger.info("cartManagerBean init");
 		try {
 			items = cartService.findByUser(sessionManager.getLoggedInUser())
 					.getItems()

@@ -160,14 +160,15 @@ public class CartServiceImpl implements CartService {
 		if (beerInStorage != null) {
 			if (beersToCart.get(beer) > 0 && beerInStorage.getQuantity() > 0) {
 				if (foundItem == null) {
-					item = new CartItem();
-					item.setAddedToCart(LocalDateTime.now());
-					item.setBeer(beer);
-					item.setQuantity(beersToCart.get(beer));
-					item.setActive(true);
+					item = CartItem.builder()
+							.addedToCart(LocalDateTime.now())
+							.beer(beer)
+							.quantity(beersToCart.get(beer))
+							.active(true)
+							.build();
 					cartItemDao.save(item);
 					cartItems.add(item);
-					logger.info("New item added to user's cart list.");
+					logger.info("New item added to cart list.");
 				} else {
 					cartItems.remove(foundItem);
 					foundItem.setQuantity(foundItem.getQuantity() + beersToCart.get(beer));
@@ -178,9 +179,7 @@ public class CartServiceImpl implements CartService {
 				}
 
 				beerInStorage.setQuantity(beerInStorage.getQuantity() - beersToCart.get(beer));
-
 				storageDao.save(beerInStorage);
-
 			}
 		}
 	}
@@ -198,6 +197,7 @@ public class CartServiceImpl implements CartService {
 	 *             ha nem szerepel a termék a felhasználó kosarában.
 	 */
 	private CartItem findBeerInUsersCart(List<CartItem> cartItems, Beer beer) {
+		logger.info("Finding beer in user's cart.");
 		return cartItems.stream()
 				.filter(p -> p.getBeer()
 						.equals(beer) && p.getActive())
@@ -217,6 +217,7 @@ public class CartServiceImpl implements CartService {
 	 *             ha a termék nem szerepel a raktárban.
 	 */
 	private StorageItem findBeerInStorage(List<StorageItem> storageItems, Beer beer) {
+		logger.info("Finding beer in storage.");
 		return storageItems.stream()
 				.filter(e -> e.getBeer()
 						.equals(beer))

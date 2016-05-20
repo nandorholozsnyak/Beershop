@@ -2,22 +2,16 @@ package hu.hnk.beershop.dao.test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.NamingException;
 
-import org.apache.openejb.junit.jee.transaction.Transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
-import hu.hnk.beershop.exception.UsernameNotFoundException;
 import hu.hnk.beershop.model.Beer;
 import hu.hnk.beershop.model.Cart;
 import hu.hnk.beershop.model.CartItem;
@@ -25,7 +19,7 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.interfaces.CartDao;
 import hu.hnk.interfaces.UserDao;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
 public class CartDaoTest {
 
 	// private EntityManager em;

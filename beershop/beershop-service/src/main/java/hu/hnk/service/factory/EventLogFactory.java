@@ -82,7 +82,7 @@ public class EventLogFactory {
 	private static EventLog createRegistrationEventLog(User user) {
 		EventLog event = createSingleEventLogForUser(user);
 		event.setAction(USER_REGISTRATION);
-		logger.info("Registration event log created for user " + user.getUsername());
+		logger.info("Registration event log created for user {}", user.getUsername());
 		return event;
 	}
 
@@ -96,7 +96,7 @@ public class EventLogFactory {
 	private static EventLog createMoneyTransferEventLog(User user) {
 		EventLog event = createSingleEventLogForUser(user);
 		event.setAction(MONEY_TRANSFER);
-		logger.info("Money transfer event log created for user " + user.getUsername());
+		logger.info("Money transfer event log created for user {}", user.getUsername());
 		return event;
 	}
 
@@ -110,7 +110,7 @@ public class EventLogFactory {
 	private static EventLog createBuyEventLog(User user) {
 		EventLog event = createSingleEventLogForUser(user);
 		event.setAction(BUY_ACTION);
-		logger.info("Buy event log created for user " + user.getUsername());
+		logger.info("Buy event log created for user {}", user.getUsername());
 		return event;
 	}
 

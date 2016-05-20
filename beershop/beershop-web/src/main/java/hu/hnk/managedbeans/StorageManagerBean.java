@@ -52,6 +52,7 @@ public class StorageManagerBean implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
+		logger.info("storageManagerBean init");
 		try {
 			storage = storageService.findAll();
 		} catch (Exception e) {

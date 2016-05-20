@@ -42,7 +42,7 @@ public class CartItemDaoImpl extends BaseDaoImpl<CartItem> implements CartItemDa
 	 */
 	@Override
 	public void deleteItemLogically(CartItem item) throws Exception {
-		logger.info("Trying to delete item logically.");
+		logger.info("Trying to delete item ({}) logically.", item);
 		item.setActive(false);
 		item.setRemovedFromCart(LocalDateTime.now());
 		update(item);

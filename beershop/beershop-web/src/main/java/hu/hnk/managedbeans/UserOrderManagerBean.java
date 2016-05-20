@@ -57,6 +57,7 @@ public class UserOrderManagerBean implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
+		logger.info("userOrderManagerBean init");
 		try {
 			userCargos = cargoService.findByUser(sessionManager.getLoggedInUser());
 		} catch (Exception e) {

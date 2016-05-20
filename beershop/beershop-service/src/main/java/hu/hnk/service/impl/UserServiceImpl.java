@@ -204,7 +204,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public Rank countRankFromXp(User user) {
-
+		logger.info("Getting rank for {}", user.getUsername());
 		if (user.getExperiencePoints() == null) {
 			return Rank.AMATUER;
 		}
@@ -217,26 +217,6 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public Integer countExperiencePointsInPercentage(Double experiencePoints) {
-//
-//		Integer result = 0;
-//
-//		if (experiencePoints > -1 && experiencePoints <= 2500) {
-//			result = (int) ((experiencePoints / 2500) * 100);
-//		} else if (experiencePoints > 2500 && experiencePoints <= 5000) {
-//			experiencePoints -= 2500;
-//			result = (int) ((experiencePoints / 2500) * 100);
-//		} else if (experiencePoints > 5000) {
-//			result = 100;
-//		}
-//
-//		return result;
-//	}
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -245,11 +225,11 @@ public class UserServiceImpl implements UserService {
 	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser) throws Exception {
 		if (restrictionCheckerService.checkIfUserCanTransferMoney(loggedInUser)) {
 			if (!userPin.equals(expectedPin)) {
-				logger.info("User entered invalid PIN code.");
+				logger.info("{} entered invalid PIN code.", loggedInUser.getUsername());
 				throw new InvalidPinCodeException("PINs are not the same.");
 			}
 		} else {
-			logger.info("User reached the maximum money tranfer limit today.");
+			logger.info("{} reached the maximum money tranfer limit today.", loggedInUser.getUsername());
 			throw new DailyMoneyTransferLimitExceededException("Maximum limit exceeded.");
 		}
 		loggedInUser.setMoney(loggedInUser.getMoney() + money);

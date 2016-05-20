@@ -77,6 +77,7 @@ public class MoneyTransferManagerBean implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
+		logger.info("moneyTransferManagerBean init");
 		generateMoneyTransferFields();
 
 	}
