@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<configuration debug="true">
+
+ <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+	<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+		<Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} %-5level %logger{36} - %msg%n
+                </Pattern>
+	</encoder>
+ </appender>
+
+ <appender name="FILE"
+	class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<file>beershop.log</file>
+	<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+	   <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+           </Pattern>
+	</encoder>
+
+	<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+		<FileNamePattern>beershop.%i.log.zip</FileNamePattern>
+		<MinIndex>1</MinIndex>
+		<MaxIndex>10</MaxIndex>
+	</rollingPolicy>
+
+	<triggeringPolicy
+		class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+		<MaxFileSize>64MB</MaxFileSize>
+	</triggeringPolicy>
+
+  </appender>
+
+  <logger name="org.hibernate.type" level="ALL" />
+  <logger name="org.hibernate" level="DEBUG" />
+
+  <root level="ALL">
+	<appender-ref ref="FILE" />
+	<appender-ref ref="STDOUT" />
+  </root>
+</configuration>
