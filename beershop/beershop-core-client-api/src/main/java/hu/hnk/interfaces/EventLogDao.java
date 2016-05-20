@@ -22,6 +22,7 @@ public interface EventLogDao extends BaseDao<EventLog> {
 	 *            a keresendő események felhasználója.
 	 * @return a keresett felhasználó eseménylistája.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public List<EventLog> findByUser(User user) throws Exception;
 
@@ -33,6 +34,7 @@ public interface EventLogDao extends BaseDao<EventLog> {
 	 *            a felhasználó,akinek az eseményeit szeretnénk listázni.
 	 * @return a napi események listája.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public List<EventLog> findByUserWhereDateIsToday(User user) throws Exception;
 

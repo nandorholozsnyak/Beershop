@@ -21,6 +21,7 @@ public interface UserService {
 	 * @param user
 	 *            a mentendő felhasználó.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public void save(User user) throws Exception;
 
@@ -109,6 +110,7 @@ public interface UserService {
 	 *             akkor dobjuk ha a felhasználó túllépte a megadott napi
 	 *             limitet.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser)
 			throws InvalidPinCodeException, DailyMoneyTransferLimitExceededException, Exception;

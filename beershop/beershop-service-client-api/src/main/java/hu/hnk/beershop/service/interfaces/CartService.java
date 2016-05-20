@@ -22,6 +22,7 @@ public interface CartService {
 	 *            a mentendő kosár.
 	 * @return a mentett kosár.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public Cart save(Cart cart) throws Exception;
 
@@ -32,6 +33,7 @@ public interface CartService {
 	 *            a keresett felhasználó.
 	 * @return a keresett kosár.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public Cart findByUser(User user) throws Exception;
 
@@ -41,7 +43,7 @@ public interface CartService {
 	 * @param item
 	 *            a törlendő elem.
 	 * @throws Exception
-	 *             bármilyen adatbázis hiba esetén.
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public void deletItemFromCart(CartItem item) throws Exception;
 
@@ -53,6 +55,7 @@ public interface CartService {
 	 * @param cart
 	 *            a felhasználó kosara.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public void saveItemsToCart(Map<Beer, Integer> beersToCart, Cart cart) throws Exception;
 

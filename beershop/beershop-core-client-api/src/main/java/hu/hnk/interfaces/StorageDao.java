@@ -20,6 +20,7 @@ public interface StorageDao extends BaseDao<StorageItem> {
 	 * 
 	 * @return a raktár információi.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public List<StorageItem> findAll() throws Exception;
 
@@ -30,6 +31,7 @@ public interface StorageDao extends BaseDao<StorageItem> {
 	 * @param storage
 	 *            a mentendő raktárbeli elemek listája.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public void saveAllChanges(List<StorageItem> storage) throws Exception;
 
@@ -40,6 +42,7 @@ public interface StorageDao extends BaseDao<StorageItem> {
 	 *            a keresendő sör.
 	 * @return a megtalált raktárbeli elem.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public StorageItem findByBeer(Beer beer) throws Exception;
 }

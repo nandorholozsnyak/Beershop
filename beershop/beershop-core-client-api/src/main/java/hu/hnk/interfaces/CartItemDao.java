@@ -18,7 +18,7 @@ public interface CartItemDao extends BaseDao<CartItem> {
 	 * @param item
 	 *            a törlendő termék.
 	 * @throws Exception
-	 *             bármilyen hibás adatbázis művelet esetén.
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public void deleteItemLogically(CartItem item) throws Exception;
 }

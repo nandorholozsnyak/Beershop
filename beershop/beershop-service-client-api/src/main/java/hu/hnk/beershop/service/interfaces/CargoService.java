@@ -38,6 +38,7 @@ public interface CargoService {
 	 *             ha szerepel a termékek listájában legendás termék, de a
 	 *             felhasználó még nem jogosult ezek vásárlására.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public Cargo saveNewCargo(Cargo cargo, List<CartItem> items)
 			throws DailyBuyActionLimitExceededException, CanNotBuyLegendaryBeerYetExceptionException, Exception;
@@ -64,6 +65,7 @@ public interface CargoService {
 	 *            a keresendő szállításokkal rendelkező felhasználó
 	 * @return a szállítások listája
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public List<Cargo> findByUser(User user) throws Exception;
 

@@ -20,6 +20,7 @@ public interface CartDao extends BaseDao<Cart> {
 	 * 
 	 * @return a kosár információi.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public List<Cart> findAll() throws Exception;
 
@@ -30,6 +31,7 @@ public interface CartDao extends BaseDao<Cart> {
 	 *            a keresendő kosár birtokosa.
 	 * @return a megtalált kosár.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public Cart findByUser(User user) throws Exception;
 

@@ -36,6 +36,7 @@ public interface EventLogService {
 	 *            a felhasználó akinek az eseményeit vissza szeretnénk adni.
 	 * @return az eseményeket tartalmazó lista.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public List<EventLog> findByUser(User user) throws Exception;
 
@@ -46,6 +47,7 @@ public interface EventLogService {
 	 *            az mentendő esemény.
 	 * @return a mentett esemény.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public EventLog save(EventLog event) throws Exception;
 

@@ -26,6 +26,7 @@ public interface RestrictionCheckerService {
 	 *            az ellenőrizendő felhasználó.
 	 * @return igaz ha még utalhat, hamis ha már nem
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public boolean checkIfUserCanTransferMoney(User user) throws Exception;
 
@@ -37,6 +38,7 @@ public interface RestrictionCheckerService {
 	 *            az ellenőrizendő felhasználó.
 	 * @return igaz ha még vásárolhat, hamis ha már nem
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public boolean checkIfUserCanBuyMoreBeer(User user) throws Exception;
 
@@ -48,6 +50,7 @@ public interface RestrictionCheckerService {
 	 *            az ellenőrizendő felhasználó.
 	 * @return igaz ha megvásárolhatja, hamis ha már nem
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public boolean checkIfUserCanBuyLegendBeer(User user) throws Exception;
 

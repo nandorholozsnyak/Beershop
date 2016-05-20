@@ -21,6 +21,7 @@ public interface RoleDao extends BaseDao<Role> {
 	 *            a keresendő jogkör neve.
 	 * @return a talált jogkör.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public Role findByName(String name) throws Exception;
 
@@ -29,6 +30,7 @@ public interface RoleDao extends BaseDao<Role> {
 	 * 
 	 * @return a jogkörök listája.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	public List<Role> findAll() throws Exception;
 
