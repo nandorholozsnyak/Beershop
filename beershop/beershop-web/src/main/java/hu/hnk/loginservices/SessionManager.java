@@ -22,8 +22,14 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
 
 /**
- * A session-t kezelő bean, amely a felhasználó bejelentkezés utáni adatait
- * tartja számon.
+ * A munkamenetet kezelő szolgáltatás.
+ * 
+ * A sikeres bejelentkezés után a szolgáltatás {@link PostConstruct}
+ * annotációval ellátott metódusa lefut, amely beállítja az osztályban a
+ * {@link SessionManager#loggedInUser} objektumot amely az aktuálisan
+ * bejelentkezett felhasználót tartja számon,mivel a szolgáltatás
+ * {@link SessionScoped} annotációval ellátott ezért addig él amíg nem
+ * invalidálódik a munkamenet.
  * 
  * @author Nandi
  *

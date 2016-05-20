@@ -77,20 +77,58 @@ public class StorageServiceImpl implements StorageService {
 	 *         egyébként <code>false</code>
 	 */
 	private boolean isNothingLessThanZero(List<StorageItem> storage) {
+		return isQuantityBiggerThanZero(storage) && isDiscountAmountBiggerThanZero(storage)
+				&& isPriceBiggerThanZero(storage);
+	}
+
+	/**
+	 * Ellenőrzi hogy a paraméterként kapott áru listában a sörök ára nem kisebb
+	 * mint nulla.
+	 * 
+	 * @param storage
+	 *            az ellenőrizendő lista.
+	 * @return <code>true</code> ha minden ár nem kisebb mint nulla, egyébként
+	 *         <code>false</code>
+	 */
+	private boolean isPriceBiggerThanZero(List<StorageItem> storage) {
+		return storage.stream()
+				.filter(p -> p.getBeer()
+						.getPrice() < 0)
+				.collect(Collectors.toList())
+				.isEmpty();
+	}
+
+	/**
+	 * Ellenőrzi hogy a paraméterként kapott áru listában a sörök kedvezménye
+	 * nem kisebb mint nulla.
+	 * 
+	 * @param storage
+	 *            az ellenőrizendő lista.
+	 * @return <code>true</code> ha minden kedvezmény nem kisebb mint nulla,
+	 *         egyébként <code>false</code>
+	 */
+	private boolean isDiscountAmountBiggerThanZero(List<StorageItem> storage) {
+		return storage.stream()
+				.filter(p -> p.getBeer()
+						.getDiscountAmount() < 0)
+				.collect(Collectors.toList())
+				.isEmpty();
+	}
+
+	/**
+	 * Ellenőrzi hogy a paraméterként kapott áru listában a sörök darabszáma nem
+	 * kisebb mint nulla.
+	 * 
+	 * @param storage
+	 *            az ellenőrizendő lista.
+	 * @return <code>true</code> ha minden darabszáma nem kisebb mint nulla,
+	 *         egyébként <code>false</code>
+	 */
+	private boolean isQuantityBiggerThanZero(List<StorageItem> storage) {
 		return storage.stream()
 				.filter(p -> p.getQuantity() < 0)
 				.collect(Collectors.toList())
-				.isEmpty()
-				&& storage.stream()
-						.filter(p -> p.getBeer()
-								.getDiscountAmount() < 0)
-						.collect(Collectors.toList())
-						.isEmpty()
-				&& storage.stream()
-						.filter(p -> p.getBeer()
-								.getPrice() < 0)
-						.collect(Collectors.toList())
-						.isEmpty();
+				.isEmpty();
 	}
 
 	/**

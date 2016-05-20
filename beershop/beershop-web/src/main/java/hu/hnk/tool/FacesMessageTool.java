@@ -8,13 +8,14 @@ import javax.faces.context.FacesContext;
  * 
  * Egy segédosztály ami különböző metódusokkal próbálja meg a felhasználót
  * tájékoztatni bizonyos eseményekről.
- * 
- * {@value FacesMessageTool#createInfoMessage(String)} létrehoz egy INFO értékű
- * üzenetet és kirakja a felasználói felületre.
- * {@value FacesMessageTool#createWarnMessage(String)} létrehoz egy WARN értékű
- * üzenetet és kirakja a felasználói felületre.
- * {@value FacesMessageTool#createErrorMessage(String)} létrehoz egy ERROR
- * értékű üzenetet és kirakja a felasználói felületre.
+ * <ul>
+ * <li>{@value FacesMessageTool#createInfoMessage(String)} létrehoz egy INFO
+ * értékű üzenetet és kirakja a felasználói felületre.</li>
+ * <li>{@value FacesMessageTool#createWarnMessage(String)} létrehoz egy WARN
+ * értékű üzenetet és kirakja a felasználói felületre.</li>
+ * <li>{@value FacesMessageTool#createErrorMessage(String)} létrehoz egy ERROR
+ * értékű üzenetet és kirakja a felasználói felületre.</li>
+ * </ul>
  * 
  * @author Nandi
  *

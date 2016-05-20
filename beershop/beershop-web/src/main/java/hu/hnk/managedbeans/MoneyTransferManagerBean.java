@@ -20,6 +20,8 @@ import hu.hnk.loginservices.SessionManager;
 import hu.hnk.tool.FacesMessageTool;
 
 /**
+ * Az egyenlegfeltöltési szolgáltatás.
+ * 
  * @author Nandi
  *
  */
@@ -118,7 +120,7 @@ public class MoneyTransferManagerBean implements Serializable {
 		} catch (Exception e) {
 			FacesMessageTool.createErrorMessage("Adatbázishiba történt.");
 			logger.warn("Could not transfer money.");
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 		}
 
 	}

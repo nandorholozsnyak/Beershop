@@ -1,9 +1,9 @@
 package hu.hnk.beershop.service;
 
 import java.sql.Date;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +38,8 @@ import hu.hnk.service.impl.RestrictionCheckerServiceImpl;
 import hu.hnk.service.impl.UserServiceImpl;
 import hu.hnk.service.tools.BonusPointCalculator;
 
-@PrepareForTest({ LocalDate.class })
 @RunWith(PowerMockRunner.class)
+@PrepareForTest({ LocalDate.class })
 public class CargoServiceTest {
 	private UserDao userDao;
 	private CargoServiceImpl cargoServiceImpl;
@@ -51,6 +51,8 @@ public class CargoServiceTest {
 	private DiscountServiceImpl discountService;
 	private UserServiceImpl userService;
 	private User user;
+
+	private Beer beer;
 
 	@Before
 	public void setUp() throws Exception {
@@ -76,9 +78,18 @@ public class CargoServiceTest {
 		// létrehozunk egy amatőr felhasználót, 1000 Ft-al a számlán, 1000
 		// bónuszponttal
 		user = new User();
+		user.setUsername("testUser");
 		user.setExperiencePoints(1.0);
 		user.setMoney(1000.0);
 		user.setPoints(1000.0);
+
+		// Sör elkészítése.
+		beer = Beer.builder()
+				.alcoholLevel(5.0)
+				.capacity(0.5)
+				.discountAmount(0)
+				.price(100.0)
+				.build();
 
 	}
 
@@ -109,7 +120,6 @@ public class CargoServiceTest {
 		cargo.setUser(user);
 
 		// Legendás sör elkészítése.
-		Beer beer = new Beer();
 		beer.setLegendary(true);
 
 		CartItem cartItem = new CartItem();
@@ -138,14 +148,6 @@ public class CargoServiceTest {
 		Cargo cargo = new Cargo();
 		cargo.setUser(user);
 
-		// Sör elkészítése.
-		Beer beer = Beer.builder()
-				.alcoholLevel(5.0)
-				.capacity(0.5)
-				.discountAmount(0)
-				.price(100.0)
-				.build();
-
 		CartItem cartItem = new CartItem();
 		cartItem.setBeer(beer);
 		cartItem.setQuantity(1);
@@ -169,17 +171,38 @@ public class CargoServiceTest {
 				.thenReturn(cargo);
 
 		cargoServiceImpl.saveNewCargo(cargo, items);
-		if (LocalDate.now()
-				.getDayOfWeek()
-				.equals(DayOfWeek.SATURDAY)) {
-			Assert.assertEquals(1000 - cargo.getCargoTotalPrice(), cargo.getUser()
-					.getMoney(), 0.0);
-		} else {
-			Assert.assertEquals(1000 - BuyActionRestrictions.getShippingCost() - cargo.getCargoTotalPrice(),
-					cargo.getUser()
-							.getMoney(),
-					0.0);
-		}
+
+		// szombati napra mockolunk
+		LocalDate date = LocalDate.of(2016, Month.MAY, 20);
+		PowerMockito.mockStatic(LocalDate.class);
+		Mockito.when(LocalDate.now())
+				.thenReturn(date);
+		Assert.assertEquals(1000 - BuyActionRestrictions.getShippingCost() - cargo.getCargoTotalPrice(), cargo.getUser()
+				.getMoney(), 0.0);
+
+	}
+
+	@Test
+	public void testSaveNewCargoPayWithUnknownPayment() throws Exception {
+		List<CartItem> items = new ArrayList<>();
+		Cargo cargo = new Cargo();
+
+		CartItem cartItem = CartItem.builder()
+				.beer(beer)
+				.active(Boolean.TRUE)
+				.quantity(1)
+				.build();
+		items.add(cartItem);
+
+		// Ára 100 Ft;
+		cargo = Cargo.builder()
+				.items(items)
+				.totalPrice(100.0)
+				.paymentMode(null)
+				.user(user)
+				.build();
+
+		Assert.assertFalse(cargoServiceImpl.isThereEnoughMoney(cargo.getCargoTotalPrice(), user, null));
 
 	}
 
@@ -187,14 +210,6 @@ public class CargoServiceTest {
 	public void testSaveNewCargoPayWithBonusPoints() throws Exception {
 		List<CartItem> items = new ArrayList<>();
 		Cargo cargo = new Cargo();
-
-		// Sör elkészítése.
-		Beer beer = Beer.builder()
-				.alcoholLevel(5.0)
-				.capacity(0.5)
-				.discountAmount(0)
-				.price(100.0)
-				.build();
 
 		CartItem cartItem = CartItem.builder()
 				.beer(beer)
@@ -222,14 +237,8 @@ public class CargoServiceTest {
 		Mockito.when(cargoDao.save(cargo))
 				.thenReturn(cargo);
 
-		// szombati napra mockolunk
-		LocalDate date = LocalDate.of(2016, 05, 07);
-		PowerMockito.mockStatic(LocalDate.class);
-
-		PowerMockito.when(LocalDate.now())
-				.thenReturn(date);
-
 		cargoServiceImpl.saveNewCargo(cargo, items);
+
 		Assert.assertEquals(
 				1000 - BuyActionRestrictions.getShippingCost() - 100 + bonusPointCalculator.calculate(cargo.getItems()),
 				cargo.getUser()
@@ -243,14 +252,6 @@ public class CargoServiceTest {
 		List<CartItem> items = new ArrayList<>();
 		Cargo cargo = new Cargo();
 		cargo.setUser(user);
-
-		// Sör elkészítése.
-		Beer beer = Beer.builder()
-				.alcoholLevel(5.0)
-				.capacity(0.5)
-				.discountAmount(0)
-				.price(100.0)
-				.build();
 
 		CartItem cartItem = new CartItem();
 		cartItem.setBeer(beer);
@@ -266,7 +267,6 @@ public class CargoServiceTest {
 
 	@Test
 	public void testSaveNewCargoIfUserHasNotEnoughMoney() throws Exception {
-		User user = new User();
 		// Amatőr lesz a felhasználónk.
 		user.setExperiencePoints(0.0);
 		user.setMoney(0.0);
@@ -274,14 +274,6 @@ public class CargoServiceTest {
 		List<CartItem> items = new ArrayList<>();
 		Cargo cargo = new Cargo();
 		cargo.setUser(user);
-
-		// Sör elkészítése.
-		Beer beer = Beer.builder()
-				.alcoholLevel(5.0)
-				.capacity(0.5)
-				.discountAmount(0)
-				.price(100.0)
-				.build();
 
 		CartItem cartItem = new CartItem();
 		cartItem.setBeer(beer);
@@ -297,7 +289,6 @@ public class CargoServiceTest {
 
 	@Test
 	public void testSaveNewCargoIfUserHasEnoughPoints() throws Exception {
-		User user = new User();
 		// Amatőr lesz a felhasználónk.
 		user.setExperiencePoints(0.0);
 		user.setMoney(100.0);
@@ -306,18 +297,11 @@ public class CargoServiceTest {
 		Cargo cargo = new Cargo();
 		cargo.setUser(user);
 
-		// Sör elkészítése.
-		Beer beer = Beer.builder()
-				.alcoholLevel(5.0)
-				.capacity(0.5)
-				.discountAmount(0)
-				.price(100.0)
-				.build();
-
 		CartItem cartItem = new CartItem();
 		cartItem.setBeer(beer);
 		cartItem.setQuantity(1);
 		items.add(cartItem);
+
 		// Ára 100 Ft;
 		cargo.setItems(items);
 		PaymentMode paymentMode = PaymentMode.BONUSPOINT;
@@ -328,7 +312,6 @@ public class CargoServiceTest {
 
 	@Test
 	public void testSaveNewCargoIfUserHasNotEnoughPoints() throws Exception {
-		User user = new User();
 
 		// Amatőr lesz a felhasználónk.
 		user.setExperiencePoints(0.0);
@@ -338,20 +321,13 @@ public class CargoServiceTest {
 		Cargo cargo = new Cargo();
 		cargo.setUser(user);
 
-		// Sör elkészítése.
-		Beer beer = Beer.builder()
-				.alcoholLevel(5.0)
-				.capacity(0.5)
-				.discountAmount(0)
-				.price(100.0)
-				.build();
-
 		CartItem cartItem = new CartItem();
 		cartItem.setBeer(beer);
 		cartItem.setQuantity(1);
 		items.add(cartItem);
 		// Ára 100 Ft;
 		PaymentMode paymentMode = PaymentMode.BONUSPOINT;
+
 		cargo.setPaymentMode(paymentMode.getValue());
 		cargo.setItems(items);
 
@@ -372,5 +348,65 @@ public class CargoServiceTest {
 		String result = cargoServiceImpl.countdownTenMinutes(Date.from(orderDate.minusMinutes(9)
 				.toInstant(ZoneOffset.of("+2"))));
 		Assert.assertEquals("0 perc 59 másodperc", result);
+	}
+
+	@Test
+	public void testCountMoneyAfterPaymentWithMoney() {
+		List<CartItem> items = new ArrayList<>();
+		Cargo cargo = new Cargo();
+		cargo.setUser(user);
+		user.setMoney(1000.0);
+		CartItem cartItem = new CartItem();
+		cartItem.setBeer(beer);
+		cartItem.setQuantity(1);
+		items.add(cartItem);
+		// Ára 100 Ft;
+		PaymentMode paymentMode = PaymentMode.MONEY;
+
+		cargo.setPaymentMode(paymentMode.getValue());
+		cargo.setItems(items);
+		Assert.assertEquals((Double) (1000.0 - BuyActionRestrictions.getShippingCost() - 100.0),
+				cargoServiceImpl.countMoneyAfterPayment(cargo.getCargoTotalPrice(), user, paymentMode));
+
+	}
+
+	@Test
+	public void testCountMoneyAfterPaymentWithBonusPoint() {
+		List<CartItem> items = new ArrayList<>();
+		Cargo cargo = new Cargo();
+		cargo.setUser(user);
+		user.setPoints(1000.0);
+		CartItem cartItem = new CartItem();
+		cartItem.setBeer(beer);
+		cartItem.setQuantity(1);
+		items.add(cartItem);
+		// Ára 100 Ft;
+		PaymentMode paymentMode = PaymentMode.BONUSPOINT;
+
+		cargo.setPaymentMode(paymentMode.getValue());
+		cargo.setItems(items);
+		Assert.assertEquals((Double) (1000.0 - BuyActionRestrictions.getShippingCost() - 100.0),
+				cargoServiceImpl.countMoneyAfterPayment(cargo.getCargoTotalPrice(), user, paymentMode));
+
+	}
+
+	@Test
+	public void testCountMoneyAfterPaymentWithBonusPointAndMoneyGivesNull() {
+		List<CartItem> items = new ArrayList<>();
+		Cargo cargo = new Cargo();
+		cargo.setUser(user);
+		user.setPoints(0.0);
+		user.setMoney(0.0);
+		CartItem cartItem = new CartItem();
+		cartItem.setBeer(beer);
+		cartItem.setQuantity(1);
+		items.add(cartItem);
+		// Ára 100 Ft;
+
+		cargo.setItems(items);
+		Assert.assertNull(cargoServiceImpl.countMoneyAfterPayment(cargo.getCargoTotalPrice(), user, PaymentMode.MONEY));
+		Assert.assertNull(
+				cargoServiceImpl.countMoneyAfterPayment(cargo.getCargoTotalPrice(), user, PaymentMode.BONUSPOINT));
+
 	}
 }

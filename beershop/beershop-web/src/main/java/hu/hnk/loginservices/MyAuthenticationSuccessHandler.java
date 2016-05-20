@@ -19,6 +19,9 @@ import org.springframework.stereotype.Service;
 /**
  * Az authentikációs szolgáltatás.
  * 
+ * A sikeres belépés után az osztály egyetlen metódusa lefut, beállítja az
+ * authentikációt és átdobja a felhasználót az index-re.
+ * 
  * @author Nandi
  *
  */

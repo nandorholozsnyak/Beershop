@@ -2,6 +2,7 @@ package hu.hnk.beershop.service;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -191,6 +192,18 @@ public class DiscountServiceTest {
 		user.setExperiencePoints(5501.0);
 		Assert.assertEquals(Arrays.asList(DiscountType.THECHEAPESTFORFREE),
 				discountService.getAvailableDailyRankBonusesForUser(user, LocalDate.of(2016, 05, 19)));
+
+	}
+	
+	@Test
+	public void testGetAvailableDailyRankBonusesForUserReturnEmptyList() {
+		User user = User.builder()
+				.experiencePoints(1.0)
+				.build();
+
+		Assert.assertEquals(Collections.emptyList(),
+				discountService.getAvailableDailyRankBonusesForUser(user, LocalDate.of(2016, 05, 20)));
+		
 
 	}
 

@@ -22,6 +22,10 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.interfaces.UserService;
 
 /**
+ * A Springes bejelentkeztetést végző szolgáltatás.
+ * 
+ * Segítségével tudjuk azonosítani a felhasználókat amint bejelentkeznek.
+ * 
  * @author Nandi
  *
  */

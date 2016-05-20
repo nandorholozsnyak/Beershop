@@ -1,4 +1,5 @@
 /**
+ * Az alkalmazásban használt kivételek csomagja.
  * @author Nandi
  *
  */

@@ -94,7 +94,6 @@ public class CartServiceImpl implements CartService {
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @throws Exception
 	 */
 	@Override
 	public void saveItemsToCart(Map<Beer, Integer> beersToCart, Cart cart) throws Exception {
@@ -106,11 +105,7 @@ public class CartServiceImpl implements CartService {
 		}
 
 		cart.setItems(cartItems);
-		try {
-			cartDao.update(cart);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
+		cartDao.update(cart);
 		logger.info("Items saved succesfuly to the user's cart.");
 	}
 
@@ -133,6 +128,7 @@ public class CartServiceImpl implements CartService {
 	 * @param beer
 	 *            a kiválasztott sör.
 	 * @throws Exception
+	 *             adatbázis illetve más nem várt kivétel esetén
 	 */
 	private void addBeerToCartItemList(Map<Beer, Integer> beersToCart, List<CartItem> cartItems,
 			List<StorageItem> storageItems, Beer beer) throws Exception {

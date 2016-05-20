@@ -291,12 +291,15 @@ public class CargoServiceImpl implements CargoService {
 	 */
 	@Override
 	public boolean isThereEnoughMoney(Double totalcost, User user, PaymentMode paymentMode) {
+		if(paymentMode == null) {
+			return false;
+		}
 		if (paymentMode.equals(PaymentMode.MONEY))
 			return totalcost + BuyActionRestrictions.getShippingCost() <= user.getMoney() ? true : false;
 		else if (paymentMode.equals(PaymentMode.BONUSPOINT))
 			return totalcost + BuyActionRestrictions.getShippingCost() <= user.getPoints() ? true : false;
-		else
-			return false;
+		return false;
+		
 	}
 
 	/**

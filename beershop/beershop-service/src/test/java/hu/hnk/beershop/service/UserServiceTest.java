@@ -186,6 +186,8 @@ public class UserServiceTest {
 	@Test
 	public void testCountRankFromXp() {
 		User user = new User();
+		user.setExperiencePoints(null);
+		Assert.assertEquals(Rank.AMATUER, userService.countRankFromXp(user));
 		user.setExperiencePoints((double) 1);
 		Assert.assertEquals(Rank.AMATUER, userService.countRankFromXp(user));
 		user.setExperiencePoints((double) 2500);

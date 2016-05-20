@@ -73,7 +73,7 @@ public class DiscountServiceImpl implements DiscountService {
 					.get();
 		} catch (NoSuchElementException e) {
 			result = Collections.emptyList();
-			logger.warn("Returning EMPTY_LIST for getAvaiableDailyRankBonusesForUser()",e);
+			logger.warn("Returning EMPTY_LIST for getAvaiableDailyRankBonusesForUser()", e);
 		}
 		return result;
 	}
@@ -83,6 +83,7 @@ public class DiscountServiceImpl implements DiscountService {
 	 */
 	@Override
 	public void validateDiscount(DiscountType discountType, Cargo cargo, LocalDate today) {
+		logger.info("A validation request accepted on {}", today);
 		if (discountType.equals(DiscountType.FREESHIPPING))
 			validateFreeShippingDiscount(cargo, today);
 		if (discountType.equals(DiscountType.THECHEAPESTFORFREE))
