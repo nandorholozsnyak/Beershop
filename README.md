@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Holi60k/Beershop.svg?branch=master)](https://travis-ci.org/Holi60k/Beershop)
+﻿[![Build Status](https://travis-ci.org/Holi60k/Beershop.svg?branch=master)](https://travis-ci.org/Holi60k/Beershop)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/7d87cbfeb50f4dfdb2589ad9c9f9d31a)](https://www.codacy.com)
 
 
@@ -21,6 +21,17 @@ This is going to be a project for a course called Programming Environments.
 ### Web/Presentation layer:
 1. JSF 
 2. Spring Security - for credentials
+
+## Install
+You need Java 1.8 at least and Maven 3.x+.
+
+A Glassfish with configured connection pool and data sources is needed, use the beerShopCon as the datasource name (if you use MySQL), othwerwise follow the instructions to use it with embedded-glassfish.
+
+1. `mvn clean install`  in the main directory called beershop
+2. `cd beershop-ear` then `mvn -P glassfish embedded-glassfish:run` - it start a local embedded glassfish on your computer and the webapp can be accessed on http://127.0.0.1/beershop (default is uses an embedded H2 in memory DB)
+3. Default username/password is admin.
+
+
 
 ## What is it about?
 The beershop is a shop where people can register & login and buy some nice beer.
@@ -71,37 +82,40 @@ Lime sör: templateben van.
 
 
 Credits:
-
-| ArtifactId              | License                                                           |
-|-------------------------|-------------------------------------------------------------------|
-| h2                      | MPL 2.0, and EPL 1.0                                              |
-| HikariCP                | The Apache Software License, Version 2.0                          |
-| servlet-api             | -                                                                 |
-| junit                   | Eclipse Public License 1.0                                        |
-| mysql-connector-java    | The GNU General Public License, Version 2                         |
-| hibernate-core          | GNU Lesser General Public License                                 |
-| hibernate-entitymanager | GNU Lesser General Public License                                 |
-| hibernate-java8         | GNU Lesser General Public License                                 |
-| hibernate-validator     | Apache License, Version 2.0                                       |
-| jboss-logging           | Apache License, version 2.0                                       |
-| mockito-all             | The MIT License                                                   |
-| primefaces              | The Apache Software License, Version 2.0                          |
-| primefaces-extensions   | Apache 2                                                          |
-| bootstrap               | -                                                                 |
-| lombok                  | The MIT License                                                   |
-| slf4j-api               | MIT License                                                       |
-| spring-security-config  | The Apache Software License, Version 2.0                          |
-| spring-security-core    | The Apache Software License, Version 2.0                          |
-| spring-security-taglibs | The Apache Software License, Version 2.0                          |
-| spring-security-web     | The Apache Software License, Version 2.0                          |
-| spring-binding          | The Apache Software License, Version 2.0                          |
-| spring-faces            | The Apache Software License, Version 2.0                          |
-| spring-webflow          | The Apache Software License, Version 2.0                          |
-| logback-classic         | Eclipse Public License - v 1.0, GNU Lesser General Public License |
-| logback-core            | Eclipse Public License - v 1.0, GNU Lesser General Public License |
-| javaee-api              | The Apache Software License, Version 2.0                          |
-| openejb-core            | Apache License, Version 2.0                                       |
-| openejb-junit           | Apache License, Version 2.0                                       |
-| powermock-api-mockito   | The Apache Software License, Version 2.0                          |
-| powermock-core          | The Apache Software License, Version 2.0                          |
-| powermock-module-junit4 | The Apache Software License, Version 2.0                          |
+| GroupId                      | ArtifactId                    | Version       | Type | License                                   |
+|------------------------------|-------------------------------|---------------|------|-------------------------------------------|
+| com.h2database               | h2                            | 1.4.191       | jar  | MPL 2.0, and EPL 1.0                      |
+| com.zaxxer                   | HikariCP                      | 2.4.5         | jar  | The Apache Software License, Version 2.0  |
+| javax.servlet                | servlet-api                   | 2.5           | jar  | -                                         |
+| mysql                        | mysql-connector-java          | 5.1.38        | jar  | The GNU General Public License, Version 2 |
+| org.hibernate                | hibernate-core                | 5.1.0.Final   | jar  | GNU Lesser General Public License         |
+| org.hibernate                | hibernate-entitymanager       | 5.1.0.Final   | jar  | GNU Lesser General Public License         |
+| org.hibernate                | hibernate-java8               | 5.1.0.Final   | jar  | GNU Lesser General Public License         |
+| org.hibernate                | hibernate-validator           | 5.2.4.Final   | jar  | Apache License, Version 2.0               |
+| org.hibernate.common         | hibernate-commons-annotations | 5.0.1.Final   | jar  | GNU Lesser General Public License         |
+| org.jboss.logging            | jboss-logging                 | 3.3.0.Final   | jar  | Apache License, version 2.0               |
+| org.primefaces               | primefaces                    | 5.3           | jar  | The Apache Software License, Version 2.0  |
+| org.primefaces.extensions    | primefaces-extensions         | 4.0.0         | jar  | Apache 2                                  |
+| org.primefaces.themes        | bootstrap                     | 1.0.10        | jar  | -                                         |
+| org.projectlombok            | lombok                        | 1.16.8        | jar  | The MIT License                           |
+| org.slf4j                    | slf4j-api                     | 1.7.5         | jar  | MIT License                               |
+| org.springframework.security | spring-security-config        | 4.0.1.RELEASE | jar  | The Apache Software License, Version 2.0  |
+| org.springframework.security | spring-security-core          | 4.0.1.RELEASE | jar  | The Apache Software License, Version 2.0  |
+| org.springframework.security | spring-security-taglibs       | 3.2.7.RELEASE | jar  | The Apache Software License, Version 2.0  |
+| org.springframework.security | spring-security-web           | 4.0.1.RELEASE | jar  | The Apache Software License, Version 2.0  |
+| org.springframework.webflow  | spring-binding                | 2.4.0.RELEASE | jar  | The Apache Software License, Version 2.0  |
+| org.springframework.webflow  | spring-faces                  | 2.4.0.RELEASE | jar  | The Apache Software License, Version 2.0  |
+| org.springframework.webflow  | spring-webflow                | 2.4.0.RELEASE | jar  | The Apache Software License, Version 2.0  |
+| ch.qos.logback 	       | logback-classic               | 1.1.7         | jar  | Eclipse Public License - v 1.0, GNU Lesser General Public License |
+| ch.qos.logback               | logback-core                  | 1.1.7         | jar  | Eclipse Public License - v 1.0, GNU Lesser General Public License |
+| junit              | junit                   | 4.8.1       | jar | Common Public License Version 1.0        |
+| org.apache.openejb | javaee-api              | 6.0-6       | jar | The Apache Software License, Version 2.0 |
+| org.apache.openejb | openejb-core            | 4.7.2       | jar | Apache License, Version 2.0              |
+| org.apache.openejb | openejb-junit           | 4.7.2       | jar | Apache License, Version 2.0              |
+| org.mockito        | mockito-all             | 2.0.2-beta  | jar | The MIT License                          |
+| org.mockito        | mockito-core            | 2.0.53-beta | jar | The MIT License                          |
+| org.powermock      | powermock-api-mockito   | 1.6.5       | jar | The Apache Software License, Version 2.0 |
+| org.powermock      | powermock-core          | 1.6.5       | jar | The Apache Software License, Version 2.0 |
+| org.powermock      | powermock-module-junit4 | 1.6.5       | jar | The Apache Software License, Version 2.0 |
+| javax         | javaee-api        | 6.0     | jar  | CDDL + GPLv2 with classpath exception |
+| javax.servlet | javax.servlet-api | 3.1.0   | jar  | CDDL + GPLv2 with classpath exception |
