@@ -13,12 +13,12 @@ import lombok.Builder;
 /**
  * A kosárba tett termékek adatait leíró osztály.
  * 
- * A kosárba tett termékek jellemzői: a termék mint sör {@value CartItem#beer},
- * a darabszáma az aktuális termékből {@value CartItem#quantity}, a termék
- * aktivitása a kosáron belül {@value CartItem#active} (ha <code>true</code>
+ * A kosárba tett termékek jellemzői: a termék mint sör,
+ * a darabszáma az aktuális termékből, a termék
+ * aktivitása a kosáron belül (ha <code>true</code>
  * akkor a felhasználó látja a kosarában, egyébként nem), a termék kosárhoz
- * adásának időpontja {@value CartItem#addedToCart}, a termék kosárból való
- * törlésének / megvásárlásának időpontja {@value CartItem#removedFromCart}.
+ * adásának időpontja, a termék kosárból való
+ * törlésének / megvásárlásának időpontja.
  * 
  * @author Nandi
  *

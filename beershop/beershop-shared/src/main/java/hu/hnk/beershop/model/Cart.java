@@ -15,9 +15,8 @@ import lombok.Builder;
  * Egy kosár adatait tartalmazó osztály.
  * 
  * Egy felhasználóhoz kötött kosár mely tartalmazza a kosárba tett termékek
- * listáját, {@value Cart#items} illetve a kosárhoz kötött felhasználót,
- * {@value Cart#user}. Egy újonnan létrehozott vendég mindig kap egy kosarat a
- * sikeres regisztráció után.
+ * listáját, illetve a kosárhoz kötött felhasználót. Egy újonnan létrehozott
+ * vendég mindig kap egy kosarat a sikeres regisztráció után.
  * 
  * @author Nandi
  *
@@ -93,6 +92,5 @@ public class Cart extends BaseEntity implements Serializable {
 	public String toString() {
 		return "Cart [id=" + id + ", items=" + items + ", user=" + user + "]";
 	}
-	
 
 }

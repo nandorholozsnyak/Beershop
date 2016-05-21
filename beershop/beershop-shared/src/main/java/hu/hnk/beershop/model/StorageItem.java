@@ -17,8 +17,8 @@ import lombok.ToString;
  * A sör raktár, amelyben található egy sör illetve egy egész szám attribútum
  * ami a sör mennyiségét hivatott mutatni.
  * 
- * Az áru a hozzákapcsolt sört ({@value StorageItem#beer}) illetve a raktárban
- * még elérhető darabszámát tárolja ({@value StorageItem#quantity}).
+ * Az áru a hozzákapcsolt sört illetve a raktárban
+ * még elérhető darabszámát tárolja.
  * 
  * @author Nandi
  *

@@ -14,11 +14,8 @@ import lombok.ToString;
 /**
  * A sör osztály ami tartalmazza a sör adatait.
  * 
- * Egy sör rendelkezik egy névvel ({@value Beer#name}), alkoholszinttel (
- * {@value Beer#alcoholLevel}, árral ({@value Beer#price}), leírással (
- * {@value Beer#comment}), űrtartalommal {@value Beer#capacity}, kedvezménnyel (
- * {@value Beer#discountAmount}) illetve egy logikai tulajdonsággal amivel azt
- * rögzíthetjük hogy a sör "legendás"-e vagy sem {@value Beer#legendary}.
+ * Egy sör rendelkezik egy névvel, alkoholszinttel, árral, leírással, űrtartalommal, kedvezménnyel illetve egy logikai tulajdonsággal amivel azt
+ * rögzíthetjük hogy a sör "legendás"-e vagy sem.
  * 
  * @author Nandi
  *

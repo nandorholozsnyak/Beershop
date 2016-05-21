@@ -15,9 +15,9 @@ import lombok.Builder;
 /**
  * Egy eseménynek a logját leíró entitást.
  * 
- * Az esemény az eseményhez társított felhasználót ({@value EventLog#user}), az
- * eseményhez kapcsolt akciót ({@value EventLog#action}) illetve az esemény
- * időpontját ({@value EventLog#date}) tárolják.
+ * Az esemény az eseményhez társított felhasználót, az
+ * eseményhez kapcsolt akciót illetve az esemény
+ * időpontját tárolják.
  * 
  * @author Nandi
  *

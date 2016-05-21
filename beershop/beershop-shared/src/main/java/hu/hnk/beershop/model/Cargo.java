@@ -17,11 +17,9 @@ import lombok.Builder;
 /**
  * Egy rendelés adatait tartalmazó osztály.
  * 
- * A leadott rendelés tartalmazza a szállítandó termékek listáját:
- * {@value Cargo#items}, a szállítási hely címét: {@value Cargo#address}, a
- * felhasználót aki leadta a rendelést: {@value Cargo#user}, a rendelés dátumát:
- * {@value Cargo#orderDate}, a fizetendő összeget: {@value Cargo#totalPrice}
- * illetve a fizetés módját {@value Cargo#paymentMode}.
+ * A leadott rendelés tartalmazza a szállítandó termékek listáját, a szállítási hely címét, a
+ * felhasználót aki leadta a rendelést, a rendelés dátumát, a fizetendő összeget
+ * illetve a fizetés módját.
  * 
  * 
  * @author Nandi

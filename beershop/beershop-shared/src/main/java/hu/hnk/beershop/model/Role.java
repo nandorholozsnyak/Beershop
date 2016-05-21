@@ -12,7 +12,7 @@ import lombok.Builder;
 /**
  * A jogkör leírását tartalmazó osztály.
  * 
- * A jogkörnek van egy neve {@value Role#name}.
+ * A jogkörnek van egy neve.
  * 
  * @author Nandi
  *
