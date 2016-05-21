@@ -82,6 +82,7 @@ Lime sör: templateben van.
 
 
 Credits:
+
 | GroupId                      | ArtifactId                    | Version       | Type | License                                   |
 |------------------------------|-------------------------------|---------------|------|-------------------------------------------|
 | com.h2database               | h2                            | 1.4.191       | jar  | MPL 2.0, and EPL 1.0                      |
