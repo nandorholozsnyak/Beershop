@@ -98,16 +98,16 @@ public class LoginService implements Serializable, UserDetailsService {
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user;
+
 
 		try {
 			logger.info("Loading userDetails for {}", username);
-			user = userService.findByUsername(username);
-			if (user == null) {
+			User byUsername = userService.findByUsername(username);
+			if (byUsername == null) {
 				throw new UsernameNotFoundException(username);
 			}
-			List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
-			return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true,
+			List<GrantedAuthority> authorities = buildUserAuthority(byUsername.getRoles());
+			return new org.springframework.security.core.userdetails.User(byUsername.getUsername(), byUsername.getPassword(), true,
 					true, true, true, authorities);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);

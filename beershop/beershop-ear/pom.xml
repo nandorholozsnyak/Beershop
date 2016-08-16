@@ -1,266 +1,293 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>hu.hnk.prt</groupId>
-		<artifactId>beershop</artifactId>
-		<version>1.0</version>
-	</parent>
-	<packaging>ear</packaging>
-	<artifactId>beershop-ear</artifactId>
-	<name>Beershop-EAR</name>
-	<!-- <repositories> -->
-	<!-- <repository> -->
-	<!-- <id>Codehaus repository</id> -->
-	<!-- <name>codehaus-mule-repo</name> -->
-	<!-- <url>https://repository-master.mulesoft.org/nexus/content/groups/public/</url> -->
-	<!-- <layout>default</layout> -->
-	<!-- </repository> -->
-	<!-- </repositories> -->
-	<repositories>
-		<repository>
-			<id>prime-repo</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-		</repository>
-	</repositories>
-	<profiles>
-		<profile>
-			<id>glassfish</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.carlspring.maven</groupId>
-						<artifactId>derby-maven-plugin</artifactId>
-						<version>1.10</version>
-						<configuration>
-							<!-- Optional, defaults to ${project.build.directory}/derby -->
-							<derbyHome>${project.build.directory}/derby</derbyHome>
-							<!-- Optional, defaults to 1527 -->
-							<port>1527</port>
-							<!-- Optional, the username to use when authenticating. -->
-							<username>derby</username>
-							<!-- Optional, the password to use when authenticating. -->
-							<password>derby</password>
-							<!-- Optional, the absolute class name of the driver. -->
-							<!--<driver></driver> -->
-							<!-- Optional, the URL to use when connecting. -->
-							<!--<connectionURL></connectionURL> -->
-							<!-- Optional, the URL to use when shutting down the database. -->
-							<connectionURLShutdown>jdbc:derby:;shutdown=true</connectionURLShutdown>
-							<!-- Optional, whether to run Derby with debugging statements. -->
-							<debugStatements>true</debugStatements>
-							<!-- Whether to bypass running Derby. -->
-							<skip>false</skip>
-						</configuration>
-						<executions>
-							<execution>
-								<id>start-derby</id>
-								<!-- <phase>test-compile</phase> -->
-								<!-- <goals> -->
-								<!-- <goal>start</goal> -->
-								<!-- </goals> -->
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>hu.hnk.prt</groupId>
+        <artifactId>beershop</artifactId>
+        <version>1.0</version>
+    </parent>
+    <packaging>ear</packaging>
+    <artifactId>beershop-ear</artifactId>
+    <name>Beershop-EAR</name>
+    <!-- <repositories> -->
+    <!-- <repository> -->
+    <!-- <id>Codehaus repository</id> -->
+    <!-- <name>codehaus-mule-repo</name> -->
+    <!-- <url>https://repository-master.mulesoft.org/nexus/content/groups/public/</url> -->
+    <!-- <layout>default</layout> -->
+    <!-- </repository> -->
+    <!-- </repositories> -->
+    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+        </repository>
+    </repositories>
+    <profiles>
+        <profile>
+            <id>glassfish</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.carlspring.maven</groupId>
+                        <artifactId>derby-maven-plugin</artifactId>
+                        <version>1.10</version>
+                        <configuration>
+                            <!-- Optional, defaults to ${project.build.directory}/derby -->
+                            <derbyHome>${project.build.directory}/derby</derbyHome>
+                            <!-- Optional, defaults to 1527 -->
+                            <port>1527</port>
+                            <!-- Optional, the username to use when authenticating. -->
+                            <username>derby</username>
+                            <!-- Optional, the password to use when authenticating. -->
+                            <password>derby</password>
+                            <!-- Optional, the absolute class name of the driver. -->
+                            <!--<driver></driver> -->
+                            <!-- Optional, the URL to use when connecting. -->
+                            <!--<connectionURL></connectionURL> -->
+                            <!-- Optional, the URL to use when shutting down the database. -->
+                            <connectionURLShutdown>jdbc:derby:;shutdown=true</connectionURLShutdown>
+                            <!-- Optional, whether to run Derby with debugging statements. -->
+                            <debugStatements>true</debugStatements>
+                            <!-- Whether to bypass running Derby. -->
+                            <skip>false</skip>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-derby</id>
+                                <!-- <phase>test-compile</phase> -->
+                                <!-- <goals> -->
+                                <!-- <goal>start</goal> -->
+                                <!-- </goals> -->
 
-								<phase>install</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
 
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.glassfish.embedded</groupId>
-						<artifactId>maven-embedded-glassfish-plugin</artifactId>
-						<version>4.1.1</version>
-						<configuration>
-							<app>target/beershop-ear-1.0.ear</app>
-							<!-- <app>target/${project.artfactId}-${project.version}.ear</app> -->
-							<autoDelete>true</autoDelete>
-							<port>8080</port>
-							<name>web-app</name>
-							<configFile>${basedir}/domain.xml</configFile>
-						</configuration>
-						<dependencies>
-							<dependency>
-								<groupId>mysql</groupId>
-								<artifactId>mysql-connector-java</artifactId>
-								<version>5.1.38</version>
-							</dependency>
-							<dependency>
-								<groupId>org.jboss.logging</groupId>
-								<artifactId>jboss-logging</artifactId>
-								<version>3.3.0.Final</version>
-							</dependency>
-							<dependency>
-								<groupId>com.h2database</groupId>
-								<artifactId>h2</artifactId>
-								<version>1.4.191</version>
-							</dependency>
-							<dependency>
-								<groupId>org.hsqldb</groupId>
-								<artifactId>hsqldb</artifactId>
-								<version>2.3.3</version>
-							</dependency>
-							<dependency>
-								<groupId>org.apache.derby</groupId>
-								<artifactId>derby</artifactId>
-								<version>10.12.1.1</version>
-							</dependency>
-							<dependency>
-								<groupId>org.apache.derby</groupId>
-								<artifactId>derbyclient</artifactId>
-								<version>10.12.1.1</version>
-							</dependency>
-							<dependency>
-								<groupId>org.apache.derby</groupId>
-								<artifactId>derbynet</artifactId>
-								<version>10.12.1.1</version>
-							</dependency>
-							<dependency>
-								<groupId>org.slf4j</groupId>
-								<artifactId>slf4j-api</artifactId>
-								<version>1.7.5</version>
-								<scope>compile</scope>
-							</dependency>
-							<dependency>
-								<groupId>ch.qos.logback</groupId>
-								<artifactId>logback-core</artifactId>
-								<version>1.1.7</version>
-								<scope>runtime</scope>
-							</dependency>
-							<dependency>
-								<groupId>ch.qos.logback</groupId>
-								<artifactId>logback-classic</artifactId>
-								<version>1.1.7</version>
-								<scope>runtime</scope>
-							</dependency>
-							<dependency>
-								<groupId>commons-logging</groupId>
-								<artifactId>commons-logging</artifactId>
-								<version>1.2</version>
-							</dependency>
-						</dependencies>
-						<executions>
-							<execution>
-								<phase>install</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>start-glassfish</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>start</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>glassfish-deploy</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>deploy</goal>
-								</goals>
-							</execution>
-							<!-- <execution> -->
-							<!-- <id>glassfish-undeploy</id> -->
-							<!-- <phase>post-integration-test</phase> -->
-							<!-- <goals> -->
-							<!-- <goal>undeploy</goal> -->
-							<!-- </goals> -->
-							<!-- </execution> -->
-							<!-- <execution> -->
-							<!-- <id>stop-glassfish</id> -->
-							<!-- <phase>post-integration-test</phase> -->
-							<!-- <goals> -->
-							<!-- <goal>stop</goal> -->
-							<!-- </goals> -->
-							<!-- </execution> -->
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-	<dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>hu.hnk.prt</groupId>
-			<artifactId>beershop-core</artifactId>
-			<version>1.0</version>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
-			<groupId>hu.hnk.prt</groupId>
-			<artifactId>beershop-service</artifactId>
-			<version>1.0</version>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
-			<groupId>hu.hnk.prt</groupId>
-			<artifactId>beershop-web</artifactId>
-			<version>1.0</version>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>hu.hnk.prt</groupId>
-			<artifactId>beershop-shared</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>bootstrap</artifactId>
-		</dependency>
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-ear-plugin</artifactId>
-				<version>2.10.1</version>
-				<configuration>
-					<version>6</version>
-					<defaultLibBundleDir>lib</defaultLibBundleDir>
-					<modules>
-						<webModule>
-							<groupId>hu.hnk.prt</groupId>
-							<artifactId>beershop-web</artifactId>
-							<contextRoot>beershop</contextRoot>
-						</webModule>
-						<ejbModule>
-							<groupId>hu.hnk.prt</groupId>
-							<artifactId>beershop-service</artifactId>
-						</ejbModule>
-						<ejbModule>
-							<groupId>hu.hnk.prt</groupId>
-							<artifactId>beershop-core</artifactId>
-						</ejbModule>
-						<jarModule>
-							<groupId>hu.hnk.prt</groupId>
-							<artifactId>beershop-shared</artifactId>
-						</jarModule>
-					</modules>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-					<skipDeploy>true</skipDeploy>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.glassfish.embedded</groupId>
+                        <artifactId>maven-embedded-glassfish-plugin</artifactId>
+                        <version>4.1.1</version>
+                        <configuration>
+                            <app>target/beershop-ear-1.0.ear</app>
+                            <!-- <app>target/${project.artfactId}-${project.version}.ear</app> -->
+                            <autoDelete>true</autoDelete>
+                            <port>8080</port>
+                            <name>web-app</name>
+                            <configFile>${basedir}/domain.xml</configFile>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>5.1.38</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.jboss.logging</groupId>
+                                <artifactId>jboss-logging</artifactId>
+                                <version>3.3.0.Final</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.h2database</groupId>
+                                <artifactId>h2</artifactId>
+                                <version>1.4.191</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.hsqldb</groupId>
+                                <artifactId>hsqldb</artifactId>
+                                <version>2.3.3</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.apache.derby</groupId>
+                                <artifactId>derby</artifactId>
+                                <version>10.12.1.1</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.apache.derby</groupId>
+                                <artifactId>derbyclient</artifactId>
+                                <version>10.12.1.1</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.apache.derby</groupId>
+                                <artifactId>derbynet</artifactId>
+                                <version>10.12.1.1</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.slf4j</groupId>
+                                <artifactId>slf4j-api</artifactId>
+                                <version>1.7.5</version>
+                                <scope>compile</scope>
+                            </dependency>
+                            <dependency>
+                                <groupId>ch.qos.logback</groupId>
+                                <artifactId>logback-core</artifactId>
+                                <version>1.1.7</version>
+                                <scope>runtime</scope>
+                            </dependency>
+                            <dependency>
+                                <groupId>ch.qos.logback</groupId>
+                                <artifactId>logback-classic</artifactId>
+                                <version>1.1.7</version>
+                                <scope>runtime</scope>
+                            </dependency>
+                            <dependency>
+                                <groupId>commons-logging</groupId>
+                                <artifactId>commons-logging</artifactId>
+                                <version>1.2</version>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>start-glassfish</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>glassfish-deploy</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                            <!-- <execution> -->
+                            <!-- <id>glassfish-undeploy</id> -->
+                            <!-- <phase>post-integration-test</phase> -->
+                            <!-- <goals> -->
+                            <!-- <goal>undeploy</goal> -->
+                            <!-- </goals> -->
+                            <!-- </execution> -->
+                            <!-- <execution> -->
+                            <!-- <id>stop-glassfish</id> -->
+                            <!-- <phase>post-integration-test</phase> -->
+                            <!-- <goals> -->
+                            <!-- <goal>stop</goal> -->
+                            <!-- </goals> -->
+                            <!-- </execution> -->
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.hnk.prt</groupId>
+            <artifactId>beershop-core</artifactId>
+            <version>1.0</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>hu.hnk.prt</groupId>
+            <artifactId>beershop-service</artifactId>
+            <version>1.0</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>hu.hnk.prt</groupId>
+            <artifactId>beershop-web</artifactId>
+            <version>1.0</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>hu.hnk.prt</groupId>
+            <artifactId>beershop-shared</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>bootstrap</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-embedded</artifactId>
+            <version>9.0.2.Final</version>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.0.2.Final</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.4.191</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <jboss-home>C:\Users\Nandi\wildfly-10.0.0.Final</jboss-home>
+                    <modules-path>
+                        <paths>
+                            <path>C:\Users\Nandi\wildfly-10.0.0.Final\modules</path>
+                        </paths>
+                    </modules-path>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.10.1</version>
+                <configuration>
+                    <version>6</version>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <modules>
+                        <webModule>
+                            <groupId>hu.hnk.prt</groupId>
+                            <artifactId>beershop-web</artifactId>
+                            <contextRoot>beershop</contextRoot>
+                        </webModule>
+                        <ejbModule>
+                            <groupId>hu.hnk.prt</groupId>
+                            <artifactId>beershop-service</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>hu.hnk.prt</groupId>
+                            <artifactId>beershop-core</artifactId>
+                        </ejbModule>
+                        <jarModule>
+                            <groupId>hu.hnk.prt</groupId>
+                            <artifactId>beershop-shared</artifactId>
+                        </jarModule>
+                    </modules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                    <skipDeploy>true</skipDeploy>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
