@@ -9,8 +9,6 @@
       http://www.springframework.org/schema/jee
 	  http://www.springframework.org/schema/jee/spring-jee.xsd">
     <context:component-scan base-package="hu.hnk.loginservices"/>
-    <bean id="myAuthenticationSuccessHandler" name="myAuthenticationSuccessHandler"
-          class="hu.hnk.loginservices.MyAuthenticationSuccessHandler"/>
     <security:http auto-config="true" use-expressions="true">
         <security:csrf disabled="true"/>
         <security:headers disabled="true"/>

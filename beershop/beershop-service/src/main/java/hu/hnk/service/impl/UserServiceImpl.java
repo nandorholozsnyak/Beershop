@@ -40,7 +40,7 @@ import hu.hnk.service.factory.EventLogFactory;
  * @author Nandi
  * 
  */
-@Stateless(name = "userService")
+@Stateless
 @Local(UserService.class)
 public class UserServiceImpl implements UserService {
 

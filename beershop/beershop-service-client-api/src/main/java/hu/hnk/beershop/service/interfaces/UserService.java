@@ -13,6 +13,7 @@ import hu.hnk.beershop.model.User;
  * @author Nandi
  *
  */
+
 public interface UserService {
 
 	/**

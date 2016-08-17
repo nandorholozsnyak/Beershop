@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -188,7 +189,7 @@ public class RegistrationManagerBean implements Serializable {
 	/**
 	 * Inicializáló metódus, a managed bean létrejöttekor.
 	 */
-	@PostConstruct
+	//@PostConstruct
 	public void init() {
 		logger.info("registrationManagerBean init");
 		dateOfBirth = new Date();
@@ -309,4 +310,11 @@ public class RegistrationManagerBean implements Serializable {
 		}
 	}
 
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
 }
