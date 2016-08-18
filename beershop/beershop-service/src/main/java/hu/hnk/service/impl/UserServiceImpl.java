@@ -34,237 +34,226 @@ import hu.hnk.service.factory.EventLogFactory;
 
 /**
  * A felhasználói szolgálatásokkal foglalkozó osztály.
- * 
- * 
- * 
+ *
  * @author Nandi
- * 
  */
 @Stateless
 @Local(UserService.class)
 public class UserServiceImpl implements UserService {
 
-	/**
-	 * Az osztály loggere.
-	 */
-	public static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    /**
+     * Az osztály loggere.
+     */
+    public static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
-	/**
-	 * A felhasználókat kezelő adathozzáférési objektum.
-	 */
-	@EJB
-	private UserDao userDao;
+    /**
+     * A felhasználókat kezelő adathozzáférési objektum.
+     */
+    @EJB
+    private UserDao userDao;
 
-	/**
-	 * A jogköröket kezelő adathozzáférési objektum.
-	 */
-	@EJB
-	private RoleDao roleDao;
+    /**
+     * A jogköröket kezelő adathozzáférési objektum.
+     */
+    @EJB
+    private RoleDao roleDao;
 
-	/**
-	 * Az eseményeket kezelő szolgáltatás.
-	 */
-	@EJB
-	private EventLogService eventLogService;
+    /**
+     * Az eseményeket kezelő szolgáltatás.
+     */
+    @EJB
+    private EventLogService eventLogService;
 
-	/**
-	 * A korlátozásokat kezelő szolgáltatás.
-	 */
-	@EJB
-	private RestrictionCheckerService restrictionCheckerService;
+    /**
+     * A korlátozásokat kezelő szolgáltatás.
+     */
+    @EJB
+    private RestrictionCheckerService restrictionCheckerService;
 
-	/**
-	 * A rangok tapasztalatpontal összekapcsolt objektumot listája.
-	 */
-	private List<RankInterval> rankIntverals = RankInterval.getRankIntverals();
+    /**
+     * A rangok tapasztalatpontal összekapcsolt objektumot listája.
+     */
+    private List<RankInterval> rankIntverals = RankInterval.getRankIntverals();
 
-	/**
-	 * A paraméterül kapott felhasználó mentése.
-	 * 
-	 * @param user
-	 *            A mentendő felhasználó.
-	 */
-	@Override
-	@CoverageIgnore
-	public void save(User user) throws Exception {
-		Role role = roleDao.findByName("ROLE_USER");
+    /**
+     * A paraméterül kapott felhasználó mentése.
+     *
+     * @param user A mentendő felhasználó.
+     */
+    @Override
+    @CoverageIgnore
+    public void save(User user) throws Exception {
+        Role role = roleDao.findByName("ROLE_USER");
 
-		if (role == null) {
-			role = new Role();
-			role.setName("ROLE_USER");
-			try {
-				role = roleDao.save(role);
-			} catch (Exception e) {
-				logger.error(e.getMessage(), e);
-			}
-		}
+        if (role == null) {
+            role = new Role();
+            role.setName("ROLE_USER");
+            try {
+                role = roleDao.save(role);
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+            }
+        }
 
-		User userData = null;
-		try {
-			userData = userDao.save(user);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
-		List<Role> userRoles = userData.getRoles();
+        User userData = null;
+        try {
+            userData = userDao.save(user);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        List<Role> userRoles = userData.getRoles();
 
-		if (userRoles == null || userRoles.isEmpty()) {
-			userRoles = new ArrayList<>();
-		}
+        if (userRoles == null || userRoles.isEmpty()) {
+            userRoles = new ArrayList<>();
+        }
 
-		userRoles.add(role);
-		userData.setRoles(userRoles);
-		userData.getCart()
-				.setUser(userData);
-		try {
-			userDao.update(userData);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
-		eventLogService.save(EventLogFactory.createEventLog(EventLogType.REGISTRATION, userData));
-	}
+        userRoles.add(role);
+        userData.setRoles(userRoles);
+        userData.getCart()
+                .setUser(userData);
+        try {
+            userDao.update(userData);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        eventLogService.save(EventLogFactory.createEventLog(EventLogType.REGISTRATION, userData));
+    }
 
-	/**
-	 * Ellenőrzi hogy a megadott dátum már "idősebb" mint 18 év.
-	 * 
-	 * @param dateOfBirth
-	 *            a vizsgálandó dátum.
-	 * @return igaz ha idősebb, hamis ha még nem.
-	 */
-	@Override
-	public boolean isOlderThanEighteen(Date dateOfBirth) {
-		LocalDate now = LocalDate.now();
-		Instant instant = Instant.ofEpochMilli(dateOfBirth.getTime());
-		LocalDate birth = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
-				.toLocalDate();
-		return birth.until(now)
-				.getYears() > 17;
-	}
+    /**
+     * Ellenőrzi hogy a megadott dátum már "idősebb" mint 18 év.
+     *
+     * @param dateOfBirth a vizsgálandó dátum.
+     * @return igaz ha idősebb, hamis ha még nem.
+     */
+    @Override
+    public boolean isOlderThanEighteen(Date dateOfBirth) {
 
-	/**
-	 * Felhasználó keresése a felhasználóneve alapján.
-	 * 
-	 * @param username
-	 *            a keresendő felhasználónév
-	 * @return a megtalált felhasználó, ha nincs ilyen akkor null.
-	 */
-	@Override
-	@CoverageIgnore
-	public User findByUsername(String username) {
-		User user = null;
-		try {
-			user = userDao.findByUsername(username);
-		} catch (UsernameNotFoundException e) {
-			logger.warn("Username:" + username + " is not found in our database.");
-			logger.error(e.getMessage(), e);
-		}
-		return user;
-	}
+        LocalDate now = LocalDate.now();
+        Instant instant = Instant.ofEpochMilli(dateOfBirth.getTime());
+        LocalDate birth = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+                .toLocalDate();
+        return birth.until(now)
+                .getYears() > 17;
+    }
 
-	/**
-	 * Felhasználónév ellenörzés, a kapott felhasználónevet ellenőrzi hogy
-	 * válaszható-e még a regisztráció során.
-	 * 
-	 * @param username
-	 *            az ellenőrizendő felhasználónév.
-	 * @return hamis ha szabad a felhasználónév, igaz ha már nem.
-	 */
-	@Override
-	public boolean isUsernameAlreadyTaken(String username) {
-		try {
-			userDao.findUsername(username);
-			return true;
-		} catch (UsernameNotFoundException e) {
-			logger.error(e.getMessage(), e);
-			return false;
-		}
-	}
+    /**
+     * Felhasználó keresése a felhasználóneve alapján.
+     *
+     * @param username a keresendő felhasználónév
+     * @return a megtalált felhasználó, ha nincs ilyen akkor null.
+     */
+    @Override
+    @CoverageIgnore
+    public User findByUsername(String username) {
+        User user = null;
+        try {
+            user = userDao.findByUsername(username);
+        } catch (UsernameNotFoundException e) {
+            logger.warn("Username:" + username + " is not found in our database.");
+            logger.error(e.getMessage(), e);
+        }
+        return user;
+    }
 
-	/**
-	 * E-mail cím ellenörzés, a kapott e-mail címet ellenőrzi hogy válaszható-e
-	 * még a regisztráció során.
-	 * 
-	 * @param email
-	 *            az ellenőrizendő e-mail cím.
-	 * @return hamis ha szabad a email cím, igaz ha már nem.
-	 */
-	@Override
-	public boolean isEmailAlreadyTaken(String email) {
-		try {
-			userDao.findEmail(email);
-			return true;
-		} catch (EmailNotFoundException e) {
-			logger.info("E-mail adress is not taken.");
-			logger.error(e.getMessage(), e);
-			return false;
-		}
-	}
+    /**
+     * Felhasználónév ellenörzés, a kapott felhasználónevet ellenőrzi hogy
+     * válaszható-e még a regisztráció során.
+     *
+     * @param username az ellenőrizendő felhasználónév.
+     * @return hamis ha szabad a felhasználónév, igaz ha már nem.
+     */
+    @Override
+    public boolean isUsernameAlreadyTaken(String username) {
+        try {
+            userDao.findUsername(username);
+            return true;
+        } catch (UsernameNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            return false;
+        }
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Rank countRankFromXp(User user) {
-		logger.info("Getting rank for {}", user.getUsername());
-		if (user.getExperiencePoints() == null) {
-			return Rank.AMATUER;
-		}
-		return rankIntverals.stream()
-				.filter(p -> user.getExperiencePoints() > p.getMinimumXP()
-						&& user.getExperiencePoints() <= p.getMaximumXP())
-				.findFirst()
-				.get()
-				.getRank();
+    /**
+     * E-mail cím ellenörzés, a kapott e-mail címet ellenőrzi hogy válaszható-e
+     * még a regisztráció során.
+     *
+     * @param email az ellenőrizendő e-mail cím.
+     * @return hamis ha szabad a email cím, igaz ha már nem.
+     */
+    @Override
+    public boolean isEmailAlreadyTaken(String email) {
+        try {
+            userDao.findEmail(email);
+            return true;
+        } catch (EmailNotFoundException e) {
+            logger.info("E-mail adress is not taken.");
+            logger.error(e.getMessage(), e);
+            return false;
+        }
+    }
 
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Rank countRankFromXp(User user) {
+        logger.info("Getting rank for {}", user.getUsername());
+        if (user.getExperiencePoints() == null) {
+            return Rank.AMATUER;
+        }
+        return rankIntverals.stream()
+                .filter(p -> user.getExperiencePoints() > p.getMinimumXP()
+                        && user.getExperiencePoints() <= p.getMaximumXP())
+                .findFirst()
+                .get()
+                .getRank();
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser) throws Exception {
-		if (restrictionCheckerService.checkIfUserCanTransferMoney(loggedInUser)) {
-			if (!userPin.equals(expectedPin)) {
-				logger.info("{} entered invalid PIN code.", loggedInUser.getUsername());
-				throw new InvalidPinCodeException("PINs are not the same.");
-			}
-		} else {
-			logger.info("{} reached the maximum money tranfer limit today.", loggedInUser.getUsername());
-			throw new DailyMoneyTransferLimitExceededException("Maximum limit exceeded.");
-		}
-		loggedInUser.setMoney(loggedInUser.getMoney() + money);
-		userDao.update(loggedInUser);
-		eventLogService.save(EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, loggedInUser));
-	}
+    }
 
-	/**
-	 * Beállítja a felhasználókat kezelő adathozzáférési osztályt.
-	 * 
-	 * @param userDao
-	 *            a felhasználókat kezelő adathozzáférési osztály.
-	 */
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void transferMoney(String userPin, String expectedPin, Integer money, User loggedInUser) throws Exception {
+        if (restrictionCheckerService.checkIfUserCanTransferMoney(loggedInUser)) {
+            if (!userPin.equals(expectedPin)) {
+                logger.info("{} entered invalid PIN code.", loggedInUser.getUsername());
+                throw new InvalidPinCodeException("PINs are not the same.");
+            }
+        } else {
+            logger.info("{} reached the maximum money tranfer limit today.", loggedInUser.getUsername());
+            throw new DailyMoneyTransferLimitExceededException("Maximum limit exceeded.");
+        }
+        loggedInUser.setMoney(loggedInUser.getMoney() + money);
+        userDao.update(loggedInUser);
+        eventLogService.save(EventLogFactory.createEventLog(EventLogType.MONEYTRANSFER, loggedInUser));
+    }
 
-	/**
-	 * Beállítja az eseményeket kezelő szolgáltatást.
-	 * 
-	 * @param eventLogService
-	 *            az eseményeket kezelő szolgáltatás.
-	 */
-	public void setEventLogService(EventLogService eventLogService) {
-		this.eventLogService = eventLogService;
-	}
+    /**
+     * Beállítja a felhasználókat kezelő adathozzáférési osztályt.
+     *
+     * @param userDao a felhasználókat kezelő adathozzáférési osztály.
+     */
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
-	/**
-	 * Beállítja a korlátozásokat kezelő szolgáltatást.
-	 * 
-	 * @param restrictionCheckerService
-	 *            a korlátozásokat kezelő szolgáltatás.
-	 */
-	public void setRestrictionCheckerService(RestrictionCheckerService restrictionCheckerService) {
-		this.restrictionCheckerService = restrictionCheckerService;
-	}
+    /**
+     * Beállítja az eseményeket kezelő szolgáltatást.
+     *
+     * @param eventLogService az eseményeket kezelő szolgáltatás.
+     */
+    public void setEventLogService(EventLogService eventLogService) {
+        this.eventLogService = eventLogService;
+    }
+
+    /**
+     * Beállítja a korlátozásokat kezelő szolgáltatást.
+     *
+     * @param restrictionCheckerService a korlátozásokat kezelő szolgáltatás.
+     */
+    public void setRestrictionCheckerService(RestrictionCheckerService restrictionCheckerService) {
+        this.restrictionCheckerService = restrictionCheckerService;
+    }
 
 }
