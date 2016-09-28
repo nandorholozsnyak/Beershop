@@ -8,6 +8,7 @@ import hu.hnk.beershop.model.User;
 import hu.hnk.beershop.service.discounts.DiscountType;
 
 /**
+ * Waffle miatt szerksztve.
  * @author Nandi
  *
  */
